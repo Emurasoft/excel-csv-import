@@ -15,7 +15,12 @@
     - Quote character
     - Escape character
     - Export range (range string)
-- Save/open options values as file
-- Opt-in to save options to persistent storage
 - Large file support for importing (Not export)
+- Opt-in to save options to persistent storage
 - Languages: English, Japanese, Simplified Chinese, Traditional Chinese
+
+# Planned for future versions
+- Import to table
+- "From row" and "To row" options for importing
+- Progress bar
+- Save/import options values as file
