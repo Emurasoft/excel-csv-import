@@ -1,0 +1,21 @@
+# Planned features
+- Import csv to new Excel worksheet
+- Import sources: string, file, URL
+- Import options:
+    - Field delimiter (1 character)/auto-detect
+    - Newline sequence (CR, LF, or CRLF)/auto-detect
+    - Quote character
+    - Escape character
+    - Contains header
+- Export worksheet to csv
+- Export type: string, file
+- Export options:
+    - Field delimiter
+    - Newline sequence
+    - Quote character
+    - Escape character
+    - Export range (range string)
+- Save/open options values as file
+- Opt-in to save options to persistent storage
+- Large file support for importing (Not export)
+- Languages: English, Japanese, Simplified Chinese, Traditional Chinese
