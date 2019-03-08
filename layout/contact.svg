@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="388.21873"
-     inkscape:cy="1033.4917"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="202.40168"
+     inkscape:cy="1192.0843"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -35,7 +35,7 @@
      inkscape:window-width="1869"
      inkscape:window-height="2037"
      inkscape:window-x="1902"
-     inkscape:window-y="109"
+     inkscape:window-y="49"
      inkscape:window-maximized="0"
      inkscape:snap-page="true"
      showguides="true"
@@ -100,17 +100,6 @@
          x="34.853889"
          y="-91.540619"
          style="stroke-width:0.26458332">Export</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="64.685249"
-       y="-91.345619"
-       id="text5648-3-2-6"><tspan
-         sodipodi:role="line"
-         id="tspan5646-6-0-8"
-         x="64.685249"
-         y="-91.345619"
-         style="stroke-width:0.26458332">Settings</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 60.498719,-99.874977 v 13.261445"
@@ -118,64 +107,35 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 94.531626,-99.874977 v 13.261445"
+       d="m 76.672251,-99.874977 v 13.261445"
        id="path5714-9-2"
        inkscape:connector-curvature="0" />
-    <g
-       id="g6442"
-       transform="translate(1.4499372,-180.49378)">
-      <rect
-         ry="2.0279284"
-         y="105.28765"
-         x="13.641896"
-         height="4.0558567"
-         width="9.2624378"
-         id="rect4482-8-2-1-4-3"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1" />
-      <circle
-         r="1.2154297"
-         cy="107.31559"
-         cx="16.057228"
-         id="path6438"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="27.107086"
-       y="-71.511261"
+       x="11.134987"
+       y="-73.495636"
        id="text5648-3-6-4-2-0"><tspan
          sodipodi:role="line"
          id="tspan5646-6-6-9-0-9"
-         x="27.107086"
-         y="-71.511261"
-         style="stroke-width:0.26458332">Save options</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="99.259766"
-       y="-91.345619"
-       id="text5648-3-2-6-5"><tspan
+         x="11.134987"
+         y="-73.495636"
+         style="stroke-width:0.26458332">For bug reports, please help us diagnose the issue by</tspan><tspan
          sodipodi:role="line"
-         id="tspan5646-6-0-8-3"
-         x="99.259766"
-         y="-91.345619"
-         style="stroke-width:0.26458332">About</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.52916664;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 122.22701,-99.874977 v 13.261445"
-       id="path5714-9-2-5"
-       inkscape:connector-curvature="0" />
+         x="11.134987"
+         y="-67.322021"
+         style="stroke-width:0.26458332"
+         id="tspan4548">including the log file.</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="10.853522"
-       y="-56.623894"
+       y="-53.370132"
        id="text5648-3-6-1"><tspan
          sodipodi:role="line"
          id="tspan5646-6-6-7"
          x="10.853522"
-         y="-56.623894"
+         y="-53.370132"
          style="stroke-width:0.26458332">Export log file:</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1"
@@ -183,17 +143,96 @@
        width="23.930273"
        height="11.811452"
        x="11.539785"
-       y="-52.063751" />
+       y="-48.80999" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="15.160141"
-       y="-44.581367"
+       y="-41.327606"
        id="text5648-3-6-4-2-6"><tspan
          sodipodi:role="line"
          id="tspan5646-6-6-9-0-6"
          x="15.160141"
-         y="-44.581367"
+         y="-41.327606"
          style="stroke-width:0.26458332">Export</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="65.500397"
+       y="-92.598419"
+       id="text5648-3-2-3"><tspan
+         sodipodi:role="line"
+         id="tspan5646-6-0-6"
+         x="65.500397"
+         y="-92.598419"
+         style="stroke-width:0.26458332">...</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="51.560677"
+       y="-123.45327"
+       id="text5648-3-6-1-7"><tspan
+         sodipodi:role="line"
+         id="tspan5646-6-6-7-5"
+         x="51.560677"
+         y="-123.45327"
+         style="stroke-width:0.26458332">Overflow menu items:</tspan><tspan
+         sodipodi:role="line"
+         x="51.560677"
+         y="-116.39771"
+         style="stroke-width:0.26458332"
+         id="tspan4544">Contact us</tspan><tspan
+         sodipodi:role="line"
+         x="51.560677"
+         y="-109.34216"
+         style="stroke-width:0.26458332"
+         id="tspan4546">About</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4482-8-2-4-2"
+       width="80.683403"
+       height="11.811453"
+       x="11.407494"
+       y="0.71408278" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="15.027847"
+       y="8.1964703"
+       id="text5648-3-6-4-2-6-9"><tspan
+         sodipodi:role="line"
+         id="tspan5646-6-6-9-0-6-1"
+         x="15.027847"
+         y="8.1964703"
+         style="stroke-width:0.26458332">EmEditor.com contact form ↗️</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="10.942061"
+       y="-22.091955"
+       id="text5648-3-6-4-2-0-2"><tspan
+         sodipodi:role="line"
+         x="10.942061"
+         y="-22.091955"
+         style="stroke-width:0.26458332"
+         id="tspan4548-0">There are two ways to report issues or to send feedback:</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4482-8-2-4-2-9"
+       width="80.683403"
+       height="11.811453"
+       x="11.407494"
+       y="-15.822371" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="14.998564"
+       y="-8.6045799"
+       id="text5648-3-6-4-2-6-9-3"><tspan
+         sodipodi:role="line"
+         id="tspan5646-6-6-9-0-6-1-6"
+         x="14.998564"
+         y="-8.6045799"
+         style="stroke-width:0.26458332">Issues page on Github repo ↗️</tspan></text>
   </g>
 </svg>
