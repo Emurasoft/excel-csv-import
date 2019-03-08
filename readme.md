@@ -20,6 +20,6 @@
 # Planned for future versions
 - Import to table
 - "From row" and "To row" options for importing
-- Progress bar
 - Export range (range string)
+- Progress bar
 - Save/import options values as file
