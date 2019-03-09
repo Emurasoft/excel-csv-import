@@ -25,7 +25,7 @@ class App extends React.Component<{store: Store}, State> {
                 </label><br /><br />
                 <input placeholder="encoding" /><br /><br />
                 <button onClick={this.submitHandler}>Import</button><br /><br />
-                <button onClick={() => console.log(this.props.store.actionList())}>Print log</button>
+                <button onClick={() => console.log(this.props.store.log())}>Print log</button>
             </>
         )
     }

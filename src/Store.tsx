@@ -1,14 +1,10 @@
 import * as React from 'react';
 import {ParseConfig} from 'papaparse';
 import {Parser} from './Parser';
+import {Logger} from './Logger';
 
 export interface State {
     initialized: boolean;
-}
-
-interface ActionRecord {
-    action: string;
-    args?: {};
 }
 
 export const Context = React.createContext(undefined);
@@ -20,7 +16,7 @@ export class Store extends React.Component<{}, State> {
             initialized: false,
         };
 
-        this._actionList = [];
+        this._log = new Logger();
     }
 
     public render() {
@@ -40,31 +36,22 @@ export class Store extends React.Component<{}, State> {
         );
     }
 
-    public actionList = () => {
-        return [...this._actionList];
-    }
+    public log = () => this._log.log()
 
     public initParser = () => {
         Parser.init()
             .then((parser) => {
                 this._parser = parser;
                 this.setState({initialized: true});
-                this._actionList.push({action: "initParser"});
+                this._log.push("initParser");
             });
     }
 
     public importFile = (file: File, config: ParseConfig) => {
         this._parser.import(file, config);
-        this._actionList.push({
-            action: "importFile",
-            args: {file: file.name, config: Store.deepCopy(config)},
-        });
+        this._log.push("importFile", {file: file.name, config});
     }
 
-    private static deepCopy(a: any): any {
-        return JSON.parse(JSON.stringify(a));
-    }
-
-    private readonly _actionList: ActionRecord[];
+    private readonly _log: Logger;
     private _parser: Parser;
 }
