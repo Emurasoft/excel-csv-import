@@ -45,8 +45,8 @@ class App extends React.Component<{store: Store}, State> {
     private overflowItems() {
         return [
             {
-                key: 'contact',
-                name: 'Contact Us',
+                key: 'report',
+                name: 'Report issue',
             },
             {
                 key: 'about',
