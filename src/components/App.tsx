@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Store} from '../Store';
 import {connect} from '../connect';
+import {CommandBar} from 'office-ui-fabric-react/lib/CommandBar';
 
 interface State {
     file: File;
@@ -14,28 +15,44 @@ class App extends React.Component<{store: Store}, State> {
     public render() {
         return (
             <>
-                <input type="file" accept="text/csv" onChange={this.fileInputHandler}/><br /><br />
-                <input placeholder="Delimiter" /><br /><br />
-                <label>
-                    Newline sequence:<br />
-                    <select>
-                        <option>LF</option>
-                        <option>CRLF</option>
-                    </select>
-                </label><br /><br />
-                <input placeholder="encoding" /><br /><br />
-                <button onClick={this.submitHandler}>Import</button><br /><br />
-                <button onClick={() => console.log(this.props.store.log())}>Print log</button>
+                <CommandBar
+                    items={this.commandBarItems()}
+                    overflowItems={this.overflowItems()}
+                />
             </>
         )
     }
 
-    private fileInputHandler = (event) => {
-        this.setState({file:event.target.files[0]});
+    private commandBarItems() {
+        return [
+            {
+                key: 'import',
+                name: 'Import',
+                iconProps: {
+                    iconName: 'Add'
+                },
+            },
+            {
+                key: 'export',
+                name: 'Export',
+                iconProps: {
+                    iconName: 'Download'
+                }
+            }
+        ];
     }
 
-    private submitHandler = () => {
-        this.props.store.importFile(this.state.file, {});
+    private overflowItems() {
+        return [
+            {
+                key: 'contact',
+                name: 'Contact Us',
+            },
+            {
+                key: 'about',
+                name: 'About',
+            }
+        ];
     }
 }
 
