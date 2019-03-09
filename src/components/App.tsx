@@ -1,15 +1,16 @@
 import * as React from 'react';
-import {Store} from '../Store';
-import {connect} from '../connect';
 import {CommandBar} from 'office-ui-fabric-react/lib/CommandBar';
+import {Import} from './import';
+import {Export} from './export';
 
-interface State {
-    file: File;
-}
+enum Page {import, export, report, about}
 
-class App extends React.Component<{store: Store}, State> {
-    public componentDidMount() {
-        this.props.store.initParser();
+export class App extends React.Component<{}, {page: Page}> {
+    public constructor(props: {}) {
+        super(props);
+        this.state = {
+            page: Page.import,
+        };
     }
 
     public render() {
@@ -19,6 +20,7 @@ class App extends React.Component<{store: Store}, State> {
                     items={this.commandBarItems()}
                     overflowItems={this.overflowItems()}
                 />
+                {App.pageComponent(this.state.page)}
             </>
         )
     }
@@ -31,13 +33,15 @@ class App extends React.Component<{store: Store}, State> {
                 iconProps: {
                     iconName: 'Add'
                 },
+                onClick: () => this.setState({page: Page.import}),
             },
             {
                 key: 'export',
                 name: 'Export',
                 iconProps: {
                     iconName: 'Download'
-                }
+                },
+                onClick: () => this.setState({page: Page.export}),
             }
         ];
     }
@@ -47,13 +51,22 @@ class App extends React.Component<{store: Store}, State> {
             {
                 key: 'report',
                 name: 'Report issue',
+                onClick: () => this.setState({page: Page.report}),
             },
             {
                 key: 'about',
                 name: 'About',
+                onClick: () => this.setState({page: Page.about}),
             }
         ];
     }
-}
 
-export default connect(App);
+    private static pageComponent(page: Page) {
+        switch (page) {
+        case Page.import:
+            return <Import />
+        case Page.export:
+            return <Export />
+        }
+    }
+}
