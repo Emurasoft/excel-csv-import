@@ -19,8 +19,9 @@ export class ExcelAPI {
     }
 
     private static resize(a: string[][], maxLength: number) {
-        for (const row of a) {
-            row.concat(new Array(maxLength - row.length));
+        for (let i = 0; i < a.length; ++i) {
+            // Not sure if filling is required, but I want to be on the safe side.
+            a[i] = a[i].concat(new Array(maxLength - a[i].length).fill(""));
         }
     }
 
