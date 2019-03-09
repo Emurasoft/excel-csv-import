@@ -1,8 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {App} from './components/App';
+import App from './components/App';
+import {Store} from './Store';
 
 ReactDOM.render(
-    <App />,
+    <Store>
+        <App />
+    </Store>,
     document.getElementById('root'),
 );

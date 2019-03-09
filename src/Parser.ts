@@ -11,8 +11,8 @@ export class Parser {
             return new Promise((resolve) => {
                 let row = 0;
                 config.chunk = (chunk: Papa.ParseResult) => {
-                    row += chunk.data.length;
                     this._api.setChunk(worksheet, row, chunk.data);
+                    row += chunk.data.length;
                 }
                 config.complete = resolve as any;
                 Papa.parse(file, config);
@@ -35,6 +35,7 @@ Parse file
 Chunk callback:
     Send chunk to api with i
     Save any errors
+Adjust column widths
 Sync
 Return errors
  */

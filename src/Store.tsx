@@ -58,7 +58,7 @@ export class Store extends React.Component<{}, State> {
         this._actionList.push({
             action: "importFile",
             args: {file: file.name, config: Store.deepCopy(config)},
-        })
+        });
     }
 
     private static deepCopy(a: any): any {
