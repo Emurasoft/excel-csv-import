@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {CommandBar} from 'office-ui-fabric-react/lib/CommandBar';
-import {Import} from './import';
-import {Export} from './export';
+import {CommandBar, ICommandBarItemProps} from 'office-ui-fabric-react/lib/CommandBar';
+import {Import} from './Import';
+import {Export} from './Export';
 
 enum Page {import, export, report, about}
 
@@ -25,7 +25,7 @@ export class App extends React.Component<{}, {page: Page}> {
         )
     }
 
-    private commandBarItems() {
+    private commandBarItems(): ICommandBarItemProps[] {
         return [
             {
                 key: 'import',
@@ -46,7 +46,7 @@ export class App extends React.Component<{}, {page: Page}> {
         ];
     }
 
-    private overflowItems() {
+    private overflowItems(): ICommandBarItemProps[] {
         return [
             {
                 key: 'report',
