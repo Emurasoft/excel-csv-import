@@ -6,11 +6,10 @@
     xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
     xsi:type="TaskPaneApp"
 >
-
     <Id>5ba168da-3995-456c-8770-f8b4a499c617</Id>
 
     <!--Version. Updates from the store only get triggered if there is a version change. -->
-    <Version>0.1.0</Version>
+    <Version>1.0.0</Version>
     <ProviderName>Emurasoft, Inc.</ProviderName>
     <DefaultLocale>en-US</DefaultLocale>
     <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
