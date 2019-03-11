@@ -17,7 +17,7 @@ export class Store extends React.Component<{}, State> {
 
         this._log = new Logger();
 
-        this.initParser(); // TODO disable import and export buttons until ready
+        this.initParser();
     }
 
     public render() {
