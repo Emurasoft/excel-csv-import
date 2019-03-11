@@ -1,56 +1,70 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {Dropdown, IDropdownOption, Label, TextField} from 'office-ui-fabric-react';
+import {Dropdown, IDropdownOption, Label, PrimaryButton, TextField} from 'office-ui-fabric-react';
+import {ParseConfig} from 'papaparse';
 
-enum FileSource {file, textfield, url}
+enum InputSource {file, textfield, url}
 
-enum NewlineSequence {CRLF, CR, LF}
+enum NewlineSequence {
+    CRLF = "\r\n",
+    CR = "\r",
+    LF = "\n",
+    AutoDetect = "",
+}
 
 interface State {
-    fileSource: FileSource;
+    inputSource: InputSource;
+    source: File|string;
     delimiter: string;
     newlineSequence: NewlineSequence;
+    encoding: string;
 }
 
 class ImportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
-            fileSource: FileSource.file,
-            delimiter: "\u002c",
-            newlineSequence: NewlineSequence.CRLF,
-        }
+            inputSource: InputSource.file,
+            source: "",
+            delimiter: "",
+            newlineSequence: NewlineSequence.AutoDetect,
+            encoding: "",
+        };
     }
 
     public render() {
         const fileSourceMenu: IDropdownOption[] = [
             {
-                key: FileSource.file,
+                key: InputSource.file,
                 text: 'File',
             },
             {
-                key: FileSource.textfield,
+                key: InputSource.textfield,
                 text: 'Text input',
             },
             {
-                key: FileSource.url,
+                key: InputSource.url,
                 text: 'URL',
             },
         ];
 
         const newlineSequeneceMenu: IDropdownOption[] = [
             {
+                key: NewlineSequence.AutoDetect,
+                text: "Auto-detect",
+            },
+            {
                 key: NewlineSequence.CRLF,
-                text: "\\r\\n",
+                text: "CRLF",
             },
             {
                 key: NewlineSequence.CR,
-                text: "\\r",
+                text: "CR",
             },
             {
                 key: NewlineSequence.LF,
-                text: "\\n",
+                text: "LF",
             },
         ];
 
@@ -58,10 +72,14 @@ class ImportComponent extends React.Component<{store: Store}, State> {
             <div>
                 <Dropdown
                     label="Import type"
-                    selectedKey={this.state.fileSource}
+                    selectedKey={this.state.inputSource}
                     options={fileSourceMenu}
-                    onChange={(_, option) => this.setState({fileSource: option.key as FileSource})}
+                    onChange={(_, option) => {
+                        this.setState({inputSource: option.key as InputSource})
+                    }}
                 />
+                <br />
+                {this.inputComponent(this.state.inputSource)}
                 <br />
                 <TextField
                     label="Delimiter"
@@ -80,8 +98,31 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                         this.setState({newlineSequence: option.key as NewlineSequence})
                     }}
                 />
+                <br />
+                {/*TODO should be a searchable dropdown*/}
+                <TextField
+                    label="Encoding"
+                    value={this.state.encoding}
+                    description={ImportComponent.encodingDescription(this.state.encoding)}
+                    onChange={(_, value) => this.setState({encoding: value})}
+                />
+                <br />
+                <PrimaryButton onClick={this.import}>
+                    Import CSV
+                </PrimaryButton>
             </div>
         );// TODO monospace where needed
+    }
+
+    private inputComponent = (importSource: InputSource) => {
+        switch (importSource) {
+        case InputSource.file:
+            return (
+                <input
+                    onChange={(e) => this.setState({source: e.target.files[0]})}
+                />
+            );
+        }
     }
 
     private static delimiterDescription(delimiter: string) {
@@ -98,6 +139,23 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         } else {
             return "";
         }
+    }
+
+    private static encodingDescription(encoding: string) {
+        if (encoding === "") {
+            return "Auto-detect";
+        } else {
+            return "";
+        }
+    }
+
+    private import = () => {
+        const config: ParseConfig = {
+            delimiter: this.state.delimiter,
+            newline: this.state.newlineSequence,
+            encoding: this.state.encoding,
+        }
+        this.props.store.importFile(this.state.source as File, config);
     }
 }
 

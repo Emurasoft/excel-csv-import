@@ -19,7 +19,7 @@ export class App extends React.Component<{}, {page: Page}> {
                 <CommandBar
                     items={this.commandBarItems()}
                     overflowItems={this.overflowItems()}
-                />
+                /> {/*TODO Use ribbon menu instead of command bar*/}
                 {App.pageComponent(this.state.page)}
             </>
         )
