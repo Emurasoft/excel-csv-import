@@ -130,7 +130,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 <br />
                 <PrimaryButton onClick={this.import}>
                     Import CSV
-                </PrimaryButton>
+                </PrimaryButton> {/*TODO disable button when not initialized or when source is null*/}
             </div>
         );// TODO monospace where needed
     }
