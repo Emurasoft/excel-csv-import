@@ -14,9 +14,14 @@ enum NewlineSequence {
     AutoDetect = "",
 }
 
+interface Source {
+    inputSource: InputSource;
+    value: File|string;
+}
+
 interface State {
     inputSource: InputSource;
-    source: File|string;
+    source: Source | null;
     delimiter: string;
     newlineSequence: NewlineSequence;
     encoding: string;
@@ -27,7 +32,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         super(props);
         this.state = {
             inputSource: InputSource.file,
-            source: "",
+            source: null,
             delimiter: "",
             newlineSequence: NewlineSequence.AutoDetect,
             encoding: "",
@@ -122,7 +127,29 @@ class ImportComponent extends React.Component<{store: Store}, State> {
             return (
                 <input
                     type="file"
-                    onChange={(e) => this.setState({source: e.target.files[0]})}
+                    onChange={(e) => this.setState(
+                        {source: {inputSource: InputSource.file, value: e.target.files[0]}}
+                    )}
+                />
+            );
+        case InputSource.textfield:
+            return (
+                <TextField
+                    ariaLabel="CSV text input"
+                    multiline rows={10}
+                    wrap="off"
+                    onChange={(_, value) => this.setState(
+                        {source: {inputSource: InputSource.textfield, value: value}}
+                    )}
+                />
+            );
+        case InputSource.url:
+            return (
+                <TextField
+                    ariaLabel="URL input"
+                    onChange={(_, value) => this.setState(
+                        {source: {inputSource: InputSource.url, value: value}}
+                    )}
                 />
             );
         }
