@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {ParseConfig} from 'papaparse';
-import {Parser} from './Parser';
+import {ImportOptions, Parser} from './Parser';
 import {Logger} from './Logger';
 
 export interface State {
@@ -49,9 +48,9 @@ export class Store extends React.Component<{}, State> {
             });
     }
 
-    public importFile = (file: File, config: ParseConfig) => {
-        this._parser.import(file, config);
-        this._log.push("importFile", {file: file.name, config});
+    public import = (options: ImportOptions) => {
+        this._parser.import(options);
+        this._log.push("import", {options: options});
     }
 
     private readonly _log: Logger;

@@ -8,7 +8,7 @@ export class Logger {
         this._log = [];
     }
 
-    // Adds action and a deep copy of args if defined otherwise empty object as a new record.
+    // Adds action, and a deep copy of args if defined otherwise empty object, as a new record.
     public push(action: string, args?: Object) {
         this._log.push(Object.freeze({action, args: args ? Logger.deepCopy(args) : {}}));
     }

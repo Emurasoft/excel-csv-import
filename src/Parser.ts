@@ -1,21 +1,42 @@
 import {ExcelAPI} from './ExcelAPI';
 import * as Papa from 'papaparse';
+import {ParseConfig} from 'papaparse';
+
+export enum InputSource {file, textfield, url}
+
+export interface Source {
+    inputSource: InputSource;
+    value: File|string;
+}
+
+type Config = {
+    [P in 'delimiter' | 'newline' | 'encoding']: ParseConfig[P];
+}
+
+export interface ImportOptions extends Config {
+    source: Source;
+}
 
 export class Parser {
     public static async init() {
         return new Parser(await ExcelAPI.init());
     }
 
-    public import(file: File, config: Papa.ParseConfig) {
+    public import(importOptions: ImportOptions) {
+        const config: ParseConfig = importOptions;
+        if (importOptions.source.inputSource === InputSource.url) {
+            config.download = true;
+        }
+
         this._api.run((worksheet) => {
             return new Promise((resolve) => {
                 let row = 0;
                 config.chunk = (chunk: Papa.ParseResult) => {
-                    this._api.setChunk(worksheet, row, chunk.data);
+                    ExcelAPI.setChunk(worksheet, row, chunk.data);
                     row += chunk.data.length;
                 }
                 config.complete = resolve as any;
-                Papa.parse(file, config);
+                Papa.parse(importOptions.source.value as any, config);
             });
         });
     }

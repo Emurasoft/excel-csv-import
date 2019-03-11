@@ -11,7 +11,7 @@ export class ExcelAPI {
         });
     }
 
-    public setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]) {
+    public static setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]) {
         // New range values must have the same shape as range
         const maxLength = ExcelAPI.maxLength(chunk);
         ExcelAPI.resize(chunk, maxLength);
