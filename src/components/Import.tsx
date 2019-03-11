@@ -1,7 +1,14 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {Dropdown, IDropdownOption, PrimaryButton, TextField} from 'office-ui-fabric-react';
+import {
+    Dropdown,
+    IDropdownOption,
+    PrimaryButton,
+    TextField,
+    TooltipDelay,
+    TooltipHost
+} from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../Parser';
 import * as style from './style'
@@ -97,7 +104,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     selectedKey={this.state.inputSource}
                     options={fileSourceMenu}
                     onChange={(_, option) => {
-                        this.setState({inputSource: option.key as InputSource})
+                        this.setState({inputSource: option.key as InputSource, source: null})
                     }}
                 />
                 <br />
@@ -130,11 +137,17 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     onChange={(_, value) => this.setState({encoding: value})}
                 />
                 <br />
-                <PrimaryButton onClick={this.import}>
-                    Import CSV
-                </PrimaryButton> {/*TODO disable button when not initialized or when source is null*/}
+                <TooltipHost
+                    styles={{root: {display: 'inline-block'}} /* Resize to fit button */}
+                    content={this.buttonTooltipContent()}
+                    delay={TooltipDelay.zero}
+                >
+                    <PrimaryButton disabled={this.buttonDisabled()} onClick={this.import}>
+                        Import CSV
+                    </PrimaryButton>
+                </TooltipHost>
             </div>
-        );// TODO monospace where needed
+        );
     }
 
     private static delimiterDescription(delimiter: string) {
@@ -151,6 +164,20 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         } else {
             return "";
         }
+    }
+
+    private buttonTooltipContent = () => {
+        if (this.state.source == null) {
+            return "Import source is not selected"
+        } else if (!this.props.store.state.initialized) {
+            return "Excel API is not initialized";
+        } else {
+            return "";
+        }
+    }
+
+    private buttonDisabled = () => {
+        return !this.props.store.state.initialized || this.state.source == null;
     }
 
     private import = () => {
