@@ -57,7 +57,7 @@
 
                     <!-- Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called.
                       Think of the FunctionFile as the code behind ExecuteFunction. -->
-                    <FunctionFile resid="mainURL" />
+                    <FunctionFile resid="Emurasoft.mainURL" />
 
                     <!-- PrimaryCommandSurface is the main Office Ribbon. -->
                     <ExtensionPoint xsi:type="PrimaryCommandSurface">
