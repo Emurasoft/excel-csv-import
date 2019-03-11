@@ -4,6 +4,7 @@ import {connect} from '../connect';
 import {Dropdown, IDropdownOption, PrimaryButton, TextField} from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../Parser';
+import * as style from './style'
 
 enum NewlineSequence {AutoDetect, CRLF, CR, LF}
 
@@ -53,7 +54,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 />,
             [InputSource.textfield]:
                 <TextField
-                    ariaLabel="CSV text input"
+                    style={style.monospace}
                     multiline rows={10}
                     wrap="off"
                     onChange={(_, value) => this.setState(
@@ -62,10 +63,10 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 />,
             [InputSource.url]:
                 <TextField
-                    ariaLabel="URL input"
                     onChange={(_, value) => this.setState(
                         {source: {inputSource: InputSource.url, value: value}}
                     )}
+                    placeholder="URL of CSV file"
                 />,
         };
 
@@ -104,6 +105,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 <br /><br />
                 <TextField
                     label="Delimiter"
+                    style={style.monospace}
                     value={this.state.delimiter}
                     description={ImportComponent.delimiterDescription(this.state.delimiter)}
                     onChange={(_, value) => this.setState({delimiter: value})}
