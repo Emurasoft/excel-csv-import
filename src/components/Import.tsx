@@ -1,8 +1,9 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {Dropdown, IDropdownOption, Label, PrimaryButton, TextField} from 'office-ui-fabric-react';
+import {Dropdown, IDropdownOption, PrimaryButton, TextField} from 'office-ui-fabric-react';
 import {ParseConfig} from 'papaparse';
+import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 
 enum InputSource {file, textfield, url}
 
@@ -72,6 +73,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
             <div>
                 <Dropdown
                     label="Import type"
+                    responsiveMode={ResponsiveMode.large}
                     selectedKey={this.state.inputSource}
                     options={fileSourceMenu}
                     onChange={(_, option) => {
@@ -80,7 +82,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 />
                 <br />
                 {this.inputComponent(this.state.inputSource)}
-                <br />
+                <br /><br />
                 <TextField
                     label="Delimiter"
                     value={this.state.delimiter}
@@ -92,6 +94,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 <br />
                 <Dropdown
                     label="Newline sequence"
+                    responsiveMode={ResponsiveMode.large}
                     selectedKey={this.state.newlineSequence}
                     options={newlineSequeneceMenu}
                     onChange={(_, option) => {
@@ -103,7 +106,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 <TextField
                     label="Encoding"
                     value={this.state.encoding}
-                    description={ImportComponent.encodingDescription(this.state.encoding)}
                     onChange={(_, value) => this.setState({encoding: value})}
                 />
                 <br />
@@ -119,6 +121,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         case InputSource.file:
             return (
                 <input
+                    type="file"
                     onChange={(e) => this.setState({source: e.target.files[0]})}
                 />
             );
@@ -136,14 +139,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     private static validateDelimiter(value: string) {
         if (value.length > 1) {
             return "Delimiter length must be 0 or 1";
-        } else {
-            return "";
-        }
-    }
-
-    private static encodingDescription(encoding: string) {
-        if (encoding === "") {
-            return "Auto-detect";
         } else {
             return "";
         }
