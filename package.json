@@ -6,6 +6,7 @@
   "description": "",
   "scripts": {
     "test": "webpack-dev-server --config test/webpack.config.js",
+    "lint": "eslint .",
     "devServer": "webpack-dev-server --config webpack.dev.js",
     "validateManifest": "validate-office-addin manifests/manifestDev.xml",
     "build": "webpack --config webpack.prod.js"
@@ -31,5 +32,9 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1",
     "webpack-merge": "^4.2.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "eslint": "^5.15.1"
   }
 }
