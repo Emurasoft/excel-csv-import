@@ -1,6 +1,6 @@
-import {Store} from '../Store';
+import {Store} from '../../Store';
 import * as React from 'react';
-import {connect} from '../connect';
+import {connect} from '../../connect';
 import {
     Dropdown,
     IDropdownOption,
@@ -10,8 +10,8 @@ import {
     TooltipHost
 } from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
-import {ImportOptions, InputSource, Source} from '../Parser';
-import * as style from './style'
+import {ImportOptions, InputSource, Source} from '../../Parser';
+import * as style from '../style'
 
 enum NewlineSequence {AutoDetect, CRLF, CR, LF}
 
