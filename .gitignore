@@ -8,7 +8,5 @@ node_modules
 **/*.js
 **/*.js.map
 !webpack.*.js
-!test/populateTests.js
 !.eslintrc.js
 build
-test/tests.ts
