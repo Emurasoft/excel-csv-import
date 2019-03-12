@@ -2,7 +2,7 @@ import {ExcelAPI} from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {ParseConfig} from 'papaparse';
 
-export enum InputSource {file, textfield, url}
+export enum InputSource {file, textinput, url}
 
 export interface Source {
     inputSource: InputSource;

@@ -26,7 +26,7 @@ export class SourceInput extends React.Component<Props, State> {
                 text: 'File',
             },
             {
-                key: InputSource.textfield,
+                key: InputSource.textinput,
                 text: 'Text input',
             },
             {
@@ -45,12 +45,12 @@ export class SourceInput extends React.Component<Props, State> {
                     id="SourceInput-FileInput"
                 />
             ),
-            [InputSource.textfield]: (
+            [InputSource.textinput]: (
                 <TextField
                     style={style.monospace}
                     multiline rows={10}
                     wrap="off"
-                    onChange={this.onChangeHandler(InputSource.textfield)}
+                    onChange={this.onChangeHandler(InputSource.textinput)}
                     value={this.state.textFieldValue}
                     id="SourceInput-TextInput"
                 />
