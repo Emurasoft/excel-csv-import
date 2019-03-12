@@ -37,21 +37,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render() {
-        const fileSourceMenu: IDropdownOption[] = [
-            {
-                key: InputSource.file,
-                text: 'File',
-            },
-            {
-                key: InputSource.textfield,
-                text: 'Text input',
-            },
-            {
-                key: InputSource.url,
-                text: 'URL',
-            },
-        ];
-
         const newlineSequeneceMenu: IDropdownOption[] = [
             {
                 key: NewlineSequence.AutoDetect,
@@ -73,21 +58,8 @@ class ImportComponent extends React.Component<{store: Store}, State> {
 
         return (
             <div>
-                <Dropdown
-                    label="Import type"
-                    responsiveMode={ResponsiveMode.large}
-                    selectedKey={this.state.inputSource}
-                    options={fileSourceMenu}
-                    onChange={(_, option) => {
-                        this.setState({inputSource: option.key as InputSource, source: null})
-                    }}
-                />
+                <SourceInput onChange={(source) => this.setState({source})} />
                 <br />
-                <SourceInput
-                    inputSource={this.state.inputSource}
-                    onChange={(source) => this.setState({source})}
-                />
-                <br /><br />
                 <TextField
                     label="Delimiter"
                     style={style.monospace}

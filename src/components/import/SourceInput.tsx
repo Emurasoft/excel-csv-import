@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {InputSource, Source} from '../../Parser';
 import * as style from '../style';
-import {TextField} from 'office-ui-fabric-react';
+import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
+import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 
 interface Props {
-    inputSource: InputSource;
     onChange: (newSource: Source) => void;
 }
 
@@ -16,16 +16,25 @@ interface State {
 export class SourceInput extends React.Component<Props, State> {
     public constructor(props: Props) {
         super(props);
-        this.state = {inputSource: null, textFieldValue: ''};
-    }
-
-    public componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
-        if (nextProps.inputSource !== this.state.inputSource) {
-            this.setState({inputSource: nextProps.inputSource, textFieldValue: ''});
-        }
+        this.state = {inputSource: InputSource.file, textFieldValue: ''};
     }
 
     public render() {
+        const fileSourceMenu: IDropdownOption[] = [
+            {
+                key: InputSource.file,
+                text: 'File',
+            },
+            {
+                key: InputSource.textfield,
+                text: 'Text input',
+            },
+            {
+                key: InputSource.url,
+                text: 'URL',
+            },
+        ];
+
         const componentMap = {
             [InputSource.file]: (
                 <input
@@ -53,7 +62,21 @@ export class SourceInput extends React.Component<Props, State> {
             ),
         };
 
-        return componentMap[this.props.inputSource];
+        return (
+            <>
+                <Dropdown
+                    label="Import type"
+                    responsiveMode={ResponsiveMode.large}
+                    selectedKey={this.state.inputSource}
+                    options={fileSourceMenu}
+                    onChange={(_, option) => {
+                        this.setState({inputSource: option.key as InputSource, textFieldValue: ''})
+                    }}
+                /><br />
+                {componentMap[this.state.inputSource]}
+                <br />
+            </>
+        );
     }
 
     private onChangeHandler = (inputSource: InputSource) => (_, value) => {
