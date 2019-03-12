@@ -40,13 +40,13 @@ export class SourceInput extends React.Component<Props, State> {
                     style={style.monospace}
                     multiline rows={10}
                     wrap="off"
-                    onChange={this.onChange(InputSource.textfield)}
+                    onChange={this.onChangeHandler(InputSource.textfield)}
                     value={this.state.textFieldValue}
                 />
             ),
             [InputSource.url]: (
                 <TextField
-                    onChange={this.onChange(InputSource.url)}
+                    onChange={this.onChangeHandler(InputSource.url)}
                     placeholder="URL of CSV file"
                     value={this.state.textFieldValue}
                 />
@@ -56,7 +56,7 @@ export class SourceInput extends React.Component<Props, State> {
         return componentMap[this.props.inputSource];
     }
 
-    private onChange = (inputSource: InputSource) => (_, value) => {
+    private onChangeHandler = (inputSource: InputSource) => (_, value) => {
         this.setState({textFieldValue: value});
         this.props.onChange({inputSource, value});
     }
