@@ -3,7 +3,6 @@ import {SourceInput} from './SourceInput';
 import * as React from 'react';
 import {InputSource} from '../../Parser';
 import * as assert from 'assert';
-import '../../../test/setup.ts'
 
 describe('SourceInput', () => {
     describe('render()', () => {

@@ -9,5 +9,4 @@ node_modules
 **/*.js.map
 !webpack.*.js
 !.eslintrc.js
-!test/*
 build
