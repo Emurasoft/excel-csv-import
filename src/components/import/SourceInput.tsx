@@ -2,7 +2,12 @@ import * as React from 'react';
 import {InputSource, Source} from '../../Parser';
 import * as style from '../style';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
-import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
+import {
+    ResponsiveMode,
+    setResponsiveMode
+} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
+
+setResponsiveMode(ResponsiveMode.medium);
 
 interface Props {
     onChange: (newSource: Source) => void;
@@ -72,6 +77,7 @@ export class SourceInput extends React.Component<Props, State> {
                     onChange={(_, option) => {
                         this.setState({inputSource: option.key as InputSource, textFieldValue: ''})
                     }}
+                    id='SourceInput-Dropdown'
                 /><br />
                 {componentMap[this.state.inputSource]}
                 <br />
