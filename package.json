@@ -30,8 +30,11 @@
     "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.9.0",
     "@types/mocha": "^5.2.6",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "eslint": "^5.15.1",
     "mocha": "^6.0.2",
     "office-addin-validator": "^1.0.5",

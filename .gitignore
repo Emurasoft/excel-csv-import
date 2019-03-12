@@ -11,4 +11,4 @@ node_modules
 !test/populateTests.js
 !.eslintrc.js
 build
-test/index.ts
+test/tests.ts
