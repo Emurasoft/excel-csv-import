@@ -42,6 +42,7 @@ export class SourceInput extends React.Component<Props, State> {
                     onChange={(e) => this.props.onChange(
                         {inputSource: InputSource.file, value: e.target.files[0]}
                     )}
+                    id="SourceInput-FileInput"
                 />
             ),
             [InputSource.textfield]: (
@@ -51,6 +52,7 @@ export class SourceInput extends React.Component<Props, State> {
                     wrap="off"
                     onChange={this.onChangeHandler(InputSource.textfield)}
                     value={this.state.textFieldValue}
+                    id="SourceInput-TextInput"
                 />
             ),
             [InputSource.url]: (
@@ -58,6 +60,7 @@ export class SourceInput extends React.Component<Props, State> {
                     onChange={this.onChangeHandler(InputSource.url)}
                     placeholder="URL of CSV file"
                     value={this.state.textFieldValue}
+                    id="SourceInput-URLInput"
                 />
             ),
         };
