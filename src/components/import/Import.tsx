@@ -11,15 +11,15 @@ import {
 } from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../../Parser';
-import * as style from '../style'
 import {SourceInput} from './SourceInput';
+import {DelimiterInput} from './DelimiterInput';
 
 enum NewlineSequence {AutoDetect, CRLF, CR, LF}
 
 interface State {
     inputSource: InputSource;
     source: Source | null;
-    delimiter: string;
+    delimiter: string | null;
     newlineSequence: NewlineSequence;
     encoding: string;
 }
@@ -30,9 +30,9 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         this.state = {
             inputSource: InputSource.file,
             source: null,
-            delimiter: "",
+            delimiter: '',
             newlineSequence: NewlineSequence.AutoDetect,
-            encoding: "",
+            encoding: '',
         };
     }
 
@@ -60,15 +60,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
             <div>
                 <SourceInput onChange={(source) => this.setState({source})} />
                 <br />
-                <TextField
-                    label="Delimiter"
-                    style={style.monospace}
-                    value={this.state.delimiter}
-                    description={ImportComponent.delimiterDescription(this.state.delimiter)}
-                    onChange={(_, value) => this.setState({delimiter: value})}
-                    onGetErrorMessage={ImportComponent.validateDelimiter}
-                    deferredValidationTime={20}
-                />
+                <DelimiterInput onChange={(delimiter) => this.setState({delimiter})}/>
                 <br />
                 <Dropdown
                     label="Newline sequence"
@@ -100,34 +92,22 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         );
     }
 
-    private static delimiterDescription(delimiter: string) {
-        if (delimiter.length == 0) {
-            return "Auto-detect";
-        } else {
-            return delimiter;
-        }
-    }
-
-    private static validateDelimiter(value: string) {
-        if (value.length > 1) {
-            return "Delimiter length must be 0 or 1";
-        } else {
-            return "";
-        }
-    }
-
     private buttonTooltipContent = () => {
         if (this.state.source == null) {
-            return "Import source is not selected"
+            return 'Import source is not selected';
+        } else if (this.state.delimiter == null) {
+            return 'Delimiter is invalid';
         } else if (!this.props.store.state.initialized) {
-            return "Excel API is not initialized";
+            return 'Excel API is not initialized';
         } else {
-            return "";
+            return '';
         }
     }
 
     private buttonDisabled = () => {
-        return !this.props.store.state.initialized || this.state.source == null;
+        return !this.props.store.state.initialized
+            || this.state.source == null
+            || this.state.delimiter == null;
     }
 
     private import = () => {
