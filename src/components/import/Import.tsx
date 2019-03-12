@@ -12,6 +12,7 @@ import {
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../../Parser';
 import * as style from '../style'
+import {SourceInput} from './SourceInput';
 
 enum NewlineSequence {AutoDetect, CRLF, CR, LF}
 
@@ -51,32 +52,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
             },
         ];
 
-        const inputComponentMap = {
-            [InputSource.file]:
-                <input
-                    type="file"
-                    onChange={(e) => this.setState(
-                        {source: {inputSource: InputSource.file, value: e.target.files[0]}}
-                    )}
-                />,
-            [InputSource.textfield]:
-                <TextField
-                    style={style.monospace}
-                    multiline rows={10}
-                    wrap="off"
-                    onChange={(_, value) => this.setState(
-                        {source: {inputSource: InputSource.textfield, value: value}}
-                    )}
-                />,
-            [InputSource.url]:
-                <TextField
-                    onChange={(_, value) => this.setState(
-                        {source: {inputSource: InputSource.url, value: value}}
-                    )}
-                    placeholder="URL of CSV file"
-                />,
-        };
-
         const newlineSequeneceMenu: IDropdownOption[] = [
             {
                 key: NewlineSequence.AutoDetect,
@@ -108,7 +83,10 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     }}
                 />
                 <br />
-                {inputComponentMap[this.state.inputSource]}
+                <SourceInput
+                    inputSource={this.state.inputSource}
+                    onChange={(source) => this.setState({source})}
+                />
                 <br /><br />
                 <TextField
                     label="Delimiter"
