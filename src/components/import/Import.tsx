@@ -12,7 +12,7 @@ import {
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../../Parser';
 import {SourceInput} from './SourceInput';
-import {DelimiterInput} from './DelimiterInput';
+import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
 
 enum NewlineSequence {AutoDetect, CRLF, CR, LF}
 
@@ -58,9 +58,15 @@ class ImportComponent extends React.Component<{store: Store}, State> {
 
         return (
             <div>
-                <SourceInput onChange={(source) => this.setState({source})} />
+                <SourceInput
+                    defaultInputSource={InputSource.file}
+                    onChange={(source) => this.setState({source})}
+                />
                 <br />
-                <DelimiterInput onChange={(delimiter) => this.setState({delimiter})}/>
+                <DelimiterInput
+                    defaultOption={DropdownOptionKey.autoDetect}
+                    onChange={(delimiter) => this.setState({delimiter})}
+                />
                 <br />
                 <Dropdown
                     label="Newline sequence"

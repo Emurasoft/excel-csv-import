@@ -6,6 +6,7 @@ import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/deco
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
 
 interface Props {
+    defaultOption: DropdownOptionKey;
     // Called with string if valid delimiter, or null if invalid.
     onChange: (newDelimiter: string | null) => void;
 }
@@ -19,7 +20,7 @@ export class DelimiterInput extends React.Component<Props, State> {
     public constructor(props: Props) {
         super(props);
         this.state = {
-            selectedKey: DropdownOptionKey.autoDetect,
+            selectedKey: props.defaultOption,
             textFieldValue: '',
         };
     }

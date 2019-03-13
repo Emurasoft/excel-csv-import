@@ -5,7 +5,12 @@ import * as assert from 'assert';
 
 describe('DelimiterInput', () => {
     it('dropdownChange', () => {
-        const wrapper = shallow(<DelimiterInput onChange={() => {}} />);
+        const wrapper = shallow(
+            <DelimiterInput
+                defaultOption={DropdownOptionKey.autoDetect}
+                onChange={() => {}}
+            />
+        );
         const dropdown = wrapper.find('#DelimiterInput-Dropdown');
         dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
         assert(!wrapper.exists('#DelimiterInput-TextField'));
@@ -15,7 +20,12 @@ describe('DelimiterInput', () => {
     });
 
     it('reset TextField when hidden', () => {
-        const wrapper = shallow(<DelimiterInput onChange={() => {}} />);
+        const wrapper = shallow(
+            <DelimiterInput
+                defaultOption={DropdownOptionKey.autoDetect}
+                onChange={() => {}}
+            />
+        );
         const dropdown = wrapper.find('#DelimiterInput-Dropdown');
 
         // Add text
@@ -32,11 +42,12 @@ describe('DelimiterInput', () => {
     it('onChangeCallback', () => {
         let result = null;
 
-        function onChange(newDelimiter) {
-            result = newDelimiter;
-        }
-
-        const wrapper = shallow(<DelimiterInput onChange={onChange} />);
+        const wrapper = shallow(
+            <DelimiterInput
+                defaultOption={DropdownOptionKey.autoDetect}
+                onChange={(newDelimiter) => result = newDelimiter}
+            />
+        );
         const dropdown = wrapper.find('#DelimiterInput-Dropdown');
 
         dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
@@ -69,7 +80,12 @@ describe('DelimiterInput', () => {
     });
 
     it('TextField description', () => {
-        const wrapper = shallow(<DelimiterInput onChange={() => {}}/>);
+        const wrapper = shallow(
+            <DelimiterInput
+                defaultOption={DropdownOptionKey.autoDetect}
+                onChange={() => {}}
+            />
+        );
         wrapper.find('#DelimiterInput-Dropdown')
             .simulate('change', null, {key: DropdownOptionKey.other});
         const textField = wrapper.find('#DelimiterInput-TextField')

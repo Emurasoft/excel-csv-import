@@ -22,14 +22,24 @@ describe('SourceInput', () => {
         ];
 
         for (const test of tests) {
-            const wrapper = shallow(<SourceInput onChange={() => {}}/>);
+            const wrapper = shallow(
+                <SourceInput
+                    defaultInputSource={InputSource.file}
+                    onChange={() => {}}
+                />
+            );
             wrapper.find('#SourceInput-Dropdown').simulate('change', null, {key: test.inputSource});
             assert(wrapper.exists(test.expectedSelector));
         }
     });
 
     it('reset value on input type change', () => {
-        const wrapper = shallow(<SourceInput onChange={() => {}}/>);
+        const wrapper = shallow(
+            <SourceInput
+                defaultInputSource={InputSource.file}
+                onChange={() => {}}
+            />
+        );
 
         // Write text to input
         wrapper.find('#SourceInput-Dropdown')
@@ -53,7 +63,12 @@ describe('SourceInput', () => {
 
     it('input values', () => {
         let receivedValue = null;
-        const wrapper = shallow(<SourceInput onChange={(v) => {receivedValue = v}}/>);
+        const wrapper = shallow(
+            <SourceInput
+                defaultInputSource={InputSource.file}
+                onChange={(v) => {receivedValue = v}}
+            />
+        );
 
         wrapper.find('#SourceInput-Dropdown').simulate('change', null, {key: InputSource.file});
         wrapper.find('#SourceInput-FileInput').simulate('change', {target: {files: ['file']}});
