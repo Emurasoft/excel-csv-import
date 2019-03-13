@@ -2,4 +2,4 @@
 // overridden.
 import {CSSProperties} from 'react';
 
-export const monospace: CSSProperties = {"fontFamily": "Inconsolata, monospace"};
+export const monospace: CSSProperties = {'fontFamily': 'Inconsolata, monospace'};

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {InputSource, Source} from '../../Parser';
 import * as style from '../style';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
-import {ResponsiveMode} from '../ResponsiveMode';
+import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 
 interface Props {
     onChange: (newSource: Source) => void;
@@ -37,13 +37,16 @@ export class SourceInput extends React.Component<Props, State> {
 
         const componentMap = {
             [InputSource.file]: (
-                <input
-                    type="file"
-                    onChange={(e) => this.props.onChange(
-                        {inputSource: InputSource.file, value: e.target.files[0]}
-                    )}
-                    id="SourceInput-FileInput"
-                />
+                <>
+                    <input
+                        type="file"
+                        onChange={(e) => this.props.onChange(
+                            {inputSource: InputSource.file, value: e.target.files[0]}
+                        )}
+                        id="SourceInput-FileInput"
+                    />
+                    <br />
+                </>
             ),
             [InputSource.textinput]: (
                 <TextField
@@ -68,17 +71,16 @@ export class SourceInput extends React.Component<Props, State> {
         return (
             <>
                 <Dropdown
-                    label="Import type"
+                    label='Import type'
+                    options={fileSourceMenu}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.state.inputSource}
-                    options={fileSourceMenu}
                     onChange={(_, option) => {
                         this.setState({inputSource: option.key as InputSource, textFieldValue: ''})
                     }}
                     id='SourceInput-Dropdown'
                 /><br />
                 {componentMap[this.state.inputSource]}
-                <br />
             </>
         );
     }
