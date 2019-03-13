@@ -59,10 +59,6 @@ describe('DelimiterInput', () => {
     it('TextField description', () => {
         const tests: {value: string, expectIncludes: string}[] = [
             {
-                value: '',
-                expectIncludes: 'Auto-detect',
-            },
-            {
                 value: 'a',
                 expectIncludes: 'U+0061',
             },

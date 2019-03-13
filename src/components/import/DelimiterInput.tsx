@@ -95,9 +95,7 @@ export class DelimiterInput extends React.Component<Props, State> {
     }
 
     private static description(delimiter: string) {
-        if (delimiter.length == 0) {
-            return 'Auto-detect';
-        } else if (delimiter.length == 1) {
+        if (delimiter.length == 1) {
             return DelimiterInput.codePoint(delimiter);
         } else {
             return '';

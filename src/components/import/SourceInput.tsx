@@ -68,7 +68,8 @@ export class SourceInput extends React.Component<Props, {}> {
                     selectedKey={this.props.value.inputSource}
                     onChange={this.dropdownOnChange}
                     id='SourceInput-Dropdown'
-                /><br />
+                />
+                <div style={{height: '5px'}} />
                 {componentMap[this.props.value.inputSource]}
             </>
         );

@@ -14,6 +14,7 @@ export class App extends React.Component<{}, {page: Page}> {
     }
 
     public render() {
+        // TODO need margin around body
         return (
             <>
                 <CommandBar
