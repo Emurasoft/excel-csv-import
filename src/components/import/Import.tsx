@@ -67,7 +67,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                 />
                 <br />
                 <DelimiterInput
-                    defaultOption={DropdownOptionKey.autoDetect}
+                    value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                 />
                 <br />
@@ -103,7 +103,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     private buttonTooltipContent = () => {
         if (this.state.source == null) {
             return 'Import source is not selected';
-        } else if (this.state.delimiter == null) {
+        } else if (this.state.delimiter.length > 1) {
             return 'Delimiter is invalid';
         } else if (!this.props.store.state.initialized) {
             return 'Excel API is not initialized';
@@ -115,7 +115,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     private buttonDisabled = () => {
         return !this.props.store.state.initialized
             || this.state.source.file == null
-            || this.state.delimiter == null;
+            || this.state.delimiter.length > 1;
     }
 
     private import = () => {
