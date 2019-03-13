@@ -1,25 +1,12 @@
 import {Store} from '../../Store';
 import * as React from 'react';
 import {connect} from '../../connect';
-import {
-    Dropdown,
-    IDropdownOption,
-    PrimaryButton,
-    TooltipDelay,
-    TooltipHost
-} from 'office-ui-fabric-react';
-import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
+import {Dropdown, PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
 import {ImportOptions, InputSource, Source} from '../../Parser';
 import {SourceInput} from './SourceInput';
-import {DelimiterInput} from './DelimiterInput';
+import {DelimiterDropdown} from './DelimiterDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
-
-enum NewlineSequence {
-    AutoDetect = '',
-    CRLF = '\r\n',
-    CR = '\r',
-    LF = '\n'
-}
+import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
 
 interface State {
     source: Source;
@@ -40,25 +27,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render() {
-        const newlineSequeneceMenu: IDropdownOption[] = [
-            {
-                key: NewlineSequence.AutoDetect,
-                text: "Auto-detect",
-            },
-            {
-                key: NewlineSequence.CRLF,
-                text: "CRLF",
-            },
-            {
-                key: NewlineSequence.CR,
-                text: "CR",
-            },
-            {
-                key: NewlineSequence.LF,
-                text: "LF",
-            },
-        ];
-
         return (
             <>
                 <SourceInput
@@ -66,19 +34,14 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     onChange={(source) => this.setState({source})}
                 />
                 <br />
-                <DelimiterInput
+                <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                 />
-                <br /> {/*TODO move newline sequence to new file*/}
-                <Dropdown
-                    label="Newline sequence"
-                    responsiveMode={ResponsiveMode.large}
-                    selectedKey={this.state.newlineSequence}
-                    options={newlineSequeneceMenu}
-                    onChange={(_, option) => {
-                        this.setState({newlineSequence: option.key as NewlineSequence})
-                    }}
+                <br />
+                <NewlineDropdown
+                    value={this.state.newlineSequence}
+                    onChange={(newlineSequence) => this.setState({newlineSequence})}
                 />
                 <br />
                 <Dropdown
@@ -93,7 +56,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     content={this.buttonTooltipContent()}
                     delay={TooltipDelay.zero}
                 >
-                    <PrimaryButton disabled={this.buttonDisabled()} onClick={this.import}>
+                    <PrimaryButton disabled={this.buttonTooltipContent() !== ''} onClick={this.import}>
                         Import CSV
                     </PrimaryButton>
                 </TooltipHost>
@@ -102,7 +65,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     private buttonTooltipContent = () => {
-        if (this.state.source == null) {
+        if (this.state.source.inputSource == InputSource.file && this.state.source.file == null) {
             return 'Import source is not selected';
         } else if (this.state.delimiter.length > 1) {
             return 'Delimiter is invalid';
@@ -111,12 +74,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         } else {
             return '';
         }
-    }
-
-    private buttonDisabled = () => {
-        return !this.props.store.state.initialized
-            || this.state.source.file == null
-            || this.state.delimiter.length > 1;
     }
 
     private import = () => {

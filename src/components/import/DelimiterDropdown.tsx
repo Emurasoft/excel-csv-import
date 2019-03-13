@@ -16,7 +16,7 @@ interface State {
     selectedKey: DropdownOptionKey;
 }
 
-export class DelimiterInput extends React.Component<Props, State> {
+export class DelimiterDropdown extends React.Component<Props, State> {
     public constructor(props: Props) {
         super(props);
         this.state = {
@@ -54,10 +54,10 @@ export class DelimiterInput extends React.Component<Props, State> {
                 style={style.monospace}
                 value={this.props.value}
                 onChange={this.textFieldOnChange}
-                description={DelimiterInput.description(this.props.value)}
-                onGetErrorMessage={DelimiterInput.getErrorMessage}
+                description={DelimiterDropdown.description(this.props.value)}
+                onGetErrorMessage={DelimiterDropdown.getErrorMessage}
                 deferredValidationTime={1}
-                id='DelimiterInput-TextField'
+                id='DelimiterDropdown-TextField'
                 placeholder='Enter custom delimiter'
             />
         </div>;
@@ -70,7 +70,7 @@ export class DelimiterInput extends React.Component<Props, State> {
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.state.selectedKey}
                     onChange={this.dropdownOnChange}
-                    id='DelimiterInput-Dropdown'
+                    id='DelimiterDropdown-Dropdown'
                 />
                 {this.state.selectedKey == DropdownOptionKey.other ? customInput : null}
             </>
@@ -96,7 +96,7 @@ export class DelimiterInput extends React.Component<Props, State> {
 
     private static description(delimiter: string) {
         if (delimiter.length == 1) {
-            return DelimiterInput.codePoint(delimiter);
+            return DelimiterDropdown.codePoint(delimiter);
         } else {
             return '';
         }

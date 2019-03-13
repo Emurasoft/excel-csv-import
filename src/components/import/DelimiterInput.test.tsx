@@ -1,34 +1,34 @@
 import {shallow} from 'enzyme';
-import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
+import {DelimiterDropdown, DropdownOptionKey} from './DelimiterDropdown';
 import * as React from 'react';
 import * as assert from 'assert';
 
-describe('DelimiterInput', () => {
+describe('DelimiterDropdown', () => {
     it('dropdownChange', () => {
         const wrapper = shallow(
-            <DelimiterInput
+            <DelimiterDropdown
                 value={''}
                 onChange={() => {}}
             />
         );
-        const dropdown = wrapper.find('#DelimiterInput-Dropdown');
+        const dropdown = wrapper.find('#DelimiterDropdown-Dropdown');
         dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
-        assert(!wrapper.exists('#DelimiterInput-TextField'));
+        assert(!wrapper.exists('#DelimiterDropdown-TextField'));
 
         dropdown.simulate('change', null, {key: DropdownOptionKey.other});
-        assert(wrapper.exists('#DelimiterInput-TextField'));
+        assert(wrapper.exists('#DelimiterDropdown-TextField'));
     });
 
     it('onChangeCallback', () => {
         let result = null;
 
         const wrapper = shallow(
-            <DelimiterInput
+            <DelimiterDropdown
                 value={''}
                 onChange={(newDelimiter) => result = newDelimiter}
             />
         );
-        const dropdown = wrapper.find('#DelimiterInput-Dropdown');
+        const dropdown = wrapper.find('#DelimiterDropdown-Dropdown');
 
         dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
         assert.strictEqual(result, '');
@@ -45,7 +45,7 @@ describe('DelimiterInput', () => {
         dropdown.simulate('change', null, {key: DropdownOptionKey.other});
         assert.strictEqual(result, '');
 
-        const textfield = wrapper.find('#DelimiterInput-TextField');
+        const textfield = wrapper.find('#DelimiterDropdown-TextField');
         textfield.simulate('change', null, 'a');
         assert.strictEqual(result, 'a');
 
@@ -66,12 +66,12 @@ describe('DelimiterInput', () => {
 
         for (const test of tests) {
             const wrapper = shallow(
-                <DelimiterInput
+                <DelimiterDropdown
                     value={''}
                     onChange={() => {}}
                 />
             );
-            wrapper.find('#DelimiterInput-Dropdown')
+            wrapper.find('#DelimiterDropdown-Dropdown')
                 .simulate('change', null, {key: DropdownOptionKey.other});
 
             wrapper.setProps({value: test.value});
@@ -81,16 +81,16 @@ describe('DelimiterInput', () => {
 
     it('codePoint()', () => {
         // @ts-ignore
-        assert.strictEqual(DelimiterInput.codePoint(','), 'U+002C');
+        assert.strictEqual(DelimiterDropdown.codePoint(','), 'U+002C');
         // @ts-ignore
-        assert.strictEqual(DelimiterInput.codePoint('\u0100'), 'U+0100');
+        assert.strictEqual(DelimiterDropdown.codePoint('\u0100'), 'U+0100');
     });
 
     it('getErrorMessage()', () => {
         // @ts-ignore
-        assert.strictEqual(DelimiterInput.getErrorMessage('a'), '');
+        assert.strictEqual(DelimiterDropdown.getErrorMessage('a'), '');
         // @ts-ignore
-        assert(DelimiterInput.getErrorMessage('aa') !== '');
+        assert(DelimiterDropdown.getErrorMessage('aa') !== '');
     });
 
     // Error message rendering can't easily be tested, even with setTimeout
