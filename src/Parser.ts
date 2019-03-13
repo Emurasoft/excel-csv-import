@@ -6,7 +6,8 @@ export enum InputSource {file, textinput, url}
 
 export interface Source {
     inputSource: InputSource;
-    value: File|string;
+    file?: File;
+    text: string;
 }
 
 type Config = {
@@ -36,7 +37,17 @@ export class Parser {
                     row += chunk.data.length;
                 }
                 config.complete = resolve as any;
-                Papa.parse(importOptions.source.value as any, config);
+                switch (importOptions.source.inputSource) {
+                case InputSource.file:
+                    Papa.parse(importOptions.source.file, config);
+                    break;
+                case InputSource.textinput:
+                    Papa.parse(importOptions.source.text, config);
+                    break;
+                case InputSource.url:
+                    Papa.parse(importOptions.source.text, {...config, download: true});
+                    break;
+                }
             });
         });
     }

@@ -15,7 +15,7 @@ interface State {
     selectedKey: DropdownOptionKey;
     textFieldValue: string;
 }
-
+// TODO remove defaultOption and setState()
 export class DelimiterInput extends React.Component<Props, State> {
     public constructor(props: Props) {
         super(props);

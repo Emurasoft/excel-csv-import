@@ -1,22 +1,22 @@
 import {shallow} from 'enzyme';
 import {SourceInput} from './SourceInput';
 import * as React from 'react';
-import {InputSource} from '../../Parser';
+import {InputSource, Source} from '../../Parser';
 import * as assert from 'assert';
 
 describe('SourceInput', () => {
     it('change input type', () => {
-        const tests: {inputSource: InputSource, expectedSelector: string}[] = [
+        const tests: {source: Source, expectedSelector: string}[] = [
             {
-                inputSource: InputSource.file,
+                source: {inputSource: InputSource.file, text: ''},
                 expectedSelector: '#SourceInput-FileInput',
             },
             {
-                inputSource: InputSource.textinput,
+                source: {inputSource: InputSource.textinput, text: ''},
                 expectedSelector: '#SourceInput-TextInput',
             },
             {
-                inputSource: InputSource.url,
+                source: {inputSource: InputSource.url, text: ''},
                 expectedSelector: '#SourceInput-URLInput',
             },
         ];
@@ -24,63 +24,54 @@ describe('SourceInput', () => {
         for (const test of tests) {
             const wrapper = shallow(
                 <SourceInput
-                    defaultInputSource={InputSource.file}
+                    value={test.source}
                     onChange={() => {}}
-                />
+                 />
             );
-            wrapper.find('#SourceInput-Dropdown').simulate('change', null, {key: test.inputSource});
+
             assert(wrapper.exists(test.expectedSelector));
         }
     });
 
-    it('reset value on input type change', () => {
-        const wrapper = shallow(
-            <SourceInput
-                defaultInputSource={InputSource.file}
-                onChange={() => {}}
-            />
-        );
+    it('callback on input', () => {
+        interface Test {
+            inputSource: InputSource;
+            elementSelector: string;
+            onChangeArgs: any[];
+            expected: Source;
+        }
+        const tests: Test[] = [
+            {
+                inputSource: InputSource.file,
+                elementSelector: '#SourceInput-FileInput',
+                onChangeArgs: [{target: {files: ['file']}}],
+                expected: {inputSource: InputSource.file, file: 'file' as any, text: ''},
+            },
+            {
+                inputSource: InputSource.textinput,
+                elementSelector: '#SourceInput-TextInput',
+                onChangeArgs: [null, 'text'],
+                expected: {inputSource: InputSource.textinput, text: 'text'},
+            },
+            {
+                inputSource: InputSource.url,
+                elementSelector: '#SourceInput-URLInput',
+                onChangeArgs: [null, 'url'],
+                expected: {inputSource: InputSource.url, text: 'url'},
+            },
+        ];
 
-        // Write text to input
-        wrapper.find('#SourceInput-Dropdown')
-            .simulate('change', null, {key: InputSource.textinput});
-        wrapper.find('#SourceInput-TextInput').simulate('change', null, 'some text');
-        const currentvalue = wrapper.find('#SourceInput-TextInput').getElement().props.value;
-        assert.strictEqual(currentvalue, 'some text');
+        for (const test of tests) {
+            let receivedValue: Source = {inputSource: test.inputSource, file: null, text: null};
+            const wrapper = shallow(
+                <SourceInput
+                    value={receivedValue}
+                    onChange={(v) => {receivedValue = v}}
+                />
+            );
 
-        // Switch to url type and check value
-        wrapper.find('#SourceInput-Dropdown').simulate('change', null, {key: InputSource.url});
-        assert.strictEqual(wrapper.find('#SourceInput-URLInput').getElement().props.value, '');
-
-        // Write text
-        wrapper.find('#SourceInput-URLInput').simulate('change', null, 'a url');
-
-        // Switch to text type and check value
-        wrapper.find('#SourceInput-Dropdown')
-            .simulate('change', null, {key: InputSource.textinput});
-        wrapper.find('#SourceInput-TextInput').simulate('change', null, '');
-    });
-
-    it('input values', () => {
-        let receivedValue = null;
-        const wrapper = shallow(
-            <SourceInput
-                defaultInputSource={InputSource.file}
-                onChange={(v) => {receivedValue = v}}
-            />
-        );
-
-        wrapper.find('#SourceInput-Dropdown').simulate('change', null, {key: InputSource.file});
-        wrapper.find('#SourceInput-FileInput').simulate('change', {target: {files: ['file']}});
-        assert.deepStrictEqual(receivedValue, {inputSource: InputSource.file, value: 'file'});
-
-        wrapper.find('#SourceInput-Dropdown')
-            .simulate('change', null, {key: InputSource.textinput});
-        wrapper.find('#SourceInput-TextInput').simulate('change', null, 'text');
-        assert.deepStrictEqual(receivedValue, {inputSource: InputSource.textinput, value: 'text'});
-
-        wrapper.find('#SourceInput-Dropdown').simulate('change', null, {key: InputSource.url});
-        wrapper.find('#SourceInput-URLInput').simulate('change', null, 'url');
-        assert.deepStrictEqual(receivedValue, {inputSource: InputSource.url, value: 'url'});
+            wrapper.find(test.elementSelector).simulate('change', ...test.onChangeArgs);
+            assert.deepStrictEqual(receivedValue, test.expected);
+        }
     });
 });

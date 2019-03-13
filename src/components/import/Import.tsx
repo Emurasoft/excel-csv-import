@@ -9,16 +9,20 @@ import {
     TooltipDelay,
     TooltipHost
 } from 'office-ui-fabric-react';
-import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
+import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
 
-enum NewlineSequence {AutoDetect, CRLF, CR, LF}
+enum NewlineSequence {
+    AutoDetect = '',
+    CRLF = '\r\n',
+    CR = '\r',
+    LF = '\n'
+}
 
 interface State {
-    inputSource: InputSource;
-    source: Source | null;
+    source: Source;
     delimiter: string | null;
     newlineSequence: NewlineSequence;
     encoding: string;
@@ -28,8 +32,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
-            inputSource: InputSource.file,
-            source: null,
+            source: {inputSource: InputSource.file, file: null, text: ''},
             delimiter: '',
             newlineSequence: NewlineSequence.AutoDetect,
             encoding: '',
@@ -57,9 +60,9 @@ class ImportComponent extends React.Component<{store: Store}, State> {
         ];
 
         return (
-            <div>
+            <>
                 <SourceInput
-                    defaultInputSource={InputSource.file}
+                    value={this.state.source}
                     onChange={(source) => this.setState({source})}
                 />
                 <br />
@@ -78,7 +81,6 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     }}
                 />
                 <br />
-                {/*TODO should be a searchable dropdown*/}
                 <TextField
                     label="Encoding"
                     value={this.state.encoding}
@@ -94,7 +96,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                         Import CSV
                     </PrimaryButton>
                 </TooltipHost>
-            </div>
+            </>
         );
     }
 
@@ -112,22 +114,15 @@ class ImportComponent extends React.Component<{store: Store}, State> {
 
     private buttonDisabled = () => {
         return !this.props.store.state.initialized
-            || this.state.source == null
+            || this.state.source.file == null
             || this.state.delimiter == null;
     }
 
     private import = () => {
-        const newlineMap = {
-            [NewlineSequence.AutoDetect]: '',
-            [NewlineSequence.CRLF]: '\r\n',
-            [NewlineSequence.CR]: '\r',
-            [NewlineSequence.LF]: '\n',
-        }
-
         const options: ImportOptions = {
             source: this.state.source,
             delimiter: this.state.delimiter,
-            newline: newlineMap[this.state.newlineSequence],
+            newline: this.state.newlineSequence,
             encoding: this.state.encoding,
         };
         this.props.store.import(options);
