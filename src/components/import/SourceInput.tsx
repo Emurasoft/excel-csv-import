@@ -2,7 +2,9 @@ import * as React from 'react';
 import {InputSource, Source} from '../../Parser';
 import * as style from '../style';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
-import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
+import {
+    ResponsiveMode
+} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 
 interface Props {
     value: Source;

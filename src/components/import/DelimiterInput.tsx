@@ -1,27 +1,26 @@
 import * as React from 'react';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import * as style from '../style';
-import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
+import {
+    ResponsiveMode
+} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
 
 interface Props {
-    defaultOption: DropdownOptionKey;
-    // Called with string if valid delimiter, or null if invalid.
-    onChange: (newDelimiter: string | null) => void;
+    value: string;
+    onChange: (newDelimiter: string) => void;
 }
 
 interface State {
     selectedKey: DropdownOptionKey;
-    textFieldValue: string;
 }
-// TODO remove defaultOption and setState()
+
 export class DelimiterInput extends React.Component<Props, State> {
     public constructor(props: Props) {
         super(props);
         this.state = {
-            selectedKey: props.defaultOption,
-            textFieldValue: '',
+            selectedKey: DropdownOptionKey.autoDetect,
         };
     }
 
@@ -53,9 +52,9 @@ export class DelimiterInput extends React.Component<Props, State> {
         <div style={{marginTop: '5px'}}>
             <TextField
                 style={style.monospace}
-                value={this.state.textFieldValue}
+                value={this.props.value}
                 onChange={this.textFieldOnChange}
-                description={DelimiterInput.description(this.state.textFieldValue)}
+                description={DelimiterInput.description(this.props.value)}
                 onGetErrorMessage={DelimiterInput.getErrorMessage}
                 deferredValidationTime={1}
                 id='DelimiterInput-TextField'
@@ -87,21 +86,12 @@ export class DelimiterInput extends React.Component<Props, State> {
             [DropdownOptionKey.other]: '',
         }
 
-        this.setState({
-            selectedKey: option.key as DropdownOptionKey,
-            textFieldValue: optionKeyMap[option.key],
-        });
+        this.setState({selectedKey: option.key as DropdownOptionKey});
         this.props.onChange(optionKeyMap[option.key]);
     }
 
     private textFieldOnChange = (_, value) => {
-        this.setState({textFieldValue: value});
-
-        if (!DelimiterInput.valid(value)) {
-            this.props.onChange(null);
-        } else {
-            this.props.onChange(value);
-        }
+        this.props.onChange(value);
     }
 
     private static description(delimiter: string) {
@@ -118,12 +108,8 @@ export class DelimiterInput extends React.Component<Props, State> {
         return 'U+' + c[0].charCodeAt(0).toString(16).toUpperCase().padStart(4, '0');
     }
 
-    private static valid(value: string) {
-        return value.length <= 1;
-    }
-
     private static getErrorMessage(value: string) {
-        if (DelimiterInput.valid(value)) {
+        if (value.length <= 1) {
             return '';
         } else {
             return 'Delimiter length must be 0 or 1';

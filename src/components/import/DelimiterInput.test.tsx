@@ -7,7 +7,7 @@ describe('DelimiterInput', () => {
     it('dropdownChange', () => {
         const wrapper = shallow(
             <DelimiterInput
-                defaultOption={DropdownOptionKey.autoDetect}
+                value={''}
                 onChange={() => {}}
             />
         );
@@ -19,32 +19,12 @@ describe('DelimiterInput', () => {
         assert(wrapper.exists('#DelimiterInput-TextField'));
     });
 
-    it('reset TextField when hidden', () => {
-        const wrapper = shallow(
-            <DelimiterInput
-                defaultOption={DropdownOptionKey.autoDetect}
-                onChange={() => {}}
-            />
-        );
-        const dropdown = wrapper.find('#DelimiterInput-Dropdown');
-
-        // Add text
-        dropdown.simulate('change', null, {key: DropdownOptionKey.other});
-        wrapper.find('#DelimiterInput-TextField').simulate('change', null, 'a');
-        assert.strictEqual(wrapper.find('#DelimiterInput-TextField').getElement().props.value, 'a');
-
-        // Hide then show textfield and check text
-        dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
-        dropdown.simulate('change', null, {key: DropdownOptionKey.other});
-        assert.strictEqual(wrapper.find('#DelimiterInput-TextField').getElement().props.value, '');
-    });
-
     it('onChangeCallback', () => {
         let result = null;
 
         const wrapper = shallow(
             <DelimiterInput
-                defaultOption={DropdownOptionKey.autoDetect}
+                value={''}
                 onChange={(newDelimiter) => result = newDelimiter}
             />
         );
@@ -69,9 +49,6 @@ describe('DelimiterInput', () => {
         textfield.simulate('change', null, 'a');
         assert.strictEqual(result, 'a');
 
-        textfield.simulate('change', null, 'aa');
-        assert.strictEqual(result, null); // Invalid input calls null
-
         textfield.simulate('change', null, '');
         assert.strictEqual(result, '');
 
@@ -80,19 +57,30 @@ describe('DelimiterInput', () => {
     });
 
     it('TextField description', () => {
-        const wrapper = shallow(
-            <DelimiterInput
-                defaultOption={DropdownOptionKey.autoDetect}
-                onChange={() => {}}
-            />
-        );
-        wrapper.find('#DelimiterInput-Dropdown')
-            .simulate('change', null, {key: DropdownOptionKey.other});
-        const textField = wrapper.find('#DelimiterInput-TextField')
-        textField.simulate('change', null, '');
-        assert(wrapper.html().includes('Auto-detect'));
-        textField.simulate('change', null, 'a');
-        assert(!wrapper.html().includes('Auto-detect') && wrapper.html().includes('U+0061'));
+        const tests: {value: string, expectIncludes: string}[] = [
+            {
+                value: '',
+                expectIncludes: 'Auto-detect',
+            },
+            {
+                value: 'a',
+                expectIncludes: 'U+0061',
+            },
+        ];
+
+        for (const test of tests) {
+            const wrapper = shallow(
+                <DelimiterInput
+                    value={''}
+                    onChange={() => {}}
+                />
+            );
+            wrapper.find('#DelimiterInput-Dropdown')
+                .simulate('change', null, {key: DropdownOptionKey.other});
+
+            wrapper.setProps({value: test.value});
+            assert(wrapper.html().includes(test.expectIncludes));
+        }
     });
 
     it('codePoint()', () => {
