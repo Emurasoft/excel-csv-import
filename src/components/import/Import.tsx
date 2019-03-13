@@ -5,14 +5,14 @@ import {
     Dropdown,
     IDropdownOption,
     PrimaryButton,
-    TextField,
     TooltipDelay,
     TooltipHost
 } from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {ImportOptions, InputSource, Source} from '../../Parser';
 import {SourceInput} from './SourceInput';
-import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
+import {DelimiterInput} from './DelimiterInput';
+import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 
 enum NewlineSequence {
     AutoDetect = '',
@@ -70,7 +70,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                 />
-                <br />
+                <br /> {/*TODO move newline sequence to new file*/}
                 <Dropdown
                     label="Newline sequence"
                     responsiveMode={ResponsiveMode.large}
@@ -81,10 +81,11 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     }}
                 />
                 <br />
-                <TextField
+                <Dropdown
                     label="Encoding"
-                    value={this.state.encoding}
-                    onChange={(_, value) => this.setState({encoding: value})}
+                    selectedKey={this.state.encoding}
+                    options={EncodingDropdownOptions}
+                    onChange={(_, option) => this.setState({encoding: option.key as string})}
                 />
                 <br />
                 <TooltipHost
