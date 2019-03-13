@@ -29,7 +29,7 @@ async function main() {
         dropdownOptions.push({key: encoding, text: encoding});
     }
 
-    console.log(JSON.stringify(dropdownOptions, null, 4));
+    process.stdout.write(JSON.stringify(dropdownOptions, null, 4));
 }
 
 main();

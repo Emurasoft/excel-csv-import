@@ -56,7 +56,10 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     content={this.buttonTooltipContent()}
                     delay={TooltipDelay.zero}
                 >
-                    <PrimaryButton disabled={this.buttonTooltipContent() !== ''} onClick={this.import}>
+                    <PrimaryButton
+                        disabled={this.buttonTooltipContent() !== ''}
+                        onClick={this.import}
+                    >
                         Import CSV
                     </PrimaryButton>
                 </TooltipHost>
