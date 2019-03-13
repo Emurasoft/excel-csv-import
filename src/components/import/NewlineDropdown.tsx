@@ -41,9 +41,7 @@ export class NewlineDropdown extends React.Component<Props, {}> {
                 responsiveMode={ResponsiveMode.large}
                 selectedKey={this.props.value}
                 options={newlineSequeneceMenu}
-                onChange={(_, option) => {
-                    this.props.onChange(option.key as NewlineSequence);
-                }}
+                onChange={(_, option) => {this.props.onChange(option.key as NewlineSequence)}}
             />
         );
     }
