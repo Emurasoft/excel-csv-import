@@ -15,7 +15,7 @@ interface State {
     encoding: string;
 }
 
-class ImportComponent extends React.Component<{store: Store}, State> {
+export class ImportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
@@ -48,7 +48,7 @@ class ImportComponent extends React.Component<{store: Store}, State> {
                     label="Encoding"
                     selectedKey={this.state.encoding}
                     options={EncodingDropdownOptions}
-                    onChange={(_, option) => this.setState({encoding: option.key as string})}
+                    onChange={(_, option) => this.setState({encoding: option as any})}
                 />
                 <br />
                 <TooltipHost
