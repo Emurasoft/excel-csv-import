@@ -36,7 +36,7 @@ export class Parser {
                     ExcelAPI.setChunk(worksheet, row, chunk.data);
                     row += chunk.data.length;
                 }
-                config.complete = resolve as any;
+                config.complete = resolve;
                 switch (importOptions.source.inputSource) {
                 case InputSource.file:
                     Papa.parse(importOptions.source.file, config);

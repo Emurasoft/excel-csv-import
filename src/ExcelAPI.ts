@@ -4,7 +4,7 @@ export class ExcelAPI {
         return new ExcelAPI();
     }
 
-    public run(batch: (worksheet: Excel.Worksheet) => Promise<void>) {
+    public run(batch: (worksheet: Excel.Worksheet) => Promise<any>) {
         Excel.run(async (context) => {
             const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
             const usedRange = curretWorksheet.getUsedRange(true).load('values');
@@ -18,7 +18,7 @@ export class ExcelAPI {
                 worksheetToUse = context.workbook.worksheets.add();
             }
 
-            await batch(worksheetToUse)
+            await batch(worksheetToUse);
 
             worksheetToUse.activate();
             await context.sync();
