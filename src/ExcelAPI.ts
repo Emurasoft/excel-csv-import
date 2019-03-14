@@ -1,6 +1,7 @@
 export const init = Office.onReady;
 
 export function run(batch: (worksheet: Excel.Worksheet) => Promise<any>) {
+    // noinspection JSIgnoredPromiseFromCall
     Excel.run(async (context) => {
         const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
         const range = curretWorksheet.getUsedRangeOrNullObject(true).load('isNullObject');
@@ -43,7 +44,7 @@ export function _maxLength(a: string[][]) {
 export function _resize(a: string[][], maxLength: number) {
     for (let i = 0; i < a.length; ++i) {
         // Not sure if filling is required, but I want to be on the safe side.
-        a[i] = a[i].concat(new Array(maxLength - a[i].length).fill(""));
+        a[i] = a[i].concat(new Array(maxLength - a[i].length).fill(''));
     }
 }
 
