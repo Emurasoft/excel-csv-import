@@ -28,7 +28,7 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
-                />
+                /> {/*TODO remove auto-detect option*/}
             </>
         );
     }
