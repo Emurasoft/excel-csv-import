@@ -1,6 +1,7 @@
 import {ExcelAPI} from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {ParseConfig} from 'papaparse';
+import {NewlineSequence} from './components/NewlineDropdown';
 
 export enum InputType {file, text, url}
 
@@ -23,7 +24,7 @@ export enum ExportType {file, text}
 export interface ExportOptions {
     exportType: ExportType;
     delimiter: string;
-    newline: string;
+    newlineSequence: NewlineSequence;
     encoding: string;
 }
 
@@ -37,9 +38,10 @@ export class Parser {
     }
 
     public async export(exportOptions: ExportOptions) {
+        console.log(exportOptions);
         let result = '';
         for (const row of await ExcelAPI.values()) {
-            result += row.join(exportOptions.delimiter) + exportOptions.newline;
+            result += row.join(exportOptions.delimiter) + exportOptions.newlineSequence;
         }
 
         console.log(result);

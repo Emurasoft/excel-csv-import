@@ -85,7 +85,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
             delimiter: this.state.delimiter,
             newline: this.state.newlineSequence,
             encoding: this.state.encoding,
-        };
+        }; // TODO inherit ImportOptions for state
         this.props.store.import(options);
     }
 }

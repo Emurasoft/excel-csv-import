@@ -2,8 +2,7 @@ import * as React from 'react';
 import {BaseProps} from './BaseProps';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
-
-export enum ExportType{file, textbox}
+import {ExportType} from '../Parser';
 
 export class ExportTypeDropdown extends React.Component<BaseProps<ExportType>, {}> {
     public render() {
@@ -13,7 +12,7 @@ export class ExportTypeDropdown extends React.Component<BaseProps<ExportType>, {
                 text: 'File',
             },
             {
-                key: ExportType.textbox,
+                key: ExportType.text,
                 text: 'Textbox',
             },
         ];

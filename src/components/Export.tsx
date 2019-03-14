@@ -1,20 +1,22 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {ExportType, ExportTypeDropdown} from './ExportTypeDropdown';
+import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
+import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
+import {EncodingDropdownOptions} from './EncodingDropdownOptions';
+import {Dropdown, PrimaryButton} from 'office-ui-fabric-react';
+import {ExportOptions, ExportType, Parser} from '../Parser';
+import {ExcelAPI} from '../ExcelAPI';
 
-interface State {
-    exportType: ExportType;
-    delimiter: string;
-}
-
-class ExportComponent extends React.Component<{store: Store}, State> {
+class ExportComponent extends React.Component<{store: Store}, ExportOptions> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
             exportType: ExportType.file,
             delimiter: ',',
+            newlineSequence: NewlineSequence.CRLF,
+            encoding: 'UTF-8',
         };
     }
 
@@ -25,10 +27,29 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.exportType}
                     onChange={(exportType) => this.setState({exportType})}
                 />
+                <br />
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                 /> {/*TODO remove auto-detect option*/}
+                <br />
+                <NewlineDropdown
+                    value={this.state.newlineSequence}
+                    onChange={(newlineSequence) => this.setState({newlineSequence})}
+                />
+                <br />
+                <Dropdown
+                    label="Encoding"
+                    selectedKey={this.state.encoding}
+                    options={EncodingDropdownOptions}
+                    onChange={(_, option) => this.setState({encoding: option as any})}
+                />
+                <br />
+                <PrimaryButton
+                    onClick={() => new (Parser as any)(ExcelAPI).export(this.state)}
+                >
+                    Export as CSV
+                </PrimaryButton>
             </>
         );
         // TODO if spreadsheet is big show notice that large files are not supported, below button
