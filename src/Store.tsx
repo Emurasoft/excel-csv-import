@@ -61,7 +61,7 @@ export class Store extends React.Component<{}, State> {
 
     public export = async (options: Parser.ExportOptions) => {
         const result = await Parser.exportCSV(options);
-        this._log.push('import', {options});
+        this._log.push('export', {options});
         return result;
     }
 
