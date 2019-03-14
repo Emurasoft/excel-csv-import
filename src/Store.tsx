@@ -44,13 +44,25 @@ export class Store extends React.Component<{}, State> {
         ExcelAPI.init()
             .then(() => {
                 this.setState({initialized: true});
-                this._log.push("initParser");
+                this._log.push('initParser');
             });
     }
 
     public import = (options: Parser.ImportOptions) => {
         Parser.importCSV(options);
-        this._log.push("import", {options: options});
+        this._log.push('import', {options});
+    }
+
+    public worksheetShape = async () => {
+        const result = await ExcelAPI.worksheetShape();
+        this._log.push('worksheetShape');
+        return result
+    }
+
+    public export = async (options: Parser.ExportOptions) => {
+        const result = await Parser.exportCSV(options);
+        this._log.push('import', {options});
+        return result;
     }
 
     private readonly _log: Logger;
