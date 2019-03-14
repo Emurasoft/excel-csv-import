@@ -1,4 +1,6 @@
-export const init = Office.onReady;
+export async function init() {
+    await Office.onReady();
+}
 
 export function run(batch: (worksheet: Excel.Worksheet) => Promise<any>) {
     // noinspection JSIgnoredPromiseFromCall

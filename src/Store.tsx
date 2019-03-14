@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {ImportOptions, Parser} from './Parser';
+import * as Parser from './Parser';
+import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 
 export interface State {
@@ -40,19 +41,17 @@ export class Store extends React.Component<{}, State> {
     public log = () => this._log.log()
 
     public initParser = () => {
-        Parser.init()
-            .then((parser) => {
-                this._parser = parser;
+        ExcelAPI.init()
+            .then(() => {
                 this.setState({initialized: true});
                 this._log.push("initParser");
             });
     }
 
-    public import = (options: ImportOptions) => {
-        this._parser.import(options);
+    public import = (options: Parser.ImportOptions) => {
+        Parser.importCSV(options);
         this._log.push("import", {options: options});
     }
 
     private readonly _log: Logger;
-    private _parser: Parser;
 }

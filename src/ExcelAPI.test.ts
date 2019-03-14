@@ -2,8 +2,25 @@ import * as ExcelAPI from './ExcelAPI';
 import * as assert from 'assert';
 import {CheckError} from '../test/util';
 
-describe("ExcelAPI", () => {
-    it("_resize", () => {
+describe('ExcelAPI', () => {
+    it('_maxLength', () => {
+        const tests: {a: string[][], expected: number}[] = [
+            {
+                a: [[]],
+                expected: 0,
+            },
+            {
+                a: [[], ['a']],
+                expected: 1,
+            },
+        ];
+
+        for (const test of tests) {
+            assert.strictEqual(ExcelAPI._maxLength(test.a), test.expected);
+        }
+    });
+
+    it('_resize', () => {
         interface Test {
             a: string[][];
             maxLength: number;
@@ -20,57 +37,38 @@ describe("ExcelAPI", () => {
             {
                 a: [[]],
                 maxLength: 1,
-                expected: [[""]],
+                expected: [['']],
                 expectError: false,
             },
             {
-                a: [["a"]],
+                a: [['a']],
                 maxLength: 1,
-                expected: [["a"]],
+                expected: [['a']],
                 expectError: false,
             },
             {
-                a: [["a"]],
+                a: [['a']],
                 maxLength: 2,
-                expected: [["a", ""]],
+                expected: [['a', '']],
                 expectError: false,
             },
             {
-                a: [["a"]],
+                a: [['a']],
                 maxLength: 0,
-                expected: [["a"]],
+                expected: [['a']],
                 expectError: true,
             },
             {
-                a: [["a"], []],
+                a: [['a'], []],
                 maxLength: 2,
-                expected: [["a", ""], ["", ""]],
+                expected: [['a', ''], ['', '']],
                 expectError: false,
             },
         ];
 
         for (const test of tests) {
-            // @ts-ignore
-            CheckError(ExcelAPI.resize.bind(null, test.a, test.maxLength), test.expectError);
+            CheckError(ExcelAPI._resize.bind(null, test.a, test.maxLength), test.expectError);
             assert.deepStrictEqual(test.a, test.expected);
-        }
-    });
-
-    it("maxLength", () => {
-        const tests: {a: string[][], expected: number}[] = [
-            {
-                a: [[]],
-                expected: 0,
-            },
-            {
-                a: [[], ["a"]],
-                expected: 1,
-            },
-        ];
-
-        for (const test of tests) {
-            // @ts-ignore
-            assert.strictEqual(ExcelAPI.maxLength(test.a), test.expected);
         }
     });
 });

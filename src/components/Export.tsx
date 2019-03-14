@@ -6,8 +6,7 @@ import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 import {Dropdown, PrimaryButton} from 'office-ui-fabric-react';
-import {ExportOptions, ExportType, Parser} from '../Parser';
-import {ExcelAPI} from '../ExcelAPI';
+import {ExportOptions, ExportType} from '../Parser';
 
 class ExportComponent extends React.Component<{store: Store}, ExportOptions> {
     public constructor(props: {store: Store}) {
@@ -46,7 +45,7 @@ class ExportComponent extends React.Component<{store: Store}, ExportOptions> {
                 />
                 <br />
                 <PrimaryButton
-                    onClick={() => new (Parser as any)(ExcelAPI).export(this.state)}
+                    onClick={() => {}}
                 >
                     Export as CSV
                 </PrimaryButton>
