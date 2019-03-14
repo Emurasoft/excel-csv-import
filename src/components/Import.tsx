@@ -61,7 +61,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                         onClick={this.import}
                     >
                         Import CSV
-                    </PrimaryButton>
+                    </PrimaryButton>{/*TODO progress text*/}
                 </TooltipHost>
             </>
         );

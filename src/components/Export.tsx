@@ -5,7 +5,7 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
-import {Dropdown, PrimaryButton, TextField} from 'office-ui-fabric-react';
+import {Dropdown, PrimaryButton, TextField, Text} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType} from '../Parser';
 import * as style from './style';
 import * as FileSaver from 'file-saver';
@@ -15,7 +15,7 @@ export interface OutputText {
     text: string;
 }
 
-type State = ExportOptions & {outputText: OutputText};
+type State = ExportOptions & {outputText: OutputText, processing: boolean};
 
 class ExportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
@@ -25,6 +25,7 @@ class ExportComponent extends React.Component<{store: Store}, State> {
             delimiter: ',',
             newlineSequence: NewlineSequence.CRLF,
             encoding: 'UTF-8',
+            processing: false,
             outputText: {
                 show: false,
                 text: '',
@@ -33,6 +34,13 @@ class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render() {
+        const processingText = (
+            <>
+                <br />
+                <Text variant='small'>Processing</Text>
+            </>
+        );
+
         const outputTextField = (
             <>
                 <br />
@@ -71,11 +79,10 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                     onChange={(_, option) => this.setState({encoding: option as any})}
                 />
                 <br />
-                <PrimaryButton
-                    onClick={this.buttonOnClick}
-                >
+                <PrimaryButton onClick={this.buttonOnClick}>
                     Export as CSV
                 </PrimaryButton>
+                {this.state.processing ? processingText : null}
                 {this.state.outputText.show ? outputTextField : null}
             </>
         );
@@ -83,17 +90,18 @@ class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     private buttonOnClick = async () => {
-        this.setState({outputText: {show: false, text: ''}});
+        this.setState({processing: true, outputText: {show: false, text: ''}});
 
         // Copy values before async operation
         const exportType = this.state.exportType;
-        const blobOptions = {type: "text/csv;charset=" + this.state.encoding};
+        const blobOptions = {type: 'text/csv;charset=' + this.state.encoding};
 
         const text = await this.props.store.export(this.state);
+        this.setState({processing: false});
         switch (exportType) {
         case ExportType.file:
             const blob = new Blob([text], blobOptions);
-            FileSaver.saveAs(blob, "name.csv"); // TODO filename
+            FileSaver.saveAs(blob, 'name.csv'); // TODO filename
             return;
         case ExportType.text:
             this.setState({outputText: {show: true, text}});
