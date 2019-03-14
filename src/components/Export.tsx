@@ -9,6 +9,7 @@ import {Dropdown, PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType} from '../Parser';
 import * as style from './style';
 import * as FileSaver from 'file-saver';
+import {EncodingDropdown} from './EncodingDropdown';
 
 export interface OutputText {
     show: boolean;
@@ -69,12 +70,6 @@ class ExportComponent extends React.Component<{store: Store}, State> {
 
         return (
             <>
-                <ExportTypeDropdown
-                    value={this.state.exportType}
-                    onChange={(exportType) => this.setState({exportType})}
-                />
-                <br />
-                {this.state.exportType === ExportType.text ? null : encodingDropdown}
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
@@ -85,6 +80,16 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                     onChange={(newlineSequence) => this.setState({newlineSequence})}
                 />
                 <br />
+                <ExportTypeDropdown
+                    value={this.state.exportType}
+                    onChange={(exportType) => this.setState({exportType})}
+                />
+                <br />
+                <EncodingDropdown
+                    value={this.state.encoding}
+                    onChange={(encoding) => this.setState({encoding})}
+                    hidden={this.state.exportType === ExportType.text}
+                />
                 <PrimaryButton onClick={this.buttonOnClick}>
                     Export as CSV
                 </PrimaryButton>
