@@ -83,7 +83,9 @@ export class SourceInput extends React.Component<Props, {}> {
         this.props.onChange({inputSource: InputSource.file, file: e.target.files[0], text: ''});
     }
 
-    private textOnChangeHandler = (inputSource: InputSource) => (_, value) => {
-        this.props.onChange({inputSource, text: value});
+    private textOnChangeHandler(inputSource: InputSource) {
+        return (_, value) => {
+            this.props.onChange({inputSource, text: value});
+        }
     }
 }

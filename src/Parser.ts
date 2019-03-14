@@ -60,7 +60,7 @@ export class Parser {
 }
 /*
 If current worksheet is empty:
-    Pause Excel process until sync (Check what happens if sync is not called)
+    Pause Excel process until sync
 Otherwise:
     Create new worksheet but keep focus on current one
 Parse file

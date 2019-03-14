@@ -67,7 +67,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         );
     }
 
-    private buttonTooltipContent = () => {
+    private buttonTooltipContent() {
         if (this.state.source.inputSource == InputSource.file && this.state.source.file == null) {
             return 'Import source is not selected';
         } else if (this.state.delimiter.length > 1) {
