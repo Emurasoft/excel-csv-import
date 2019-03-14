@@ -39,6 +39,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "eslint": "^5.15.1",
+    "eslint-plugin-react": "^7.12.4",
     "mocha": "^6.0.2",
     "office-addin-validator": "^1.0.5",
     "sinon": "^7.2.7",
