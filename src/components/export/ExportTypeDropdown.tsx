@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {CustomBaseProps} from '../CustomBaseProps';
+import {BaseProps} from '../BaseProps';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib/utilities/decorators/withResponsiveMode';
 
 export enum ExportType{file, textbox}
 
-export class ExportTypeDropdown extends React.Component<CustomBaseProps<ExportType>, {}> {
+export class ExportTypeDropdown extends React.Component<BaseProps<ExportType>, {}> {
     public render() {
         const options: IDropdownOption[] = [
             {

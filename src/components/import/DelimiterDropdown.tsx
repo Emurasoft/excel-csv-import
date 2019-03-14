@@ -4,20 +4,16 @@ import * as style from '../style';
 import {
     ResponsiveMode
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
+import {BaseProps} from '../BaseProps';
 
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
-
-interface Props {
-    value: string;
-    onChange: (newDelimiter: string) => void;
-}
 
 interface State {
     selectedKey: DropdownOptionKey;
 }
 
-export class DelimiterDropdown extends React.Component<Props, State> {
-    public constructor(props: Props) {
+export class DelimiterDropdown extends React.Component<BaseProps<string>, State> {
+    public constructor(props) {
         super(props);
         this.state = {
             selectedKey: DropdownOptionKey.autoDetect,

@@ -5,13 +5,9 @@ import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import {
     ResponsiveMode
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
+import {BaseProps} from '../BaseProps';
 
-interface Props {
-    value: Source;
-    onChange: (newSource: Source) => void;
-}
-
-export class SourceInput extends React.Component<Props, {}> {
+export class SourceInput extends React.Component<BaseProps<Source>, {}> {
     public render() {
         const fileSourceMenu: IDropdownOption[] = [
             {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
+import {BaseProps} from '../BaseProps';
 
 export enum NewlineSequence {
     AutoDetect = '',
@@ -9,12 +10,7 @@ export enum NewlineSequence {
     LF = '\n'
 }
 
-interface Props {
-    value: NewlineSequence;
-    onChange: (newlineSequence: NewlineSequence) => void;
-}
-
-export class NewlineDropdown extends React.Component<Props, {}> {
+export class NewlineDropdown extends React.Component<BaseProps<NewlineSequence>, {}> {
     public render() {
         const newlineSequeneceMenu: IDropdownOption[] = [
             {
