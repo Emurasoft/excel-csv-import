@@ -69,5 +69,6 @@ Chunk callback:
     Save any errors
 Adjust column widths
 Sync
+Activate worksheet
 Return errors
  */

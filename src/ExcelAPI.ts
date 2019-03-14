@@ -5,9 +5,21 @@ export class ExcelAPI {
     }
 
     public run(batch: (worksheet: Excel.Worksheet) => Promise<void>) {
-        Excel.run((context) => {
-            return batch(context.workbook.worksheets.getActiveWorksheet())
-                .then(() => context.sync());
+        Excel.run(async (context) => {
+            const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
+            const usedRange = curretWorksheet.getUsedRange(true).load();
+            await context.sync();
+
+            let worksheetToUse: Excel.Worksheet = null;
+            if (usedRange.values === undefined) {
+                worksheetToUse = curretWorksheet;
+            } else {
+                worksheetToUse = context.workbook.worksheets.add();
+            }
+
+            await batch(worksheetToUse)
+            worksheetToUse.activate();
+            await context.sync();
         });
     }
 
