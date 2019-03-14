@@ -24,31 +24,28 @@ export class Parser {
     }
 
     public import(importOptions: ImportOptions) {
-        const config: ParseConfig = importOptions;
-        if (importOptions.source.inputSource === InputSource.url) {
-            config.download = true;
-        }
+        this._api.run((worksheet) => Parser.parse(worksheet, importOptions));
+    }
 
-        this._api.run((worksheet) => {
-            return new Promise((resolve) => {
-                let row = 0;
-                config.chunk = (chunk: Papa.ParseResult) => {
-                    ExcelAPI.setChunk(worksheet, row, chunk.data);
-                    row += chunk.data.length;
-                }
-                config.complete = resolve;
-                switch (importOptions.source.inputSource) {
-                case InputSource.file:
-                    Papa.parse(importOptions.source.file, config);
-                    break;
-                case InputSource.textinput:
-                    Papa.parse(importOptions.source.text, config);
-                    break;
-                case InputSource.url:
-                    Papa.parse(importOptions.source.text, {...config, download: true});
-                    break;
-                }
-            });
+    private static parse(worksheet, importOptions: ImportOptions & ParseConfig) {
+        return new Promise((resolve) => {
+            let row = 0;
+            importOptions.chunk = (chunk: Papa.ParseResult) => {
+                ExcelAPI.setChunk(worksheet, row, chunk.data);
+                row += chunk.data.length;
+            }
+            importOptions.complete = resolve;
+            switch (importOptions.source.inputSource) {
+            case InputSource.file:
+                Papa.parse(importOptions.source.file, importOptions);
+                break;
+            case InputSource.textinput:
+                Papa.parse(importOptions.source.text, importOptions);
+                break;
+            case InputSource.url:
+                Papa.parse(importOptions.source.text, {...importOptions, download: true});
+                break;
+            }
         });
     }
 

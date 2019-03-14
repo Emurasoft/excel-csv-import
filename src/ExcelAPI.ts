@@ -7,11 +7,11 @@ export class ExcelAPI {
     public run(batch: (worksheet: Excel.Worksheet) => Promise<any>) {
         Excel.run(async (context) => {
             const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
-            const usedRange = curretWorksheet.getUsedRange(true).load('values');
+            const range = curretWorksheet.getUsedRangeOrNullObject(true).load('isNullObject');
             await context.sync();
 
             let worksheetToUse: Excel.Worksheet = null;
-            if (usedRange.values === undefined) {
+            if (range.isNullObject) {
                 worksheetToUse = curretWorksheet;
                 context.application.suspendApiCalculationUntilNextSync();
             } else {
