@@ -27,11 +27,15 @@ export class Parser {
         this._api.run((worksheet) => Parser.parse(worksheet, importOptions));
     }
 
-    private static parse(worksheet, importOptions: ImportOptions & ParseConfig) {
+    private static parse(
+        worksheet: Excel.Worksheet,
+        importOptions: ImportOptions & ParseConfig,
+        excelAPI = ExcelAPI,
+    ) {
         return new Promise((resolve) => {
             let row = 0;
             importOptions.chunk = (chunk: Papa.ParseResult) => {
-                ExcelAPI.setChunk(worksheet, row, chunk.data);
+                excelAPI.setChunk(worksheet, row, chunk.data);
                 row += chunk.data.length;
             }
             importOptions.complete = resolve;
