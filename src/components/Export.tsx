@@ -5,10 +5,19 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
-import {Dropdown, PrimaryButton} from 'office-ui-fabric-react';
+import {Dropdown, PrimaryButton, TextField} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType} from '../Parser';
+import * as style from './style';
+import * as FileSaver from 'file-saver';
 
-class ExportComponent extends React.Component<{store: Store}, ExportOptions> {
+export interface OutputText {
+    show: boolean;
+    text: string;
+}
+
+type State = ExportOptions & {outputText: OutputText};
+
+class ExportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
@@ -16,10 +25,28 @@ class ExportComponent extends React.Component<{store: Store}, ExportOptions> {
             delimiter: ',',
             newlineSequence: NewlineSequence.CRLF,
             encoding: 'UTF-8',
+            outputText: {
+                show: false,
+                text: '',
+            },
         };
     }
 
     public render() {
+        const outputTextField = (
+            <>
+                <br />
+                <TextField
+                    label="Export result"
+                    style={style.monospace}
+                    readOnly={true}
+                    multiline rows={15}
+                    wrap="off"
+                    value={this.state.outputText.text}
+                />
+            </>
+        );
+
         return (
             <>
                 <ExportTypeDropdown
@@ -45,13 +72,33 @@ class ExportComponent extends React.Component<{store: Store}, ExportOptions> {
                 />
                 <br />
                 <PrimaryButton
-                    onClick={() => {}}
+                    onClick={this.buttonOnClick}
                 >
                     Export as CSV
                 </PrimaryButton>
+                {this.state.outputText.show ? outputTextField : null}
             </>
         );
         // TODO if spreadsheet is big show notice that large files are not supported, below button
+    }
+
+    private buttonOnClick = async () => {
+        this.setState({outputText: {show: false, text: ''}});
+
+        // Copy values before async operation
+        const exportType = this.state.exportType;
+        const blobOptions = {type: "text/csv;charset=" + this.state.encoding};
+
+        const text = await this.props.store.export(this.state);
+        switch (exportType) {
+        case ExportType.file:
+            const blob = new Blob([text], blobOptions);
+            FileSaver.saveAs(blob, "name.csv"); // TODO filename
+            return;
+        case ExportType.text:
+            this.setState({outputText: {show: true, text}});
+            return;
+        }
     }
 }
 

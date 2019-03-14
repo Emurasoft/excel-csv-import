@@ -60,11 +60,9 @@ export function _processImport(
 }
 
 export async function exportCSV(exportOptions: ExportOptions) {
-    console.log(exportOptions);
     let result = '';
     for (const row of await ExcelAPI.worksheetValues()) {
         result += row.join(exportOptions.delimiter) + exportOptions.newlineSequence;
     }
-
-    console.log(result);
+    return result;
 }
