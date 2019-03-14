@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CommandBar, ICommandBarItemProps} from 'office-ui-fabric-react/lib/CommandBar';
 import {Import} from './import/Import';
-import {Export} from './Export';
+import {Export} from './export/Export';
 
 enum Page {import, export, report, about}
 
@@ -9,7 +9,7 @@ export class App extends React.Component<{}, {page: Page}> {
     public constructor(props: {}) {
         super(props);
         this.state = {
-            page: Page.import,
+            page: Page.export,
         };
     }
 

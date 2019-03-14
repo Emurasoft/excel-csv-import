@@ -1,10 +1,13 @@
 import {Store} from '../../Store';
 import * as React from 'react';
+import {connect} from '../../connect';
 
-interface State {
-
+class ExportComponent extends React.Component<{store: Store}, {}> {
+    public render() {
+        return (
+            <div>export page</div>
+        );
+    }
 }
 
-export class Export extends React.Component<{store: Store}, State> {
-
-}
+export const Export = connect(ExportComponent);
