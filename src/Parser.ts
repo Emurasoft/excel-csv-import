@@ -58,17 +58,3 @@ export class Parser {
         this._api = api;
     }
 }
-/*
-If current worksheet is empty:
-    Pause Excel process until sync
-Otherwise:
-    Create new worksheet but keep focus on current one
-Parse file
-Chunk callback:
-    Send chunk to api with i
-    Save any errors
-Adjust column widths
-Sync
-Activate worksheet
-Return errors
- */

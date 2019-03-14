@@ -7,17 +7,19 @@ export class ExcelAPI {
     public run(batch: (worksheet: Excel.Worksheet) => Promise<void>) {
         Excel.run(async (context) => {
             const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
-            const usedRange = curretWorksheet.getUsedRange(true).load();
+            const usedRange = curretWorksheet.getUsedRange(true).load('values');
             await context.sync();
 
             let worksheetToUse: Excel.Worksheet = null;
             if (usedRange.values === undefined) {
                 worksheetToUse = curretWorksheet;
+                context.application.suspendApiCalculationUntilNextSync();
             } else {
                 worksheetToUse = context.workbook.worksheets.add();
             }
 
             await batch(worksheetToUse)
+
             worksheetToUse.activate();
             await context.sync();
         });
