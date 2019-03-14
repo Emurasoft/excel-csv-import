@@ -1,9 +1,9 @@
-import {ExcelAPI} from './ExcelAPI';
+import * as ExcelAPI from './ExcelAPI';
 import * as assert from 'assert';
 import {CheckError} from '../test/util';
 
 describe("ExcelAPI", () => {
-    it("resize", () => {
+    it("_resize", () => {
         interface Test {
             a: string[][];
             maxLength: number;
