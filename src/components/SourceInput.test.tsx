@@ -1,7 +1,7 @@
 import {shallow} from 'enzyme';
 import {SourceInput} from './SourceInput';
 import * as React from 'react';
-import {InputSource, Source} from '../../Parser';
+import {InputSource, Source} from '../Parser';
 import * as assert from 'assert';
 
 describe('SourceInput', () => {

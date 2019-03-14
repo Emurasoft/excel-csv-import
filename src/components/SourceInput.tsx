@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {InputSource, Source} from '../../Parser';
-import * as style from '../style';
+import {InputSource, Source} from '../Parser';
+import * as style from './style';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import {
     ResponsiveMode
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {BaseProps} from '../BaseProps';
+import {BaseProps} from './BaseProps';
 
 export class SourceInput extends React.Component<BaseProps<Source>, {}> {
     public render() {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CommandBar, ICommandBarItemProps} from 'office-ui-fabric-react/lib/CommandBar';
-import {Import} from './import/Import';
-import {Export} from './export/Export';
+import {Import} from './Import';
+import {Export} from './Export';
 
 enum Page {import, export, report, about}
 

@@ -1,6 +1,6 @@
-import {Store} from '../../Store';
+import {Store} from '../Store';
 import * as React from 'react';
-import {connect} from '../../connect';
+import {connect} from '../connect';
 import {ExportType, ExportTypeDropdown} from './ExportTypeDropdown';
 
 interface State {

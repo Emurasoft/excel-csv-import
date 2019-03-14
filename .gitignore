@@ -9,5 +9,5 @@ node_modules
 **/*.js.map
 !webpack.*.js
 !.eslintrc.js
-!src/components/import/generateEncodingList.js
+!src/components/generateEncodingList.js
 build

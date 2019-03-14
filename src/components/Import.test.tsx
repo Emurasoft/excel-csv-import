@@ -1,7 +1,7 @@
 import {Import, ImportComponent} from './Import';
 import {shallow} from 'enzyme';
 import * as React from 'react';
-import {ImportOptions, InputSource} from '../../Parser';
+import {ImportOptions, InputSource} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';

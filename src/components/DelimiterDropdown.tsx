@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
-import * as style from '../style';
+import * as style from './style';
 import {
     ResponsiveMode
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {BaseProps} from '../BaseProps';
+import {BaseProps} from './BaseProps';
 
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
 

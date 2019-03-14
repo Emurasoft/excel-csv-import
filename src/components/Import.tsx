@@ -1,8 +1,8 @@
-import {Store} from '../../Store';
+import {Store} from '../Store';
 import * as React from 'react';
-import {connect} from '../../connect';
+import {connect} from '../connect';
 import {Dropdown, PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
-import {ImportOptions, InputSource, Source} from '../../Parser';
+import {ImportOptions, InputSource, Source} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
