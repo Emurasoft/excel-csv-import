@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {InputSource, Source} from '../Parser';
+import {InputType, Source} from '../Parser';
 import * as style from './style';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import {
@@ -11,21 +11,21 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
     public render() {
         const fileSourceMenu: IDropdownOption[] = [
             {
-                key: InputSource.file,
+                key: InputType.file,
                 text: 'File',
             },
             {
-                key: InputSource.textinput,
+                key: InputType.text,
                 text: 'Text input',
             },
             {
-                key: InputSource.url,
+                key: InputType.url,
                 text: 'URL',
             },
         ];
 
         const componentMap = {
-            [InputSource.file]: (
+            [InputType.file]: (
                 <>
                     <input
                         type="file"
@@ -35,19 +35,19 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
                     <br />
                 </>
             ),
-            [InputSource.textinput]: (
+            [InputType.text]: (
                 <TextField
                     style={style.monospace}
                     multiline rows={10}
                     wrap="off"
-                    onChange={this.textOnChangeHandler(InputSource.textinput)}
+                    onChange={this.textOnChangeHandler(InputType.text)}
                     value={this.props.value.text as string}
                     id="SourceInput-TextInput"
                 />
             ),
-            [InputSource.url]: (
+            [InputType.url]: (
                 <TextField
-                    onChange={this.textOnChangeHandler(InputSource.url)}
+                    onChange={this.textOnChangeHandler(InputType.url)}
                     placeholder="URL of CSV file"
                     value={this.props.value.text as string}
                     id="SourceInput-URLInput"
@@ -61,27 +61,27 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
                     label='Import type'
                     options={fileSourceMenu}
                     responsiveMode={ResponsiveMode.large}
-                    selectedKey={this.props.value.inputSource}
+                    selectedKey={this.props.value.inputType}
                     onChange={this.dropdownOnChange}
                     id='SourceInput-Dropdown'
                 />
                 <div style={{height: '5px'}} />
-                {componentMap[this.props.value.inputSource]}
+                {componentMap[this.props.value.inputType]}
             </>
         );
     }
 
     private dropdownOnChange = (_, option) => {
-        this.props.onChange({inputSource: option.key as InputSource, file: null, text: ''});
+        this.props.onChange({inputType: option.key as InputType, file: null, text: ''});
     }
 
     private fileOnChange =(e) => {
-        this.props.onChange({inputSource: InputSource.file, file: e.target.files[0], text: ''});
+        this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
     }
 
-    private textOnChangeHandler(inputSource: InputSource) {
+    private textOnChangeHandler(inputType: InputType) {
         return (_, value) => {
-            this.props.onChange({inputSource, text: value});
+            this.props.onChange({inputType, text: value});
         }
     }
 }

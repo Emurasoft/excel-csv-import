@@ -31,6 +31,7 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                 /> {/*TODO remove auto-detect option*/}
             </>
         );
+        // TODO if spreadsheet is big show notice that large files are not supported, below button
     }
 }
 

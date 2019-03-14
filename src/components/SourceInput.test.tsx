@@ -1,22 +1,22 @@
 import {shallow} from 'enzyme';
 import {SourceInput} from './SourceInput';
 import * as React from 'react';
-import {InputSource, Source} from '../Parser';
+import {InputType, Source} from '../Parser';
 import * as assert from 'assert';
 
 describe('SourceInput', () => {
     it('change input type', () => {
         const tests: {source: Source, expectedSelector: string}[] = [
             {
-                source: {inputSource: InputSource.file, text: ''},
+                source: {inputType: InputType.file, text: ''},
                 expectedSelector: '#SourceInput-FileInput',
             },
             {
-                source: {inputSource: InputSource.textinput, text: ''},
+                source: {inputType: InputType.text, text: ''},
                 expectedSelector: '#SourceInput-TextInput',
             },
             {
-                source: {inputSource: InputSource.url, text: ''},
+                source: {inputType: InputType.url, text: ''},
                 expectedSelector: '#SourceInput-URLInput',
             },
         ];
@@ -35,34 +35,34 @@ describe('SourceInput', () => {
 
     it('callback on input', () => {
         interface Test {
-            inputSource: InputSource;
+            inputType: InputType;
             elementSelector: string;
             onChangeArgs: any[];
             expected: Source;
         }
         const tests: Test[] = [
             {
-                inputSource: InputSource.file,
+                inputType: InputType.file,
                 elementSelector: '#SourceInput-FileInput',
                 onChangeArgs: [{target: {files: ['file']}}],
-                expected: {inputSource: InputSource.file, file: 'file' as any, text: ''},
+                expected: {inputType: InputType.file, file: 'file' as any, text: ''},
             },
             {
-                inputSource: InputSource.textinput,
+                inputType: InputType.text,
                 elementSelector: '#SourceInput-TextInput',
                 onChangeArgs: [null, 'text'],
-                expected: {inputSource: InputSource.textinput, text: 'text'},
+                expected: {inputType: InputType.text, text: 'text'},
             },
             {
-                inputSource: InputSource.url,
+                inputType: InputType.url,
                 elementSelector: '#SourceInput-URLInput',
                 onChangeArgs: [null, 'url'],
-                expected: {inputSource: InputSource.url, text: 'url'},
+                expected: {inputType: InputType.url, text: 'url'},
             },
         ];
 
         for (const test of tests) {
-            let receivedValue: Source = {inputSource: test.inputSource, file: null, text: null};
+            let receivedValue: Source = {inputType: test.inputType, file: null, text: null};
             const wrapper = shallow(
                 <SourceInput
                     value={receivedValue}

@@ -2,10 +2,10 @@ import {ExcelAPI} from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {ParseConfig} from 'papaparse';
 
-export enum InputSource {file, textinput, url}
+export enum InputType {file, text, url}
 
 export interface Source {
-    inputSource: InputSource;
+    inputType: InputType;
     file?: File;
     text: string;
 }
@@ -18,16 +18,34 @@ export interface ImportOptions extends Config {
     source: Source;
 }
 
+export enum ExportType {file, text}
+
+export interface ExportOptions {
+    exportType: ExportType;
+    delimiter: string;
+    newline: string;
+    encoding: string;
+}
+
 export class Parser {
     public static async init() {
         return new Parser(await ExcelAPI.init());
     }
 
     public import(importOptions: ImportOptions) {
-        this._api.run((worksheet) => Parser.parse(worksheet, importOptions));
+        this._api.run((worksheet) => Parser.processImport(worksheet, importOptions));
     }
 
-    private static parse(
+    public async export(exportOptions: ExportOptions) {
+        let result = '';
+        for (const row of await ExcelAPI.values()) {
+            result += row.join(exportOptions.delimiter) + exportOptions.newline;
+        }
+
+        console.log(result);
+    }
+
+    private static processImport(
         worksheet: Excel.Worksheet,
         importOptions: ImportOptions & ParseConfig,
         excelAPI = ExcelAPI,
@@ -39,14 +57,14 @@ export class Parser {
                 row += chunk.data.length;
             }
             importOptions.complete = resolve;
-            switch (importOptions.source.inputSource) {
-            case InputSource.file:
+            switch (importOptions.source.inputType) {
+            case InputType.file:
                 Papa.parse(importOptions.source.file, importOptions);
                 break;
-            case InputSource.textinput:
+            case InputType.text:
                 Papa.parse(importOptions.source.text, importOptions);
                 break;
-            case InputSource.url:
+            case InputType.url:
                 Papa.parse(importOptions.source.text, {...importOptions, download: true});
                 break;
             }

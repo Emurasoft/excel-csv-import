@@ -1,4 +1,4 @@
-import {ImportOptions, InputSource, Parser} from './Parser';
+import {ImportOptions, InputType, Parser} from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 
@@ -13,13 +13,13 @@ describe('Parser', () => {
         }
 
         const importOptions: ImportOptions & ParseConfig = {
-            source: {inputSource: InputSource.textinput, text: 'a,b'},
+            source: {inputType: InputType.text, text: 'a,b'},
             delimiter: ',',
             newline: '\n',
             encoding: '',
         };
         // @ts-ignore
         // noinspection JSIgnoredPromiseFromCall
-        Parser.parse('worksheet' as any, importOptions, api);
+        Parser.processImport('worksheet' as any, importOptions, api);
     });
 });

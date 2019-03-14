@@ -1,7 +1,7 @@
 import {Import, ImportComponent} from './Import';
 import {shallow} from 'enzyme';
 import * as React from 'react';
-import {ImportOptions, InputSource} from '../Parser';
+import {ImportOptions, InputType} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
@@ -17,14 +17,14 @@ describe('Import', () => {
         const wrapper = shallow(<ImportComponent store={stub as any} />);
 
         wrapper.find(SourceInput)
-            .simulate('change', {inputSource: InputSource.textinput, text: 'csv text'});
+            .simulate('change', {inputType: InputType.text, text: 'csv text'});
         wrapper.find(DelimiterDropdown).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
         wrapper.find(Dropdown).simulate('change', null, 'UTF-8');
         wrapper.find(PrimaryButton).simulate('click');
 
         const expected: ImportOptions = {
-            source: {inputSource: 1, text: 'csv text'},
+            source: {inputType: 1, text: 'csv text'},
             delimiter: ',',
             newline: '\n',
             encoding: 'UTF-8',

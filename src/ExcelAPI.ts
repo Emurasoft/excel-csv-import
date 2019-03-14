@@ -1,4 +1,4 @@
-export class ExcelAPI {
+export class ExcelAPI { // TODO restructure
     public static async init() {
         await Office.onReady();
         return new ExcelAPI();
@@ -30,6 +30,17 @@ export class ExcelAPI {
         const maxLength = ExcelAPI.maxLength(chunk);
         ExcelAPI.resize(chunk, maxLength);
         worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength).values = chunk;
+    }
+
+    public static values(): Promise<string[][]> {
+        return new Promise((resolve) => {
+            Excel.run(async (context) => {
+                const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
+                const range = curretWorksheet.getUsedRange(true).load('values');
+                await context.sync();
+                resolve(range.values);
+            });
+        });
     }
 
     private static resize(a: string[][], maxLength: number) {

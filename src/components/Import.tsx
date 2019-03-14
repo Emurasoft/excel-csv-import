@@ -2,7 +2,7 @@ import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {Dropdown, PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
-import {ImportOptions, InputSource, Source} from '../Parser';
+import {ImportOptions, InputType, Source} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
@@ -19,7 +19,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
-            source: {inputSource: InputSource.file, file: null, text: ''},
+            source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
             newlineSequence: NewlineSequence.AutoDetect,
             encoding: '',
@@ -68,7 +68,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     private buttonTooltipContent() {
-        if (this.state.source.inputSource == InputSource.file && this.state.source.file == null) {
+        if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
             return 'Import source is not selected';
         } else if (this.state.delimiter.length > 1) {
             return 'Delimiter is invalid';
