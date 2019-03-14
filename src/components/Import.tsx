@@ -49,7 +49,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                     selectedKey={this.state.encoding}
                     options={EncodingDropdownOptions}
                     onChange={(_, option) => this.setState({encoding: option as any})}
-                />
+                />{/*TODO move encoding dropdown up next to source input and hide if text input*/}
                 <br />
                 <TooltipHost
                     styles={{root: {display: 'inline-block'}} /* Resize to fit button */}

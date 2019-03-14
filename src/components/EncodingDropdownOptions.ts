@@ -6,14 +6,6 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
         "text": "Auto-detect"
     },
     {
-        "key": "UTF-8",
-        "text": "UTF-8"
-    },
-    {
-        "key": "UTF-16LE",
-        "text": "UTF-16LE"
-    },
-    {
         "key": "Big5",
         "text": "Big5"
     },

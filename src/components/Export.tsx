@@ -5,7 +5,7 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
-import {Dropdown, PrimaryButton, TextField, Text} from 'office-ui-fabric-react';
+import {Dropdown, PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType} from '../Parser';
 import * as style from './style';
 import * as FileSaver from 'file-saver';
@@ -34,6 +34,18 @@ class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render() {
+        const encodingDropdown = (
+            <>
+                <Dropdown
+                    label="Encoding"
+                    selectedKey={this.state.encoding}
+                    options={EncodingDropdownOptions}
+                    onChange={(_, option) => this.setState({encoding: option.key as string})}
+                />
+                <br />
+            </>
+        )
+
         const processingText = (
             <>
                 <br />
@@ -62,6 +74,7 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                     onChange={(exportType) => this.setState({exportType})}
                 />
                 <br />
+                {this.state.exportType === ExportType.text ? null : encodingDropdown}
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
@@ -70,13 +83,6 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                 <NewlineDropdown
                     value={this.state.newlineSequence}
                     onChange={(newlineSequence) => this.setState({newlineSequence})}
-                />
-                <br />
-                <Dropdown
-                    label="Encoding"
-                    selectedKey={this.state.encoding}
-                    options={EncodingDropdownOptions}
-                    onChange={(_, option) => this.setState({encoding: option as any})}
                 />
                 <br />
                 <PrimaryButton onClick={this.buttonOnClick}>
