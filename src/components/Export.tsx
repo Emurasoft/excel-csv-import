@@ -81,10 +81,10 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 <br />
                 <PrimaryButton
                     onClick={this.buttonOnClick}
-                    disabled={this.props.store.state.initialized}
+                    disabled={!this.props.store.state.initialized}
                 >
                     Export as CSV
-                </PrimaryButton> {/*TODO disable button when initializing*/}
+                </PrimaryButton>
                 <br />
                 {this.state.largeFile ? largeFileWarning : null}
                 <ProgressText hidden={!this.state.processing} />
