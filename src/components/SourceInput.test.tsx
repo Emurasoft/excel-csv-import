@@ -6,7 +6,7 @@ import * as assert from 'assert';
 
 describe('SourceInput', () => {
     it('change input type', () => {
-        const tests: {source: Source, expectedSelector: string}[] = [
+        const tests: {source: Source; expectedSelector: string}[] = [
             {
                 source: {inputType: InputType.file, text: ''},
                 expectedSelector: '#SourceInput-FileInput',
@@ -26,7 +26,7 @@ describe('SourceInput', () => {
                 <SourceInput
                     value={test.source}
                     onChange={() => {}}
-                 />
+                />
             );
 
             assert(wrapper.exists(test.expectedSelector));

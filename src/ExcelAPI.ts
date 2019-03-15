@@ -63,7 +63,7 @@ export async function worksheetArea() {
 }
 
 export async function workbookNamesAndValues() {
-    let result: {workbookName: string, worksheetName: string, values: string[][]} = null;
+    let result: {workbookName: string; worksheetName: string; values: string[][]} = null;
     await Excel.run(async (context) => {
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');

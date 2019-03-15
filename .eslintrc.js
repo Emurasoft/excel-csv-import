@@ -21,6 +21,9 @@ module.exports = {
             version: 'detect',
         },
     },
+    rules: {
+        '@typescript-eslint/indent': ["error", 4, { "SwitchCase": 0 }],
+    },
     overrides: [
         {
             files: ['*.js'],

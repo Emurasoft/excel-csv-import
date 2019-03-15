@@ -4,7 +4,7 @@ import {CheckError} from '../test/util';
 
 describe('ExcelAPI', () => {
     it('_maxLength', () => {
-        const tests: {a: string[][], expected: number}[] = [
+        const tests: {a: string[][]; expected: number}[] = [
             {
                 a: [[]],
                 expected: 0,

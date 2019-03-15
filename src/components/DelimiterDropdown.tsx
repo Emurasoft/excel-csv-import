@@ -35,7 +35,7 @@ const DropdownOptionsWithAutoDetect: ReadonlyArray<IDropdownOption> = Object.fre
     ...DropdownOptionsNoAutoDetect,
 ]);
 
-type Props = BaseProps<string> & {showAutoDetect: boolean, showLengthError: boolean};
+type Props = BaseProps<string> & {showAutoDetect: boolean; showLengthError: boolean};
 
 interface State {
     selectedKey: DropdownOptionKey;
@@ -44,10 +44,11 @@ interface State {
 export class DelimiterDropdown extends React.Component<Props, State> {
     public constructor(props) {
         super(props);
-        this.state = {
-            selectedKey: props.showAutoDetect ? DropdownOptionKey.autoDetect
-                                              : DropdownOptionKey.comma,
-        };
+        if (props.showAutoDetect) {
+            this.state = {selectedKey: DropdownOptionKey.autoDetect};
+        } else {
+            this.state = {selectedKey: DropdownOptionKey.comma};
+        }
 
         if (props.showAutoDetect) {
             this._dropdownOptions = [...DropdownOptionsWithAutoDetect];

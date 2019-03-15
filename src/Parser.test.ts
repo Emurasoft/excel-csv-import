@@ -24,7 +24,7 @@ describe('Parser', () => {
     });
 
     it('_csvString()', () => {
-        const tests: {values: string[][], exportOptions: ExportOptions, expected: string}[] = [
+        const tests: {values: string[][]; exportOptions: ExportOptions; expected: string}[] = [
             {
                 values: [[]],
                 exportOptions: {
@@ -93,7 +93,7 @@ describe('Parser', () => {
     });
 
     it('_nameToUse()', () => {
-        const tests: {workbookName: string, worksheetName: string, expected: string}[] = [
+        const tests: {workbookName: string; worksheetName: string; expected: string}[] = [
             {
                 workbookName: '',
                 worksheetName: '',

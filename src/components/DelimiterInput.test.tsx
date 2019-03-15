@@ -83,7 +83,7 @@ describe('DelimiterDropdown', () => {
     });
 
     it('TextField description', () => {
-        const tests: {value: string, expectIncludes: string}[] = [
+        const tests: {value: string; expectIncludes: string}[] = [
             {
                 value: 'a',
                 expectIncludes: 'U+0061',

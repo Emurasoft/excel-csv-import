@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {AutoDetectOption, EncodingDropdownOptions} from './EncodingDropdownOptions';
 
-type Props = BaseProps<string> & {showAutoDetect: boolean, hidden: boolean};
+type Props = BaseProps<string> & {showAutoDetect: boolean; hidden: boolean};
 
 export class EncodingDropdown extends React.Component<Props, {}> {
     public constructor(props: Props) {

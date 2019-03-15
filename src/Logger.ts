@@ -9,7 +9,7 @@ export class Logger {
     }
 
     // Adds action, and a deep copy of args if defined otherwise empty object, as a new record.
-    public push(action: string, args?: Object) {
+    public push(action: string, args?: {}) {
         this._log.push(Object.freeze({action, args: args ? Logger.deepCopy(args) : {}}));
     }
 
@@ -19,7 +19,7 @@ export class Logger {
 
     private readonly _log: Record[];
 
-    private static deepCopy(a: Object): Object {
+    private static deepCopy(a: {}) {
         return JSON.parse(JSON.stringify(a));
     }
 }
