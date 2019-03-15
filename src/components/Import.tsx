@@ -49,6 +49,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <NewlineDropdown
                     value={this.state.newlineSequence}
                     onChange={(newlineSequence) => this.setState({newlineSequence})}
+                    showAutoDetect={true}
                 />
                 <br />
                 <TooltipHost
