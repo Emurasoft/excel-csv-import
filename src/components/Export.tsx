@@ -35,18 +35,6 @@ class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render() {
-        const encodingDropdown = (
-            <>
-                <Dropdown
-                    label="Encoding"
-                    selectedKey={this.state.encoding}
-                    options={EncodingDropdownOptions}
-                    onChange={(_, option) => this.setState({encoding: option.key as string})}
-                />
-                <br />
-            </>
-        )
-
         const processingText = (
             <>
                 <br />
