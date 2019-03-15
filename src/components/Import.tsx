@@ -1,12 +1,12 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {Dropdown, PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
+import {PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
 import {ImportOptions, InputType, Source} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
-import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
+import {EncodingDropdown} from './EncodingDropdown';
 
 interface State {
     source: Source;
@@ -29,11 +29,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     public render() {
         return (
             <>
-                <SourceInput
-                    value={this.state.source}
-                    onChange={(source) => this.setState({source})}
-                />
-                <br />
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
@@ -44,12 +39,16 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                     onChange={(newlineSequence) => this.setState({newlineSequence})}
                 />
                 <br />
-                <Dropdown
-                    label="Encoding"
-                    selectedKey={this.state.encoding}
-                    options={EncodingDropdownOptions}
-                    onChange={(_, option) => this.setState({encoding: option as any})}
-                />{/*TODO move encoding dropdown up next to source input and hide if text input*/}
+                <SourceInput
+                    value={this.state.source}
+                    onChange={(source) => this.setState({source})}
+                />
+                <br />
+                <EncodingDropdown
+                    value={this.state.encoding}
+                    onChange={(encoding) => this.setState({encoding})}
+                    hidden={this.state.source.inputType === InputType.text}
+                />
                 <br />
                 <TooltipHost
                     styles={{root: {display: 'inline-block'}} /* Resize to fit button */}

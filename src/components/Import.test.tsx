@@ -5,8 +5,9 @@ import {ImportOptions, InputType} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
-import {Dropdown, PrimaryButton} from 'office-ui-fabric-react';
+import {PrimaryButton} from 'office-ui-fabric-react';
 import * as assert from 'assert';
+import {EncodingDropdown} from './EncodingDropdown';
 
 describe('Import', () => {
     it('import', () => {
@@ -20,7 +21,7 @@ describe('Import', () => {
             .simulate('change', {inputType: InputType.text, text: 'csv text'});
         wrapper.find(DelimiterDropdown).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
-        wrapper.find(Dropdown).simulate('change', null, 'UTF-8');
+        wrapper.find(EncodingDropdown).simulate('change', 'UTF-8');
         wrapper.find(PrimaryButton).simulate('click');
 
         const expected: ImportOptions = {
