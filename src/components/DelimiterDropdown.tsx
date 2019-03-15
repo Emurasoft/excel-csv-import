@@ -57,7 +57,7 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         }
     }
 
-    public render() {
+    public render(): React.ReactNode {
         const customInput =
         <div style={{marginTop: '5px'}}>
             <TextField
@@ -87,7 +87,7 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         );
     }
 
-    private static description(delimiter: string) {
+    private static description(delimiter: string): string {
         if (delimiter.length == 1) {
             return DelimiterDropdown.codePoint(delimiter);
         } else {
@@ -95,7 +95,7 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         }
     }
 
-    private static codePoint(c: string) {
+    private static codePoint(c: string): string {
         return 'U+' + c[0].charCodeAt(0).toString(16).toUpperCase().padStart(4, '0');
     }
 

@@ -1,9 +1,12 @@
-export async function init() {
+/* global Office, Excel */
+
+export async function init(): Promise<void> {
     // TODO check API compatibility
     await Office.onReady();
 }
 
-export function run(batch: (worksheet: Excel.Worksheet) => Promise<any>) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function run(batch: (worksheet: Excel.Worksheet) => Promise<any>): void {
     // noinspection JSIgnoredPromiseFromCall
     Excel.run(async (context) => {
         const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
@@ -27,14 +30,7 @@ export function run(batch: (worksheet: Excel.Worksheet) => Promise<any>) {
     });
 }
 
-export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]) {
-    // New range values must have the same shape as range
-    const maxLength = _maxLength(chunk);
-    _resize(chunk, maxLength);
-    worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength).values = chunk;
-}
-
-export function _maxLength(a: string[][]) {
+export function _maxLength(a: string[][]): number {
     let max = 0;
     for (const row of a) {
         if (row.length > max) {
@@ -44,14 +40,21 @@ export function _maxLength(a: string[][]) {
     return max;
 }
 
-export function _resize(a: string[][], maxLength: number) {
+export function _resize(a: string[][], maxLength: number): void {
     for (let i = 0; i < a.length; ++i) {
         // Not sure if filling is required, but I want to be on the safe side.
         a[i] = a[i].concat(new Array(maxLength - a[i].length).fill(''));
     }
 }
 
-export async function worksheetArea() {
+export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]): void {
+    // New range values must have the same shape as range
+    const maxLength = _maxLength(chunk);
+    _resize(chunk, maxLength);
+    worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength).values = chunk;
+}
+
+export async function worksheetArea(): Promise<number> {
     let result: number = null;
     await Excel.run(async (context) => {
         const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
@@ -62,8 +65,14 @@ export async function worksheetArea() {
     return result;
 }
 
-export async function workbookNamesAndValues() {
-    let result: {workbookName: string; worksheetName: string; values: string[][]} = null;
+interface WorkbookNamesAndValues {
+    workbookName: string;
+    worksheetName: string;
+    values: string[][];
+}
+
+export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> {
+    let result: WorkbookNamesAndValues = null;
     await Excel.run(async (context) => {
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');

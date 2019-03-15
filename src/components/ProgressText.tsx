@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Text} from 'office-ui-fabric-react';
 
 export class ProgressText extends React.Component<{hidden: boolean}, {}> {
-    public render() {
+    public render(): React.ReactNode {
         if (this.props.hidden) {
             return null;
         } else {

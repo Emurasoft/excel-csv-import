@@ -1,7 +1,7 @@
 import {ImportComponent} from './Import';
 import {shallow} from 'enzyme';
 import * as React from 'react';
-import {ImportOptions, InputType, NewlineSequence} from '../Parser';
+import {InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
@@ -12,10 +12,11 @@ import {EncodingDropdown} from './EncodingDropdown';
 describe('ImportComponent', () => {
     it('import', () => {
         let receivedOptions = null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const stub: any = {};
         stub.state = {initialized: true};
         stub.import = (options) => receivedOptions = options
-        const wrapper = shallow(<ImportComponent store={stub as any} />);
+        const wrapper = shallow(<ImportComponent store={stub} />);
 
         wrapper.find(SourceInput)
             .simulate('change', {inputType: InputType.text, text: 'csv text'});

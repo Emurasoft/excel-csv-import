@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
+import {
+    ResponsiveMode
+} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {BaseProps} from './BaseProps';
 import {NewlineSequence} from '../Parser';
@@ -36,7 +38,7 @@ export class NewlineDropdown extends React.Component<Props, {}> {
         }
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <Dropdown
                 label="Newline sequence"

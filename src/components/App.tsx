@@ -2,6 +2,7 @@ import * as React from 'react';
 import {CommandBar, ICommandBarItemProps} from 'office-ui-fabric-react/lib/CommandBar';
 import {Import} from './Import';
 import {Export} from './Export';
+import {ReactNode} from 'react';
 
 enum Page {import, export, report, about}
 
@@ -13,7 +14,7 @@ export class App extends React.Component<{}, {page: Page}> {
         };
     }
 
-    public render() {
+    public render(): ReactNode {
         // TODO need margin around body
         return (
             <>
@@ -62,7 +63,7 @@ export class App extends React.Component<{}, {page: Page}> {
         ];
     }
 
-    private static pageComponent(page: Page) {
+    private static pageComponent(page: Page): ReactNode {
         switch (page) {
         case Page.import:
             return <Import />

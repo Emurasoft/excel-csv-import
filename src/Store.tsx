@@ -21,13 +21,15 @@ export class Store extends React.Component<{}, State> {
         this.initParser();
     }
 
-    public render() {
+    public render(): React.ReactNode {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         const value: {[key: string]: any} = {};
         for (const method of Object.getOwnPropertyNames(this)) {
             if (typeof (this as any)[method] === 'function') {
                 value[method] = (this as any)[method];
             }
         }
+        /* eslint-enable @typescript-eslint/no-explicit-any */
 
         value.state = this.state;
 

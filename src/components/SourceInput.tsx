@@ -8,7 +8,7 @@ import {
 import {BaseProps} from './BaseProps';
 
 export class SourceInput extends React.Component<BaseProps<Source>, {}> {
-    public render() {
+    public render(): React.ReactNode {
         const fileSourceMenu: IDropdownOption[] = [
             {
                 key: InputType.file,
@@ -80,7 +80,7 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
         this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
     }
 
-    private textOnChangeHandler(inputType: InputType) {
+    private textOnChangeHandler(inputType: InputType): (_, value: string) => void {
         return (_, value) => {
             this.props.onChange({inputType, text: value});
         }

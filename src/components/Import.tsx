@@ -23,7 +23,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         };
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <>
                 <SourceInput
@@ -68,7 +68,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         );
     }
 
-    private buttonTooltipContent() {
+    private buttonTooltipContent(): string {
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
             return 'Import source is not selected';
         } else if (this.state.delimiter.length > 1) {

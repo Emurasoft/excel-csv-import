@@ -35,7 +35,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         };
     }
 
-    public render() {
+    public render(): React.ReactNode {
         const outputTextField = (
             <TextField
                 label="Export result"
@@ -93,7 +93,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         );
     }
 
-    public async componentDidMount() {
+    public async componentDidMount(): Promise<void> {
         // 1gb divided by 50 bytes per cell = 20,000,000 cells
         const aLargeExcelDocumentProbablyHasThisManyCells = 10**9 / 50;
         const largeFile =
@@ -111,13 +111,15 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         const csvStringAndName = await this.props.store.csvStringAndName(this.state);
         this.setState({processing: false});
         switch (exportType) {
-        case ExportType.file:
+        case ExportType.file: {
             const blob = new Blob([csvStringAndName.string], blobOptions);
             FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
             return;
-        case ExportType.text:
+        }
+        case ExportType.text: {
             this.setState({outputText: {show: true, text: csvStringAndName.string}});
             return;
+        }
         }
     }
 }

@@ -5,6 +5,7 @@ import * as assert from 'assert';
 
 describe('Parser', () => {
     it('_processImport()', (done) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const api: any = {};
         api.setChunk = (worksheet, row, data) => {
             assert.strictEqual(worksheet, 'worksheet');
@@ -19,7 +20,7 @@ describe('Parser', () => {
             newline: NewlineSequence.LF,
             encoding: '',
         };
-        // noinspection JSIgnoredPromiseFromCall
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Parser._processImport('worksheet' as any, importOptions, api);
     });
 

@@ -16,7 +16,7 @@ export class EncodingDropdown extends React.Component<Props, {}> {
         }
     }
 
-    public render() {
+    public render(): React.ReactNode {
         if (this.props.hidden) {
             return null;
         } else {

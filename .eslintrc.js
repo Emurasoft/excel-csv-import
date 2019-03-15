@@ -9,6 +9,7 @@ module.exports = {
     env: {
         browser: true,
         es6: true,
+        mocha: true,
     },
     parserOptions: {
         project: 'tsconfig.json',
@@ -22,6 +23,7 @@ module.exports = {
         },
     },
     rules: {
+        'max-len': ["error", { "code": 100 }],
         '@typescript-eslint/indent': ["error", 4, { "SwitchCase": 0 }],
     },
     overrides: [

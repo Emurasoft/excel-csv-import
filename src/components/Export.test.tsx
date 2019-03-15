@@ -10,6 +10,7 @@ import * as assert from 'assert';
 
 describe('ExportComponent', () => {
     it('export text', (done) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const store: any = {};
         store.state = {initialized: true};
         store.worksheetArea = () => 0;

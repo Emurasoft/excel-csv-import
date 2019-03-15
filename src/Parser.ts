@@ -36,22 +36,18 @@ export interface ExportOptions {
     encoding: string;
 }
 
-export function importCSV(importOptions: ImportOptions) {
-    ExcelAPI.run((worksheet) => _processImport(worksheet, importOptions))
-}
-
 export function _processImport(
     worksheet: Excel.Worksheet,
     importOptions: ImportOptions & ParseConfig,
     excelAPI = ExcelAPI,
-) {
+): Promise<void> {
     return new Promise((resolve) => {
         let row = 0;
         importOptions.chunk = (chunk: Papa.ParseResult) => {
             excelAPI.setChunk(worksheet, row, chunk.data);
             row += chunk.data.length;
         }
-        importOptions.complete = resolve;
+        importOptions.complete = () => resolve();
         switch (importOptions.source.inputType) {
         case InputType.file:
             Papa.parse(importOptions.source.file, importOptions);
@@ -66,24 +62,11 @@ export function _processImport(
     });
 }
 
-export async function csvStringAndName(exportOptions: ExportOptions, excelAPI = ExcelAPI) {
-    const namesAndValues = await excelAPI.workbookNamesAndValues();
-    let string = '';
-    for (const row of namesAndValues.values) {
-        string += row.join(exportOptions.delimiter) + exportOptions.newline;
-    }
-    return {name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName), string};
+export function importCSV(importOptions: ImportOptions): void {
+    ExcelAPI.run((worksheet) => _processImport(worksheet, importOptions))
 }
 
-export function _csvString(values: string[][], exportOptions: ExportOptions) {
-    let result = ''; // TODO quotes
-    for (const row of values) {
-        result += row.join(exportOptions.delimiter) + exportOptions.newline;
-    }
-    return result;
-}
-
-export function _nameToUse(workbookName: string, worksheetName: string) {
+export function _nameToUse(workbookName: string, worksheetName: string): string {
     if (/^Sheet\d+$/.test(worksheetName)) { // 'Sheet1' isn't a good name to use
         // Workbook name usually includes the file extension
         const to = workbookName.lastIndexOf('.');
@@ -91,4 +74,28 @@ export function _nameToUse(workbookName: string, worksheetName: string) {
     } else {
         return worksheetName;
     }
+}
+
+export function _csvString(values: string[][], exportOptions: ExportOptions): string {
+    let result = ''; // TODO quotes
+    for (const row of values) {
+        result += row.join(exportOptions.delimiter) + exportOptions.newline;
+    }
+    return result;
+}
+
+interface CsvStringAndName {
+    name: string;
+    string: string;
+}
+
+export async function csvStringAndName(
+    exportOptions: ExportOptions,
+    excelAPI = ExcelAPI
+): Promise<CsvStringAndName> {
+    const namesAndValues = await excelAPI.workbookNamesAndValues();
+    return {
+        name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),
+        string: _csvString(namesAndValues.values, exportOptions)
+    };
 }

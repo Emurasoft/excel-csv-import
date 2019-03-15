@@ -37,6 +37,7 @@ describe('SourceInput', () => {
         interface Test {
             inputType: InputType;
             elementSelector: string;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onChangeArgs: any[];
             expected: Source;
         }
@@ -45,6 +46,7 @@ describe('SourceInput', () => {
                 inputType: InputType.file,
                 elementSelector: '#SourceInput-FileInput',
                 onChangeArgs: [{target: {files: ['file']}}],
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 expected: {inputType: InputType.file, file: 'file' as any, text: ''},
             },
             {
