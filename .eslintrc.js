@@ -23,8 +23,9 @@ module.exports = {
         },
     },
     rules: {
-        'max-len': ["error", { "code": 100 }],
-        '@typescript-eslint/indent': ["error", 4, { "SwitchCase": 0 }],
+        'max-len': ['error', {'code': 100}],
+        '@typescript-eslint/indent': ['error', 4, {'SwitchCase': 0}],
+        'jsx-quotes': ['error', 'prefer-single']
     },
     overrides: [
         {

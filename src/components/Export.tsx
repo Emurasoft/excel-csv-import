@@ -38,11 +38,11 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
     public render(): React.ReactNode {
         const outputTextField = (
             <TextField
-                label="Export result"
+                label='Export result'
                 style={style.monospace}
                 readOnly={true}
                 multiline rows={15}
-                wrap="off"
+                wrap='off'
                 value={this.state.outputText.text}
             />
         );

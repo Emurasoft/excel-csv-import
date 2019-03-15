@@ -28,10 +28,10 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
             [InputType.file]: (
                 <>
                     <input
-                        type="file"
-                        accept="text/csv"
+                        type='file'
+                        accept='text/csv'
                         onChange={this.fileOnChange}
-                        id="SourceInput-FileInput"
+                        id='SourceInput-FileInput'
                     />
                     <br />
                 </>
@@ -40,18 +40,18 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
                 <TextField
                     style={style.monospace}
                     multiline rows={10}
-                    wrap="off"
+                    wrap='off'
                     onChange={this.textOnChangeHandler(InputType.text)}
                     value={this.props.value.text as string}
-                    id="SourceInput-TextInput"
+                    id='SourceInput-TextInput'
                 />
             ),
             [InputType.url]: (
                 <TextField
                     onChange={this.textOnChangeHandler(InputType.url)}
-                    placeholder="URL of CSV file"
+                    placeholder='URL of CSV file'
                     value={this.props.value.text as string}
-                    id="SourceInput-URLInput"
+                    id='SourceInput-URLInput'
                 />
             ),
         };

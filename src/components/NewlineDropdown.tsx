@@ -41,7 +41,7 @@ export class NewlineDropdown extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         return (
             <Dropdown
-                label="Newline sequence"
+                label='Newline sequence'
                 responsiveMode={ResponsiveMode.large}
                 selectedKey={this.props.value}
                 options={this._options}
