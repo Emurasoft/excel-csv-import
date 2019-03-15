@@ -37,6 +37,7 @@ export class ImportComponent extends React.Component<{store: Store}, ImportOptio
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                     showAutoDetect={true}
+                    showLengthError={true}
                 />
                 <br />
                 <NewlineDropdown

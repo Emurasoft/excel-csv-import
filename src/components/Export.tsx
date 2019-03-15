@@ -72,6 +72,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                     showAutoDetect={false}
+                    showLengthError={false}
                 />{/*TODO don't show error for delimiter length*/}
                 <br />
                 <NewlineDropdown

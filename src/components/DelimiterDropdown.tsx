@@ -35,7 +35,7 @@ const DropdownOptionsWithAutoDetect: ReadonlyArray<IDropdownOption> = Object.fre
     ...DropdownOptionsNoAutoDetect,
 ]);
 
-type Props = BaseProps<string> & {showAutoDetect: boolean};
+type Props = BaseProps<string> & {showAutoDetect: boolean, showLengthError: boolean};
 
 interface State {
     selectedKey: DropdownOptionKey;
@@ -62,9 +62,9 @@ export class DelimiterDropdown extends React.Component<Props, State> {
             <TextField
                 style={style.monospace}
                 value={this.props.value}
-                onChange={this.textFieldOnChange}
+                onChange={(_, value) => this.props.onChange(value)}
                 description={DelimiterDropdown.description(this.props.value)}
-                onGetErrorMessage={DelimiterDropdown.getErrorMessage}
+                onGetErrorMessage={this.getErrorMessage}
                 deferredValidationTime={1}
                 id='DelimiterDropdown-TextField'
                 placeholder='Enter custom delimiter'
@@ -86,6 +86,18 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         );
     }
 
+    private static description(delimiter: string) {
+        if (delimiter.length == 1) {
+            return DelimiterDropdown.codePoint(delimiter);
+        } else {
+            return '';
+        }
+    }
+
+    private static codePoint(c: string) {
+        return 'U+' + c[0].charCodeAt(0).toString(16).toUpperCase().padStart(4, '0');
+    }
+
     private readonly _dropdownOptions: IDropdownOption[];
 
     private dropdownOnChange = (_, option: IDropdownOption) => {
@@ -101,27 +113,11 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         this.props.onChange(optionKeyMap[option.key]);
     }
 
-    private textFieldOnChange = (_, value) => {
-        this.props.onChange(value);
-    }
-
-    private static description(delimiter: string) {
-        if (delimiter.length == 1) {
-            return DelimiterDropdown.codePoint(delimiter);
-        } else {
-            return '';
-        }
-    }
-
-    private static codePoint(c: string) {
-        return 'U+' + c[0].charCodeAt(0).toString(16).toUpperCase().padStart(4, '0');
-    }
-
-    private static getErrorMessage(value: string) {
-        if (value.length <= 1) {
-            return '';
-        } else {
+    private getErrorMessage = (value: string) => {
+        if (this.props.showLengthError && value.length > 1) {
             return 'Delimiter length must be 0 or 1';
+        } else {
+            return '';
         }
     }
 }

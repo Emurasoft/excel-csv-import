@@ -6,19 +6,34 @@ import * as assert from 'assert';
 describe('DelimiterDropdown', () => {
     it('showAutoDetect', () => {
         const wrapper0 = shallow(
-            <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={false} />
+            <DelimiterDropdown
+                value={''}
+                onChange={() => {}}
+                showAutoDetect={false}
+                showLengthError={true}
+            />
         );
         assert(!wrapper0.html().includes('Auto-detect'))
 
         const wrapper1 = shallow(
-            <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={true} />
+            <DelimiterDropdown
+                value={''}
+                onChange={() => {}}
+                showAutoDetect={true}
+                showLengthError={true}
+            />
         );
         assert(wrapper1.html().includes('Auto-detect'))
     });
 
     it('dropdownChange', () => {
         const wrapper = shallow(
-            <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={true} />
+            <DelimiterDropdown
+                value={''}
+                onChange={() => {}}
+                showAutoDetect={true}
+                showLengthError={true}
+            />
         );
         const dropdown = wrapper.find('#DelimiterDropdown-Dropdown');
         dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
@@ -36,6 +51,7 @@ describe('DelimiterDropdown', () => {
                 value={''}
                 onChange={(newDelimiter) => result = newDelimiter}
                 showAutoDetect={true}
+                showLengthError={true}
             />
         );
         const dropdown = wrapper.find('#DelimiterDropdown-Dropdown');
@@ -76,7 +92,12 @@ describe('DelimiterDropdown', () => {
 
         for (const test of tests) {
             const wrapper = shallow(
-                <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={true} />
+                <DelimiterDropdown
+                    value={''}
+                    onChange={() => {}}
+                    showAutoDetect={true}
+                    showLengthError={true}
+                />
             );
             wrapper.find('#DelimiterDropdown-Dropdown')
                 .simulate('change', null, {key: DropdownOptionKey.other});
@@ -94,10 +115,15 @@ describe('DelimiterDropdown', () => {
     });
 
     it('getErrorMessage()', () => {
+        const dropdown0 = new DelimiterDropdown({showLengthError: true})
         // @ts-ignore
-        assert.strictEqual(DelimiterDropdown.getErrorMessage('a'), '');
+        assert.strictEqual(dropdown0.getErrorMessage('a'), '');
         // @ts-ignore
-        assert(DelimiterDropdown.getErrorMessage('aa') !== '');
+        assert(dropdown0.getErrorMessage('aa') !== '');
+
+        const dropdown1 = new DelimiterDropdown({showLengthError: false});
+        // @ts-ignore
+        assert.strictEqual(dropdown1.getErrorMessage('aa'), '');
     });
 
     // Error message rendering can't easily be tested, even with setTimeout
