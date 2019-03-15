@@ -79,7 +79,10 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     showAutoDetect={false}
                 />
                 <br />
-                <PrimaryButton onClick={this.buttonOnClick}>
+                <PrimaryButton
+                    onClick={this.buttonOnClick}
+                    disabled={this.props.store.state.initialized}
+                >
                     Export as CSV
                 </PrimaryButton> {/*TODO disable button when initializing*/}
                 <br />

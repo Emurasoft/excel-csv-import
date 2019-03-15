@@ -11,6 +11,7 @@ import * as assert from 'assert';
 describe('ExportComponent', () => {
     it('export text', (done) => {
         const store: any = {};
+        store.state = {initialized: true};
         store.worksheetArea = () => 0;
         store.csvStringAndName = async (options) => {
             const expected = {

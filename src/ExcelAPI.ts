@@ -1,4 +1,5 @@
 export async function init() {
+    // TODO check API compatibility
     await Office.onReady();
 }
 
