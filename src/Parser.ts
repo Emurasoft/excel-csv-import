@@ -66,10 +66,29 @@ export function _processImport(
     });
 }
 
-export async function exportCSV(exportOptions: ExportOptions) {
-    let result = '';
-    for (const row of await ExcelAPI.worksheetValues()) {
+export async function csvStringAndName(exportOptions: ExportOptions, excelAPI = ExcelAPI) {
+    const namesAndValues = await excelAPI.workbookNamesAndValues();
+    let string = '';
+    for (const row of namesAndValues.values) {
+        string += row.join(exportOptions.delimiter) + exportOptions.newline;
+    }
+    return {name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName), string};
+}
+
+export function _csvString(values: string[][], exportOptions: ExportOptions) {
+    let result = ''; // TODO quotes
+    for (const row of values) {
         result += row.join(exportOptions.delimiter) + exportOptions.newline;
     }
     return result;
+}
+
+export function _nameToUse(workbookName: string, worksheetName: string) {
+    if (/^Sheet\d+$/.test(worksheetName)) { // 'Sheet1' isn't a good name to use
+        // Workbook name usually includes the file extension
+        const to = workbookName.lastIndexOf('.');
+        return workbookName.substr(0, to === -1 ? workbookName.length : to);
+    } else {
+        return worksheetName;
+    }
 }

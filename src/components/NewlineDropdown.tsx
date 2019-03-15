@@ -30,9 +30,9 @@ export class NewlineDropdown extends React.Component<Props, {}> {
     public constructor(props: Props) {
         super(props);
         if (props.showAutoDetect) {
-            this._options = [...newlineSequeneceMenu];
-        } else {
             this._options = [autoDetectOption, ...newlineSequeneceMenu];
+        } else {
+            this._options = [...newlineSequeneceMenu];
         }
     }
 

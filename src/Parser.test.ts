@@ -1,9 +1,10 @@
 import * as Parser from './Parser';
+import {_csvString, _nameToUse, ExportOptions, NewlineSequence} from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 
 describe('Parser', () => {
-    it('import', (done) => {
+    it('_processImport()', (done) => {
         const api: any = {};
         api.setChunk = (worksheet, row, data) => {
             assert.strictEqual(worksheet, 'worksheet');
@@ -15,10 +16,113 @@ describe('Parser', () => {
         const importOptions: Parser.ImportOptions & ParseConfig = {
             source: {inputType: Parser.InputType.text, text: 'a,b'},
             delimiter: ',',
-            newline: '\n',
+            newline: NewlineSequence.LF,
             encoding: '',
         };
         // noinspection JSIgnoredPromiseFromCall
         Parser._processImport('worksheet' as any, importOptions, api);
+    });
+
+    it('_csvString()', () => {
+        const tests: {values: string[][], exportOptions: ExportOptions, expected: string}[] = [
+            {
+                values: [[]],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: '\n',
+            },
+            {
+                values: [['a', 'b']],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'ab\n',
+            },
+            {
+                values: [[]],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: '\n',
+            },
+            {
+                values: [['a', 'b']],
+                exportOptions: {
+                    delimiter: ',,',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,,b\n',
+            },
+            {
+                values: [['a', 'b'], ['c']],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\nc\n',
+            },
+            {
+                values: [['a', 'b'], ['c'], ['d','e']],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.CRLF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\r\nc\r\nd,e\r\n',
+            },
+        ];
+
+        for (const test of tests) {
+            assert.strictEqual(_csvString(test.values, test.exportOptions), test.expected);
+        }
+    });
+
+    it('_nameToUse()', () => {
+        const tests: {workbookName: string, worksheetName: string, expected: string}[] = [
+            {
+                workbookName: '',
+                worksheetName: '',
+                expected: '',
+            },
+            {
+                workbookName: 'workbook',
+                worksheetName: 'Sheet11',
+                expected: 'workbook',
+            },
+            {
+                workbookName: 'workbook.',
+                worksheetName: 'Sheet11',
+                expected: 'workbook',
+            },
+            {
+                workbookName: '.xlsx',
+                worksheetName: 'Sheet11',
+                expected: '',
+            },
+            {
+                workbookName: 'workbook',
+                worksheetName: 'Sheet',
+                expected: 'Sheet',
+            },
+        ];
+
+        for (const test of tests) {
+            assert.strictEqual(_nameToUse(test.workbookName, test.worksheetName), test.expected);
+        }
     });
 });

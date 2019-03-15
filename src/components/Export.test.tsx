@@ -11,7 +11,7 @@ import * as assert from 'assert';
 describe('ExportComponent', () => {
     it('export text', () => {
         const store: any = {};
-        store.export = async (options) => {
+        store.csvStringAndName = async (options) => {
             const expected = {
                 exportType: ExportType.text,
                 encoding: 'UTF-8',
@@ -24,7 +24,7 @@ describe('ExportComponent', () => {
                 processing: true,
             }
             assert.deepStrictEqual(options, expected);
-            return 'export result';
+            return {string: 'export result'};
         }
         const wrapper = shallow(<ExportComponent store={store} />)
         wrapper.find(ExportTypeDropdown).simulate('change', ExportType.text);

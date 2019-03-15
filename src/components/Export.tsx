@@ -72,7 +72,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                     showAutoDetect={false}
-                />
+                />{/*TODO don't show error for delimiter length*/}
                 <br />
                 <NewlineDropdown
                     value={this.state.newline}
@@ -97,15 +97,15 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         const exportType = this.state.exportType;
         const blobOptions = {type: 'text/csv;charset=' + this.state.encoding};
 
-        const text = await this.props.store.export(this.state);
+        const csvStringAndName = await this.props.store.csvStringAndName(this.state);
         this.setState({processing: false});
         switch (exportType) {
         case ExportType.file:
-            const blob = new Blob([text], blobOptions);
-            FileSaver.saveAs(blob, 'name.csv'); // TODO filename
+            const blob = new Blob([csvStringAndName.string], blobOptions);
+            FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
             return;
         case ExportType.text:
-            this.setState({outputText: {show: true, text}});
+            this.setState({outputText: {show: true, text: csvStringAndName.string}});
             return;
         }
     }

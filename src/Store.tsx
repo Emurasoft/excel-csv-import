@@ -59,9 +59,9 @@ export class Store extends React.Component<{}, State> {
         return result
     }
 
-    public export = async (options: Parser.ExportOptions) => {
-        const result = await Parser.exportCSV(options);
-        this._log.push('export', {options});
+    public csvStringAndName = async (options: Parser.ExportOptions) => {
+        const result = await Parser.csvStringAndName(options);
+        this._log.push('csvStringAndName', {options});
         return result;
     }
 

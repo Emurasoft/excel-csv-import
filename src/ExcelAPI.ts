@@ -61,13 +61,14 @@ export async function worksheetShape() {
     return result;
 }
 
-export async function worksheetValues() {
-    let result: string[][] = null;
+export async function workbookNamesAndValues() {
+    let result: {workbookName: string, worksheetName: string, values: string[][]} = null;
     await Excel.run(async (context) => {
-        const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
-        const range = curretWorksheet.getUsedRange(true).load('values');
+        const workbook = context.workbook.load('name');
+        const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
+        const range = worksheet.getUsedRange(true).load('values');
         await context.sync();
-        result = range.values;
+        result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
     });
     return result;
 }
