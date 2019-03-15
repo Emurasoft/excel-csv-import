@@ -2,9 +2,9 @@ import {ExportComponent} from './Export';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
-import {ExportType} from '../Parser';
+import {ExportType, NewlineSequence} from '../Parser';
 import {DelimiterDropdown} from './DelimiterDropdown';
-import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
+import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, TextField} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 
@@ -16,7 +16,7 @@ describe('ExportComponent', () => {
                 exportType: ExportType.text,
                 encoding: 'UTF-8',
                 delimiter: ',',
-                newlineSequence: NewlineSequence.LF,
+                newline: NewlineSequence.LF,
                 outputText: {
                     show: false,
                     text: '',

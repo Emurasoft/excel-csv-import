@@ -3,9 +3,9 @@ import * as React from 'react';
 import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
-import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
+import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
-import {ExportOptions, ExportType} from '../Parser';
+import {ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as style from './style';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
@@ -23,7 +23,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         this.state = {
             exportType: ExportType.file,
             delimiter: '\u002c',
-            newlineSequence: NewlineSequence.CRLF,
+            newline: NewlineSequence.CRLF,
             encoding: 'UTF-8',
             processing: false,
             outputText: {
@@ -75,8 +75,8 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 />
                 <br />
                 <NewlineDropdown
-                    value={this.state.newlineSequence}
-                    onChange={(newlineSequence) => this.setState({newlineSequence})}
+                    value={this.state.newline}
+                    onChange={(newline) => this.setState({newline})}
                     showAutoDetect={false}
                 />
                 <br />

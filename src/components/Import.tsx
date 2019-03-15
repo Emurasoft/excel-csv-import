@@ -2,26 +2,19 @@ import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
-import {ImportOptions, InputType, Source} from '../Parser';
+import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
-import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
+import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
 
-interface State {
-    source: Source;
-    delimiter: string | null;
-    newlineSequence: NewlineSequence;
-    encoding: string;
-}
-
-export class ImportComponent extends React.Component<{store: Store}, State> {
+export class ImportComponent extends React.Component<{store: Store}, ImportOptions> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
-            newlineSequence: NewlineSequence.AutoDetect,
+            newline: NewlineSequence.AutoDetect,
             encoding: '',
         };
     }
@@ -47,8 +40,8 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 />
                 <br />
                 <NewlineDropdown
-                    value={this.state.newlineSequence}
-                    onChange={(newlineSequence) => this.setState({newlineSequence})}
+                    value={this.state.newline as NewlineSequence}
+                    onChange={(newline) => this.setState({newline})}
                     showAutoDetect={true}
                 />
                 <br />
@@ -59,7 +52,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 >
                     <PrimaryButton
                         disabled={this.buttonTooltipContent() !== ''}
-                        onClick={this.import}
+                        onClick={() => this.props.store.import(this.state)}
                     >
                         Import CSV
                     </PrimaryButton>{/*TODO progress text*/}
@@ -78,16 +71,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         } else {
             return '';
         }
-    }
-
-    private import = () => {
-        const options: ImportOptions = {
-            source: this.state.source,
-            delimiter: this.state.delimiter,
-            newline: this.state.newlineSequence,
-            encoding: this.state.encoding,
-        }; // TODO inherit ImportOptions for state
-        this.props.store.import(options);
     }
 }
 

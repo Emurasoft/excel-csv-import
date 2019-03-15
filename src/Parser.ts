@@ -2,7 +2,6 @@
 import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {ParseConfig} from 'papaparse';
-import {NewlineSequence} from './components/NewlineDropdown';
 
 export enum InputType {file, text, url}
 
@@ -13,11 +12,19 @@ export interface Source {
 }
 
 type Config = {
-    [P in 'delimiter' | 'newline' | 'encoding']: ParseConfig[P];
+    [P in 'delimiter' | 'encoding']: ParseConfig[P];
+}
+
+export enum NewlineSequence {
+    AutoDetect = '',
+    CRLF = '\r\n',
+    CR = '\r',
+    LF = '\n'
 }
 
 export interface ImportOptions extends Config {
     source: Source;
+    newline: NewlineSequence;
 }
 
 export enum ExportType {file, text}
@@ -25,7 +32,7 @@ export enum ExportType {file, text}
 export interface ExportOptions {
     exportType: ExportType;
     delimiter: string;
-    newlineSequence: NewlineSequence;
+    newline: NewlineSequence;
     encoding: string;
 }
 
@@ -62,7 +69,7 @@ export function _processImport(
 export async function exportCSV(exportOptions: ExportOptions) {
     let result = '';
     for (const row of await ExcelAPI.worksheetValues()) {
-        result += row.join(exportOptions.delimiter) + exportOptions.newlineSequence;
+        result += row.join(exportOptions.delimiter) + exportOptions.newline;
     }
     return result;
 }

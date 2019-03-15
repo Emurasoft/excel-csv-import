@@ -2,13 +2,7 @@ import * as React from 'react';
 import {ResponsiveMode} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {BaseProps} from './BaseProps';
-
-export enum NewlineSequence {
-    AutoDetect = '',
-    CRLF = '\r\n',
-    CR = '\r',
-    LF = '\n'
-}
+import {NewlineSequence} from '../Parser';
 
 const autoDetectOption: Readonly<IDropdownOption> = Object.freeze({
     key: NewlineSequence.AutoDetect,
