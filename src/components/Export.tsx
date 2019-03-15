@@ -57,6 +57,16 @@ class ExportComponent extends React.Component<{store: Store}, State> {
 
         return (
             <>
+                <ExportTypeDropdown
+                    value={this.state.exportType}
+                    onChange={(exportType) => this.setState({exportType})}
+                />
+                <br />
+                <EncodingDropdown
+                    value={this.state.encoding}
+                    onChange={(encoding) => this.setState({encoding})}
+                    hidden={this.state.exportType === ExportType.text}
+                />
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
@@ -68,16 +78,6 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                     onChange={(newlineSequence) => this.setState({newlineSequence})}
                 />
                 <br />
-                <ExportTypeDropdown
-                    value={this.state.exportType}
-                    onChange={(exportType) => this.setState({exportType})}
-                />
-                <br />
-                <EncodingDropdown
-                    value={this.state.encoding}
-                    onChange={(encoding) => this.setState({encoding})}
-                    hidden={this.state.exportType === ExportType.text}
-                />
                 <PrimaryButton onClick={this.buttonOnClick}>
                     Export as CSV
                 </PrimaryButton>

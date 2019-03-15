@@ -29,17 +29,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     public render() {
         return (
             <>
-                <DelimiterDropdown
-                    value={this.state.delimiter}
-                    onChange={(delimiter) => this.setState({delimiter})}
-                    showAutoDetect={true}
-                />
-                <br />
-                <NewlineDropdown
-                    value={this.state.newlineSequence}
-                    onChange={(newlineSequence) => this.setState({newlineSequence})}
-                />
-                <br />
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}
@@ -49,6 +38,16 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.encoding}
                     onChange={(encoding) => this.setState({encoding})}
                     hidden={this.state.source.inputType === InputType.text}
+                />
+                <DelimiterDropdown
+                    value={this.state.delimiter}
+                    onChange={(delimiter) => this.setState({delimiter})}
+                    showAutoDetect={true}
+                />
+                <br />
+                <NewlineDropdown
+                    value={this.state.newlineSequence}
+                    onChange={(newlineSequence) => this.setState({newlineSequence})}
                 />
                 <br />
                 <TooltipHost
