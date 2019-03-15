@@ -17,7 +17,7 @@ export interface OutputText {
 
 type State = ExportOptions & {outputText: OutputText, processing: boolean};
 
-class ExportComponent extends React.Component<{store: Store}, State> {
+export class ExportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {

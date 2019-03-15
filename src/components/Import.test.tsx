@@ -9,7 +9,7 @@ import {PrimaryButton} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 
-describe('Import', () => {
+describe('ImportComponent', () => {
     it('import', () => {
         let receivedOptions = null;
         const stub: any = {};
