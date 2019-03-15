@@ -38,6 +38,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.encoding}
                     onChange={(encoding) => this.setState({encoding})}
                     hidden={this.state.source.inputType === InputType.text}
+                    showAutoDetect={true}
                 />
                 <DelimiterDropdown
                     value={this.state.delimiter}

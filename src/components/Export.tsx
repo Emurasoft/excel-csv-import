@@ -66,6 +66,7 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                     value={this.state.encoding}
                     onChange={(encoding) => this.setState({encoding})}
                     hidden={this.state.exportType === ExportType.text}
+                    showAutoDetect={false}
                 />
                 <DelimiterDropdown
                     value={this.state.delimiter}
