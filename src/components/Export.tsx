@@ -16,7 +16,7 @@ export interface OutputText {
     text: string;
 }
 
-type State = ExportOptions & {outputText: OutputText, processing: boolean};
+type State = ExportOptions & {outputText: OutputText, processing: boolean, largeFile: boolean};
 
 export class ExportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
@@ -31,6 +31,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 show: false,
                 text: '',
             },
+            largeFile: false,
         };
     }
 
@@ -44,6 +45,12 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 wrap="off"
                 value={this.state.outputText.text}
             />
+        );
+
+        const largeFileWarning = (
+            <Text style={{color: 'red'}} variant='medium'>
+                Large file export is not supported.
+            </Text>
         );
 
         return (
@@ -74,13 +81,21 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 <br />
                 <PrimaryButton onClick={this.buttonOnClick}>
                     Export as CSV
-                </PrimaryButton>
+                </PrimaryButton> {/*TODO disable button when initializing*/}
                 <br />
+                {this.state.largeFile ? largeFileWarning : null}
                 <ProgressText hidden={!this.state.processing} />
                 {this.state.outputText.show ? outputTextField : null}
             </>
         );
-        // TODO if spreadsheet is big show notice that large files are not supported, below button
+    }
+
+    public async componentDidMount() {
+        // 1gb divided by 50 bytes per cell = 20,000,000 cells
+        const aLargeExcelDocumentProbablyHasThisManyCells = 10**9 / 50;
+        const largeFile =
+            await this.props.store.worksheetArea() > aLargeExcelDocumentProbablyHasThisManyCells;
+        this.setState({largeFile});
     }
 
     private buttonOnClick = async () => {

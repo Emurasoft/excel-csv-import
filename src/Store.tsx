@@ -53,10 +53,10 @@ export class Store extends React.Component<{}, State> {
         this._log.push('import', {options});
     }
 
-    public worksheetShape = async () => {
-        const result = await ExcelAPI.worksheetShape();
-        this._log.push('worksheetShape');
-        return result
+    public worksheetArea = async () => {
+        const result = await ExcelAPI.worksheetArea();
+        this._log.push('worksheetArea');
+        return result;
     }
 
     public csvStringAndName = async (options: Parser.ExportOptions) => {

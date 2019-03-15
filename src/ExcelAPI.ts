@@ -50,13 +50,13 @@ export function _resize(a: string[][], maxLength: number) {
     }
 }
 
-export async function worksheetShape() {
-    let result: {rows: number, columns: number} = null;
+export async function worksheetArea() {
+    let result: number = null;
     await Excel.run(async (context) => {
         const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
         const range = curretWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
         await context.sync();
-        result = {rows: range.rowCount, columns: range.columnCount};
+        result = range.rowCount * range.columnCount;
     });
     return result;
 }

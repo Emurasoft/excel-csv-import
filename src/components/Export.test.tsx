@@ -9,8 +9,9 @@ import {PrimaryButton, TextField} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 
 describe('ExportComponent', () => {
-    it('export text', () => {
+    it('export text', (done) => {
         const store: any = {};
+        store.worksheetArea = () => 0;
         store.csvStringAndName = async (options) => {
             const expected = {
                 exportType: ExportType.text,
@@ -22,6 +23,7 @@ describe('ExportComponent', () => {
                     text: '',
                 },
                 processing: true,
+                largeFile: false,
             }
             assert.deepStrictEqual(options, expected);
             return {string: 'export result'};
@@ -33,6 +35,7 @@ describe('ExportComponent', () => {
         wrapper.find(PrimaryButton).simulate('click');
         setTimeout(() => {
             assert.strictEqual(wrapper.find(TextField).getElement().props.value, 'export result');
+            done();
         }, 2);
     });
 });

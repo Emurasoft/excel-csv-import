@@ -24,11 +24,12 @@ describe('ImportComponent', () => {
         wrapper.find(EncodingDropdown).simulate('change', 'UTF-8');
         wrapper.find(PrimaryButton).simulate('click');
 
-        const expected: ImportOptions = {
+        const expected = {
             source: {inputType: 1, text: 'csv text'},
             delimiter: ',',
             newline: NewlineSequence.LF,
             encoding: 'UTF-8',
+            processing: false,
         };
         assert.deepStrictEqual(receivedOptions, expected);
     });
