@@ -7,8 +7,11 @@ import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
+import {ProgressText} from './ProgressText';
 
-export class ImportComponent extends React.Component<{store: Store}, ImportOptions> {
+type State = ImportOptions & {processing: boolean};
+
+export class ImportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
         super(props);
         this.state = {
@@ -16,6 +19,7 @@ export class ImportComponent extends React.Component<{store: Store}, ImportOptio
             delimiter: '',
             newline: NewlineSequence.AutoDetect,
             encoding: '',
+            processing: false,
         };
     }
 
@@ -56,8 +60,10 @@ export class ImportComponent extends React.Component<{store: Store}, ImportOptio
                         onClick={() => this.props.store.import(this.state)}
                     >
                         Import CSV
-                    </PrimaryButton>{/*TODO progress text*/}
+                    </PrimaryButton>
                 </TooltipHost>
+                <br />
+                <ProgressText hidden={!this.state.processing} />
             </>
         );
     }

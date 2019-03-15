@@ -9,6 +9,7 @@ import {ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as style from './style';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
+import {ProgressText} from './ProgressText';
 
 export interface OutputText {
     show: boolean;
@@ -34,25 +35,15 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render() {
-        const processingText = (
-            <>
-                <br />
-                <Text variant='small'>Processing</Text>
-            </>
-        );
-
         const outputTextField = (
-            <>
-                <br />
-                <TextField
-                    label="Export result"
-                    style={style.monospace}
-                    readOnly={true}
-                    multiline rows={15}
-                    wrap="off"
-                    value={this.state.outputText.text}
-                />
-            </>
+            <TextField
+                label="Export result"
+                style={style.monospace}
+                readOnly={true}
+                multiline rows={15}
+                wrap="off"
+                value={this.state.outputText.text}
+            />
         );
 
         return (
@@ -84,7 +75,8 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 <PrimaryButton onClick={this.buttonOnClick}>
                     Export as CSV
                 </PrimaryButton>
-                {this.state.processing ? processingText : null}
+                <br />
+                <ProgressText hidden={!this.state.processing} />
                 {this.state.outputText.show ? outputTextField : null}
             </>
         );
