@@ -4,12 +4,21 @@ import * as React from 'react';
 import * as assert from 'assert';
 
 describe('DelimiterDropdown', () => {
+    it('showAutoDetect', () => {
+        const wrapper0 = shallow(
+            <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={false} />
+        );
+        assert(!wrapper0.html().includes('Auto-detect'))
+
+        const wrapper1 = shallow(
+            <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={true} />
+        );
+        assert(wrapper1.html().includes('Auto-detect'))
+    });
+
     it('dropdownChange', () => {
         const wrapper = shallow(
-            <DelimiterDropdown
-                value={''}
-                onChange={() => {}}
-            />
+            <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={true} />
         );
         const dropdown = wrapper.find('#DelimiterDropdown-Dropdown');
         dropdown.simulate('change', null, {key: DropdownOptionKey.autoDetect});
@@ -26,6 +35,7 @@ describe('DelimiterDropdown', () => {
             <DelimiterDropdown
                 value={''}
                 onChange={(newDelimiter) => result = newDelimiter}
+                showAutoDetect={true}
             />
         );
         const dropdown = wrapper.find('#DelimiterDropdown-Dropdown');
@@ -66,10 +76,7 @@ describe('DelimiterDropdown', () => {
 
         for (const test of tests) {
             const wrapper = shallow(
-                <DelimiterDropdown
-                    value={''}
-                    onChange={() => {}}
-                />
+                <DelimiterDropdown value={''} onChange={() => {}} showAutoDetect={true} />
             );
             wrapper.find('#DelimiterDropdown-Dropdown')
                 .simulate('change', null, {key: DropdownOptionKey.other});

@@ -8,42 +8,55 @@ import {BaseProps} from './BaseProps';
 
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
 
+const DropdownOptionsNoAutoDetect: ReadonlyArray<IDropdownOption> = Object.freeze([
+    {
+        key: DropdownOptionKey.comma,
+        text: 'Comma (U+002C)',
+    },
+    {
+        key: DropdownOptionKey.space,
+        text: 'Space (U+0020)',
+    },
+    {
+        key: DropdownOptionKey.tab,
+        text: 'Tab (U+0009)',
+    },
+    {
+        key: DropdownOptionKey.other,
+        text: 'Other',
+    },
+]);
+
+const DropdownOptionsWithAutoDetect: ReadonlyArray<IDropdownOption> = Object.freeze([
+    {
+        key: DropdownOptionKey.autoDetect,
+        text: 'Auto-detect',
+    },
+    ...DropdownOptionsNoAutoDetect,
+]);
+
+type Props = BaseProps<string> & {showAutoDetect: boolean};
+
 interface State {
     selectedKey: DropdownOptionKey;
 }
 
-export class DelimiterDropdown extends React.Component<BaseProps<string>, State> {
+export class DelimiterDropdown extends React.Component<Props, State> {
     public constructor(props) {
         super(props);
         this.state = {
-            selectedKey: DropdownOptionKey.autoDetect,
+            selectedKey: props.showAutoDetect ? DropdownOptionKey.autoDetect
+                                              : DropdownOptionKey.comma,
         };
+
+        if (props.showAutoDetect) {
+            this._dropdownOptions = [...DropdownOptionsWithAutoDetect];
+        } else {
+            this._dropdownOptions = [...DropdownOptionsNoAutoDetect];
+        }
     }
 
     public render() {
-        const options: IDropdownOption[] = [
-            {
-                key: DropdownOptionKey.autoDetect,
-                text: 'Auto-detect'
-            },
-            {
-                key: DropdownOptionKey.comma,
-                text: 'Comma (U+002C)',
-            },
-            {
-                key: DropdownOptionKey.space,
-                text: 'Space (U+0020)',
-            },
-            {
-                key: DropdownOptionKey.tab,
-                text: 'Tab (U+0009)',
-            },
-            {
-                key: DropdownOptionKey.other,
-                text: 'Other',
-            },
-        ];
-
         const customInput =
         <div style={{marginTop: '5px'}}>
             <TextField
@@ -62,7 +75,7 @@ export class DelimiterDropdown extends React.Component<BaseProps<string>, State>
             <>
                 <Dropdown
                     label='Delimiter'
-                    options={options}
+                    options={this._dropdownOptions}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.state.selectedKey}
                     onChange={this.dropdownOnChange}
@@ -72,6 +85,8 @@ export class DelimiterDropdown extends React.Component<BaseProps<string>, State>
             </>
         );
     }
+
+    private readonly _dropdownOptions: IDropdownOption[];
 
     private dropdownOnChange = (_, option: IDropdownOption) => {
         const optionKeyMap = {

@@ -4,8 +4,7 @@ import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown, NewlineSequence} from './NewlineDropdown';
-import {EncodingDropdownOptions} from './EncodingDropdownOptions';
-import {Dropdown, PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
+import {PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType} from '../Parser';
 import * as style from './style';
 import * as FileSaver from 'file-saver';
@@ -23,7 +22,7 @@ class ExportComponent extends React.Component<{store: Store}, State> {
         super(props);
         this.state = {
             exportType: ExportType.file,
-            delimiter: ',',
+            delimiter: '\u002c',
             newlineSequence: NewlineSequence.CRLF,
             encoding: 'UTF-8',
             processing: false,
@@ -61,7 +60,8 @@ class ExportComponent extends React.Component<{store: Store}, State> {
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
-                /> {/*TODO remove auto-detect option*/}
+                    showAutoDetect={false}
+                />
                 <br />
                 <NewlineDropdown
                     value={this.state.newlineSequence}

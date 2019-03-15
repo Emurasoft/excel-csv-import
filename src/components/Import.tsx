@@ -32,6 +32,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <DelimiterDropdown
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
+                    showAutoDetect={true}
                 />
                 <br />
                 <NewlineDropdown
