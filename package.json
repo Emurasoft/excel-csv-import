@@ -6,7 +6,7 @@
   "description": "",
   "scripts": {
     "test": "ts-mocha $NODE_DEBUG_OPTION -p tsconfig.json -r test/setup.ts **/*.test.ts **/*.test.tsx",
-    "lint": "eslint --ext .js --ext .ts --ext .tsx .",
+    "lint": "eslint --ext .js,.ts,.tsx .",
     "devServer": "webpack-dev-server --config webpack.dev.js",
     "validateManifest": "validate-office-addin manifests/manifestDev.xml",
     "build": "webpack --config webpack.prod.js"
