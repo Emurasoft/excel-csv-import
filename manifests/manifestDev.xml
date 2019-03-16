@@ -8,67 +8,42 @@
 >
     <Id>5ba168da-3995-456c-8770-f8b4a499c617</Id>
 
-    <!--Version. Updates from the store only get triggered if there is a version change. -->
+    <!--Updates from the store only get triggered if there is a version change. -->
     <Version>1.0.0</Version>
     <ProviderName>Emurasoft, Inc.</ProviderName>
     <DefaultLocale>en-US</DefaultLocale>
-    <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
     <DisplayName DefaultValue="CSV Import+Export" />
-    <Description DefaultValue="[Workbook Add-in description]" /> <!--TODO-->
+    <Description DefaultValue="Adds CSV import and export functions to Excel." />
 
-    <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
     <IconUrl DefaultValue="https://localhost:3000/icon-32.png" />
     <HighResolutionIconUrl DefaultValue="https://localhost:3000/hi-res-icon.png" />
 
     <SupportUrl DefaultValue="https://www.emeditor.com/support/#contact" /><!--TODO-->
 
-    <!--Begin TaskPane Mode integration. This section is used if there are no VersionOverrides or if the Office client version does not support add-in commands. -->
     <Hosts>
         <Host Name="Workbook" />
     </Hosts>
     <DefaultSettings>
         <SourceLocation DefaultValue="https://localhost:3000/index.html" />
     </DefaultSettings>
-    <!-- End TaskPane Mode integration.  -->
 
     <Permissions>ReadWriteDocument</Permissions>
 
-    <!-- Begin Add-in Commands Mode integration. -->
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
 
-        <!-- The Hosts node is required. -->
         <Hosts>
-            <!-- Each host can have a different set of commands. -->
-            <!-- Excel host is Workbook, Word host is Document, and PowerPoint host is Presentation. -->
-            <!-- Make sure the hosts you override match the hosts declared in the top section of the manifest. -->
             <Host xsi:type="Workbook">
-                <!-- Form factor. Currently only DesktopFormFactor is supported. -->
                 <DesktopFormFactor>
-                    <!--"This code enables a customizable message to be displayed when the add-in is loaded successfully upon individual install."-->
                     <GetStarted>
-                        <!-- Title of the Getting Started callout. resid points to a ShortString resource -->
                         <Title resid="Emurasoft.GetStarted.Title" />
-
-                        <!-- Description of the Getting Started callout. resid points to a LongString resource -->
                         <Description resid="Emurasoft.GetStarted.Description" />
-
                         <LearnMoreUrl resid="Emurasoft.GetStarted.URL" />
                     </GetStarted>
 
-                    <!-- Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called.
-                      Think of the FunctionFile as the code behind ExecuteFunction. -->
-                    <FunctionFile resid="Emurasoft.mainURL" />
-
-                    <!-- PrimaryCommandSurface is the main Office Ribbon. -->
                     <ExtensionPoint xsi:type="PrimaryCommandSurface">
-                        <!-- Use OfficeTab to extend an existing Tab. Use CustomTab to create a new tab. -->
                         <OfficeTab id="TabInsert">
-                            <!-- Ensure you provide a unique id for the group. Recommendation for any IDs is to namespace using your company name. -->
                             <Group id="Emurasoft.Group">
-                                <!-- Label for your group. resid must point to a ShortString resource. -->
                                 <Label resid="Emurasoft.Group.Label" />
-                                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
-                                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
                                 <Icon>
                                     <bt:Image size="16" resid="Emurasoft.icon16" />
                                     <bt:Image size="32" resid="Emurasoft.icon32" />
@@ -102,7 +77,7 @@
                                             </Icon>
                                             <Action xsi:type="ShowTaskpane">
                                                 <TaskpaneId>Taskpane0</TaskpaneId>
-                                                <SourceLocation resid="Emurasoft.mainURL" />
+                                                <SourceLocation resid="Emurasoft.importURL" />
                                             </Action>
                                         </Item>
                                         <Item id="Emurasoft.Menu.Item1">
@@ -118,7 +93,7 @@
                                             </Icon>
                                             <Action xsi:type="ShowTaskpane">
                                                 <TaskpaneId>Taskpane0</TaskpaneId>
-                                                <SourceLocation resid="Emurasoft.mainURL" />
+                                                <SourceLocation resid="Emurasoft.exportURL" />
                                             </Action>
                                         </Item>
                                     </Items>
@@ -130,7 +105,6 @@
             </Host>
         </Hosts>
 
-        <!-- You can use resources across hosts and form factors. -->
         <Resources>
             <bt:Images>
                 <bt:Image id="Emurasoft.icon16" DefaultValue="https://localhost:3000/icon-16.png" />
@@ -139,24 +113,24 @@
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="Emurasoft.GetStarted.URL" DefaultValue="https://github.com/Emurasoft/excel-csv-import" />
-                <bt:Url id="Emurasoft.mainURL" DefaultValue="https://localhost:3000/index.html" />
+                <bt:Url id="Emurasoft.importURL" DefaultValue="https://localhost:3000/import" />
+                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://localhost:3000/export" />
             </bt:Urls>
-            <!-- ShortStrings max characters==125. -->
+            <!-- ShortStrings max length = 125 -->
             <bt:ShortStrings>
                 <bt:String id="Emurasoft.Title" DefaultValue="CSV Import+Export" />
-                <bt:String id="Emurasoft.GetStarted.Title" DefaultValue="Add-in loaded" />
+                <bt:String id="Emurasoft.GetStarted.Title" DefaultValue="Open this menu to access CSV Import+Export" />
                 <bt:String id="Emurasoft.Group.Label" DefaultValue="CSV" />
                 <bt:String id="Emurasoft.Menu.Item0.Title" DefaultValue="Import CSV" />
                 <bt:String id="Emurasoft.Menu.Item1.Title" DefaultValue="Export to CSV" />
             </bt:ShortStrings>
-            <!-- LongStrings max characters==250. -->
+            <!-- LongStrings max length = 250 -->
             <bt:LongStrings>
-                <bt:String id="Emurasoft.GetStarted.Description" DefaultValue="description" /> <!-- TODO -->
+                <bt:String id="Emurasoft.GetStarted.Description" DefaultValue="" />
                 <bt:String id="Emurasoft.Menu.Tip.Description" DefaultValue="Import CSV" />
                 <bt:String id="Emurasoft.Menu.Item0.Description" DefaultValue="Import a CSV file to workbook" />
                 <bt:String id="Emurasoft.Menu.Item1.Description" DefaultValue="Export the current worksheet to a CSV file" />
             </bt:LongStrings>
         </Resources>
     </VersionOverrides>
-    <!-- End Add-in Commands Mode integration. -->
 </OfficeApp>
