@@ -24,6 +24,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render(): React.ReactNode {
+        // TODO page margin
         return (
             <>
                 <SourceInput
