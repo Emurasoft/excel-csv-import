@@ -59,7 +59,7 @@ export class DelimiterDropdown extends React.Component<Props, State> {
 
     public render(): React.ReactNode {
         const customInput =
-        <div style={{marginTop: '5px'}}>
+        <div className={style.smallDivider}>
             <TextField
                 className={style.monospace}
                 value={this.props.value}

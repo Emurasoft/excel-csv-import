@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Text} from 'office-ui-fabric-react';
+import * as style from './style.css';
 
 export class ProgressText extends React.Component<{hidden: boolean}, {}> {
     public render(): React.ReactNode {
@@ -7,7 +8,7 @@ export class ProgressText extends React.Component<{hidden: boolean}, {}> {
             return null;
         } else {
             return (
-                <div style={{marginTop: '5px'}}> {/*TODO global CSS*/}
+                <div className={style.smallDivider}>
                     <Text variant='small'>
                         Processing
                     </Text>

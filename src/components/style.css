@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
 .pageMargin {
   margin: 5px;
 }
 
-.monospace {
-  font-family: 'Inconsolata', 'monospace';
+.monospace * > input, .monospace * > textarea {
+  font-family: Inconsolata, monospace;
+  font-size: 1.1em;
+}
+
+.smallDivider {
+  margin-top: 5px;
 }
