@@ -4,10 +4,9 @@ export async function init(): Promise<void> {
     await Office.onReady();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function run(batch: (worksheet: Excel.Worksheet) => Promise<any>): void {
+export async function run(batch: (worksheet: Excel.Worksheet) => Promise<void>): Promise<void> {
     // noinspection JSIgnoredPromiseFromCall
-    Excel.run(async (context) => {
+    await Excel.run(async (context) => {
         const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
         const range = curretWorksheet.getUsedRangeOrNullObject(true).load('isNullObject');
         await context.sync();

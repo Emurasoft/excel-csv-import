@@ -50,8 +50,8 @@ export class Store extends React.Component<{}, State> {
             });
     }
 
-    public import = (options: Parser.ImportOptions) => {
-        Parser.importCSV(options);
+    public import = async (options: Parser.ImportOptions) => {
+        await Parser.importCSV(options);
         this._log.push('import', {options});
     }
 

@@ -37,7 +37,7 @@ describe('ExcelAPI', () => {
             {
                 a: [[]],
                 maxLength: 1,
-                expected: [['']],
+                expected: [new Array(1)],
                 expectError: false,
             },
             {
@@ -49,7 +49,7 @@ describe('ExcelAPI', () => {
             {
                 a: [['a']],
                 maxLength: 2,
-                expected: [['a', '']],
+                expected: [(() => {const a = new Array(2); a[0] = 'a'; return a})()],
                 expectError: false,
             },
             {
@@ -61,7 +61,7 @@ describe('ExcelAPI', () => {
             {
                 a: [['a'], []],
                 maxLength: 2,
-                expected: [['a', ''], ['', '']],
+                expected: [(() => {const a = new Array(2); a[0] = 'a'; return a})(), new Array(2)],
                 expectError: false,
             },
         ];

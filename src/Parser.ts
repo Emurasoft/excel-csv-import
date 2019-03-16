@@ -62,8 +62,8 @@ export function _processImport(
     });
 }
 
-export function importCSV(importOptions: ImportOptions): void {
-    ExcelAPI.run((worksheet) => _processImport(worksheet, importOptions))
+export async function importCSV(importOptions: ImportOptions): Promise<void> {
+    await ExcelAPI.run((worksheet) => _processImport(worksheet, importOptions))
 }
 
 export function _nameToUse(workbookName: string, worksheetName: string): string {
