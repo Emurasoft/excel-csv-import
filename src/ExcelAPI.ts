@@ -75,7 +75,7 @@ export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> 
     await Excel.run(async (context) => {
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
-        const range = worksheet.getUsedRange(true).load('values');
+        const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1').load('values');
         await context.sync();
         result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
     });
