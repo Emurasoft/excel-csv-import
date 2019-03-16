@@ -41,8 +41,7 @@ export function _maxLength(a: string[][]): number {
 
 export function _resize(a: string[][], maxLength: number): void {
     for (let i = 0; i < a.length; ++i) {
-        // Not sure if filling is required, but I want to be on the safe side.
-        a[i] = a[i].concat(new Array(maxLength - a[i].length).fill(''));
+        a[i] = a[i].concat(new Array(maxLength - a[i].length));
     }
 }
 

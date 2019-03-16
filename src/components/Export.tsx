@@ -83,7 +83,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     onClick={this.buttonOnClick}
                     disabled={!this.props.store.state.initialized}
                 >
-                    Export as CSV
+                    Export to CSV
                 </PrimaryButton>
                 <br />
                 {this.state.largeFile ? largeFileWarning : null}
