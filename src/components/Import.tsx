@@ -9,6 +9,7 @@ import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
 import * as style from './style.css';
+import {BottomBar} from './BottomBar';
 
 type State = ImportOptions & {processing: boolean};
 
@@ -64,14 +65,14 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                     </PrimaryButton>
                 </TooltipHost>
                 <br />
-                <ProgressText hidden={!this.state.processing} />
+                <ProgressText hidden={!this.state.processing} />{/* TODO progress text isn't working*/}
                 <Toggle
                     inlineLabel label='Save options'
                 />
+                <BottomBar />
             </div>
         );
         // TODO save options button
-        // TODO about link
     }
 
     private buttonTooltipContent(): string {

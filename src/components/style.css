@@ -12,3 +12,10 @@
 .smallDivider {
   margin-top: 5px;
 }
+
+.bottomBar {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

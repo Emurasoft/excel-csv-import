@@ -10,6 +10,7 @@ import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
 import * as style from './style.css';
+import {BottomBar} from './BottomBar';
 
 export interface OutputText {
     show: boolean;
@@ -92,6 +93,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     inlineLabel label='Save options'
                 />
                 {this.state.outputText.show ? outputTextField : null}
+                <BottomBar />
             </div>
         );
     }
