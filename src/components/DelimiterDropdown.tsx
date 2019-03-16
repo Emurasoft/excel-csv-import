@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
-import * as style from './style';
+import * as style from './style.css';
 import {
     ResponsiveMode
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
@@ -61,7 +61,7 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         const customInput =
         <div style={{marginTop: '5px'}}>
             <TextField
-                style={style.monospace}
+                className={style.monospace}
                 value={this.props.value}
                 onChange={(_, value) => this.props.onChange(value)}
                 description={DelimiterDropdown.description(this.props.value)}

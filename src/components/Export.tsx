@@ -6,10 +6,10 @@ import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType, NewlineSequence} from '../Parser';
-import * as style from './style';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
+import * as style from './style.css';
 
 export interface OutputText {
     show: boolean;
@@ -39,7 +39,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         const outputTextField = (
             <TextField
                 label='Export result'
-                style={style.monospace}
+                className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
                 wrap='off'
@@ -54,7 +54,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         );
 
         return (
-            <>
+            <div className={style.pageMargin}>
                 <ExportTypeDropdown
                     value={this.state.exportType}
                     onChange={(exportType) => this.setState({exportType})}
@@ -89,7 +89,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 {this.state.largeFile ? largeFileWarning : null}
                 <ProgressText hidden={!this.state.processing} />
                 {this.state.outputText.show ? outputTextField : null}
-            </>
+            </div>
         );
     }
 

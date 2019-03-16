@@ -8,6 +8,7 @@ import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
+import * as style from './style.css';
 
 type State = ImportOptions & {processing: boolean};
 
@@ -25,7 +26,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
 
     public render(): React.ReactNode {
         return (
-            <div style={{margin: '5px'}}>
+            <div className={style.pageMargin}>
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}

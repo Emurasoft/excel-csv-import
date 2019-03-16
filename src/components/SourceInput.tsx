@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InputType, Source} from '../Parser';
-import * as style from './style';
+import * as style from './style.css';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import {
     ResponsiveMode
@@ -38,7 +38,7 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
             ),
             [InputType.text]: (
                 <TextField
-                    style={style.monospace}
+                    className={style.monospace}
                     multiline rows={10}
                     wrap='off'
                     onChange={this.textOnChangeHandler(InputType.text)}
