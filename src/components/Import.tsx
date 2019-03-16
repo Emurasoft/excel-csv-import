@@ -24,9 +24,8 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     public render(): React.ReactNode {
-        // TODO page margin
         return (
-            <>
+            <div style={{margin: '5px'}}>
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}
@@ -65,7 +64,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 </TooltipHost>
                 <br />
                 <ProgressText hidden={!this.state.processing} />
-            </>
+            </div>
         );
     }
 
