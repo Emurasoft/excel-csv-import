@@ -4,7 +4,7 @@ import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
-import {PrimaryButton, Text, TextField} from 'office-ui-fabric-react';
+import {PrimaryButton, Text, TextField, Toggle} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
@@ -88,6 +88,9 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 <br />
                 {this.state.largeFile ? largeFileWarning : null}
                 <ProgressText hidden={!this.state.processing} />
+                <Toggle
+                    inlineLabel label='Save options'
+                />
                 {this.state.outputText.show ? outputTextField : null}
             </div>
         );

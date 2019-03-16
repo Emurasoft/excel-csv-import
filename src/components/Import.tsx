@@ -1,7 +1,7 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {PrimaryButton, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
+import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
 import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterDropdown} from './DelimiterDropdown';
@@ -65,6 +65,9 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 </TooltipHost>
                 <br />
                 <ProgressText hidden={!this.state.processing} />
+                <Toggle
+                    inlineLabel label='Save options'
+                />
             </div>
         );
         // TODO save options button
