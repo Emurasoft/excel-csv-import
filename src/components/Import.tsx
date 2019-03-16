@@ -67,6 +67,8 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <ProgressText hidden={!this.state.processing} />
             </div>
         );
+        // TODO save options button
+        // TODO about link
     }
 
     private buttonTooltipContent(): string {
