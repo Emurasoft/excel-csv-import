@@ -15,8 +15,8 @@
     <DisplayName DefaultValue="CSV Import+Export" />
     <Description DefaultValue="Adds CSV import and export functions to Excel." />
 
-    <IconUrl DefaultValue="https://localhost:3000/icon-32.png" />
-    <HighResolutionIconUrl DefaultValue="https://localhost:3000/hi-res-icon.png" />
+    <IconUrl DefaultValue="https://emurasoft.github.io/excel-csv-import/icon-32.png" />
+    <HighResolutionIconUrl DefaultValue="https://emurasoft.github.io/excel-csv-import/hi-res-icon.png" />
 
     <SupportUrl DefaultValue="https://www.emeditor.com/support/#contact" /><!--TODO-->
 
@@ -24,7 +24,7 @@
         <Host Name="Workbook" />
     </Hosts>
     <DefaultSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/index.html" />
+        <SourceLocation DefaultValue="https://emurasoft.github.io/excel-csv-import/index.html" />
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>
@@ -114,14 +114,14 @@
 
         <Resources>
             <bt:Images>
-                <bt:Image id="Emurasoft.icon16" DefaultValue="https://localhost:3000/icon-16.png" />
-                <bt:Image id="Emurasoft.icon32" DefaultValue="https://localhost:3000/icon-32.png" />
-                <bt:Image id="Emurasoft.icon80" DefaultValue="https://localhost:3000/icon-80.png" />
+                <bt:Image id="Emurasoft.icon16" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon-16.png" />
+                <bt:Image id="Emurasoft.icon32" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon-32.png" />
+                <bt:Image id="Emurasoft.icon80" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon-80.png" />
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="Emurasoft.GetStarted.URL" DefaultValue="https://github.com/Emurasoft/excel-csv-import" />
-                <bt:Url id="Emurasoft.importURL" DefaultValue="https://localhost:3000/?page=import" />
-                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://localhost:3000/?page=export" />
+                <bt:Url id="Emurasoft.importURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import" />
+                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=export" />
             </bt:Urls>
             <!-- ShortStrings max length = 125 -->
             <bt:ShortStrings>
