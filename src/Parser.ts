@@ -76,10 +76,14 @@ export function _nameToUse(workbookName: string, worksheetName: string): string 
     }
 }
 
-export function _csvString(values: string[][], exportOptions: ExportOptions): string {
+export function _rowString(row: string[], exportOptions: Readonly<ExportOptions>): string {
+    return row.join(exportOptions.delimiter) + exportOptions.newline;
+}
+
+export function _csvString(values: string[][], exportOptions: Readonly<ExportOptions>): string {
     let result = ''; // TODO quotes
     for (const row of values) {
-        result += row.join(exportOptions.delimiter) + exportOptions.newline;
+        result += _rowString(row, exportOptions);
     }
     return result;
 }

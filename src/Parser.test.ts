@@ -1,5 +1,5 @@
 import * as Parser from './Parser';
-import {_csvString, _nameToUse, ExportOptions, NewlineSequence} from './Parser';
+import {_csvString, _nameToUse, _rowString, ExportOptions, NewlineSequence} from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 
@@ -39,32 +39,12 @@ describe('Parser', () => {
             {
                 values: [['a', 'b']],
                 exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
-                },
-                expected: 'ab\n',
-            },
-            {
-                values: [[]],
-                exportOptions: {
                     delimiter: ',',
                     newline: NewlineSequence.LF,
                     exportType: null,
                     encoding: null,
                 },
-                expected: '\n',
-            },
-            {
-                values: [['a', 'b']],
-                exportOptions: {
-                    delimiter: ',,',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
-                },
-                expected: 'a,,b\n',
+                expected: 'a,b\n',
             },
             {
                 values: [['a', 'b'], ['c']],
@@ -90,6 +70,85 @@ describe('Parser', () => {
 
         for (const test of tests) {
             assert.strictEqual(_csvString(test.values, test.exportOptions), test.expected);
+        }
+    });
+
+    it('_csvString()', () => {
+        const tests: {row: string[]; exportOptions: ExportOptions; expected: string}[] = [
+            {
+                row: [],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: '\n',
+            },
+            {
+                row: ['a'],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a\n',
+            },
+            {
+                row: [],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: '\n',
+            },
+            {
+                row: ['a', 'b'],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'ab\n',
+            },
+            {
+                row: ['a', 'b'],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\n',
+            },
+            {
+                row: ['a', 'b'],
+                exportOptions: {
+                    delimiter: ',,',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,,b\n',
+            },
+            {
+                row: ['a', 'b'],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.CRLF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\r\n',
+            },
+        ];
+
+        for (const test of tests) {
+            assert.strictEqual(_rowString(test.row, test.exportOptions), test.expected);
         }
     });
 
