@@ -67,7 +67,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <br />
                 <ProgressText hidden={!this.state.processing} />
                 <Toggle
-                    inlineLabel label='Save options'
+                    label='Save options' inlineLabel
                 />
                 <BottomBar />
             </div>
