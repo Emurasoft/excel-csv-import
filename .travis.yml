@@ -2,6 +2,7 @@ language: node_js
 
 stages:
   - test
+  - deploy
 
 jobs:
   include:
@@ -9,3 +10,16 @@ jobs:
       script:
         - npm run test
         - npm run lint
+    - stage: deploy
+      if: branch = makoto
+      script:
+        - npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: build
+  on:
+    branch: makoto
