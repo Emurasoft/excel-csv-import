@@ -46,13 +46,9 @@ export class DelimiterDropdown extends React.Component<Props, State> {
         super(props);
         if (props.showAutoDetect) {
             this.state = {selectedKey: DropdownOptionKey.autoDetect};
-        } else {
-            this.state = {selectedKey: DropdownOptionKey.comma};
-        }
-
-        if (props.showAutoDetect) {
             this._dropdownOptions = [...DropdownOptionsWithAutoDetect];
         } else {
+            this.state = {selectedKey: DropdownOptionKey.comma};
             this._dropdownOptions = [...DropdownOptionsNoAutoDetect];
         }
     }
