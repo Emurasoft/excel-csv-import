@@ -1,19 +1,11 @@
 language: node_js
 
-stages:
-  - test
-  - deploy
+script:
+  - npm run test
+  - npm run lint
 
-jobs:
-  include:
-    - stage: test
-      script:
-        - npm run test
-        - npm run lint
-    - stage: deploy
-      if: branch = makoto
-      script:
-        - npm run build
+before_deploy:
+  npm run build
 
 deploy:
   provider: pages
