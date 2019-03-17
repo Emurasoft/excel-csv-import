@@ -28,6 +28,7 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
             [InputType.file]: (
                 <>
                     <input
+                        className={style.fileInput}
                         type='file'
                         accept='text/csv'
                         onChange={this.fileOnChange}

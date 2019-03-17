@@ -19,3 +19,7 @@
   display: flex;
   justify-content: center;
 }
+
+.fileInput {
+  width: 100%;
+}
