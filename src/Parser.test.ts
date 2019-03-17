@@ -1,5 +1,13 @@
 import * as Parser from './Parser';
-import {_csvString, _nameToUse, _rowString, ExportOptions, NewlineSequence} from './Parser';
+import {
+    _addQuotes,
+    _charactersToWatchOutFor,
+    _csvString,
+    _nameToUse,
+    _rowString,
+    ExportOptions,
+    NewlineSequence
+} from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 
@@ -24,56 +32,43 @@ describe('Parser', () => {
         Parser._processImport('worksheet' as any, importOptions, api);
     });
 
-    it('_csvString()', () => {
-        const tests: {values: string[][]; exportOptions: ExportOptions; expected: string}[] = [
+    it('_charactersToWatchOutFor', () => {
+        assert(_charactersToWatchOutFor.includes('"'));
+        assert(_charactersToWatchOutFor.includes(','));
+        assert(_charactersToWatchOutFor.every((c) => c.length === 1))
+    });
+
+    it('_addQuotes()', () => {
+        const tests: {row: string[]; expected: string[]}[] = [
             {
-                values: [[]],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
-                },
-                expected: '\n',
+                row: [],
+                expected: [],
             },
             {
-                values: [['a', 'b']],
-                exportOptions: {
-                    delimiter: ',',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
-                },
-                expected: 'a,b\n',
+                row: [''],
+                expected: [''],
             },
             {
-                values: [['a', 'b'], ['c']],
-                exportOptions: {
-                    delimiter: ',',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
-                },
-                expected: 'a,b\nc\n',
+                row: ['\n'],
+                expected: ['"\n"'],
             },
             {
-                values: [['a', 'b'], ['c'], ['d','e']],
-                exportOptions: {
-                    delimiter: ',',
-                    newline: NewlineSequence.CRLF,
-                    exportType: null,
-                    encoding: null,
-                },
-                expected: 'a,b\r\nc\r\nd,e\r\n',
+                row: ['a,'],
+                expected: ['"a,"'],
+            },
+            {
+                row: ['"'],
+                expected: ['""""'],
             },
         ];
 
         for (const test of tests) {
-            assert.strictEqual(_csvString(test.values, test.exportOptions), test.expected);
+            _addQuotes(test.row)
+            assert.deepStrictEqual(test.row, test.expected);
         }
     });
 
-    it('_csvString()', () => {
+    it('_rowString()', () => {
         const tests: {row: string[]; exportOptions: ExportOptions; expected: string}[] = [
             {
                 row: [],
@@ -94,6 +89,16 @@ describe('Parser', () => {
                     encoding: null,
                 },
                 expected: 'a\n',
+            },
+            {
+                row: ['\n'],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: '"\n"\n',
             },
             {
                 row: [],
@@ -149,6 +154,55 @@ describe('Parser', () => {
 
         for (const test of tests) {
             assert.strictEqual(_rowString(test.row, test.exportOptions), test.expected);
+        }
+    });
+
+    it('_csvString()', () => {
+        const tests: {values: string[][]; exportOptions: ExportOptions; expected: string}[] = [
+            {
+                values: [[]],
+                exportOptions: {
+                    delimiter: '',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: '\n',
+            },
+            {
+                values: [['a', 'b']],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\n',
+            },
+            {
+                values: [['a', 'b'], ['c']],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\nc\n',
+            },
+            {
+                values: [['a', 'b'], ['c'], ['d','e']],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.CRLF,
+                    exportType: null,
+                    encoding: null,
+                },
+                expected: 'a,b\r\nc\r\nd,e\r\n',
+            },
+        ];
+
+        for (const test of tests) {
+            assert.strictEqual(_csvString(test.values, test.exportOptions), test.expected);
         }
     });
 
