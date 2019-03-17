@@ -77,10 +77,10 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
 
     public setState<K extends keyof State>(state: Pick<State, K>): void {
         super.setState(state);
-        // Need to add namespace to all entries
-        for (const entry of Object.entries(state)) {
-            localStorage.setItem(entry[0], JSON.stringify(entry[1]));
-        }
+        // // Need to add namespace to all entries
+        // for (const entry of Object.entries(state)) {
+        //     localStorage.setItem(entry[0], JSON.stringify(entry[1]));
+        // }
     }
 
     private buttonOnClick = async () => {
