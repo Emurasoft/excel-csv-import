@@ -12,7 +12,6 @@ module.exports = merge(common, {
     plugins: [
         new CopyPlugin([
             {from: 'public/*.png', flatten: true},
-            {from: 'public/404.html'},
         ]),
     ],
 });
