@@ -4,14 +4,6 @@ import * as React from 'react';
 import * as queryString from 'query-string';
 import {Export} from './Export';
 
-export function App(): JSX.Element {
-    return (
-        <Store>
-            {page(queryString.parse(location.search).page)}
-        </Store>
-    );
-}
-
 function page(name: string[] | string ): React.ReactNode {
     switch (name) {
     case 'import':
@@ -21,4 +13,12 @@ function page(name: string[] | string ): React.ReactNode {
     default:
         return null;
     }
+}
+
+export function App(): JSX.Element {
+    return (
+        <Store>
+            {page(queryString.parse(location.search).page)}
+        </Store>
+    );
 }
