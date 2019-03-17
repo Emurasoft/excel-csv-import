@@ -9,7 +9,7 @@ import {Store} from './Store';
 initializeIcons();
 
 ReactDOM.render(
-    <BrowserRouter basename='/excel-csv-import'>
+    <BrowserRouter>
         <Store>
             <Route path='/import' component={Import} />
             <Route path='/export' component={Export} />
