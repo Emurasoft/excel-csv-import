@@ -75,10 +75,18 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         // TODO save options button
     }
 
+    public setState<K extends keyof State>(state: Pick<State, K>): void {
+        super.setState(state);
+        // Need to add namespace to all entries
+        for (const entry of Object.entries(state)) {
+            localStorage.setItem(entry[0], JSON.stringify(entry[1]));
+        }
+    }
+
     private buttonOnClick = async () => {
         this.setState({processing: true});
         await this.props.store.import(this.state);
-        this.setState({processing: false});
+        this.setState({processing: false}); // TODO fix all setState race conditions
     }
 
     private buttonTooltipContent(): string {
