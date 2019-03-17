@@ -105,7 +105,7 @@ export function _rowString(row: string[], exportOptions: Readonly<ExportOptions>
 }
 
 export function _csvString(values: string[][], exportOptions: Readonly<ExportOptions>): string {
-    let result = ''; // TODO quotes
+    let result = '';
     for (const row of values) {
         result += _rowString(row, exportOptions);
     }
