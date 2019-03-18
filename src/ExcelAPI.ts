@@ -4,28 +4,26 @@ export async function init(): Promise<void> {
     await Office.onReady();
 }
 
-export async function run(batch: (worksheet: Excel.Worksheet) => Promise<void>): Promise<void> {
-    // noinspection JSIgnoredPromiseFromCall
+// Executes batch on a blank worksheet.
+export async function runOnBlankWorksheet(batch: (worksheet: Excel.Worksheet) => Promise<void>) {
     await Excel.run(async (context) => {
-        const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
-        const range = curretWorksheet.getUsedRangeOrNullObject(true).load('isNullObject');
+        await batch(await _blankWorksheet(context));
         await context.sync();
-
-        let worksheetToUse: Excel.Worksheet = null;
-        if (range.isNullObject) {
-            worksheetToUse = curretWorksheet;
-            context.application.suspendApiCalculationUntilNextSync();
-        } else {
-            worksheetToUse = context.workbook.worksheets.add();
-        }
-
-        try {
-            await batch(worksheetToUse);
-        } finally {
-            worksheetToUse.activate();
-            await context.sync();
-        }
     });
+}
+
+// Returns current worksheet if empty, otherwise returns new worksheet.
+export async function _blankWorksheet(context: Excel.RequestContext): Promise<Excel.Worksheet> {
+    const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+    const range = currentWorksheet.getUsedRangeOrNullObject(true).load('isNullObject');
+    await context.sync();
+
+    if (range.isNullObject) {
+        context.application.suspendApiCalculationUntilNextSync();
+        return currentWorksheet;
+    } else {
+        return context.workbook.worksheets.add();
+    }
 }
 
 export function _maxLength(a: string[][]): number {
@@ -54,10 +52,10 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
 export async function worksheetArea(): Promise<number> {
     let result: number = null;
     await Excel.run(async (context) => {
-        const curretWorksheet = context.workbook.worksheets.getActiveWorksheet();
-        const range = curretWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
-        await context.sync();
+        const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+        const range = currentWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
         result = range.rowCount * range.columnCount;
+        await context.sync();
     });
     return result;
 }
@@ -74,8 +72,8 @@ export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> 
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
         const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1').load('values');
-        await context.sync();
         result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
+        await context.sync();
     });
     return result;
 }

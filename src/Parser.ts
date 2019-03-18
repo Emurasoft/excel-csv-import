@@ -1,7 +1,7 @@
 // Make sure API is initialized before using
 import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
-import {ParseConfig} from 'papaparse';
+import {ParseConfig} from 'papaparse'; // TODO use service worker
 
 export enum InputType {file, text}
 
@@ -60,7 +60,7 @@ export function _parseAndSetCells(
 }
 
 export async function importCSV(importOptions: ImportOptions): Promise<void> {
-    await ExcelAPI.run((worksheet) => _parseAndSetCells(worksheet, importOptions))
+    await ExcelAPI.runOnBlankWorksheet((worksheet) => _parseAndSetCells(worksheet, importOptions));
 }
 
 export function _nameToUse(workbookName: string, worksheetName: string): string {

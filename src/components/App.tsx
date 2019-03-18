@@ -15,7 +15,7 @@ function page(name: string[] | string ): React.ReactNode {
     }
 }
 
-export function App(): JSX.Element {
+export function App(): JSX.Element { // TODO error boundary
     return (
         <Store>
             {page(queryString.parse(location.search).page)}
