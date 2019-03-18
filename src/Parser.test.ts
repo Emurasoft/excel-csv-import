@@ -1,7 +1,6 @@
 import * as Parser from './Parser';
 import {
     _addQuotes,
-    _charactersToWatchOutFor,
     _csvString,
     _nameToUse,
     _rowString,
@@ -32,38 +31,47 @@ describe('Parser', () => {
         Parser._parseAndSetCells('worksheet' as any, importOptions, api);
     });
 
-    it('_charactersToWatchOutFor', () => {
-        assert(_charactersToWatchOutFor.includes('"'));
-        assert(_charactersToWatchOutFor.includes(','));
-        assert(_charactersToWatchOutFor.every((c) => c.length === 1))
-    });
-
     it('_addQuotes()', () => {
-        const tests: {row: string[]; expected: string[]}[] = [
+        const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
             {
                 row: [],
+                delimiter: '',
                 expected: [],
             },
             {
                 row: [''],
+                delimiter: ',',
                 expected: [''],
             },
             {
                 row: ['\n'],
+                delimiter: ',',
                 expected: ['"\n"'],
             },
             {
                 row: ['a,'],
+                delimiter: ',',
                 expected: ['"a,"'],
             },
             {
+                row: ['a,'],
+                delimiter: '',
+                expected: ['a,'],
+            },
+            {
                 row: ['"'],
+                delimiter: ',',
                 expected: ['""""'],
+            },
+            {
+                row: ['a\t'],
+                delimiter: '\t',
+                expected: ['"a\t"'],
             },
         ];
 
         for (const test of tests) {
-            _addQuotes(test.row)
+            _addQuotes(test.row, test.delimiter);
             assert.deepStrictEqual(test.row, test.expected);
         }
     });

@@ -80,24 +80,26 @@ An optional header record (there is no sure way to detect whether it is present,
     when importing).
 Each record "should" contain the same number of comma-separated fields.
 Any field may be quoted (with double quotes).
-Fields containing a line-break, double-quote or commas should be quoted. (If they are not, the file
-    will likely be impossible to process correctly).
+Fields containing a line-break, double-quote or commas (delimiter) should be quoted. (If they are
+not, the file will likely be impossible to process correctly).
 A (double) quote character in a field must be represented by two (double) quote characters.
 Thanks Wikipedia.
  */
 
-export const _charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/, '\u002c' /*comma*/];
-
-export function _addQuotes(row: string[]): void {
+export function _addQuotes(row: string[], delimiter: string): void {
     for (let i = 0; i < row.length; i++) {
-        if (_charactersToWatchOutFor.some(c => row[i].includes(c))) {
+        const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/];
+        if (delimiter !== '') {
+            charactersToWatchOutFor.push(delimiter);
+        }
+        if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
             row[i] = '\u0022' + row[i].replace('\u0022', '\u0022\u0022') + '\u0022';
         }
     }
 }
 
 export function _rowString(row: string[], exportOptions: Readonly<ExportOptions>): string {
-    _addQuotes(row);
+    _addQuotes(row, exportOptions.delimiter);
     return row.join(exportOptions.delimiter) + exportOptions.newline;
 }
 
