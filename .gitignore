@@ -6,7 +6,8 @@ node_modules
 .idea/inspectionProfiles/Project_Default.xml
 .nyc_output
 **/*.js
-!webpack.*.js
 **/*.js.map
-!src/definitions.d.ts
+!webpack.*.js
+!.eslintrc.js
+!src/components/generateEncodingList.js
 build

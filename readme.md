@@ -1,6 +1,6 @@
 # Planned features
 - Import csv to new Excel worksheet
-- Import sources: string, file, URL
+- Import sources: string, file
 - Import options:
     - Field delimiter (1 character)/auto-detect
     - Newline sequence (CR, LF, or CRLF)/auto-detect

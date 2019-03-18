@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+.pageMargin {
+  margin: 5px;
+}
+
+.monospace * > input, .monospace * > textarea {
+  font-family: Inconsolata, monospace;
+  font-size: 1.1em;
+}
+
+.redText * > input, .redText * > textarea {
+  color: #ff4d57;
+}
+
+.smallDivider {
+  margin-top: 5px;
+}
+
+.bottomBar {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.fileInput {
+  width: 100%;
+}
