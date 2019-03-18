@@ -1,7 +1,9 @@
 // Make sure API is initialized before using
 import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
-import {ParseConfig} from 'papaparse'; // TODO use service worker
+
+// @ts-ignore
+Papa.LocalChunkSize = 10000;
 
 export enum InputType {file, text}
 
@@ -12,7 +14,7 @@ export interface Source {
 }
 
 type Config = {
-    [P in 'delimiter' | 'encoding']: ParseConfig[P];
+    [P in 'delimiter' | 'encoding']: Papa.ParseConfig[P];
 }
 
 export enum NewlineSequence {
@@ -38,14 +40,17 @@ export interface ExportOptions {
 
 export function _parseAndSetCells(
     worksheet: Excel.Worksheet,
-    importOptions: ImportOptions & ParseConfig,
+    importOptions: ImportOptions & Papa.ParseConfig,
     excelAPI = ExcelAPI,
 ): Promise<void> {
     return new Promise((resolve) => {
         let row = 0;
-        importOptions.chunk = (chunk: Papa.ParseResult) => {
+        importOptions.chunk = (chunk: Papa.ParseResult, parser: Papa.Parser) => {
+            parser.pause();
+            worksheet.context.application.suspendApiCalculationUntilNextSync();
             excelAPI.setChunk(worksheet, row, chunk.data);
             row += chunk.data.length;
+            worksheet.context.sync().then(parser.resume);
         }
         importOptions.complete = () => resolve();
         switch (importOptions.source.inputType) {

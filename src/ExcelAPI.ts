@@ -19,7 +19,6 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
     await context.sync();
 
     if (range.isNullObject) {
-        context.application.suspendApiCalculationUntilNextSync();
         return currentWorksheet;
     } else {
         return context.workbook.worksheets.add();
@@ -46,7 +45,9 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
     // New range values must have the same shape as range
     const maxLength = _maxLength(chunk);
     _resize(chunk, maxLength);
-    worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength).values = chunk;
+    const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
+    range.values = chunk;
+    range.untrack();
 }
 
 export async function worksheetArea(): Promise<number> {
