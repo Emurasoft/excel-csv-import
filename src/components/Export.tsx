@@ -18,7 +18,7 @@ export interface OutputText {
     text: string;
 }
 
-type State = ExportOptions & {outputText: OutputText; processing: boolean; largeFile: boolean};
+type State = ExportOptions & {outputText: OutputText; processing: boolean};
 
 export class ExportComponent extends React.Component<{store: Store}, State> {
     public constructor(props: {store: Store}) {
@@ -33,7 +33,6 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 show: false,
                 text: '',
             },
-            largeFile: false,
         };
     }
 
@@ -80,7 +79,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     onChange={(newline) => this.setState({newline})}
                     showAutoDetect={false}
                 />
-                <br />
+                <br />{/*TODO need tooltip for button when it's disabled*/}
                 <PrimaryButton
                     onClick={this.buttonOnClick}
                     disabled={!this.props.store.state.initialized}
@@ -88,7 +87,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     Export to CSV
                 </PrimaryButton>
                 <br />
-                {this.state.largeFile ? largeFileWarning : null}
+                {this.props.store.state.largeFile ? largeFileWarning : null}
                 <ProgressText hidden={!this.state.processing} />
                 <Toggle
                     inlineLabel label='Save options'
@@ -98,14 +97,6 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 <BottomBar />
             </div>
         );
-    }
-
-    public async componentDidMount(): Promise<void> {
-        // 1gb divided by 50 bytes per cell = 20,000,000 cells
-        const aLargeExcelDocumentProbablyHasThisManyCells = 10**9 / 50;
-        const largeFile =
-            await this.props.store.worksheetArea() > aLargeExcelDocumentProbablyHasThisManyCells;
-        this.setState({largeFile});
     }
 
     private buttonOnClick = async () => {

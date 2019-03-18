@@ -93,24 +93,25 @@ A (double) quote character in a field must be represented by two (double) quote 
 Thanks Wikipedia.
  */
 
-export function _addQuotes(row: string[], delimiter: string): void {
+export function _addQuotes(row: any[], delimiter: string): void {
     for (let i = 0; i < row.length; i++) {
         const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/];
         if (delimiter !== '') {
             charactersToWatchOutFor.push(delimiter);
         }
-        if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
+        // TODO move toString() to _rowString() for optimization
+        if (charactersToWatchOutFor.some(c => row[i].toString().includes(c))) {
             row[i] = '\u0022' + row[i].replace('\u0022', '\u0022\u0022') + '\u0022';
         }
     }
 }
 
-export function _rowString(row: string[], exportOptions: Readonly<ExportOptions>): string {
+export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): string {
     _addQuotes(row, exportOptions.delimiter);
     return row.join(exportOptions.delimiter) + exportOptions.newline;
 }
 
-export function _csvString(values: string[][], exportOptions: Readonly<ExportOptions>): string {
+export function _csvString(values: any[][], exportOptions: Readonly<ExportOptions>): string {
     let result = '';
     for (const row of values) {
         result += _rowString(row, exportOptions);

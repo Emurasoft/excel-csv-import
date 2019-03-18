@@ -25,7 +25,6 @@ describe('ExportComponent', () => {
                     text: '',
                 },
                 processing: true,
-                largeFile: false,
             }
             assert.deepStrictEqual(options, expected);
             return {string: 'export result'};

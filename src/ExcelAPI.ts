@@ -55,8 +55,8 @@ export async function worksheetArea(): Promise<number> {
     await Excel.run(async (context) => {
         const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
         const range = currentWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
+        await context.sync(); // This line has to go before getting properties
         result = range.rowCount * range.columnCount;
-        await context.sync();
     });
     return result;
 }
@@ -64,7 +64,7 @@ export async function worksheetArea(): Promise<number> {
 interface WorkbookNamesAndValues {
     workbookName: string;
     worksheetName: string;
-    values: string[][];
+    values: any[][];
 }
 
 export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> {
@@ -73,8 +73,8 @@ export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> 
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
         const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1').load('values');
-        result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
         await context.sync();
+        result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
     });
     return result;
 }

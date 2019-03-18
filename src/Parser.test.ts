@@ -12,10 +12,14 @@ import * as assert from 'assert';
 
 describe('Parser', () => {
     it('_parseAndSetCells()', (done) => {
+        const worksheetStub = {context: {
+            application: {suspendApiCalculationUntilNextSync: () => {}},
+            sync: async () => {},
+        }}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const api: any = {};
         api.setChunk = (worksheet, row, data) => {
-            assert.strictEqual(worksheet, 'worksheet');
+            assert.strictEqual(worksheet, worksheetStub);
             assert.strictEqual(row, 0);
             assert.deepStrictEqual(data, [['a', 'b']])
             done();
@@ -28,11 +32,11 @@ describe('Parser', () => {
             encoding: '',
         };
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Parser._parseAndSetCells('worksheet' as any, importOptions, api);
+        Parser._parseAndSetCells(worksheetStub as any, importOptions, api);
     });
 
     it('_addQuotes()', () => {
-        const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
+        const tests: {row: any[]; delimiter: string; expected: any[]}[] = [
             {
                 row: [],
                 delimiter: '',
@@ -68,6 +72,11 @@ describe('Parser', () => {
                 delimiter: '\t',
                 expected: ['"a\t"'],
             },
+            {
+                row: [0,'a'],
+                delimiter: ',',
+                expected: [0, 'a'],
+            },
         ];
 
         for (const test of tests) {
@@ -77,7 +86,7 @@ describe('Parser', () => {
     });
 
     it('_rowString()', () => {
-        const tests: {row: string[]; exportOptions: ExportOptions; expected: string}[] = [
+        const tests: {row: any[]; exportOptions: ExportOptions; expected: string}[] = [
             {
                 row: [],
                 exportOptions: {
@@ -119,14 +128,14 @@ describe('Parser', () => {
                 expected: '\n',
             },
             {
-                row: ['a', 'b'],
+                row: ['a', 0],
                 exportOptions: {
                     delimiter: '',
                     newline: NewlineSequence.LF,
                     exportType: null,
                     encoding: null,
                 },
-                expected: 'ab\n',
+                expected: 'a0\n',
             },
             {
                 row: ['a', 'b'],
@@ -166,7 +175,7 @@ describe('Parser', () => {
     });
 
     it('_csvString()', () => {
-        const tests: {values: string[][]; exportOptions: ExportOptions; expected: string}[] = [
+        const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
             {
                 values: [[]],
                 exportOptions: {

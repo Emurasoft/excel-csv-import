@@ -6,7 +6,8 @@ import {CsvStringAndName} from './Parser';
 
 export interface State {
     initialized: boolean;
-    parserStatus: ParserStatus
+    parserStatus: ParserStatus;
+    largeFile: boolean;
 }
 
 export interface ParserStatus {
@@ -25,6 +26,7 @@ export class Store extends React.Component<{}, State> {
                 errorOccurred: false,
                 output: '',
             },
+            largeFile: false,
         };
 
         this._log = new Logger();
@@ -62,16 +64,19 @@ export class Store extends React.Component<{}, State> {
             this.setParserError(err.stack);
         }
         this._log.push('initParser');
+        await this.checkLargeFile();
+    }
+
+    public checkLargeFile = async (): Promise<void> => {
+        const aLargeExcelDocumentProbablyHasThisManyCells = 100000;
+        const largeFile = await this.worksheetArea() > aLargeExcelDocumentProbablyHasThisManyCells;
+        this.setState({largeFile});
+        this._log.push('checkLargeFile');
     }
 
     public setParserError = (output: string) => {
         this.setState({parserStatus: {errorOccurred: true, output}});
         this._log.push('setParserError', {output});
-    }
-
-    private logError = (err) => {
-        console.trace(err.stack);
-        this.setParserError(err.stack);
     }
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
@@ -109,4 +114,9 @@ export class Store extends React.Component<{}, State> {
     }
 
     private readonly _log: Logger;
+
+    private logError = (err) => {
+        console.trace(err.stack);
+        this.setParserError(err.stack);
+    }
 }
