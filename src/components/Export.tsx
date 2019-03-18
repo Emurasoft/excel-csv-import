@@ -115,6 +115,10 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
 
         const csvStringAndName = await this.props.store.csvStringAndName(this.state);
         this.setState({processing: false});
+        if (csvStringAndName === null) {
+            return;
+        }
+
         switch (exportType) {
         case ExportType.file: {
             const blob = new Blob([csvStringAndName.string], blobOptions);

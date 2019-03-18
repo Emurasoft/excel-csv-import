@@ -9,6 +9,10 @@
   font-size: 1.1em;
 }
 
+.redText * > input, .redText * > textarea {
+  color: #ff4d57;
+}
+
 .smallDivider {
   margin-top: 5px;
 }

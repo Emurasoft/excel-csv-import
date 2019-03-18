@@ -10,6 +10,7 @@ import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
+import {ErrorOutput} from './ErrorOutput';
 
 type State = ImportOptions & {processing: boolean};
 
@@ -69,6 +70,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <Toggle
                     label='Save options' inlineLabel
                 />
+                <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
                 <BottomBar />
             </div>
         );
@@ -77,6 +79,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
 
     public setState<K extends keyof State>(state: Pick<State, K>): void {
         super.setState(state);
+        // TODO
         // // Need to add namespace to all entries
         // for (const entry of Object.entries(state)) {
         //     localStorage.setItem(entry[0], JSON.stringify(entry[1]));

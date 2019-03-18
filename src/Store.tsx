@@ -2,9 +2,16 @@ import * as React from 'react';
 import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
+import {CsvStringAndName} from './Parser';
 
 export interface State {
     initialized: boolean;
+    parserStatus: ParserStatus
+}
+
+export interface ParserStatus {
+    errorOccurred: boolean;
+    output: string;
 }
 
 export const Context = React.createContext(undefined);
@@ -14,10 +21,15 @@ export class Store extends React.Component<{}, State> {
         super(props);
         this.state = {
             initialized: false,
+            parserStatus: {
+                errorOccurred: false,
+                output: '',
+            },
         };
 
         this._log = new Logger();
 
+        // noinspection JSIgnoredPromiseFromCall
         this.initParser();
     }
 
@@ -42,27 +54,56 @@ export class Store extends React.Component<{}, State> {
 
     public log = () => this._log.log()
 
-    public initParser = () => {
-        ExcelAPI.init()
-            .then(() => {
-                this.setState({initialized: true});
-                this._log.push('initParser');
-            });
+    public initParser = async (): Promise<void> => {
+        try {
+            await ExcelAPI.init();
+            this.setState({initialized: true});
+        } catch (err) {
+            this.setParserError(err.stack);
+        }
+        this._log.push('initParser');
     }
 
-    public import = async (options: Parser.ImportOptions) => {
-        await Parser.importCSV(options);
+    public setParserError = (output: string) => {
+        this.setState({parserStatus: {errorOccurred: true, output}});
+        this._log.push('setParserError', {output});
+    }
+
+    private logError = (err) => {
+        console.trace(err.stack);
+        this.setParserError(err.stack);
+    }
+
+    public import = async (options: Parser.ImportOptions): Promise<void> => {
+        try {
+            await Parser.importCSV(options);
+        } catch (e) {
+            this.logError(new Error(e.stack));
+        }
         this._log.push('import', {options});
     }
 
-    public worksheetArea = async () => {
-        const result = await ExcelAPI.worksheetArea();
+    public worksheetArea = async (): Promise<number> => {
+        let result: number = 0;
+        try {
+            result = await ExcelAPI.worksheetArea();
+        } catch (err) {
+            this.setParserError(err.stack);
+        }
         this._log.push('worksheetArea');
         return result;
     }
 
-    public csvStringAndName = async (options: Parser.ExportOptions) => {
-        const result = await Parser.csvStringAndName(options);
+    // Returns null if error occurred.
+    public csvStringAndName = async (
+        options: Parser.ExportOptions
+    ): Promise<CsvStringAndName|null> => {
+        let result: CsvStringAndName = null;
+        try {
+            result = await Parser.csvStringAndName(options);
+        } catch (err) {
+            this.setParserError(err.stack);
+        }
         this._log.push('csvStringAndName', {options});
         return result;
     }

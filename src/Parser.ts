@@ -111,7 +111,7 @@ export function _csvString(values: string[][], exportOptions: Readonly<ExportOpt
     return result;
 }
 
-interface CsvStringAndName {
+export interface CsvStringAndName {
     name: string;
     string: string;
 }
