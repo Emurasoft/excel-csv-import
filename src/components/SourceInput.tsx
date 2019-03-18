@@ -18,10 +18,6 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
                 key: InputType.text,
                 text: 'Text input',
             },
-            {
-                key: InputType.url,
-                text: 'URL',
-            },
         ];
 
         const componentMap = {
@@ -42,17 +38,9 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
                     className={style.monospace}
                     multiline rows={10}
                     wrap='off'
-                    onChange={this.textOnChangeHandler(InputType.text)}
+                    onChange={(_, text) => this.props.onChange({inputType: InputType.text, text})}
                     value={this.props.value.text as string}
                     id='SourceInput-TextInput'
-                />
-            ),
-            [InputType.url]: (
-                <TextField
-                    onChange={this.textOnChangeHandler(InputType.url)}
-                    placeholder='URL of CSV file'
-                    value={this.props.value.text as string}
-                    id='SourceInput-URLInput'
                 />
             ),
         };
@@ -79,11 +67,5 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
 
     private fileOnChange =(e) => {
         this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
-    }
-
-    private textOnChangeHandler(inputType: InputType): (_, value: string) => void {
-        return (_, value) => {
-            this.props.onChange({inputType, text: value});
-        }
     }
 }

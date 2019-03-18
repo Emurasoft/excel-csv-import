@@ -3,7 +3,7 @@ import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {ParseConfig} from 'papaparse';
 
-export enum InputType {file, text, url}
+export enum InputType {file, text}
 
 export interface Source {
     inputType: InputType;
@@ -54,9 +54,6 @@ export function _processImport(
             break;
         case InputType.text:
             Papa.parse(importOptions.source.text, importOptions);
-            break;
-        case InputType.url:
-            Papa.parse(importOptions.source.text, {...importOptions, download: true});
             break;
         }
     });

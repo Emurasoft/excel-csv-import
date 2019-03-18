@@ -15,10 +15,6 @@ describe('SourceInput', () => {
                 source: {inputType: InputType.text, text: ''},
                 expectedSelector: '#SourceInput-TextInput',
             },
-            {
-                source: {inputType: InputType.url, text: ''},
-                expectedSelector: '#SourceInput-URLInput',
-            },
         ];
 
         for (const test of tests) {
@@ -54,12 +50,6 @@ describe('SourceInput', () => {
                 elementSelector: '#SourceInput-TextInput',
                 onChangeArgs: [null, 'text'],
                 expected: {inputType: InputType.text, text: 'text'},
-            },
-            {
-                inputType: InputType.url,
-                elementSelector: '#SourceInput-URLInput',
-                onChangeArgs: [null, 'url'],
-                expected: {inputType: InputType.url, text: 'url'},
             },
         ];
 
