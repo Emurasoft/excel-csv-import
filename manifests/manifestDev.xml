@@ -106,7 +106,7 @@
             <bt:ShortStrings>
                 <bt:String id="Emurasoft.Title" DefaultValue="CSV Import+Export" />
                 <bt:String id="Emurasoft.GetStarted.Title" DefaultValue="CSV Import+Export added" />
-                <bt:String id="Emurasoft.Group.Label" DefaultValue="CSV Import+Export" />
+                <bt:String id="Emurasoft.Group.Label" DefaultValue="CSV" />
                 <bt:String id="Emurasoft.Button0.Title" DefaultValue="Import CSV" />
                 <bt:String id="Emurasoft.Button1.Title" DefaultValue="Export CSV" />
             </bt:ShortStrings>
