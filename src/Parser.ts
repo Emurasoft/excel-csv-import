@@ -36,7 +36,7 @@ export interface ExportOptions {
     encoding: string;
 }
 
-export function _processImport(
+export function _parseAndSetCells(
     worksheet: Excel.Worksheet,
     importOptions: ImportOptions & ParseConfig,
     excelAPI = ExcelAPI,
@@ -60,7 +60,7 @@ export function _processImport(
 }
 
 export async function importCSV(importOptions: ImportOptions): Promise<void> {
-    await ExcelAPI.run((worksheet) => _processImport(worksheet, importOptions))
+    await ExcelAPI.run((worksheet) => _parseAndSetCells(worksheet, importOptions))
 }
 
 export function _nameToUse(workbookName: string, worksheetName: string): string {

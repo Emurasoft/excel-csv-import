@@ -12,7 +12,7 @@ import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 
 describe('Parser', () => {
-    it('_processImport()', (done) => {
+    it('_parseAndSetCells()', (done) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const api: any = {};
         api.setChunk = (worksheet, row, data) => {
@@ -29,7 +29,7 @@ describe('Parser', () => {
             encoding: '',
         };
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Parser._processImport('worksheet' as any, importOptions, api);
+        Parser._parseAndSetCells('worksheet' as any, importOptions, api);
     });
 
     it('_charactersToWatchOutFor', () => {
