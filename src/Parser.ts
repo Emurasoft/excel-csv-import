@@ -60,7 +60,9 @@ export function _parseAndSetCells(
 }
 
 export async function importCSV(importOptions: ImportOptions): Promise<void> {
-    await ExcelAPI.runOnBlankWorksheet((worksheet) => _parseAndSetCells(worksheet, importOptions));
+    await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
+        await _parseAndSetCells(worksheet, importOptions);
+    });
 }
 
 export function _nameToUse(workbookName: string, worksheetName: string): string {

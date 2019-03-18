@@ -7,13 +7,13 @@ export async function init(): Promise<void> {
 // Executes batch on a blank worksheet.
 export async function runOnBlankWorksheet(batch: (worksheet: Excel.Worksheet) => Promise<void>) {
     await Excel.run(async (context) => {
-        await batch(await _blankWorksheet(context));
+        await batch(await blankWorksheet(context));
         await context.sync();
     });
 }
 
 // Returns current worksheet if empty, otherwise returns new worksheet.
-export async function _blankWorksheet(context: Excel.RequestContext): Promise<Excel.Worksheet> {
+async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Worksheet> {
     const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
     const range = currentWorksheet.getUsedRangeOrNullObject(true).load('isNullObject');
     await context.sync();
