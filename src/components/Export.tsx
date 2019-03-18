@@ -88,7 +88,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 </PrimaryButton>
                 <br />
                 {this.props.store.state.largeFile ? largeFileWarning : null}
-                <ProgressText hidden={!this.state.processing} />
+                <ProgressText hidden={!this.state.processing} />{/*TODO cancel link*/}
                 <Toggle
                     inlineLabel label='Save options'
                 />
