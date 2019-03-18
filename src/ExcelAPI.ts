@@ -1,6 +1,7 @@
 /* global Office, Excel */
 
 export async function init(): Promise<void> {
+    // TODO check API version
     await Office.onReady();
 }
 

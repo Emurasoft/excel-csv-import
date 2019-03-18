@@ -9,9 +9,9 @@ export function ErrorOutput(props: {parserStatus: ParserStatus}): JSX.Element {
             <TextField
                 className={style.monospace  + ' ' + style.redText}
                 value={props.parserStatus.output}
-                rows={20}
+                rows={20} multiline
                 spellCheck={false}
-                multiline
+                readOnly
                 id='ErrorOutput-TextField'
             />
         );

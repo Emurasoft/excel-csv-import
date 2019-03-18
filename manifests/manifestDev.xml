@@ -29,12 +29,6 @@
 
     <Permissions>ReadWriteDocument</Permissions>
 
-    <Requirements>
-        <Sets DefaultMinVersion="1.8">
-            <Set Name="ExcelApi" MinVersion="1.8" />
-        </Sets>
-    </Requirements>
-
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
         <Hosts>
             <Host xsi:type="Workbook">
@@ -57,10 +51,10 @@
 
                                 <!--## Button0 ################################################-->
                                 <Control xsi:type="Button" id="Emurasoft.Button0">
-                                    <Label resid="Emurasoft.Menu.Button0.Title" />
+                                    <Label resid="Emurasoft.Button0.Title" />
                                     <Supertip>
-                                        <Title resid="Emurasoft.Menu.Button0.Title" />
-                                        <Description resid="Emurasoft.Menu.Button0.Description" />
+                                        <Title resid="Emurasoft.Button0.Title" />
+                                        <Description resid="Emurasoft.Button0.Description" />
                                     </Supertip>
                                     <Icon>
                                         <bt:Image size="16" resid="Emurasoft.icon16" />
@@ -69,17 +63,16 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
-                                        <Title resid="Emurasoft.Menu.Button0.Title" />
                                         <SourceLocation resid="Emurasoft.importURL" />
                                     </Action>
                                 </Control>
 
                                 <!--## Button1 ################################################-->
                                 <Control xsi:type="Button" id="Emurasoft.Button1">
-                                    <Label resid="Emurasoft.Menu.Button1.Title" />
+                                    <Label resid="Emurasoft.Button1.Title" />
                                     <Supertip>
-                                        <Title resid="Emurasoft.Menu.Button1.Title" />
-                                        <Description resid="Emurasoft.Menu.Button1.Description" />
+                                        <Title resid="Emurasoft.Button1.Title" />
+                                        <Description resid="Emurasoft.Button1.Description" />
                                     </Supertip>
                                     <Icon>
                                         <bt:Image size="16" resid="Emurasoft.icon16" />
@@ -88,7 +81,6 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane1</TaskpaneId>
-                                        <Title resid="Emurasoft.Menu.Button1.Title" />
                                         <SourceLocation resid="Emurasoft.exportURL" />
                                     </Action>
                                 </Control>
@@ -115,15 +107,15 @@
                 <bt:String id="Emurasoft.Title" DefaultValue="CSV Import+Export" />
                 <bt:String id="Emurasoft.GetStarted.Title" DefaultValue="CSV Import+Export added" />
                 <bt:String id="Emurasoft.Group.Label" DefaultValue="CSV Import+Export" />
-                <bt:String id="Emurasoft.Menu.Button0.Title" DefaultValue="Import CSV" />
-                <bt:String id="Emurasoft.Menu.Button1.Title" DefaultValue="Export CSV" />
+                <bt:String id="Emurasoft.Button0.Title" DefaultValue="Import CSV" />
+                <bt:String id="Emurasoft.Button1.Title" DefaultValue="Export CSV" />
             </bt:ShortStrings>
             <!-- LongStrings max length = 250 -->
             <bt:LongStrings>
-                <bt:String id="Emurasoft.GetStarted.Description" DefaultValue="" />
-                <bt:String id="Emurasoft.Menu.Tip.Description" DefaultValue="Import CSV" />
-                <bt:String id="Emurasoft.Menu.Button0.Description" DefaultValue="Import a CSV file to workbook" />
-                <bt:String id="Emurasoft.Menu.Button1.Description" DefaultValue="Export the current worksheet to a CSV file" />
+                <bt:String id="Emurasoft.GetStarted.Description" DefaultValue=" " />
+                <bt:String id="Emurasoft.Tip.Description" DefaultValue="Import CSV" />
+                <bt:String id="Emurasoft.Button0.Description" DefaultValue="Import a CSV file to workbook" />
+                <bt:String id="Emurasoft.Button1.Description" DefaultValue="Export the current worksheet to a CSV file" />
             </bt:LongStrings>
         </Resources>
     </VersionOverrides>
