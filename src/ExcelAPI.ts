@@ -4,14 +4,6 @@ export async function init(): Promise<void> {
     await Office.onReady();
 }
 
-// Executes batch on a blank worksheet.
-export async function runOnBlankWorksheet(batch: (worksheet: Excel.Worksheet) => Promise<void>) {
-    await Excel.run(async (context) => {
-        await batch(await blankWorksheet(context));
-        await context.sync();
-    });
-}
-
 // Returns current worksheet if empty, otherwise returns new worksheet.
 async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Worksheet> {
     const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
@@ -23,6 +15,16 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
     } else {
         return context.workbook.worksheets.add();
     }
+}
+
+// Executes batch on a blank worksheet.
+export async function runOnBlankWorksheet(
+    batch: (worksheet: Excel.Worksheet) => Promise<void>
+): Promise<void> {
+    await Excel.run(async (context) => {
+        await batch(await blankWorksheet(context));
+        await context.sync();
+    });
 }
 
 export function _maxLength(a: string[][]): number {

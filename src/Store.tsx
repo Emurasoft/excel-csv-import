@@ -89,7 +89,7 @@ export class Store extends React.Component<{}, State> {
     }
 
     public worksheetArea = async (): Promise<number> => {
-        let result: number = 0;
+        let result = 0;
         try {
             result = await ExcelAPI.worksheetArea();
         } catch (err) {
@@ -116,6 +116,7 @@ export class Store extends React.Component<{}, State> {
     private readonly _log: Logger;
 
     private logError = (err) => {
+        // eslint-disable-next-line no-console
         console.trace(err.stack);
         this.setParserError(err.stack);
     }
