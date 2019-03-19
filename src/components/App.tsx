@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as queryString from 'query-string';
 import {Export} from './Export';
 import {About} from './About';
+import {ErrorBoundary} from './ErrorBoundary';
 
 function page(name: string[] | string ): React.ReactNode {
     switch (name) {
@@ -18,10 +19,12 @@ function page(name: string[] | string ): React.ReactNode {
     }
 }
 
-export function App(): JSX.Element { // TODO error boundary
+export function App(): JSX.Element {
     return (
         <Store>
-            {page(queryString.parse(location.search).page)}
+            <ErrorBoundary>
+                {page(queryString.parse(location.search).page)}
+            </ErrorBoundary>
         </Store>
     );
 }
