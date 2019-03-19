@@ -4,7 +4,7 @@ import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
-import {PrimaryButton, Text, TextField, Toggle} from 'office-ui-fabric-react';
+import {PrimaryButton, Text, TextField, Toggle, TooltipHost} from 'office-ui-fabric-react';
 import {ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
@@ -79,13 +79,18 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     onChange={(newline) => this.setState({newline})}
                     showAutoDetect={false}
                 />
-                <br />{/*TODO need tooltip for button when it's disabled*/}
-                <PrimaryButton
-                    onClick={this.buttonOnClick}
-                    disabled={!this.props.store.state.initialized}
+                <br />
+                <TooltipHost
+                    styles={{root: {display: 'inline-block'}}}
+                    content={this.buttonTooltipContent()}
                 >
-                    Export to CSV
-                </PrimaryButton>
+                    <PrimaryButton
+                        onClick={this.buttonOnClick}
+                        disabled={this.buttonTooltipContent() !== ''}
+                    >
+                        Export to CSV
+                    </PrimaryButton>
+                </TooltipHost>
                 <br />
                 {this.props.store.state.largeFile ? largeFileWarning : null}
                 <ProgressText hidden={!this.state.processing} />{/*TODO cancel link*/}
@@ -122,6 +127,14 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
             this.setState({outputText: {show: true, text: csvStringAndName.string}});
             return;
         }
+        }
+    }
+
+    private buttonTooltipContent(): string {
+        if (!this.props.store.state.initialized) {
+            return 'Excel API is not initialized';
+        } else {
+            return '';
         }
     }
 }
