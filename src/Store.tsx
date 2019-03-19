@@ -75,7 +75,8 @@ export class Store extends React.Component<{}, State> {
     }
 
     public setParserError = (output: string) => {
-        // TODO should check if error says to refresh the browser
+        // output may contain something about refreshing the browser, in which case it should not
+        // display an error and instead tell the user to refresh.
         this.setState({parserStatus: {errorOccurred: true, output}});
         this._log.push('setParserError', {output});
     }
