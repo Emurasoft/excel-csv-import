@@ -21,10 +21,10 @@ function page(name: string[] | string ): React.ReactNode {
 
 export function App(): JSX.Element {
     return (
-        <Store>
-            <ErrorBoundary>
+        <ErrorBoundary>
+            <Store>
                 {page(queryString.parse(location.search).page)}
-            </ErrorBoundary>
-        </Store>
+            </Store>
+        </ErrorBoundary>
     );
 }
