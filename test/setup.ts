@@ -5,8 +5,15 @@ import {
     setResponsiveMode
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {setIconOptions} from 'office-ui-fabric-react/lib-commonjs';
+import * as jsdom from 'jsdom-global';
+import 'ignore-styles';
 
 Enzyme.configure({adapter: new Adapter()});
+
+jsdom();
+
+// @ts-ignore
+window.requestAnimationFrame = (cb) => cb();
 
 setResponsiveMode(ResponsiveMode.small);
 setIconOptions({disableWarnings: true});
