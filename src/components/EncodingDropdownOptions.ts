@@ -4,7 +4,7 @@ export const AutoDetectOption: Readonly<IDropdownOption> = Object.freeze({
     "key": "",
     "text": "Auto-detect"
 });
-
+// TODO add common alias to encoding names
 export const EncodingDropdownOptions: ReadonlyArray<IDropdownOption> = Object.freeze([
     {
         "key": "Big5",

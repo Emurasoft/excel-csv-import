@@ -36,7 +36,7 @@ describe('Parser', () => {
     });
 
     it('_addQuotes()', () => {
-        const tests: {row: any[]; delimiter: string; expected: any[]}[] = [
+        const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
             {
                 row: [],
                 delimiter: '',
@@ -71,11 +71,6 @@ describe('Parser', () => {
                 row: ['a\t'],
                 delimiter: '\t',
                 expected: ['"a\t"'],
-            },
-            {
-                row: [0,'a'],
-                delimiter: ',',
-                expected: [0, 'a'],
             },
         ];
 
