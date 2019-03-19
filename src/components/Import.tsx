@@ -90,7 +90,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         this.setState((state) => ({processing: !state.processing}));
         await this.props.store.import(this.state);
         this.setState((state) => ({processing: !state.processing}));
-        // TODO fix all setState race conditions
     }
 
     private buttonTooltipContent(): string {

@@ -14,6 +14,7 @@ import {BottomBar} from './BottomBar';
 import {ErrorOutput} from './ErrorOutput';
 
 export interface OutputText {
+    // If show is false, do not show text.
     show: boolean;
     text: string;
 }
@@ -105,14 +106,18 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     private buttonOnClick = async () => {
-        this.setState({processing: true, outputText: {show: false, text: ''}});
+        // TODO test
+        this.setState((state) => ({
+            processing: !state.processing,
+            outputText: {show: !state.outputText.show, text: state.outputText.text},
+        }));
 
         // Copy values before async operation
         const exportType = this.state.exportType;
         const blobOptions = {type: 'text/csv;charset=' + this.state.encoding};
 
         const csvStringAndName = await this.props.store.csvStringAndName(this.state);
-        this.setState({processing: false});
+        this.setState((state) => ({processing: !state.processing}))
         if (csvStringAndName === null) {
             return;
         }
