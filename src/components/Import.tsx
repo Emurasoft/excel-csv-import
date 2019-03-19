@@ -63,7 +63,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                         onClick={this.buttonOnClick}
                     >
                         Import CSV
-                    </PrimaryButton>
+                    </PrimaryButton>{/*TODO cancel link*/}
                 </TooltipHost>
                 <br />
                 <ProgressText hidden={!this.state.processing} />
