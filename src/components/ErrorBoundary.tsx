@@ -20,13 +20,12 @@ export class ErrorBoundary extends React.Component<{}, {caughtError: boolean; er
             return (
                 <>
                     <textarea
+                        value={this.state.error.stack}
                         className={style.monospace + ' ' + style.fullWidth}
                         rows={15}
                         wrap='off'
                         readOnly
-                    >
-                        {this.state.error.stack}
-                    </textarea>
+                    />
                     <br />
                     <div>
                         If you are seeing this, sorry about that. I would appreciate it if you
