@@ -21,7 +21,7 @@ describe('ExportComponent', () => {
                 delimiter: ',',
                 newline: NewlineSequence.LF,
                 outputText: {
-                    show: false,
+                    show: true,
                     text: '',
                 },
                 processing: true,

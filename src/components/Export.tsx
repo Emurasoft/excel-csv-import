@@ -5,7 +5,7 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterDropdown} from './DelimiterDropdown';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, Text, TextField, Toggle, TooltipHost} from 'office-ui-fabric-react';
-import {ExportOptions, ExportType, NewlineSequence} from '../Parser';
+import {CsvStringAndName, ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
@@ -106,15 +106,13 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
     }
 
     private buttonOnClick = async () => {
-        // TODO test
         this.setState((state) => ({
             processing: !state.processing,
             outputText: {show: !state.outputText.show, text: state.outputText.text},
         }));
 
         // Copy values before async operation
-        const exportType = this.state.exportType;
-        const blobOptions = {type: 'text/csv;charset=' + this.state.encoding};
+        const exportOptions = {...this.state};
 
         const csvStringAndName = await this.props.store.csvStringAndName(this.state);
         this.setState((state) => ({processing: !state.processing}))
@@ -122,9 +120,14 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
             return;
         }
 
-        switch (exportType) {
+        this.saveOrOutput(csvStringAndName, exportOptions);
+    }
+
+    private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: ExportOptions) {
+        switch (exportOptions.exportType) {
         case ExportType.file: {
-            const blob = new Blob([csvStringAndName.string], blobOptions);
+            const options = {type: 'text/csv;charset=' + exportOptions.encoding};
+            const blob = new Blob([csvStringAndName.string], options);
             FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
             return;
         }
