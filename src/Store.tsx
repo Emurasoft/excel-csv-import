@@ -6,6 +6,7 @@ import {CsvStringAndName} from './Parser';
 
 export interface State {
     initialized: boolean;
+    supported: boolean;
     parserStatus: ParserStatus;
     largeFile: boolean;
 }
@@ -22,6 +23,7 @@ export class Store extends React.Component<{}, State> {
         super(props);
         this.state = {
             initialized: false,
+            supported: true,
             parserStatus: {
                 errorOccurred: false,
                 output: '',
@@ -32,7 +34,7 @@ export class Store extends React.Component<{}, State> {
         this._log = new Logger();
 
         // noinspection JSIgnoredPromiseFromCall
-        this.initParser();
+        this.initAPI();
     }
 
     public render(): React.ReactNode {
@@ -56,14 +58,15 @@ export class Store extends React.Component<{}, State> {
 
     public log = () => this._log.log()
 
-    public initParser = async (): Promise<void> => {
+    public initAPI = async (): Promise<void> => {
         try {
-            await ExcelAPI.init();
-            this.setState({initialized: true});
+            const version = await ExcelAPI.initAndGetAPIVersion();
+            this.setState({initialized: true, supported: version.supported});
+            this._log.push('APIVersion', version)
         } catch (err) {
             this.setParserError(err.stack);
         }
-        this._log.push('initParser');
+        this._log.push('initAPI');
         await this.checkLargeFile();
     }
 

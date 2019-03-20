@@ -8,7 +8,7 @@ describe('Logger', () => {
 
         logger.push('action0');
         logger.push('action1', {a: 0});
-        const expected = '[{"action":"action0","args":{}},{"action":"action1","args":{"a":0}}]';
+        const expected = '[{"name":"action0","args":{}},{"name":"action1","args":{"a":0}}]';
         assert.strictEqual(logger.log().replace(/\s/g, ''), expected);
     });
 
