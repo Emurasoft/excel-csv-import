@@ -15,6 +15,7 @@ export class Logger {
     }
 
     public log(): string {
+        console.table(this._log);
         return JSON.stringify(this._log, null, 2);
     }
 
