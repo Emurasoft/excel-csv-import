@@ -1,7 +1,7 @@
 // Make sure API is initialized before using
 import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
-import {EventEmitter} from './EventEmitter';
+import {AbortFlag} from './AbortFlag';
 
 // @ts-ignore
 Papa.LocalChunkSize = 10000;
@@ -42,16 +42,14 @@ export interface ExportOptions {
 export function _parseAndSetCells(
     worksheet: Excel.Worksheet,
     importOptions: ImportOptions & Papa.ParseConfig,
-    abortEmitter: EventEmitter,
+    abortFlag: AbortFlag,
     excelAPI = ExcelAPI,
 ): Promise<void> {
-    let abort = false;
-    abortEmitter.setListener(() => abort = true);
     return new Promise((resolve) => {
         let row = 0;
 
         importOptions.chunk = (chunk: Papa.ParseResult, parser: Papa.Parser) => {
-            if (abort) {
+            if (abortFlag.aborted()) {
                 parser.abort();
             }
 
@@ -75,10 +73,10 @@ export function _parseAndSetCells(
 
 export async function importCSV(
     importOptions: ImportOptions,
-    abortEmitter: EventEmitter,
+    abortFlag: AbortFlag,
 ): Promise<void> {
     await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
-        await _parseAndSetCells(worksheet, importOptions, abortEmitter);
+        await _parseAndSetCells(worksheet, importOptions, abortFlag);
     });
 }
 
@@ -127,14 +125,12 @@ export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): 
 export function _csvString(
     values: any[][],
     exportOptions: Readonly<ExportOptions>,
-    abortEmitter: EventEmitter,
+    abortFlag: AbortFlag,
 ): string {
     let result = '';
-    let abort = false;
-    abortEmitter.setListener(() => abort = true);
 
     for (const row of values) {
-        if (abort) {
+        if (abortFlag.aborted()) {
             return result;
         }
         result += _rowString(row, exportOptions);
@@ -149,12 +145,12 @@ export interface CsvStringAndName {
 
 export async function csvStringAndName(
     exportOptions: ExportOptions,
-    abortEmitter: EventEmitter,
+    abortFlag: AbortFlag,
     excelAPI = ExcelAPI,
 ): Promise<CsvStringAndName> {
     const namesAndValues = await excelAPI.workbookNamesAndValues();
     return {
         name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),
-        string: _csvString(namesAndValues.values, exportOptions, abortEmitter)
+        string: _csvString(namesAndValues.values, exportOptions, abortFlag)
     };
 }

@@ -15,7 +15,7 @@ import {ErrorOutput} from './ErrorOutput';
 type State = ImportOptions & {processing: boolean};
 
 export class ImportComponent extends React.Component<{store: Store}, State> {
-    public constructor(props: {store: Store}) {
+    public constructor(props: {store: Store}) { // TODO check if initialization can be sped up
         super(props);
         this.state = {
             source: {inputType: InputType.file, file: null, text: ''},

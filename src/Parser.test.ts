@@ -9,7 +9,7 @@ import {
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
-import {EventEmitter} from './EventEmitter';
+import {AbortFlag} from './AbortFlag';
 
 describe('Parser', () => {
     it('_parseAndSetCells()', (done) => {
@@ -33,9 +33,9 @@ describe('Parser', () => {
             encoding: '',
         };
 
-        const abort = new EventEmitter();
+        const flag = new AbortFlag();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Parser._parseAndSetCells(worksheetStub as any, importOptions, abort, api);
+        Parser._parseAndSetCells(worksheetStub as any, importOptions, flag, api);
     });
 
     it('_addQuotes()', () => {
@@ -216,9 +216,9 @@ describe('Parser', () => {
             },
         ];
 
-        const emitter = new EventEmitter();
+        const flag = new AbortFlag();
         for (const test of tests) {
-            assert.strictEqual(_csvString(test.values, test.exportOptions, emitter), test.expected);
+            assert.strictEqual(_csvString(test.values, test.exportOptions, flag), test.expected);
         }
     });
 
