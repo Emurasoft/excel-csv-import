@@ -17,11 +17,11 @@ export const EncodingDropdownOptions: ReadonlyArray<IDropdownOption> = Object.fr
     },
     {
         "key": "EUC-KR",
-        "text": "EUC-KR (Korean)"
+        "text": "EUC-KR"
     },
     {
         "key": "GBK",
-        "text": "GBK (Simplified Chinese)"
+        "text": "GBK"
     },
     {
         "key": "IBM866",
@@ -85,11 +85,11 @@ export const EncodingDropdownOptions: ReadonlyArray<IDropdownOption> = Object.fr
     },
     {
         "key": "KOI8-R",
-        "text": "KOI8-R (Cyrillic)"
+        "text": "KOI8-R"
     },
     {
         "key": "KOI8-U",
-        "text": "KOI8-U (Cyrillic)"
+        "text": "KOI8-U"
     },
     {
         "key": "Shift_JIS",
