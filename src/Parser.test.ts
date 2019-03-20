@@ -216,8 +216,9 @@ describe('Parser', () => {
             },
         ];
 
+        const emitter = new EventEmitter();
         for (const test of tests) {
-            assert.strictEqual(_csvString(test.values, test.exportOptions), test.expected);
+            assert.strictEqual(_csvString(test.values, test.exportOptions, emitter), test.expected);
         }
     });
 

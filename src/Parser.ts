@@ -47,7 +47,6 @@ export function _parseAndSetCells(
 ): Promise<void> {
     let abort = false;
     abortEmitter.setListener(() => abort = true);
-
     return new Promise((resolve) => {
         let row = 0;
 

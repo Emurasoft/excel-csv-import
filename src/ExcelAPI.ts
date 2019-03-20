@@ -56,6 +56,7 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
     // New range values must have the same shape as range
     const maxLength = _maxLength(chunk);
     _resize(chunk, maxLength);
+    // TODO cannot have 0 row length or column length
     const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
     range.values = chunk;
     range.untrack();
