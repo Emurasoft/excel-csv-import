@@ -63,6 +63,7 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
+                                        <Title resid="Emurasoft.Button0.Title" />
                                         <SourceLocation resid="Emurasoft.importURL" />
                                     </Action>
                                 </Control>
@@ -81,6 +82,7 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane1</TaskpaneId>
+                                        <Title resid="Emurasoft.Button1.Title" />
                                         <SourceLocation resid="Emurasoft.exportURL" />
                                     </Action>
                                 </Control>

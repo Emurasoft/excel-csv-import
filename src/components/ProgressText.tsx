@@ -12,7 +12,7 @@ interface Props {
 export class ProgressText extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         let contents: React.ReactNode;
-        if (!this.props.hidden) {
+        if (this.props.hidden) {
             contents = <Text variant='small'>&nbsp;</Text>;
         } else {
             contents = (
