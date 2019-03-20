@@ -63,6 +63,12 @@ export class Store extends React.Component<{}, State> {
             const version = await ExcelAPI.initAndGetAPIVersion();
             this.setState({initialized: true, supported: version.supported});
             this._log.push('APIVersion', version)
+
+            if (!version.supported) {
+                this.setParserError(
+                    'Your version of Excel is not supported:\n' + JSON.stringify(version, null, 2),
+                );
+            }
         } catch (err) {
             this.setParserError(err.stack);
         }
