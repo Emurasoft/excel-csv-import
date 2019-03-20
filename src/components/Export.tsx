@@ -94,7 +94,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 </TooltipHost>
                 <br />
                 {this.props.store.state.largeFile ? largeFileWarning : null}
-                <ProgressText hidden={!this.state.processing} />
+                <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
                 <Toggle
                     inlineLabel label='Save options'
                 />

@@ -66,7 +66,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                     </PrimaryButton>{/*TODO cancel link*/}
                 </TooltipHost>
                 <br />
-                <ProgressText hidden={!this.state.processing} />
+                <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
                 <Toggle
                     label='Save options' inlineLabel
                 />
