@@ -5,7 +5,8 @@ script:
   - npm run lint
 
 before_deploy:
-  npm run build
+  - src/setVersion.sh $TRAVIS_TAG
+  - npm run build
 
 deploy:
   provider: pages
@@ -14,4 +15,4 @@ deploy:
   keep-history: true
   local-dir: build
   on:
-    branch: master
+    tags: true
