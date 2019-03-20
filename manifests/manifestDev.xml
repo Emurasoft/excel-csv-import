@@ -18,7 +18,7 @@
     <IconUrl DefaultValue="https://localhost:3000/icon-32.png" />
     <HighResolutionIconUrl DefaultValue="https://localhost:3000/hi-res-icon.png" />
 
-    <SupportUrl DefaultValue="https://www.emeditor.com/support/#contact" /><!--TODO-->
+    <SupportUrl DefaultValue="https://www.emeditor.com/csv-importexport-contact-form/" />
 
     <Hosts>
         <Host Name="Workbook" />
