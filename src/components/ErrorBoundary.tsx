@@ -1,7 +1,12 @@
 import * as React from 'react';
 import * as style from './style.css';
 
-export class ErrorBoundary extends React.Component<{}, {caughtError: boolean; error: Error}> {
+interface State {
+    caughtError: boolean;
+    error: Error;
+}
+
+export class ErrorBoundary extends React.Component<{}, State> {
     public constructor(props: {}) {
         super(props);
 
@@ -11,11 +16,11 @@ export class ErrorBoundary extends React.Component<{}, {caughtError: boolean; er
         };
     }
 
-    static getDerivedStateFromError(error) {
+    public static getDerivedStateFromError(error): State {
         return {caughtError: true, error};
     }
 
-    public render() {
+    public render(): React.ReactNode {
         if (this.state.caughtError) {
             return (
                 <>

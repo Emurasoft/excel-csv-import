@@ -123,7 +123,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
         this.saveOrOutput(csvStringAndName, exportOptions);
     }
 
-    private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: ExportOptions) {
+    private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: ExportOptions): void {
         switch (exportOptions.exportType) {
         case ExportType.file: {
             const options = {type: 'text/csv;charset=' + exportOptions.encoding};
