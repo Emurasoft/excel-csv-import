@@ -3,10 +3,12 @@ import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
+import {version} from './version';
 
 export interface State {
     initialized: boolean;
     supported: boolean;
+    version: string;
     parserStatus: ParserStatus;
     largeFile: boolean;
 }
@@ -24,6 +26,7 @@ export class Store extends React.Component<{}, State> {
         this.state = {
             initialized: false,
             supported: true,
+            version: '',
             parserStatus: {
                 errorOccurred: false,
                 output: '',
@@ -32,6 +35,7 @@ export class Store extends React.Component<{}, State> {
         };
 
         this._log = new Logger();
+        this._log.push('version', {version});
 
         // noinspection JSIgnoredPromiseFromCall
         this.initAPI();

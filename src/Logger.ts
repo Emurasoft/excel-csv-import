@@ -9,7 +9,7 @@ export class Logger {
     }
 
     // Adds name and a deep copy of args if defined otherwise empty object, as a new record.
-    public push(name: string, args?: {}): void {
+    public push(name: string, args?: {[key: string]: any}): void {
         this._log.push(Object.freeze({name, args: args ? Logger.deepCopy(args) : {}}));
     }
 
