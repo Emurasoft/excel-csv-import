@@ -30,6 +30,7 @@ async function main() {
     }
 
     process.stdout.write(JSON.stringify(dropdownOptions, null, 4));
+    // Copy output to ExportTypeDropdown.ts, then manually add common aliases
 }
 
 main();
