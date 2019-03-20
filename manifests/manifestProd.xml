@@ -18,7 +18,7 @@
     <IconUrl DefaultValue="https://emurasoft.github.io/excel-csv-import/icon-32.png" />
     <HighResolutionIconUrl DefaultValue="https://emurasoft.github.io/excel-csv-import/hi-res-icon.png" />
 
-    <SupportUrl DefaultValue="https://www.emeditor.com/support/#contact" /><!--TODO-->
+    <SupportUrl DefaultValue="https://www.emeditor.com/support/#contact" />
 
     <Hosts>
         <Host Name="Workbook" />

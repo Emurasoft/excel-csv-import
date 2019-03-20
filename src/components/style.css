@@ -10,7 +10,7 @@
 }
 
 .redText * > input, .redText * > textarea {
-  color: #ff4d57;
+  color: #c50000;
 }
 
 .smallDivider {
@@ -24,6 +24,6 @@
   justify-content: center;
 }
 
-.fileInput {
+.fullWidth {
   width: 100%;
 }

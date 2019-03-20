@@ -63,7 +63,7 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                         onClick={this.buttonOnClick}
                     >
                         Import CSV
-                    </PrimaryButton>
+                    </PrimaryButton>{/*TODO cancel link*/}
                 </TooltipHost>
                 <br />
                 <ProgressText hidden={!this.state.processing} />
@@ -87,9 +87,9 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
     }
 
     private buttonOnClick = async () => {
-        this.setState({processing: true});
+        this.setState((state) => ({processing: !state.processing}));
         await this.props.store.import(this.state);
-        this.setState({processing: false}); // TODO fix all setState race conditions
+        this.setState((state) => ({processing: !state.processing}));
     }
 
     private buttonTooltipContent(): string {

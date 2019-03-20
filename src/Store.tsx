@@ -3,9 +3,12 @@ import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
+import {version} from './version';
 
 export interface State {
     initialized: boolean;
+    supported: boolean;
+    version: string;
     parserStatus: ParserStatus;
     largeFile: boolean;
 }
@@ -22,6 +25,8 @@ export class Store extends React.Component<{}, State> {
         super(props);
         this.state = {
             initialized: false,
+            supported: true,
+            version: version,
             parserStatus: {
                 errorOccurred: false,
                 output: '',
@@ -30,9 +35,10 @@ export class Store extends React.Component<{}, State> {
         };
 
         this._log = new Logger();
+        this._log.push('version', {version});
 
         // noinspection JSIgnoredPromiseFromCall
-        this.initParser();
+        this.initAPI();
     }
 
     public render(): React.ReactNode {
@@ -56,14 +62,21 @@ export class Store extends React.Component<{}, State> {
 
     public log = () => this._log.log()
 
-    public initParser = async (): Promise<void> => {
+    public initAPI = async (): Promise<void> => {
         try {
-            await ExcelAPI.init();
-            this.setState({initialized: true});
+            const version = await ExcelAPI.initAndGetAPIVersion();
+            this.setState({initialized: true, supported: version.supported});
+            this._log.push('APIVersion', version)
+
+            if (!version.supported) {
+                this.setParserError(
+                    'Your version of Excel is not supported:\n' + JSON.stringify(version, null, 2),
+                );
+            }
         } catch (err) {
             this.setParserError(err.stack);
         }
-        this._log.push('initParser');
+        this._log.push('initAPI');
         await this.checkLargeFile();
     }
 
@@ -75,6 +88,8 @@ export class Store extends React.Component<{}, State> {
     }
 
     public setParserError = (output: string) => {
+        // output may contain something about refreshing the browser, in which case it should not
+        // display an error and instead tell the user to refresh.
         this.setState({parserStatus: {errorOccurred: true, output}});
         this._log.push('setParserError', {output});
     }

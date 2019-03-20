@@ -3,6 +3,8 @@ import {Store} from '../Store';
 import * as React from 'react';
 import * as queryString from 'query-string';
 import {Export} from './Export';
+import {About} from './About';
+import {ErrorBoundary} from './ErrorBoundary';
 
 function page(name: string[] | string ): React.ReactNode {
     switch (name) {
@@ -10,15 +12,19 @@ function page(name: string[] | string ): React.ReactNode {
         return <Import />;
     case 'export':
         return <Export />;
+    case 'about':
+        return <About />
     default:
         return null;
     }
 }
 
-export function App(): JSX.Element { // TODO error boundary
+export function App(): JSX.Element {
     return (
-        <Store>
-            {page(queryString.parse(location.search).page)}
-        </Store>
+        <ErrorBoundary>
+            <Store>
+                {page(queryString.parse(location.search).page)}
+            </Store>
+        </ErrorBoundary>
     );
 }

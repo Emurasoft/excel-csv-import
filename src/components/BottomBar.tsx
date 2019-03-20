@@ -6,7 +6,7 @@ export function BottomBar(): JSX.Element {
     return (
         <div className={style.bottomBar}>
             <Text variant='medium'>
-                <Link>About</Link>
+                <Link href='?page=about'>About</Link>
             </Text>
         </div>
     );

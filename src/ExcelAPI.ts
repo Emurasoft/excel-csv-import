@@ -1,7 +1,16 @@
 /* global Office, Excel */
 
-export async function init(): Promise<void> {
+interface APIVersionInfo {
+    supported: boolean;
+    environmentInfo: Office.ContextInformation;
+}
+
+export async function initAndGetAPIVersion(): Promise<APIVersionInfo> {
     await Office.onReady();
+    return {
+        supported: Office.context.requirements.isSetSupported('ExcelApi', 1.7),
+        environmentInfo: {...Office.context.diagnostics},
+    };
 }
 
 // Returns current worksheet if empty, otherwise returns new worksheet.
