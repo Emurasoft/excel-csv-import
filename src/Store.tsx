@@ -21,6 +21,7 @@ export interface ParserStatus {
 
 export const Context = React.createContext(undefined);
 
+// TODO Store is being reset when page changes
 export class Store extends React.Component<{}, State> {
     public constructor(props: {}) {
         super(props);

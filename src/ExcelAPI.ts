@@ -3,6 +3,7 @@
 interface APIVersionInfo {
     supported: boolean;
     environmentInfo: Office.ContextInformation;
+    userAgent: string;
 }
 
 export async function initAndGetAPIVersion(): Promise<APIVersionInfo> {
@@ -10,6 +11,7 @@ export async function initAndGetAPIVersion(): Promise<APIVersionInfo> {
     return {
         supported: Office.context.requirements.isSetSupported('ExcelApi', 1.7),
         environmentInfo: {...Office.context.diagnostics},
+        userAgent: window.navigator.userAgent,
     };
 }
 

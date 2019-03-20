@@ -9,6 +9,7 @@ export class Logger {
     }
 
     // Adds name and a deep copy of args if defined otherwise empty object, as a new record.
+    // Do not add sensitive information.
     public push(name: string, args?: {[key: string]: any}): void {
         this._log.push(Object.freeze({name, args: args ? Logger.deepCopy(args) : {}}));
     }
@@ -20,6 +21,7 @@ export class Logger {
     private readonly _log: Record[];
 
     private static deepCopy(a: {}): {} {
+        // TODO file name is not copied
         return JSON.parse(JSON.stringify(a));
     }
 }
