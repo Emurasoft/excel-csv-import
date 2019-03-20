@@ -26,7 +26,7 @@ export class Store extends React.Component<{}, State> {
         this.state = {
             initialized: false,
             supported: true,
-            version: '',
+            version: version,
             parserStatus: {
                 errorOccurred: false,
                 output: '',

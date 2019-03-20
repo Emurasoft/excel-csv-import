@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Store} from '../Store';
 import {connect} from '../connect';
-import {DefaultButton, IconButton} from 'office-ui-fabric-react';
+import {DefaultButton, IconButton, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
 
 export class AboutComponent extends React.Component<{store: Store}, {}> {
@@ -14,6 +14,10 @@ export class AboutComponent extends React.Component<{store: Store}, {}> {
                     ariaLabel='Go back'
                     title='Go back'
                 />
+                <br />
+                <Text variant='medium'>
+                    {this.props.store.state.version}
+                </Text>
                 <br /><br />
                 <DefaultButton
                     onClick={this.exportLog}
