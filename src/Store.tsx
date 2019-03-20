@@ -61,7 +61,7 @@ export class Store extends React.Component<{}, State> {
     }
 
     public log = () => this._log.log()
-
+    // TODO get browser info
     public initAPI = async (): Promise<void> => {
         try {
             const version = await ExcelAPI.initAndGetAPIVersion();

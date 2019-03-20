@@ -1,6 +1,7 @@
 // Make sure API is initialized before using
 import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
+import {EventEmitter} from './EventEmitter';
 
 // @ts-ignore
 Papa.LocalChunkSize = 10000;
@@ -41,11 +42,20 @@ export interface ExportOptions {
 export function _parseAndSetCells(
     worksheet: Excel.Worksheet,
     importOptions: ImportOptions & Papa.ParseConfig,
+    abortEmitter: EventEmitter,
     excelAPI = ExcelAPI,
 ): Promise<void> {
+    let abort = false;
+    abortEmitter.setListener(() => abort = true);
+
     return new Promise((resolve) => {
         let row = 0;
+
         importOptions.chunk = (chunk: Papa.ParseResult, parser: Papa.Parser) => {
+            if (abort) {
+                parser.abort();
+            }
+
             parser.pause();
             worksheet.context.application.suspendApiCalculationUntilNextSync();
             excelAPI.setChunk(worksheet, row, chunk.data);
@@ -64,9 +74,12 @@ export function _parseAndSetCells(
     });
 }
 
-export async function importCSV(importOptions: ImportOptions): Promise<void> {
+export async function importCSV(
+    importOptions: ImportOptions,
+    abortEmitter: EventEmitter,
+): Promise<void> {
     await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
-        await _parseAndSetCells(worksheet, importOptions);
+        await _parseAndSetCells(worksheet, importOptions, abortEmitter);
     });
 }
 

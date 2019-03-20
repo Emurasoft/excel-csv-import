@@ -9,6 +9,7 @@ import {
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
+import {EventEmitter} from './EventEmitter';
 
 describe('Parser', () => {
     it('_parseAndSetCells()', (done) => {
@@ -31,8 +32,10 @@ describe('Parser', () => {
             newline: NewlineSequence.LF,
             encoding: '',
         };
+
+        const abort = new EventEmitter();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Parser._parseAndSetCells(worksheetStub as any, importOptions, api);
+        Parser._parseAndSetCells(worksheetStub as any, importOptions, abort, api);
     });
 
     it('_addQuotes()', () => {
