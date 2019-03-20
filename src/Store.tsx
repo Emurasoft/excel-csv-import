@@ -4,6 +4,7 @@ import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
 import {version} from './version';
+import {EventEmitter} from './EventEmitter';
 
 export interface State {
     initialized: boolean;
@@ -36,6 +37,8 @@ export class Store extends React.Component<{}, State> {
 
         this._log = new Logger();
         this._log.push('version', {version});
+
+        this._abortEmitter = new EventEmitter();
 
         // noinspection JSIgnoredPromiseFromCall
         this.initAPI();
@@ -94,9 +97,15 @@ export class Store extends React.Component<{}, State> {
         this._log.push('setParserError', {output});
     }
 
+    // Aborts any import or export processes currently running.
+    public abort = () => {
+        this._abortEmitter.emit();
+        this._log.push('abort');
+    }
+
     public import = async (options: Parser.ImportOptions): Promise<void> => {
         try {
-            await Parser.importCSV(options);
+            await Parser.importCSV(options, this._abortEmitter);
         } catch (e) {
             this.logError(new Error(e.stack));
         }
@@ -129,6 +138,7 @@ export class Store extends React.Component<{}, State> {
     }
 
     private readonly _log: Logger;
+    private readonly _abortEmitter: EventEmitter;
 
     private logError = (err) => {
         // eslint-disable-next-line no-console
