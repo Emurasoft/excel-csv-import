@@ -7,7 +7,7 @@ function getList() {
         const buffers = [];
         https.get('https://encoding.spec.whatwg.org/encodings.json', (res) => {
             res.on('data', buffers.push.bind(buffers));
-            res.on('end', () => {resolve(JSON.parse(Buffer.concat(buffers)))});
+            res.on('end', () => {resolve(JSON.parse(Buffer.concat(buffers).toString()))});
         });
     });
 }
@@ -29,7 +29,7 @@ async function main() {
         dropdownOptions.push({key: encoding, text: encoding});
     }
 
-    process.stdout.write(JSON.stringify(dropdownOptions, null, 4));
+    process.stdout.write(JSON.stringify(dropdownOptions, null, 4) + '\n');
     // Copy output to ExportTypeDropdown.ts, then manually add common aliases
 }
 
