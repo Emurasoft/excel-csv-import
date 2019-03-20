@@ -65,7 +65,7 @@ export class Store extends React.Component<{}, State> {
     }
 
     public log = () => this._log.log()
-    // TODO get browser info
+
     public initAPI = async (): Promise<void> => {
         try {
             const version = await ExcelAPI.initAndGetAPIVersion();
@@ -93,7 +93,7 @@ export class Store extends React.Component<{}, State> {
 
     public setParserError = (output: string) => {
         if (output.includes('RichApi.Error') && output.includes('refresh the page')) {
-            output = 'Session has expired; please refresh the page.\n\n';
+            output = 'Session has expired; please refresh the page.\n\n' + output;
         }
 
         this.setState({parserStatus: {errorOccurred: true, output}});
