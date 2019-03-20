@@ -125,9 +125,19 @@ export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): 
     return stringValues.join(exportOptions.delimiter) + exportOptions.newline;
 }
 
-export function _csvString(values: any[][], exportOptions: Readonly<ExportOptions>): string {
+export function _csvString(
+    values: any[][],
+    exportOptions: Readonly<ExportOptions>,
+    abortEmitter: EventEmitter,
+): string {
     let result = '';
+    let abort = false;
+    abortEmitter.setListener(() => abort = true);
+
     for (const row of values) {
+        if (abort) {
+            return result;
+        }
         result += _rowString(row, exportOptions);
     }
     return result;
@@ -140,11 +150,12 @@ export interface CsvStringAndName {
 
 export async function csvStringAndName(
     exportOptions: ExportOptions,
-    excelAPI = ExcelAPI
+    abortEmitter: EventEmitter,
+    excelAPI = ExcelAPI,
 ): Promise<CsvStringAndName> {
     const namesAndValues = await excelAPI.workbookNamesAndValues();
     return {
         name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),
-        string: _csvString(namesAndValues.values, exportOptions)
+        string: _csvString(namesAndValues.values, exportOptions, abortEmitter)
     };
 }

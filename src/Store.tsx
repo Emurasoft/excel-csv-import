@@ -131,7 +131,7 @@ export class Store extends React.Component<{}, State> {
     ): Promise<CsvStringAndName|null> => {
         let result: CsvStringAndName = null;
         try {
-            result = await Parser.csvStringAndName(options);
+            result = await Parser.csvStringAndName(options, this._abortEmitter);
         } catch (err) {
             this.setParserError(err.stack);
         }
