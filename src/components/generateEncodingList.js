@@ -15,7 +15,6 @@ function getList() {
 async function main() {
     const list = await getList();
     const encodings = [];
-    const addToTop = ['UTF-8', 'UTF-16LE'];
 
     for (const group of list) {
         for (const encoding of group.encodings) {
@@ -25,7 +24,7 @@ async function main() {
     encodings.sort();
 
     const dropdownOptions = [{key: '', text: 'Auto-detect'}];
-    for (const encoding of [...addToTop, ...encodings]) {
+    for (const encoding of encodings) {
         dropdownOptions.push({key: encoding, text: encoding});
     }
 

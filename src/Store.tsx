@@ -91,8 +91,10 @@ export class Store extends React.Component<{}, State> {
     }
 
     public setParserError = (output: string) => {
-        // output may contain something about refreshing the browser, in which case it should not
-        // display an error and instead tell the user to refresh.
+        if (output.includes('RichApi.Error') && output.includes('refresh the page')) {
+            output = 'Session has expired; please refresh the page.\n\n';
+        }
+
         this.setState({parserStatus: {errorOccurred: true, output}});
         this._log.push('setParserError', {output});
     }
