@@ -81,7 +81,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         const loadedState = {};
         for (const entry of Object.entries(localStorage)) {
             if (entry[0].substring(0, 7) === 'Import-') {
-                console.log(entry);
                 loadedState[entry[0].substring(7)] = JSON.parse(entry[1]);
             }
         }

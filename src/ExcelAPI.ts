@@ -34,6 +34,7 @@ export async function runOnBlankWorksheet(
 ): Promise<void> {
     await Excel.run(async (context) => {
         await batch(await blankWorksheet(context));
+        // TODO switch to worksheet
         await context.sync();
     });
 }
