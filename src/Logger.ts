@@ -15,6 +15,7 @@ export class Logger {
     }
 
     public log(): string {
+        // eslint-disable-next-line no-console
         console.table(this._log);
         return JSON.stringify(this._log, null, 2);
     }

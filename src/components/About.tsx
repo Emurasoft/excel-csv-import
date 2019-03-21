@@ -5,7 +5,7 @@ import {DefaultButton, IconButton, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
 import {MemoryHistory} from 'history';
 
-export class AboutComponent extends React.Component<{store: Store, history: MemoryHistory}, {}> {
+export class AboutComponent extends React.Component<{store: Store; history: MemoryHistory}, {}> {
     public render(): React.ReactNode {
         return (
             <div>

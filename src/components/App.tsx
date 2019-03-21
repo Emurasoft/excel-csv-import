@@ -7,6 +7,16 @@ import {ErrorBoundary} from './ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
 import * as queryString from 'query-string';
 import {paths} from './Paths';
+
+function initialEntry(name): string {
+    // I don't know if this is necessary but extra precaution doesn't hurt.
+    if (['import', 'export', 'about'].includes(name as string)) {
+        return '/' + name;
+    } else {
+        return '';
+    }
+}
+
 export function App(): JSX.Element {
     return (
         <ErrorBoundary>
@@ -21,13 +31,4 @@ export function App(): JSX.Element {
             </Store>
         </ErrorBoundary>
     );
-}
-
-function initialEntry(name) {
-    // I don't know if this is necessary but extra precaution doesn't hurt.
-    if (['import', 'export', 'about'].includes(name as string)) {
-        return '/' + name;
-    } else {
-        return '';
-    }
 }
