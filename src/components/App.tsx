@@ -6,7 +6,7 @@ import {About} from './About';
 import {ErrorBoundary} from './ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
 import * as queryString from 'query-string';
-
+import {paths} from './Paths';
 export function App(): JSX.Element {
     return (
         <ErrorBoundary>
@@ -14,9 +14,9 @@ export function App(): JSX.Element {
                 <MemoryRouter
                     initialEntries={[initialEntry(queryString.parse(location.search).page)]}
                 >
-                    <Route path='/import' component={Import} />
-                    <Route path='/export' component={Export} />
-                    <Route path='/about' component={About} />
+                    <Route path={paths.import} component={Import} />
+                    <Route path={paths.export} component={Export} />
+                    <Route path={paths.about} component={About} />
                 </MemoryRouter>
             </Store>
         </ErrorBoundary>

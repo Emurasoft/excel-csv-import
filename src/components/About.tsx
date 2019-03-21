@@ -3,14 +3,15 @@ import {Store} from '../Store';
 import {connect} from '../connect';
 import {DefaultButton, IconButton, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
+import {MemoryHistory} from 'history';
 
-export class AboutComponent extends React.Component<{store: Store}, {}> {
+export class AboutComponent extends React.Component<{store: Store, history: MemoryHistory}, {}> {
     public render(): React.ReactNode {
         return (
             <div>
                 <IconButton
                     iconProps={{iconName: 'Back'}}
-                    onClick={() => window.history.back()}
+                    onClick={this.props.history.goBack}
                     ariaLabel='Go back'
                     title='Go back'
                 />
