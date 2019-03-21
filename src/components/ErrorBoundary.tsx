@@ -25,7 +25,7 @@ export class ErrorBoundary extends React.Component<{}, State> {
             return (
                 <>
                     <textarea
-                        value={this.state.error.stack}
+                        value={this.state.error.toString() + '\n' + this.state.error.stack}
                         className={style.monospace + ' ' + style.fullWidth}
                         rows={15}
                         wrap='off'
