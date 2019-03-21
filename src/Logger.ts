@@ -23,7 +23,17 @@ export class Logger {
     private readonly _log: Record[];
 
     private static deepCopy(a: {}): {} {
-        // TODO file name is not copied
-        return JSON.parse(JSON.stringify(a));
+        const copy = JSON.parse(JSON.stringify(a));
+
+        // Add filename to ImportOptions
+        if (
+            'options' in copy && 'source' in copy.options && 'file' in copy.options.source
+            && 'options' in a && 'source' in (a as {options: {}}).options
+            && 'file' in (a as {options: {source: {}}}).options.source
+        ) {
+            copy.options.source.file
+                = (a as {options: {source: {file: {name?: string}}}}).options.source.file.name;
+        }
+        return copy;
     }
 }
