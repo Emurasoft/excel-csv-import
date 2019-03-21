@@ -38,35 +38,42 @@ const DropdownOptionsWithAutoDetect: ReadonlyArray<IDropdownOption> = Object.fre
 type Props = BaseProps<string> & {showAutoDetect: boolean; showLengthError: boolean};
 
 interface State {
-    selectedKey: DropdownOptionKey;
+    otherSelected: boolean;
 }
 
 export class DelimiterDropdown extends React.Component<Props, State> {
     public constructor(props) {
         super(props);
+        this.state = {otherSelected: false};
+
+        this._stringToDropdownKey = {
+            '\u002c': DropdownOptionKey.comma,
+            '\u0020': DropdownOptionKey.space,
+            '\u0009': DropdownOptionKey.tab,
+        };
+
         if (props.showAutoDetect) {
-            this.state = {selectedKey: DropdownOptionKey.autoDetect};
+            this._stringToDropdownKey[''] = DropdownOptionKey.autoDetect;
             this._dropdownOptions = [...DropdownOptionsWithAutoDetect];
         } else {
-            this.state = {selectedKey: DropdownOptionKey.comma};
             this._dropdownOptions = [...DropdownOptionsNoAutoDetect];
         }
     }
 
     public render(): React.ReactNode {
-        const customInput =
-        <div className={style.smallDivider}>
-            <TextField
-                className={style.monospace}
-                value={this.props.value}
-                onChange={(_, value) => this.props.onChange(value)}
-                description={DelimiterDropdown.description(this.props.value)}
-                onGetErrorMessage={this.getErrorMessage}
-                deferredValidationTime={1}
-                id='DelimiterDropdown-TextField'
-                placeholder='Enter custom delimiter'
-            />
-        </div>;
+        const customInput = (
+            <div className={style.smallDivider}>
+                <TextField
+                    className={style.monospace}
+                    value={this.props.value}
+                    onChange={(_, value) => this.props.onChange(value)}
+                    description={DelimiterDropdown.description(this.props.value)}
+                    onGetErrorMessage={this.getErrorMessage}
+                    deferredValidationTime={1}
+                    placeholder='Enter custom delimiter'
+                />
+            </div>
+        );
 
         return (
             <>
@@ -74,11 +81,10 @@ export class DelimiterDropdown extends React.Component<Props, State> {
                     label='Delimiter'
                     options={this._dropdownOptions}
                     responsiveMode={ResponsiveMode.large}
-                    selectedKey={this.state.selectedKey}
+                    selectedKey={this.selectedKey()}
                     onChange={this.dropdownOnChange}
-                    id='DelimiterDropdown-Dropdown'
                 />
-                {this.state.selectedKey == DropdownOptionKey.other ? customInput : null}
+                {this.showCustomInput() ? customInput : null}
             </>
         );
     }
@@ -96,18 +102,43 @@ export class DelimiterDropdown extends React.Component<Props, State> {
     }
 
     private readonly _dropdownOptions: IDropdownOption[];
+    private readonly _stringToDropdownKey: {[key: string]: DropdownOptionKey};
+
+    private showCustomInput() {
+        if (this.state.otherSelected) {
+            return true;
+        }
+
+        const delimitersInDropdown = ['\u002c', '\u0020', '\u0009'];
+        if (this.props.showAutoDetect) {
+            delimitersInDropdown.push('');
+        }
+        return !delimitersInDropdown.includes(this.props.value);
+    }
+
+    private selectedKey(): DropdownOptionKey {
+        if (this.state.otherSelected) {
+            return DropdownOptionKey.other;
+        }
+
+        if (this.props.value in this._stringToDropdownKey) {
+            return this._stringToDropdownKey[this.props.value];
+        } else {
+            return DropdownOptionKey.other;
+        }
+    }
 
     private dropdownOnChange = (_, option: IDropdownOption) => {
-        const optionKeyMap = {
+        const dropdownToString = {
             [DropdownOptionKey.autoDetect]: '',
             [DropdownOptionKey.comma]: '\u002c',
             [DropdownOptionKey.space]: '\u0020',
             [DropdownOptionKey.tab]: '\u0009',
             [DropdownOptionKey.other]: '',
-        }
+        };
 
-        this.setState({selectedKey: option.key as DropdownOptionKey});
-        this.props.onChange(optionKeyMap[option.key]);
+        this.setState({otherSelected: option.key === DropdownOptionKey.other});
+        this.props.onChange(dropdownToString[option.key]);
     }
 
     private getErrorMessage = (value: string) => {
