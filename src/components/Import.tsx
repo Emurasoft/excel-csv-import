@@ -77,13 +77,22 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
         // TODO save options button
     }
 
+    public componentDidMount(): void {
+        const loadedState = {};
+        for (const entry of Object.entries(localStorage)) {
+            if (entry[0].substring(0, 7) === 'Import-') {
+                console.log(entry);
+                loadedState[entry[0].substring(7)] = JSON.parse(entry[1]);
+            }
+        }
+        this.setState(loadedState);
+    }
+
     public setState<K extends keyof State>(state: Pick<State, K>): void {
         super.setState(state);
-        // TODO
-        // // Need to add namespace to all entries
-        // for (const entry of Object.entries(state)) {
-        //     localStorage.setItem(entry[0], JSON.stringify(entry[1]));
-        // }
+        for (const entry of Object.entries(state)) {
+            localStorage.setItem('Import-' + entry[0], JSON.stringify(entry[1]));
+        }
     }
 
     private buttonOnClick = async () => {
