@@ -25,7 +25,7 @@ export class Logger {
     private static deepCopy(a: {}): {} {
         const copy = JSON.parse(JSON.stringify(a));
 
-        // Add filename to ImportOptions
+        // Replace file in ImportOptions with the filename
         if (
             'options' in copy && 'source' in copy.options && 'file' in copy.options.source
             && 'options' in a && 'source' in (a as {options: {}}).options
