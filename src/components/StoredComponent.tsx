@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
-    public constructor(props: P, namespace: string) {
+    public constructor(props: P, namespace: string, skipKeys: string[]) {
         super(props);
         this._namespace = namespace;
+        this._skipKeys = skipKeys;
 
         if (!localStorage) {
             // @ts-ignore
@@ -18,7 +19,10 @@ export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
     public componentDidMount(): void {
         const loadedState = {};
         for (const entry of Object.entries(localStorage)) {
-            if (entry[0].substring(0, this._namespace.length + 1) === this._namespace + '-') {
+            if (
+                entry[0].substring(0, this._namespace.length + 1) === this._namespace + '-'
+                && !this._skipKeys.includes(entry[0].substring(this._namespace.length + 1))
+            ) {
                 loadedState[entry[0].substring(this._namespace.length + 1)] = JSON.parse(entry[1]);
             }
         }
@@ -33,10 +37,14 @@ export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
         super.setState(state);
         if (typeof state === 'object') {
             for (const entry of Object.entries(state)) {
-                localStorage.setItem(this._namespace + '-' + entry[0], JSON.stringify(entry[1]));
+                if (!this._skipKeys.includes(entry[0])) {
+                    const key = this._namespace + '-' + entry[0];
+                    localStorage.setItem(key, JSON.stringify(entry[1]));
+                }
             }
         }
     }
 
     private readonly _namespace: string;
+    private readonly _skipKeys: string[];
 }

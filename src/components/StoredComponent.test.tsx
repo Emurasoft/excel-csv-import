@@ -8,7 +8,7 @@ describe('StoredComponent', () => {
 
     class Component extends StoredComponent {
         public constructor(props: {}) {
-            super(props, 'name');
+            super(props, 'name', ['skip']);
         }
     }
 
@@ -18,6 +18,7 @@ describe('StoredComponent', () => {
 
         localStorage.setItem('name-a', '"value0"');
         localStorage.setItem('name-b', '"value1"');
+        localStorage.setItem('name-skip', '"value2"');
         const wrapper1 = shallow(<Component />);
         assert.deepStrictEqual(wrapper1.state(), {a: 'value0', b: 'value1'});
     });
@@ -29,7 +30,8 @@ describe('StoredComponent', () => {
         assert.strictEqual(Object.entries(localStorage).length, originalLocalStorageLength);
 
         wrapper.setState({'key0': 'v'});
-        wrapper.setState({'key1': {a: 0}})
+        wrapper.setState({'key1': {a: 0}});
+        wrapper.setState({'skip': 0});
         assert.strictEqual(localStorage['name-key0'], '"v"');
         assert.strictEqual(localStorage['name-key1'], JSON.stringify({a: 0}));
 
