@@ -5,24 +5,17 @@ interface StringKey {
 }
 
 export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
-    public constructor(props: P, namespace: string, saveKeys: (keyof S)[]) {
+    public constructor(props: P, namespace: string, defaultState: S, saveKeys: (keyof S)[]) {
         super(props);
         this._namespace = namespace;
         this._saveKeys = saveKeys;
+        this._save = localStorage && localStorage['StoredComponent-save'] === '"true"';
 
-        if (!localStorage) {
-            this._save = false;
-        } else {
-            this._save = localStorage['StoredComponent-save'] === '"true"';
-        }
-
+        let loadedState = {};
         if (this._save) {
-            this.state = StoredComponent.loadState(namespace, saveKeys as string[]) as Readonly<S>;
-        } else {
-            // TODO object assign to set default options
-            // @ts-ignore
-            this.state = {};
+            loadedState = StoredComponent.loadState(namespace, saveKeys as string[]);
         }
+        this.state = {...defaultState, ...loadedState};
     }
 
     public render(): React.ReactNode {

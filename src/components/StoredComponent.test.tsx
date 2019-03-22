@@ -8,25 +8,25 @@ describe('StoredComponent', () => {
 
     class EmptyName extends StoredComponent<{}, {key0; key1}> {
         public constructor(props: {}) {
-            super(props, '', ['key0', 'key1']);
+            super(props, '', {key0: 0, key1: 1}, ['key0', 'key1']);
         }
     }
 
     class Component extends StoredComponent<{}, {key0; key1}> {
         public constructor(props: {}) {
-            super(props, 'name', ['key0', 'key1']);
+            super(props, 'name', {key0: 0, key1: 1}, ['key0', 'key1']);
         }
     }
 
     it('save values', () => {
         localStorage.setItem('name-key0', '"value0"');
         const wrapper0 = shallow(<Component />);
-        assert.deepStrictEqual(wrapper0.state(), {});
+        assert.deepStrictEqual(wrapper0.state(), {key0: 0, key1: 1});
         localStorage.clear();
 
         localStorage.setItem('StoredComponent-save', '"true"');
         const wrapper1 = shallow(<Component />);
-        assert.deepStrictEqual(wrapper1.state(), {});
+        assert.deepStrictEqual(wrapper1.state(), {key0: 0, key1: 1});
 
         localStorage.setItem('-key0', '"value0"');
         localStorage.setItem('-key1', '"value1"');
@@ -35,10 +35,9 @@ describe('StoredComponent', () => {
         assert.deepStrictEqual(wrapper2.state(), {key0: 'value0', key1: 'value1'});
 
         localStorage.setItem('name-key0', '"value0"');
-        localStorage.setItem('name-key1', '"value1"');
         localStorage.setItem('name-skip', '"value2"');
         const wrapper3 = shallow(<Component />);
-        assert.deepStrictEqual(wrapper3.state(), {key0: 'value0', key1: 'value1'});
+        assert.deepStrictEqual(wrapper3.state(), {key0: 'value0', key1: 1});
     });
 
     it('setState()', () => {
@@ -74,7 +73,7 @@ describe('StoredComponent', () => {
     it('setSaveStatus()', (done) => {
         class TestComponent0 extends StoredComponent<{}, {key}> {
             public constructor() {
-                super({}, 'TestComponent0', ['key']);
+                super({}, 'TestComponent0', {key: 0}, ['key']);
                 this.setSaveStatus(false);
                 assert.strictEqual(localStorage['StoredComponent-save'], undefined);
             }
@@ -88,7 +87,7 @@ describe('StoredComponent', () => {
 
         class TestComponent1 extends StoredComponent<{}, {key}> {
             public constructor() {
-                super({}, 'TestComponent1', ['key']);
+                super({}, 'TestComponent1', {key: 0}, ['key']);
                 this.setSaveStatus(true);
                 assert.strictEqual(localStorage['StoredComponent-save'], '"true"');
             }
