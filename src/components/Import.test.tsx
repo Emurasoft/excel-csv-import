@@ -10,7 +10,7 @@ import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 
 describe('ImportComponent', () => {
-    afterEach(localStorage.clear);
+    afterEach(() => localStorage.clear());
 
     it('import', () => {
         let receivedOptions = null;
