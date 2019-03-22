@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export class StoredComponent extends React.Component<{}, {}> {
-    public constructor(props: {}, namespace: string) {
+export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
+    public constructor(props: P, namespace: string) {
         super(props);
         this._namespace = namespace;
     }

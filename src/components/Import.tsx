@@ -11,12 +11,13 @@ import {ProgressText} from './ProgressText';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ErrorOutput} from './ErrorOutput';
+import {StoredComponent} from './StoredComponent';
 
 type State = ImportOptions & {processing: boolean};
 
-export class ImportComponent extends React.Component<{store: Store}, State> {
+export class ImportComponent extends StoredComponent<{store: Store}, State> {
     public constructor(props: {store: Store}) { // TODO check if initialization can be sped up
-        super(props);
+        super(props, 'Import');
         this.state = {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
@@ -74,23 +75,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <BottomBar />
             </div>
         );
-    }
-
-    public componentDidMount(): void {
-        const loadedState = {};
-        for (const entry of Object.entries(localStorage)) {
-            if (entry[0].substring(0, 7) === 'Import-') {
-                loadedState[entry[0].substring(7)] = JSON.parse(entry[1]);
-            }
-        }
-        this.setState(loadedState);
-    }
-
-    public setState<K extends keyof State>(state: Pick<State, K>): void {
-        super.setState(state);
-        for (const entry of Object.entries(state)) {
-            localStorage.setItem('Import-' + entry[0], JSON.stringify(entry[1]));
-        }
     }
 
     private buttonOnClick = async () => {
