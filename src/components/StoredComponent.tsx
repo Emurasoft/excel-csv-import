@@ -21,6 +21,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     }
 
     public componentDidMount(): void {
+        // TODO move to constructor
         const loadedState = {};
         for (const entry of Object.entries(localStorage)) {
             if (
