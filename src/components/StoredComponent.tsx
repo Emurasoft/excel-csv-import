@@ -43,6 +43,10 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
     }
 
+    public saveStatus(): boolean {
+        return this._save;
+    }
+
     public setSaveStatus(save: boolean): void {
         this._save = save;
 

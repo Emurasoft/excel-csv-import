@@ -17,14 +17,13 @@ type State = ImportOptions & {processing: boolean};
 
 export class ImportComponent extends StoredComponent<{store: Store}, State> {
     public constructor(props: {store: Store}) { // TODO check if initialization can be sped up
-        super(props, 'Import', ['delimiter', 'newline', 'encoding']);
-        this.state = { // TODO need to pass default state to StoredComponent
+        super(props, 'Import', {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
             newline: NewlineSequence.AutoDetect,
             encoding: '',
             processing: false,
-        };
+        }, ['delimiter', 'newline', 'encoding']);
     }
 
     public render(): React.ReactNode {
@@ -70,7 +69,9 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
                 <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
                 <Toggle
                     label='Save options' inlineLabel
-                />{/*TODO make save options functional*/}
+                    defaultChecked={this.saveStatus()}
+                    onChange={(_, checked) => this.setSaveStatus(checked)}
+                />
                 <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
                 <BottomBar />
             </div>

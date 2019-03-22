@@ -24,8 +24,7 @@ type State = ExportOptions & {outputText: OutputText; processing: boolean};
 
 export class ExportComponent extends StoredComponent<{store: Store}, State> {
     public constructor(props: {store: Store}) {
-        super(props, 'Export', ['exportType', 'delimiter', 'newline', 'encoding']);
-        this.state = {
+        super(props, 'Export', {
             exportType: ExportType.file,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
@@ -35,7 +34,7 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                 show: false,
                 text: '',
             },
-        };
+        }, ['exportType', 'delimiter', 'newline', 'encoding']);
     }
 
     public render(): React.ReactNode {
