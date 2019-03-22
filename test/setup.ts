@@ -16,6 +16,8 @@ jsdom();
 global.localStorage = {
     // @ts-ignore
     setItem: (k, v) => global.localStorage[k] = v,
+    // @ts-ignore
+    clear: () => global.localStorage = {},
 };
 
 // @ts-ignore
