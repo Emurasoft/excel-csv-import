@@ -70,7 +70,7 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
                 <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
                 <Toggle
                     label='Save options' inlineLabel
-                />
+                />{/*TODO make save options functional*/}
                 <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
                 <BottomBar />
             </div>

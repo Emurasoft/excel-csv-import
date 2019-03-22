@@ -18,7 +18,7 @@ describe('StoredComponent', () => {
         }
     }
 
-    it('componentDidMount()', () => {
+    it('save values', () => {
         localStorage.setItem('name-key0', '"value0"');
         const wrapper0 = shallow(<Component />);
         assert.deepStrictEqual(wrapper0.state(), {});
@@ -72,7 +72,6 @@ describe('StoredComponent', () => {
     });
 
     it('setSaveStatus()', (done) => {
-        let firstIsDone = false;
         class TestComponent0 extends StoredComponent<{}, {key}> {
             constructor() {
                 super({}, 'TestComponent0', ['key']);
@@ -80,10 +79,9 @@ describe('StoredComponent', () => {
                 assert.strictEqual(localStorage['StoredComponent-save'], undefined);
             }
 
-            componentDidMount(): void {this.setState({key: 'value'});
-                super.componentDidMount();
+            componentDidMount(): void {
+                this.setState({key: 'value'});
                 assert.strictEqual(localStorage['TestComponent0-key'], undefined);
-                firstIsDone = true;
             }
         }
         shallow(<TestComponent0 />);
@@ -95,7 +93,7 @@ describe('StoredComponent', () => {
                 assert.strictEqual(localStorage['StoredComponent-save'], '"true"');
             }
 
-            componentDidMount(): void {this.setState({key: 'value'});
+            componentDidMount(): void {
                 this.setState({key: 'value'});
                 assert.strictEqual(localStorage['TestComponent1-key'], '"value"');
                 done();

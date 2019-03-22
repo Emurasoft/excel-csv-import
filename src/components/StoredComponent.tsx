@@ -3,10 +3,10 @@ import * as React from 'react';
 type StringKey = {[key: string]: any};
 
 export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
-    public constructor(props: P, namespace: string, savedKeys: (keyof S)[]) {
+    public constructor(props: P, namespace: string, saveKeys: (keyof S)[]) {
         super(props);
         this._namespace = namespace;
-        this._savedKeys = savedKeys;
+        this._saveKeys = saveKeys;
 
         if (!localStorage) {
             // @ts-ignore
@@ -14,25 +14,16 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
 
         this._save = localStorage['StoredComponent-save'] === '"true"';
+
+        if (this._save) {
+            this.state = StoredComponent.loadState(namespace, saveKeys as string[]) as Readonly<S>;
+        } else {
+            this.state = {} as Readonly<S>;
+        }
     }
 
     public render() {
         return this.props.children;
-    }
-
-    public componentDidMount(): void {
-        // TODO move to constructor
-        const loadedState = {};
-        for (const entry of Object.entries(localStorage)) {
-            if (
-                this._save
-                && entry[0].substring(0, this._namespace.length + 1) === this._namespace + '-'
-                && this._savedKeys.includes(entry[0].substring(this._namespace.length + 1))
-            ) {
-                loadedState[entry[0].substring(this._namespace.length + 1)] = JSON.parse(entry[1]);
-            }
-        }
-        this.setState(loadedState);
     }
 
     // State is saved only if state is an object.
@@ -43,7 +34,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         super.setState(state);
         if (this._save && typeof state === 'object') {
             for (const entry of Object.entries(state)) {
-                if (this._savedKeys.includes(entry[0])) {
+                if (this._saveKeys.includes(entry[0])) {
                     const key = this._namespace + '-' + entry[0];
                     localStorage.setItem(key, JSON.stringify(entry[1]));
                 }
@@ -61,7 +52,20 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
     }
 
+    private static loadState(namespace: string, saveKeys: string[]) {
+        const loadedState = {};
+        for (const entry of Object.entries(localStorage)) {
+            if (
+                entry[0].substring(0, namespace.length + 1) === namespace + '-'
+                && saveKeys.includes(entry[0].substring(namespace.length + 1))
+            ) {
+                loadedState[entry[0].substring(namespace.length + 1)] = JSON.parse(entry[1]);
+            }
+        }
+        return loadedState;
+    }
+
     private readonly _namespace: string;
-    private readonly _savedKeys: (keyof S)[];
+    private readonly _saveKeys: (keyof S)[];
     private _save: boolean;
 }
