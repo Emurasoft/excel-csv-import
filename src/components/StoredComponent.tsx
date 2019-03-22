@@ -5,7 +5,12 @@ interface StringKey {
 }
 
 export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
-    public constructor(props: P, namespace: string, defaultState: S, saveKeys: (keyof S)[]) {
+    public constructor(
+        props: P,
+        namespace: string,
+        defaultState: Readonly<S>,
+        saveKeys: ReadonlyArray<keyof S>
+    ) {
         super(props);
         this._namespace = namespace;
         this._saveKeys = saveKeys;
@@ -62,6 +67,6 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     }
 
     private readonly _namespace: string;
-    private readonly _saveKeys: (keyof S)[];
+    private readonly _saveKeys: ReadonlyArray<keyof S>;
     private _save: boolean;
 }
