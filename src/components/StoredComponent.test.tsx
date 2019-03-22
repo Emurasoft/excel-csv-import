@@ -75,6 +75,7 @@ describe('StoredComponent', () => {
             public constructor() {
                 super({}, 'TestComponent0', {key: 0}, ['key']);
                 this.setSaveStatus(false);
+                assert.strictEqual(this.initialSaveStatus(), false);
                 assert.strictEqual(localStorage['StoredComponent-save'], undefined);
             }
 
@@ -89,6 +90,7 @@ describe('StoredComponent', () => {
             public constructor() {
                 super({}, 'TestComponent1', {key: 0}, ['key']);
                 this.setSaveStatus(true);
+                assert.strictEqual(this.initialSaveStatus(), false);
                 assert.strictEqual(localStorage['StoredComponent-save'], '"true"');
             }
 

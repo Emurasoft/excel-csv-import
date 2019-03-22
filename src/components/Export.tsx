@@ -97,6 +97,8 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                 <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
                 <Toggle
                     inlineLabel label='Save options'
+                    defaultChecked={this.initialSaveStatus()}
+                    onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
                 {this.state.outputText.show ? outputTextField : null}
                 <ErrorOutput parserStatus={this.props.store.state.parserStatus} />

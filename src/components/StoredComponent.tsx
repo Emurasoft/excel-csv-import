@@ -14,7 +14,8 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         super(props);
         this._namespace = namespace;
         this._saveKeys = saveKeys;
-        this._save = localStorage && localStorage['StoredComponent-save'] === '"true"';
+        this._initialSave = localStorage && localStorage['StoredComponent-save'] === '"true"';
+        this._save = this._initialSave;
 
         let loadedState = {};
         if (this._save) {
@@ -43,8 +44,8 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
     }
 
-    public saveStatus(): boolean {
-        return this._save;
+    public initialSaveStatus(): boolean {
+        return this._initialSave;
     }
 
     public setSaveStatus(save: boolean): void {
@@ -72,5 +73,6 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 
     private readonly _namespace: string;
     private readonly _saveKeys: ReadonlyArray<keyof S>;
+    private readonly _initialSave: boolean;
     private _save: boolean;
 }

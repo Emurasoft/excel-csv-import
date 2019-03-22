@@ -68,8 +68,8 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
                 <br />
                 <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
                 <Toggle
-                    label='Save options' inlineLabel
-                    defaultChecked={this.saveStatus()}
+                    inlineLabel label='Save options'
+                    defaultChecked={this.initialSaveStatus()}
                     onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
                 <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
