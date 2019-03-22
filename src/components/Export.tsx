@@ -12,6 +12,7 @@ import {ProgressText} from './ProgressText';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ErrorOutput} from './ErrorOutput';
+import {StoredComponent} from './StoredComponent';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -21,9 +22,9 @@ export interface OutputText {
 
 type State = ExportOptions & {outputText: OutputText; processing: boolean};
 
-export class ExportComponent extends React.Component<{store: Store}, State> {
+export class ExportComponent extends StoredComponent<{store: Store}, State> {
     public constructor(props: {store: Store}) {
-        super(props);
+        super(props, 'Export', ['exportType', 'delimiter', 'newline', 'encoding']);
         this.state = {
             exportType: ExportType.file,
             delimiter: '\u002c',

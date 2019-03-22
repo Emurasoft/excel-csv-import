@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
-    public constructor(props: P, namespace: string, savedKeys: string[]) {
+type StringKey = {[key: string]: any};
+
+export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
+    public constructor(props: P, namespace: string, savedKeys: (keyof S)[]) {
         super(props);
         this._namespace = namespace;
         this._savedKeys = savedKeys;
@@ -46,5 +48,5 @@ export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
     }
 
     private readonly _namespace: string;
-    private readonly _savedKeys: string[];
+    private readonly _savedKeys: (keyof S)[];
 }

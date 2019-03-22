@@ -6,7 +6,7 @@ import * as assert from 'assert';
 describe('StoredComponent', () => {
     afterEach(() => localStorage.clear());
 
-    class Component extends StoredComponent {
+    class Component extends StoredComponent<{}, {key0, key1}> {
         public constructor(props: {}) {
             super(props, 'name', ['key0', 'key1']);
         }
