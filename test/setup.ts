@@ -12,6 +12,7 @@ Enzyme.configure({adapter: new Adapter()});
 
 jsdom();
 
+/* eslint-disable no-undef */
 const localStorage = {
     // @ts-ignore
     setItem: (k, v) => global.localStorage[k] = v,
@@ -21,6 +22,7 @@ const localStorage = {
 
 // @ts-ignore
 global.localStorage = {...localStorage};
+/* eslint-enable no-undef */
 
 // @ts-ignore
 window.requestAnimationFrame = (cb) => cb();

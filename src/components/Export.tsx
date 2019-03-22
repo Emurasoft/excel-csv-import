@@ -2,7 +2,7 @@ import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
-import {DelimiterDropdown} from './DelimiterDropdown';
+import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, Text, TextField, Toggle, TooltipHost} from 'office-ui-fabric-react';
 import {CsvStringAndName, ExportOptions, ExportType, NewlineSequence} from '../Parser';
@@ -69,7 +69,7 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                     hidden={this.state.exportType === ExportType.text}
                     showAutoDetect={false}
                 />
-                <DelimiterDropdown
+                <DelimiterInput
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                     showAutoDetect={false}

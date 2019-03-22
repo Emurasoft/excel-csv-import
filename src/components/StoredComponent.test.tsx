@@ -6,13 +6,13 @@ import * as assert from 'assert';
 describe('StoredComponent', () => {
     afterEach(() => localStorage.clear());
 
-    class EmptyName extends StoredComponent<{}, {key0, key1}> {
+    class EmptyName extends StoredComponent<{}, {key0; key1}> {
         public constructor(props: {}) {
             super(props, '', ['key0', 'key1']);
         }
     }
 
-    class Component extends StoredComponent<{}, {key0, key1}> {
+    class Component extends StoredComponent<{}, {key0; key1}> {
         public constructor(props: {}) {
             super(props, 'name', ['key0', 'key1']);
         }
@@ -73,13 +73,13 @@ describe('StoredComponent', () => {
 
     it('setSaveStatus()', (done) => {
         class TestComponent0 extends StoredComponent<{}, {key}> {
-            constructor() {
+            public constructor() {
                 super({}, 'TestComponent0', ['key']);
                 this.setSaveStatus(false);
                 assert.strictEqual(localStorage['StoredComponent-save'], undefined);
             }
 
-            componentDidMount(): void {
+            public componentDidMount(): void {
                 this.setState({key: 'value'});
                 assert.strictEqual(localStorage['TestComponent0-key'], undefined);
             }
@@ -87,13 +87,13 @@ describe('StoredComponent', () => {
         shallow(<TestComponent0 />);
 
         class TestComponent1 extends StoredComponent<{}, {key}> {
-            constructor() {
+            public constructor() {
                 super({}, 'TestComponent1', ['key']);
                 this.setSaveStatus(true);
                 assert.strictEqual(localStorage['StoredComponent-save'], '"true"');
             }
 
-            componentDidMount(): void {
+            public componentDidMount(): void {
                 this.setState({key: 'value'});
                 assert.strictEqual(localStorage['TestComponent1-key'], '"value"');
                 done();

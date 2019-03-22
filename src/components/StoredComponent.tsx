@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-type StringKey = {[key: string]: any};
+interface StringKey {
+    [key: string]: any;
+}
 
 export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
     public constructor(props: P, namespace: string, saveKeys: (keyof S)[]) {
@@ -9,27 +11,28 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         this._saveKeys = saveKeys;
 
         if (!localStorage) {
-            // @ts-ignore
-            localStorage = {setItem: () => {}};
+            this._save = false;
+        } else {
+            this._save = localStorage['StoredComponent-save'] === '"true"';
         }
-
-        this._save = localStorage['StoredComponent-save'] === '"true"';
 
         if (this._save) {
             this.state = StoredComponent.loadState(namespace, saveKeys as string[]) as Readonly<S>;
         } else {
-            this.state = {} as Readonly<S>;
+            // TODO object assign to set default options
+            // @ts-ignore
+            this.state = {};
         }
     }
 
-    public render() {
+    public render(): React.ReactNode {
         return this.props.children;
     }
 
     // State is saved only if state is an object.
     public setState<K extends keyof S>(
         state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null))
-             | (Pick<S, K> | S | null),
+        | (Pick<S, K> | S | null),
     ): void {
         super.setState(state);
         if (this._save && typeof state === 'object') {
@@ -42,7 +45,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
     }
 
-    public setSaveStatus(save: boolean) {
+    public setSaveStatus(save: boolean): void {
         this._save = save;
 
         if (save) {
@@ -52,7 +55,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
     }
 
-    private static loadState(namespace: string, saveKeys: string[]) {
+    private static loadState(namespace: string, saveKeys: string[]): {} {
         const loadedState = {};
         for (const entry of Object.entries(localStorage)) {
             if (

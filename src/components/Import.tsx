@@ -4,7 +4,7 @@ import {connect} from '../connect';
 import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
 import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
-import {DelimiterDropdown} from './DelimiterDropdown';
+import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressText} from './ProgressText';
@@ -18,7 +18,7 @@ type State = ImportOptions & {processing: boolean};
 export class ImportComponent extends StoredComponent<{store: Store}, State> {
     public constructor(props: {store: Store}) { // TODO check if initialization can be sped up
         super(props, 'Import', ['delimiter', 'newline', 'encoding']);
-        this.state = {
+        this.state = { // TODO need to pass default state to StoredComponent
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
             newline: NewlineSequence.AutoDetect,
@@ -41,7 +41,7 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
                     hidden={this.state.source.inputType === InputType.text}
                     showAutoDetect={true}
                 />
-                <DelimiterDropdown
+                <DelimiterInput
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                     showAutoDetect={true}

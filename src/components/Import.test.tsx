@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import * as React from 'react';
 import {InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
-import {DelimiterDropdown} from './DelimiterDropdown';
+import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton} from 'office-ui-fabric-react';
 import * as assert from 'assert';
@@ -22,7 +22,7 @@ describe('ImportComponent', () => {
 
         wrapper.find(SourceInput)
             .simulate('change', {inputType: InputType.text, text: 'csv text'});
-        wrapper.find(DelimiterDropdown).simulate('change', ',');
+        wrapper.find(DelimiterInput).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
         wrapper.find(EncodingDropdown).simulate('change', 'UTF-8');
         wrapper.find(PrimaryButton).simulate('click');
