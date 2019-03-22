@@ -6,7 +6,7 @@ interface StringKey {
 
 export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
     public constructor(
-        props: P,
+        props: Readonly<P>,
         namespace: string,
         defaultState: Readonly<S>,
         saveKeys: ReadonlyArray<keyof S>
