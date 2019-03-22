@@ -72,7 +72,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     private readonly _initialSave: boolean;
     private _save: boolean;
 
-    private saveState<K extends keyof S>(state: Pick<S, K> | S | null) {
+    private saveState<K extends keyof S>(state: Pick<S, K> | S | null): void {
         for (const entry of Object.entries(state)) {
             if (this._saveKeys.includes(entry[0])) {
                 const key = this._namespace + '-' + entry[0];
