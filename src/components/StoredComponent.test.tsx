@@ -97,6 +97,10 @@ describe('StoredComponent', () => {
             public componentDidMount(): void {
                 this.setState({key: 'value'});
                 assert.strictEqual(localStorage['TestComponent1-key'], '"value"');
+                this.setSaveStatus(false);
+                assert.strictEqual(localStorage['TestComponent1-key'], undefined);
+                this.setSaveStatus(true);
+                assert.deepStrictEqual(localStorage['TestComponent1-key'], '"value"');
                 done();
             }
         }
