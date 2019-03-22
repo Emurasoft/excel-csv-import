@@ -26,7 +26,7 @@ export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
              | (Pick<S, K> | S | null),
     ): void {
         super.setState(state);
-        if (state instanceof Object) {
+        if (typeof state === 'object') {
             for (const entry of Object.entries(state)) {
                 localStorage.setItem(this._namespace + '-' + entry[0], JSON.stringify(entry[1]));
             }

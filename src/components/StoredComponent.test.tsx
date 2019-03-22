@@ -4,9 +4,7 @@ import * as React from 'react';
 import * as assert from 'assert';
 
 describe('StoredComponent', () => {
-    afterEach(() => {
-        localStorage.clear();
-    });
+    afterEach(() => localStorage.clear());
 
     class Component extends StoredComponent {
         public constructor(props: {}) {
@@ -25,13 +23,20 @@ describe('StoredComponent', () => {
     });
 
     it('setState()', () => {
+        const originalLocalStorageLength = Object.entries(localStorage).length;
         const wrapper = shallow(<Component />);
         wrapper.setState({});
-        assert.deepStrictEqual(localStorage, {});
+        assert.strictEqual(originalLocalStorageLength, 2);
 
         wrapper.setState({'key0': 'v'});
         wrapper.setState({'key1': {a: 0}})
         assert.strictEqual(localStorage['name-key0'], '"v"');
         assert.strictEqual(localStorage['name-key1'], JSON.stringify({a: 0}));
+
+        // Pass function
+        localStorage.clear();
+        wrapper.setState(function() {});
+        wrapper.setState(() => {});
+        assert.strictEqual(originalLocalStorageLength, 2);
     });
 });

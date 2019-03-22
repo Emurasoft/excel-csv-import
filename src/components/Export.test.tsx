@@ -9,9 +9,7 @@ import {PrimaryButton, TextField} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 
 describe('ExportComponent', () => {
-    afterEach(() => {
-        localStorage.clear();
-    });
+    afterEach(() => localStorage.clear());
 
     it('export text', (done) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
