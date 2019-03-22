@@ -4,6 +4,11 @@ export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
     public constructor(props: P, namespace: string) {
         super(props);
         this._namespace = namespace;
+
+        if (!localStorage) {
+            // @ts-ignore
+            localStorage = {setItem: () => {}};
+        }
     }
 
     public render() {
