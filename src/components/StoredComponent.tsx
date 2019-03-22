@@ -12,6 +12,8 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
             // @ts-ignore
             localStorage = {setItem: () => {}};
         }
+
+        this._save = localStorage['StoredComponent-save'] === '"true"';
     }
 
     public render() {
@@ -22,7 +24,8 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         const loadedState = {};
         for (const entry of Object.entries(localStorage)) {
             if (
-                entry[0].substring(0, this._namespace.length + 1) === this._namespace + '-'
+                this._save
+                && entry[0].substring(0, this._namespace.length + 1) === this._namespace + '-'
                 && this._savedKeys.includes(entry[0].substring(this._namespace.length + 1))
             ) {
                 loadedState[entry[0].substring(this._namespace.length + 1)] = JSON.parse(entry[1]);
@@ -37,7 +40,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
              | (Pick<S, K> | S | null),
     ): void {
         super.setState(state);
-        if (typeof state === 'object') {
+        if (this._save && typeof state === 'object') {
             for (const entry of Object.entries(state)) {
                 if (this._savedKeys.includes(entry[0])) {
                     const key = this._namespace + '-' + entry[0];
@@ -47,6 +50,17 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         }
     }
 
+    public setSaveStatus(save: boolean) {
+        this._save = save;
+
+        if (save) {
+            localStorage.setItem('StoredComponent-save', '"true"');
+        } else {
+            localStorage.clear();
+        }
+    }
+
     private readonly _namespace: string;
     private readonly _savedKeys: (keyof S)[];
+    private _save: boolean;
 }
