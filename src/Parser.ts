@@ -53,10 +53,10 @@ export function _parseAndSetCells(
                 parser.abort();
             }
 
-            parser.pause();
             worksheet.context.application.suspendApiCalculationUntilNextSync();
             excelAPI.setChunk(worksheet, row, chunk.data);
             row += chunk.data.length;
+            parser.pause();
             worksheet.context.sync().then(parser.resume);
         }
         importOptions.complete = () => resolve();
