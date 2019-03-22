@@ -20,10 +20,16 @@ export class StoredComponent<P = {}, S = {}> extends React.Component<P, S> {
         this.setState(loadedState);
     }
 
-    public setState(state: {}): void {
+    // State is saved only if state is an object.
+    public setState<K extends keyof S>(
+        state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null))
+             | (Pick<S, K> | S | null),
+    ): void {
         super.setState(state);
-        for (const entry of Object.entries(state)) {
-            localStorage.setItem(this._namespace + '-' + entry[0], JSON.stringify(entry[1]));
+        if (state instanceof Object) {
+            for (const entry of Object.entries(state)) {
+                localStorage.setItem(this._namespace + '-' + entry[0], JSON.stringify(entry[1]));
+            }
         }
     }
 
