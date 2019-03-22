@@ -74,7 +74,6 @@ export class ImportComponent extends React.Component<{store: Store}, State> {
                 <BottomBar />
             </div>
         );
-        // TODO save options button
     }
 
     public componentDidMount(): void {
