@@ -16,7 +16,7 @@ const localStorage = {
     // @ts-ignore
     setItem: (k, v) => global.localStorage[k] = v,
     // @ts-ignore
-    clear: () => global.localStorage = localStorage,
+    clear: () => global.localStorage = {...localStorage},
 };
 
 // @ts-ignore
