@@ -13,6 +13,12 @@ Enzyme.configure({adapter: new Adapter()});
 jsdom();
 
 // @ts-ignore
+global.localStorage = {
+    // @ts-ignore
+    setItem: (k, v) => global.localStorage[k] = v,
+};
+
+// @ts-ignore
 window.requestAnimationFrame = (cb) => cb();
 
 setResponsiveMode(ResponsiveMode.small);
