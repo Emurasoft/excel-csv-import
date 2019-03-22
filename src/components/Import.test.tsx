@@ -10,6 +10,10 @@ import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 
 describe('ImportComponent', () => {
+    afterEach(() => {
+        localStorage.clear();
+    });
+
     it('import', () => {
         let receivedOptions = null;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
