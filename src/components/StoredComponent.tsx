@@ -35,12 +35,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     ): void {
         super.setState(state);
         if (this._save && typeof state === 'object') {
-            for (const entry of Object.entries(state)) {
-                if (this._saveKeys.includes(entry[0])) {
-                    const key = this._namespace + '-' + entry[0];
-                    localStorage.setItem(key, JSON.stringify(entry[1]));
-                }
-            }
+            this.saveState(state);
         }
     }
 
@@ -53,6 +48,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 
         if (save) {
             localStorage.setItem('StoredComponent-save', '"true"');
+            this.saveState(this.state);
         } else {
             localStorage.clear();
         }
@@ -75,4 +71,13 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     private readonly _saveKeys: ReadonlyArray<keyof S>;
     private readonly _initialSave: boolean;
     private _save: boolean;
+
+    private saveState<K extends keyof S>(state: Pick<S, K> | S | null) {
+        for (const entry of Object.entries(state)) {
+            if (this._saveKeys.includes(entry[0])) {
+                const key = this._namespace + '-' + entry[0];
+                localStorage.setItem(key, JSON.stringify(entry[1]));
+            }
+        }
+    }
 }
