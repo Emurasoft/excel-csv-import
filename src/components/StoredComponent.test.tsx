@@ -26,7 +26,7 @@ describe('StoredComponent', () => {
         const originalLocalStorageLength = Object.entries(localStorage).length;
         const wrapper = shallow(<Component />);
         wrapper.setState({});
-        assert.strictEqual(originalLocalStorageLength, 2);
+        assert.strictEqual(Object.entries(localStorage).length, originalLocalStorageLength);
 
         wrapper.setState({'key0': 'v'});
         wrapper.setState({'key1': {a: 0}})
@@ -37,6 +37,6 @@ describe('StoredComponent', () => {
         localStorage.clear();
         wrapper.setState(function() {});
         wrapper.setState(() => {});
-        assert.strictEqual(originalLocalStorageLength, 2);
+        assert.strictEqual(Object.entries(localStorage).length, originalLocalStorageLength);
     });
 });

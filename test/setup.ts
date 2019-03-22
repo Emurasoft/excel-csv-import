@@ -20,7 +20,7 @@ const localStorage = {
 };
 
 // @ts-ignore
-global.localStorage = localStorage;
+global.localStorage = {...localStorage};
 
 // @ts-ignore
 window.requestAnimationFrame = (cb) => cb();
