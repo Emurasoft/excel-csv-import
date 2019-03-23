@@ -14,20 +14,15 @@ import {ProgressCallback} from './Store';
 
 describe('ChunkProcessor', () => {
     describe('run()', () => {
-        it('normal operation', (done) => {
+        it('normal operation', async () => {
             let setChunkDone = false;
             let syncDone = false;
             let progressCallbackDone = false;
-            const join = () => {
-                if (setChunkDone && syncDone && progressCallbackDone) {
-                    done();
-                }
-            }
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const worksheetStub: any = {context: {
                     application: {suspendApiCalculationUntilNextSync: () => {}},
-                    sync: async () => (syncDone = true) && join(),
+                    sync: async () => syncDone = true,
                 }}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const api: any = {};
@@ -36,14 +31,12 @@ describe('ChunkProcessor', () => {
                 assert.strictEqual(row, 0);
                 assert.deepStrictEqual(data, [['a', 'b']])
                 setChunkDone = true;
-                join();
             }
 
             const progressCallback: ProgressCallback = progress => {
                 assert(progress === 0.0 || progress > 1.0);
                 if (progress > 1.0) {
                     progressCallbackDone = true;
-                    join();
                 }
             }
 
@@ -61,8 +54,11 @@ describe('ChunkProcessor', () => {
                 newline: NewlineSequence.LF,
                 encoding: '',
             };
-            // noinspection JSIgnoredPromiseFromCall
-            processor.run(importOptions);
+
+            await processor.run(importOptions);
+            assert(setChunkDone);
+            assert(syncDone);
+            assert(progressCallbackDone);
         });
 
         it('abort', async () => {
