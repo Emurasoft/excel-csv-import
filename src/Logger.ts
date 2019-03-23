@@ -30,6 +30,7 @@ export class Logger {
             'options' in copy && 'source' in copy.options && 'file' in copy.options.source
             && 'options' in a && 'source' in (a as {options: {}}).options
             && 'file' in (a as {options: {source: {}}}).options.source
+            && (a as {options: {source: {file: {}}}}).options.source.file instanceof File
         ) {
             copy.options.source.file
                 = (a as {options: {source: {file: {name?: string}}}}).options.source.file.name;

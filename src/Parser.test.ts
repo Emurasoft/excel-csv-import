@@ -35,7 +35,7 @@ describe('Parser', () => {
 
         const flag = new AbortFlag();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Parser._parseAndSetCells(worksheetStub as any, importOptions, flag, api);
+        Parser._parseAndSetCells(worksheetStub as any, importOptions, ()=>{}, flag, api);
     });
 
     it('_addQuotes()', () => {

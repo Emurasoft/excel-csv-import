@@ -6,13 +6,18 @@ import {CsvStringAndName} from './Parser';
 import {version} from './version';
 import {AbortFlagArray} from './AbortFlag';
 
+export interface Progress {
+    show: boolean;
+    percent: number;
+}
+
 export interface State {
     initialized: boolean;
     supported: boolean;
     version: string;
     largeFile: boolean;
     parserStatus: ParserStatus;
-    progress: number;
+    progress: Progress;
 }
 
 export interface ParserStatus {
@@ -34,7 +39,7 @@ export class Store extends React.Component<{}, State> {
                 output: '',
             },
             largeFile: false,
-            progress: 0.0,
+            progress: {show: false, percent: 0.0},
         };
 
         this._log = new Logger();
@@ -80,7 +85,7 @@ export class Store extends React.Component<{}, State> {
                 );
             }
         } catch (err) {
-            this.setParserError(err.stack);
+            this.logError(new Error(Store.getErrorMessage(err)));
         }
         this._log.push('initAPI');
         await this.checkLargeFile();
@@ -109,11 +114,17 @@ export class Store extends React.Component<{}, State> {
     }
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
+        );
         try {
-            await Parser.importCSV(options, this._abortFlags.newFlag());
-        } catch (e) {
-            this.logError(new Error(e.stack));
+            await Parser.importCSV(options, this.setProgress, this._abortFlags.newFlag());
+        } catch (err) {
+            this.logError(new Error(Store.getErrorMessage(err)));
         }
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
+        );
         this._log.push('import', {options});
     }
 
@@ -122,7 +133,7 @@ export class Store extends React.Component<{}, State> {
         try {
             result = await ExcelAPI.worksheetArea();
         } catch (err) {
-            this.setParserError(err.stack);
+            this.logError(new Error(Store.getErrorMessage(err)));
         }
         this._log.push('worksheetArea');
         return result;
@@ -136,7 +147,7 @@ export class Store extends React.Component<{}, State> {
         try {
             result = await Parser.csvStringAndName(options, this._abortFlags.newFlag());
         } catch (err) {
-            this.setParserError(err.stack);
+            this.logError(new Error(Store.getErrorMessage(err)));
         }
         this._log.push('csvStringAndName', {options});
         return result;
@@ -145,9 +156,17 @@ export class Store extends React.Component<{}, State> {
     private readonly _log: Logger;
     private readonly _abortFlags: AbortFlagArray;
 
-    private logError = (err) => {
+    private static getErrorMessage(err: Error): string {
+        return err.toString() + '\n' + err.stack
+    }
+
+    private logError(err) {
         // eslint-disable-next-line no-console
-        console.trace(err.stack);
-        this.setParserError(err.stack);
+        console.trace(Store.getErrorMessage(err));
+        this.setParserError(Store.getErrorMessage(err));
+    }
+
+    private setProgress = (progress: number) => {
+        this.setState(state => ({progress: {show: state.progress.show, percent: progress}}));
     }
 }
