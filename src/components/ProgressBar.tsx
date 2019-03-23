@@ -12,7 +12,7 @@ interface Props {
 export class ProgressBar extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         let contents: React.ReactNode;
-        if (this.props.progress === 0.0) {
+        if (this.props.progress === 1.0) {
             contents = <Text variant='small'>&nbsp;</Text>;
         } else {
             contents = (
