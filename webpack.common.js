@@ -7,8 +7,7 @@ module.exports = {
     target: 'web',
     entry: __dirname + '/src/index.tsx',
     output: {
-        filename: '[name].js',
-        chunkFilename: '[name].js',
+        filename: '[name].[contenthash].js',
     },
     module: {
         rules: [
