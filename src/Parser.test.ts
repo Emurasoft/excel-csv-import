@@ -3,9 +3,12 @@ import {
     _addQuotes,
     _csvString,
     _nameToUse,
-    _rowString, ChunkProcessor,
+    _rowString,
+    ChunkProcessor,
     ExportOptions,
-    NewlineSequence
+    InputType,
+    NewlineSequence,
+    Source
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
@@ -13,6 +16,31 @@ import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 
 describe('ChunkProcessor', () => {
+    it('progressPerChunk()', () => {
+        const tests: {source: Source, expected: number}[] = [
+            {
+                source: {inputType: InputType.text, text: ''},
+                expected: 1.0,
+            },
+            {
+                source: {inputType: InputType.text, text: 'a'},
+                expected: 10000.0},
+            {
+                source: {inputType: InputType.file, text: '', file: new File([], '')},
+                expected: 1.0,
+            },
+            {
+                source: {inputType: InputType.file, text: '', file: new File(['a'], '')},
+                expected: 10000.0,
+            },
+        ];
+
+        for (const test of tests) {
+            // @ts-ignore
+            assert.strictEqual(ChunkProcessor.progressPerChunk(test.source), test.expected);
+        }
+    });
+
     describe('run()', () => {
         it('normal operation', async () => {
             let setChunkDone = false;
@@ -85,32 +113,6 @@ describe('ChunkProcessor', () => {
 });
 
 describe('Parser', () => {
-    it('_parseAndSetCells()', (done) => {
-        const worksheetStub = {context: {
-            application: {suspendApiCalculationUntilNextSync: () => {}},
-            sync: async () => {},
-        }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const api: any = {};
-        api.setChunk = (worksheet, row, data) => {
-            assert.strictEqual(worksheet, worksheetStub);
-            assert.strictEqual(row, 0);
-            assert.deepStrictEqual(data, [['a', 'b']])
-            done();
-        }
-
-        const importOptions: Parser.ImportOptions & ParseConfig = {
-            source: {inputType: Parser.InputType.text, text: 'a,b'},
-            delimiter: ',',
-            newline: NewlineSequence.LF,
-            encoding: '',
-        };
-
-        const flag = new AbortFlag();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Parser._parseAndSetCells(worksheetStub as any, importOptions, ()=>{}, flag, api);
-    });
-
     it('_addQuotes()', () => {
         const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
             {

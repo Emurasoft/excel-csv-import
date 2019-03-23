@@ -4,9 +4,6 @@ import * as Papa from 'papaparse';
 import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 
-// @ts-ignore
-Papa.LocalChunkSize = 10000;
-
 export enum InputType {file, text}
 
 export interface Source {
@@ -23,7 +20,7 @@ export enum NewlineSequence {
     AutoDetect = '',
     CRLF = '\r\n',
     CR = '\r',
-    LF = '\n'
+    LF = '\n',
 }
 
 export interface ImportOptions extends Config {
@@ -40,22 +37,8 @@ export interface ExportOptions {
     encoding: string;
 }
 
-function _progressPerChunk(source: Source): number {
-    switch (source.inputType) {
-    case InputType.file:
-        if (source.file.size === 0) {
-            return 1.0;
-        }
-        // @ts-ignore
-        return Papa.LocalChunkSize / source.file.size;
-    case InputType.text:
-        if (source.text.length === 0) {
-            return 1.0;
-        }
-        // @ts-ignore
-        return Papa.LocalChunkSize / source.text.length;
-    }
-}
+// @ts-ignore
+Papa.LocalChunkSize = 10000;
 
 export class ChunkProcessor {
     public constructor(
@@ -128,51 +111,14 @@ export class ChunkProcessor {
     }
 }
 
-export function _parseAndSetCells(
-    worksheet: Excel.Worksheet,
-    importOptions: ImportOptions & Papa.ParseConfig,
-    progressCallback: (progress: number) => void,
-    abortFlag: AbortFlag,
-    excelAPI = ExcelAPI,
-): Promise<void> {
-    progressCallback(0.0);
-
-    return new Promise((resolve) => {
-        let row = 0;
-        const progressPerChunk = _progressPerChunk(importOptions.source);
-        let currentProgress = 0.0;
-
-        importOptions.chunk = (chunk: Papa.ParseResult, parser: Papa.Parser) => {
-            if (abortFlag.aborted()) {
-                parser.abort();
-            }
-
-            worksheet.context.application.suspendApiCalculationUntilNextSync();
-            excelAPI.setChunk(worksheet, row, chunk.data);
-            row += chunk.data.length;
-            parser.pause();
-            worksheet.context.sync().then(parser.resume);
-            progressCallback(currentProgress += progressPerChunk);
-        }
-        importOptions.complete = () => resolve(); // TODO output any errors
-        switch (importOptions.source.inputType) {
-        case InputType.file:
-            Papa.parse(importOptions.source.file, importOptions);
-            break;
-        case InputType.text:
-            Papa.parse(importOptions.source.text, importOptions);
-            break;
-        }
-    });
-}
-
 export async function importCSV(
     importOptions: ImportOptions,
     progressCallback: ProgressCallback,
     abortFlag: AbortFlag,
 ): Promise<void> {
     await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
-        await _parseAndSetCells(worksheet, importOptions, progressCallback, abortFlag);
+        const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
+        await chunkProcessor.run(importOptions);
     });
 }
 
