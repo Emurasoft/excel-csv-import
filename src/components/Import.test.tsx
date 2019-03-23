@@ -32,7 +32,6 @@ describe('ImportComponent', () => {
             delimiter: ',',
             newline: NewlineSequence.LF,
             encoding: 'UTF-8',
-            processing: true,
         };
         assert.deepStrictEqual(receivedOptions, expected);
     });

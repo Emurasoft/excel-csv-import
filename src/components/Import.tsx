@@ -7,22 +7,19 @@ import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressText} from './ProgressText';
+import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ErrorOutput} from './ErrorOutput';
 import {StoredComponent} from './StoredComponent';
 
-type State = ImportOptions & {processing: boolean};
-
-export class ImportComponent extends StoredComponent<{store: Store}, State> {
+export class ImportComponent extends StoredComponent<{store: Store}, ImportOptions> {
     public constructor(props: {store: Store}) {
         super(props, 'Import', {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
             newline: NewlineSequence.AutoDetect,
             encoding: '',
-            processing: false,
         }, ['delimiter', 'newline', 'encoding']);
     }
 
@@ -66,7 +63,10 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
                     </PrimaryButton>
                 </TooltipHost>
                 <br />
-                <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
+                <ProgressBar
+                    onClick={this.props.store.abort}
+                    progress={this.props.store.state.progress}
+                />
                 <Toggle
                     inlineLabel label='Save options'
                     defaultChecked={this.initialSaveStatus()}
@@ -79,9 +79,7 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
     }
 
     private buttonOnClick = async () => {
-        this.setState((state) => ({processing: !state.processing}));
         await this.props.store.import(this.state);
-        this.setState((state) => ({processing: !state.processing}));
     }
 
     private buttonTooltipContent(): string {

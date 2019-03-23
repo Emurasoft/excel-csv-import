@@ -10,8 +10,9 @@ export interface State {
     initialized: boolean;
     supported: boolean;
     version: string;
-    parserStatus: ParserStatus;
     largeFile: boolean;
+    parserStatus: ParserStatus;
+    progress: number;
 }
 
 export interface ParserStatus {
@@ -33,6 +34,7 @@ export class Store extends React.Component<{}, State> {
                 output: '',
             },
             largeFile: false,
+            progress: 0.0,
         };
 
         this._log = new Logger();

@@ -1,14 +1,21 @@
 import {shallow} from 'enzyme';
-import {ProgressText} from './ProgressText';
+import {ProgressBar} from './ProgressBar';
 import * as React from 'react';
 import {Link} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 
-describe('ProgressText', () => {
+describe('ProgressBar', () => {
     it('render()', () => {
-        const wrapper = shallow(<ProgressText hidden={false} onClick={() => {}}/>);
+        const wrapper = shallow(<ProgressBar onClick={() => {}} progress={1.0}/>);
         assert(wrapper.exists(Link));
-        wrapper.setProps({hidden: true});
+        wrapper.setProps({progress: 0.0});
         assert(!wrapper.exists(Link));
+    });
+
+    it('click stop', () => {
+        let clicked = false;
+        const wrapper = shallow(<ProgressBar onClick={() => clicked = true} progress={1.0}/>);
+        wrapper.find(Link).simulate('click')
+        assert(clicked);
     });
 });

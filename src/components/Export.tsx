@@ -8,7 +8,7 @@ import {PrimaryButton, Text, TextField, Toggle, TooltipHost} from 'office-ui-fab
 import {CsvStringAndName, ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressText} from './ProgressText';
+import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ErrorOutput} from './ErrorOutput';
@@ -94,7 +94,10 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                 </TooltipHost>
                 <br />
                 {this.props.store.state.largeFile ? largeFileWarning : null}
-                <ProgressText hidden={!this.state.processing} onClick={this.props.store.abort} />
+                <ProgressBar
+                    onClick={this.props.store.abort}
+                    progress={this.props.store.state.progress}
+                />
                 <Toggle
                     inlineLabel label='Save options'
                     defaultChecked={this.initialSaveStatus()}

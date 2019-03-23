@@ -7,6 +7,7 @@
     <pass-parent-env>true</pass-parent-env>
     <envs>
       <env name="TS_NODE_FILES" value="true" />
+      <env name="TS_NODE_COMPILER_OPTIONS" value="{&quot;module&quot;: &quot;commonjs&quot;}" />
     </envs>
     <ui>bdd</ui>
     <extra-mocha-options>-r ts-node/register,test/setup.ts</extra-mocha-options>
