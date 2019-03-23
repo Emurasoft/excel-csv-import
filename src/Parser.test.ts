@@ -13,54 +13,78 @@ import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 
 describe('ChunkProcessor', () => {
-    it('run()', (done) => {
-        let setChunkDone = false;
-        let syncDone = false;
-        let progressCallbackDone = false;
-        const join = () => {
-            if (setChunkDone && syncDone && progressCallbackDone) {
-                done();
+    describe('run()', () => {
+        it('normal operation', (done) => {
+            let setChunkDone = false;
+            let syncDone = false;
+            let progressCallbackDone = false;
+            const join = () => {
+                if (setChunkDone && syncDone && progressCallbackDone) {
+                    done();
+                }
             }
-        }
 
-        const worksheetStub = {context: {
-                application: {suspendApiCalculationUntilNextSync: () => {}},
-                sync: async () => (syncDone = true) && join(),
-            }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const api: any = {};
-        api.setChunk = (worksheet, row, data) => {
-            assert.strictEqual(worksheet, worksheetStub);
-            assert.strictEqual(row, 0);
-            assert.deepStrictEqual(data, [['a', 'b']])
-            setChunkDone = true;
-            join();
-        }
-
-        const progressCallback: ProgressCallback = progress => {
-            assert(progress === 0.0 || progress > 1.0);
-            if (progress > 1.0) {
-                progressCallbackDone = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const worksheetStub: any = {context: {
+                    application: {suspendApiCalculationUntilNextSync: () => {}},
+                    sync: async () => (syncDone = true) && join(),
+                }}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const api: any = {};
+            api.setChunk = (worksheet, row, data) => {
+                assert.strictEqual(worksheet, worksheetStub);
+                assert.strictEqual(row, 0);
+                assert.deepStrictEqual(data, [['a', 'b']])
+                setChunkDone = true;
                 join();
             }
-        }
 
-        const processor = new ChunkProcessor(
-            worksheetStub as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-            progressCallback,
-            new AbortFlag(),
-        );
-        // @ts-ignore
-        processor._excelAPI = api;
+            const progressCallback: ProgressCallback = progress => {
+                assert(progress === 0.0 || progress > 1.0);
+                if (progress > 1.0) {
+                    progressCallbackDone = true;
+                    join();
+                }
+            }
 
-        const importOptions: Parser.ImportOptions & ParseConfig = {
-            source: {inputType: Parser.InputType.text, text: 'a,b'},
-            delimiter: ',',
-            newline: NewlineSequence.LF,
-            encoding: '',
-        };
-        // noinspection JSIgnoredPromiseFromCall
-        processor.run(importOptions)
+            const processor = new ChunkProcessor(
+                worksheetStub as any,
+                progressCallback,
+                new AbortFlag(),
+            );
+            // @ts-ignore
+            processor._excelAPI = api;
+
+            const importOptions: Parser.ImportOptions & ParseConfig = {
+                source: {inputType: Parser.InputType.text, text: 'a,b'},
+                delimiter: ',',
+                newline: NewlineSequence.LF,
+                encoding: '',
+            };
+            // noinspection JSIgnoredPromiseFromCall
+            processor.run(importOptions);
+        });
+
+        it('abort', async () => {
+            const progressCallback: ProgressCallback = progress => {
+                assert.strictEqual(progress, 0.0);
+            };
+
+            const flag = new AbortFlag();
+            flag.abort();
+            const processor = new ChunkProcessor(null, progressCallback, flag);
+            // @ts-ignore
+            processor._excelAPI = null;
+
+            const importOptions: Parser.ImportOptions & ParseConfig = {
+                source: {inputType: Parser.InputType.text, text: 'a,b'},
+                delimiter: ',',
+                newline: NewlineSequence.LF,
+                encoding: '',
+            };
+            // noinspection JSIgnoredPromiseFromCall
+            await processor.run(importOptions);
+        });
     });
 });
 
