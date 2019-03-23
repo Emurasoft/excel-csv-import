@@ -25,6 +25,8 @@ export interface ParserStatus {
     output: string;
 }
 
+export type ProgressCallback = (progress: number) => void
+
 export const Context = React.createContext(undefined);
 
 export class Store extends React.Component<{}, State> {
@@ -166,7 +168,7 @@ export class Store extends React.Component<{}, State> {
         this.setParserError(Store.getErrorMessage(err));
     }
 
-    private setProgress = (progress: number) => {
+    private setProgress: ProgressCallback = (progress: number) => {
         this.setState(state => ({progress: {show: state.progress.show, percent: progress}}));
     }
 }

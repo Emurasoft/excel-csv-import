@@ -2,6 +2,7 @@
 import * as ExcelAPI from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {AbortFlag} from './AbortFlag';
+import {ProgressCallback} from './Store';
 
 // @ts-ignore
 Papa.LocalChunkSize = 10000;
@@ -56,6 +57,77 @@ function _progressPerChunk(source: Source): number {
     }
 }
 
+export class ChunkProcessor {
+    public constructor(
+        worksheet: Excel.Worksheet,
+        progressCallback: ProgressCallback,
+        abortFlag: AbortFlag,
+    ) {
+        this._worksheet = worksheet;
+        this._progressCallback = progressCallback;
+        this._abortFlag = abortFlag;
+        this._currRow = 0;
+        this._currentProgress = 0.0;
+    }
+
+    public run(importOptions: ImportOptions & Papa.ParseConfig): Promise<void> {
+        this._progressCallback(0.0);
+        this._progressPerChunk = ChunkProcessor.progressPerChunk(importOptions.source);
+
+        return new Promise(resolve => {
+            importOptions.chunk = this.chunk;
+            importOptions.complete = () => resolve(); // TODO output any errors
+
+            switch (importOptions.source.inputType) {
+            case InputType.file:
+                Papa.parse(importOptions.source.file, importOptions);
+                break;
+            case InputType.text:
+                Papa.parse(importOptions.source.text, importOptions);
+                break;
+            }
+        });
+    }
+
+    private static progressPerChunk(source: Source): number {
+        switch (source.inputType) {
+        case InputType.file:
+            if (source.file.size === 0) {
+                return 1.0;
+            }
+            // @ts-ignore
+            return Papa.LocalChunkSize / source.file.size;
+        case InputType.text:
+            if (source.text.length === 0) {
+                return 1.0;
+            }
+            // @ts-ignore
+            return Papa.LocalChunkSize / source.text.length;
+        }
+    }
+
+    private readonly _worksheet: Excel.Worksheet;
+    private readonly _progressCallback: ProgressCallback;
+    private readonly _abortFlag: AbortFlag;
+    private readonly _excelAPI = ExcelAPI;
+    private _currRow: number;
+    private _progressPerChunk: number;
+    private _currentProgress: number;
+
+    private chunk = (chunk: Papa.ParseResult, parser: Papa.Parser) => {
+        if (this._abortFlag.aborted()) {
+            parser.abort();
+        }
+
+        this._worksheet.context.application.suspendApiCalculationUntilNextSync();
+        this._excelAPI.setChunk(this._worksheet, this._currRow, chunk.data);
+        this._currRow += chunk.data.length;
+        parser.pause();
+        this._worksheet.context.sync().then(parser.resume);
+        this._progressCallback(this._currentProgress += this._progressPerChunk);
+    }
+}
+
 export function _parseAndSetCells(
     worksheet: Excel.Worksheet,
     importOptions: ImportOptions & Papa.ParseConfig,
@@ -96,7 +168,7 @@ export function _parseAndSetCells(
 
 export async function importCSV(
     importOptions: ImportOptions,
-    progressCallback: (progress: number) => void,
+    progressCallback: ProgressCallback,
     abortFlag: AbortFlag,
 ): Promise<void> {
     await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {

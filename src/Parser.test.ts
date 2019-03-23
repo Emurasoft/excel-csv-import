@@ -3,13 +3,66 @@ import {
     _addQuotes,
     _csvString,
     _nameToUse,
-    _rowString,
+    _rowString, ChunkProcessor,
     ExportOptions,
     NewlineSequence
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
+import {ProgressCallback} from './Store';
+
+describe('ChunkProcessor', () => {
+    it('run()', (done) => {
+        let setChunkDone = false;
+        let syncDone = false;
+        let progressCallbackDone = false;
+        const join = () => {
+            if (setChunkDone && syncDone && progressCallbackDone) {
+                done();
+            }
+        }
+
+        const worksheetStub = {context: {
+                application: {suspendApiCalculationUntilNextSync: () => {}},
+                sync: async () => (syncDone = true) && join(),
+            }}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const api: any = {};
+        api.setChunk = (worksheet, row, data) => {
+            assert.strictEqual(worksheet, worksheetStub);
+            assert.strictEqual(row, 0);
+            assert.deepStrictEqual(data, [['a', 'b']])
+            setChunkDone = true;
+            join();
+        }
+
+        const progressCallback: ProgressCallback = progress => {
+            assert(progress === 0.0 || progress > 1.0);
+            if (progress > 1.0) {
+                progressCallbackDone = true;
+                join();
+            }
+        }
+
+        const processor = new ChunkProcessor(
+            worksheetStub as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+            progressCallback,
+            new AbortFlag(),
+        );
+        // @ts-ignore
+        processor._excelAPI = api;
+
+        const importOptions: Parser.ImportOptions & ParseConfig = {
+            source: {inputType: Parser.InputType.text, text: 'a,b'},
+            delimiter: ',',
+            newline: NewlineSequence.LF,
+            encoding: '',
+        };
+        // noinspection JSIgnoredPromiseFromCall
+        processor.run(importOptions)
+    });
+});
 
 describe('Parser', () => {
     it('_parseAndSetCells()', (done) => {
