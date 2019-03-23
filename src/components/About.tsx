@@ -24,7 +24,7 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                 <br />
                 <Text variant='medium'>
                     <pre>
-                        v0.0.0{/*TODO replace with version*/}
+                        {this.props.store.state.version}
                     </pre>
                 </Text>
                 <Text variant='medium'>
