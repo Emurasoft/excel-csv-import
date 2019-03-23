@@ -7,8 +7,8 @@ module.exports = {
     target: 'web',
     entry: __dirname + '/src/index.tsx',
     output: {
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js',
+        filename: '[name].js',
+        chunkFilename: '[name].js',
     },
     module: {
         rules: [

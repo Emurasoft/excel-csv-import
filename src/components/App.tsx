@@ -1,4 +1,3 @@
-import Import from './Import';
 import {Store} from '../Store';
 import * as React from 'react';
 import Export from './Export';
@@ -17,17 +16,21 @@ function initialEntry(name): string {
     }
 }
 
+const Import = React.lazy(() => import(/* webpackChunkName: 'import' */'./Import'));
+
 export function App(): JSX.Element {
     return (
         <ErrorBoundary>
             <Store>
-                <MemoryRouter
-                    initialEntries={[initialEntry(queryString.parse(location.search).page)]}
-                >
-                    <Route path={paths.import} component={Import} />
-                    <Route path={paths.export} component={Export} />
-                    <Route path={paths.about} component={About} />
-                </MemoryRouter>
+                <React.Suspense fallback={'loading'}>
+                    <MemoryRouter
+                        initialEntries={[initialEntry(queryString.parse(location.search).page)]}
+                    >
+                        <Route path={paths.import} component={Import} />
+                        <Route path={paths.export} component={Export} />
+                        <Route path={paths.about} component={About} />
+                    </MemoryRouter>
+                </React.Suspense>
             </Store>
         </ErrorBoundary>
     );
