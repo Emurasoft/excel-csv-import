@@ -149,4 +149,4 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
     }
 }
 
-export const Export = connect(ExportComponent);
+export default connect(ExportComponent);

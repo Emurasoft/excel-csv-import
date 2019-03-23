@@ -97,4 +97,4 @@ export class ImportComponent extends StoredComponent<{store: Store}, State> {
     }
 }
 
-export const Import = connect(ImportComponent);
+export default connect(ImportComponent);

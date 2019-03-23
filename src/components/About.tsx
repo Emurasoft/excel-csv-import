@@ -92,4 +92,4 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
     }
 }
 
-export const About = connect(AboutComponent);
+export default connect(AboutComponent);

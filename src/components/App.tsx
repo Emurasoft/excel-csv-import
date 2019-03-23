@@ -1,8 +1,8 @@
-import {Import} from './Import';
+import Import from './Import';
 import {Store} from '../Store';
 import * as React from 'react';
-import {Export} from './Export';
-import {About} from './About';
+import Export from './Export';
+import About from './About';
 import {ErrorBoundary} from './ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
 import * as queryString from 'query-string';
