@@ -16,7 +16,7 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                     ariaLabel='Go back'
                     title='Go back'
                 />
-                <br />
+                <br /><br />
                 <Text variant='xLarge'>
                     <strong>CSV Import+Export</strong>
                 </Text>
@@ -38,7 +38,7 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                 <Text variant='medium'>
                     EmEditor is a text editor which features CSV editing tools and large file support. <a href='https://www.emeditor.com/'>Try EmEditor for free.</a>
                 </Text>
-                <br /><br />
+                <br /><br /><br />
                 <Text variant='medium'>
                     <strong>
                     Report bugs/send feedback
@@ -60,7 +60,7 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                     <a href='https://www.emeditor.com/csv-importexport-contact-form/'>Via the contact form</a><br />
                     <a href='https://github.com/Emurasoft/excel-csv-import/issues'>Issues page of the GitHub repo</a>
                 </Text>
-                <br /><br />
+                <br /><br /><br />
                 <Text variant='medium'>
                     <strong>License info</strong><br />
                     CSV Import+Export is licensed under the MIT License. <a href='https://github.com/Emurasoft/excel-csv-import'>The source code is hosted on GitHub.</a>
