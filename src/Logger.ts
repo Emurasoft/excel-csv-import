@@ -28,11 +28,12 @@ export class Logger {
         // Replace file in ImportOptions with the filename
         if (
             'options' in copy && 'source' in copy.options && 'file' in copy.options.source
+            && typeof copy.options.source.file === 'object'
             && 'options' in a && 'source' in (a as {options: {}}).options
             && 'file' in (a as {options: {source: {}}}).options.source
             && (a as {options: {source: {file: {}}}}).options.source.file instanceof File
         ) {
-            copy.options.source.file
+            copy.options.source.file.name
                 = (a as {options: {source: {file: {name?: string}}}}).options.source.file.name;
         }
         return copy;
