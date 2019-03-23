@@ -78,7 +78,7 @@ describe('ChunkProcessor', () => {
                 newline: NewlineSequence.LF,
                 encoding: '',
             };
-            // noinspection JSIgnoredPromiseFromCall
+
             await processor.run(importOptions);
         });
     });
