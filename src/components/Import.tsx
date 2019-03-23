@@ -16,7 +16,7 @@ import {StoredComponent} from './StoredComponent';
 type State = ImportOptions & {processing: boolean};
 
 export class ImportComponent extends StoredComponent<{store: Store}, State> {
-    public constructor(props: {store: Store}) { // TODO check if initialization can be sped up
+    public constructor(props: {store: Store}) {
         super(props, 'Import', {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',

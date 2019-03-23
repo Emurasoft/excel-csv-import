@@ -25,9 +25,9 @@ export class Store extends React.Component<{}, State> {
     public constructor(props: {}) {
         super(props);
         this.state = {
+            version: version,
             initialized: false,
             supported: true,
-            version: version,
             parserStatus: {
                 errorOccurred: false,
                 output: '',
@@ -39,9 +39,6 @@ export class Store extends React.Component<{}, State> {
         this._log.push('version', {version});
 
         this._abortFlags = new AbortFlagArray();
-
-        // noinspection JSIgnoredPromiseFromCall
-        this.initAPI();
     }
 
     public render(): React.ReactNode {
@@ -61,6 +58,10 @@ export class Store extends React.Component<{}, State> {
                 {this.props.children}
             </Context.Provider>
         );
+    }
+
+    public async componentDidMount(): Promise<void> {
+        await this.initAPI();
     }
 
     public log = () => this._log.log()
