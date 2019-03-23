@@ -15,13 +15,13 @@ function initialEntry(name): string {
 }
 
 const Import = React.lazy(
-    () => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./Import')
+    () => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./Import'),
 );
 const Export = React.lazy(
-    () => import(/* webpackChunkName: 'export', webpackPrefetch: true */'./Export')
+    () => import(/* webpackChunkName: 'export', webpackPrefetch: true */'./Export'),
 );
 const About = React.lazy(
-    () => import(/* webpackChunkName: 'about', webpackPrefetch: true */'./About')
+    () => import(/* webpackChunkName: 'about', webpackPrefetch: true */'./About'),
 );
 
 export function App(): JSX.Element {
