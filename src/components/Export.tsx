@@ -11,7 +11,7 @@ import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
-import {ErrorOutput} from './ErrorOutput';
+import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 
 export interface OutputText {
@@ -104,7 +104,7 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                     onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
                 {this.state.outputText.show ? outputTextField : null}
-                <ErrorOutput parserOutput={this.props.store.state.parserOutput} />
+                <ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
                 <BottomBar />
             </div>
         );
