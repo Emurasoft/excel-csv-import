@@ -11,3 +11,4 @@ node_modules
 !.eslintrc.js
 !src/components/generateEncodingList.js
 build
+.nyc_output

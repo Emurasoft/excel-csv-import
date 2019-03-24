@@ -52,9 +52,24 @@
     "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
     "office-addin-validator": "^1.0.5",
     "sinon": "^7.2.7",
+    "source-map-support": "^0.5.11",
     "ts-node": "^8.0.3",
     "webpack-dev-server": "^3.2.1"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   }
 }
