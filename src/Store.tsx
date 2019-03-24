@@ -108,8 +108,10 @@ export class Store extends React.Component<{}, State> {
     }
 
     public setParserError = (err: Error) => {
-        // eslint-disable-next-line no-console
-        console.trace(Store.getErrorMessage(err));
+        if (!process) { // If not running in unit test
+            // eslint-disable-next-line no-console
+            console.trace(Store.getErrorMessage(err));
+        }
 
         let output = Store.getErrorMessage(err);
         if (
