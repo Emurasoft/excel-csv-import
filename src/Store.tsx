@@ -16,12 +16,14 @@ export interface State {
     supported: boolean;
     version: string;
     largeFile: boolean;
-    parserStatus: ParserStatus;
+    parserOutput: ParserOutput;
     progress: Progress;
 }
 
-export interface ParserStatus {
-    errorOccurred: boolean;
+export enum OutputType {hidden, info, error}
+
+export interface ParserOutput {
+    outputType: OutputType;
     output: string;
 }
 
@@ -36,8 +38,8 @@ export class Store extends React.Component<{}, State> {
             version: version,
             initialized: false,
             supported: true,
-            parserStatus: {
-                errorOccurred: false,
+            parserOutput: {
+                outputType: OutputType.hidden,
                 output: '',
             },
             largeFile: false,
@@ -105,7 +107,7 @@ export class Store extends React.Component<{}, State> {
             output = 'Session has expired; please refresh the page.\n\n' + output;
         }
 
-        this.setState({parserStatus: {errorOccurred: true, output}});
+        this.setState({parserOutput: {outputType: OutputType.error, output}});
         this._log.push('setParserError', {output});
     }
 

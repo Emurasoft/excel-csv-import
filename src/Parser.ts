@@ -136,7 +136,7 @@ export function _nameToUse(workbookName: string, worksheetName: string): string 
 RFC 4180 standard:
 MS-DOS-style lines that end with (CR/LF) characters (optional for the last line).
 An optional header record (there is no sure way to detect whether it is present, so care is required
-    when importing).
+when importing).
 Each record "should" contain the same number of comma-separated fields.
 Any field may be quoted (with double quotes).
 Fields containing a line-break, double-quote or commas (delimiter) should be quoted. (If they are

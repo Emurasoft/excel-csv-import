@@ -72,7 +72,7 @@ export class ImportComponent extends StoredComponent<{store: Store}, ImportOptio
                     defaultChecked={this.initialSaveStatus()}
                     onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
-                <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
+                <ErrorOutput parserOutput={this.props.store.state.parserOutput} />
                 <BottomBar />
             </div>
         );

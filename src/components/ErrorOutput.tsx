@@ -1,14 +1,14 @@
-import {ParserStatus} from '../Store';
+import {OutputType, ParserOutput} from '../Store';
 import {TextField} from 'office-ui-fabric-react';
 import * as React from 'react';
 import * as style from './style.css';
 
-export function ErrorOutput(props: {parserStatus: ParserStatus}): JSX.Element {
-    if (props.parserStatus.errorOccurred) {
+export function ErrorOutput(props: {parserOutput: ParserOutput}): JSX.Element {
+    if (props.parserOutput.outputType === OutputType.error) {
         return (
             <TextField
                 className={style.monospace  + ' ' + style.redText}
-                value={props.parserStatus.output}
+                value={props.parserOutput.output}
                 rows={20} multiline
                 spellCheck={false}
                 readOnly

@@ -104,7 +104,7 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                     onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
                 {this.state.outputText.show ? outputTextField : null}
-                <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
+                <ErrorOutput parserOutput={this.props.store.state.parserOutput} />
                 <BottomBar />
             </div>
         );
