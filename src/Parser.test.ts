@@ -311,7 +311,7 @@ describe('Parser', () => {
                 encoding: null,
             };
             let called = 0;
-            const progressCallback = progress => {
+            const progressCallback = (progress): void => {
                 switch (called) {
                 case 0:
                     assert.strictEqual(progress, 0.0);
