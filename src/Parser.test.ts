@@ -303,7 +303,7 @@ describe('Parser', () => {
         });
 
         it('progressCallback', () => {
-            const values = new Array(20).fill([]);
+            const values = new Array(1000).fill([]);
             const options = {
                 delimiter: ',',
                 newline: NewlineSequence.LF,
