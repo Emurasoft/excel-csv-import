@@ -5,6 +5,7 @@ import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {BaseProps} from './BaseProps';
+import {withTranslation} from 'react-i18next';
 
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
 
@@ -35,13 +36,16 @@ const DropdownOptionsWithAutoDetect: ReadonlyArray<IDropdownOption> = Object.fre
     ...DropdownOptionsNoAutoDetect,
 ]);
 
-type Props = BaseProps<string> & {showAutoDetect: boolean; showLengthError: boolean};
+interface Props extends BaseProps<string> {
+    showAutoDetect: boolean;
+    showLengthError: boolean;
+}
 
 interface State {
     otherSelected: boolean;
 }
 
-export class DelimiterInput extends React.Component<Props, State> {
+export class DelimiterInputComponent extends React.Component<Props, State> {
     public constructor(props) {
         super(props);
         this.state = {otherSelected: false};
@@ -67,7 +71,7 @@ export class DelimiterInput extends React.Component<Props, State> {
                     className={style.monospace}
                     value={this.props.value}
                     onChange={(_, value) => this.props.onChange(value)}
-                    description={DelimiterInput.description(this.props.value)}
+                    description={DelimiterInputComponent.description(this.props.value)}
                     onGetErrorMessage={this.getErrorMessage}
                     deferredValidationTime={1}
                     placeholder='Enter custom delimiter'
@@ -91,7 +95,7 @@ export class DelimiterInput extends React.Component<Props, State> {
 
     private static description(delimiter: string): string {
         if (delimiter.length == 1) {
-            return DelimiterInput.codePoint(delimiter);
+            return DelimiterInputComponent.codePoint(delimiter);
         } else {
             return '';
         }
@@ -149,3 +153,5 @@ export class DelimiterInput extends React.Component<Props, State> {
         }
     }
 }
+
+export const DelimiterInput = withTranslation('importExport')(DelimiterInputComponent);

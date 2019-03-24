@@ -1,5 +1,5 @@
 import {shallow} from 'enzyme';
-import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
+import {DelimiterInputComponent, DropdownOptionKey} from './DelimiterInput';
 import * as React from 'react';
 import * as assert from 'assert';
 import {Dropdown, TextField} from 'office-ui-fabric-react';
@@ -7,21 +7,25 @@ import {Dropdown, TextField} from 'office-ui-fabric-react';
 describe('DelimiterInput', () => {
     it('showAutoDetect', () => {
         const wrapper0 = shallow(
-            <DelimiterInput
+            <DelimiterInputComponent
                 value={''}
                 onChange={() => {}}
                 showAutoDetect={false}
                 showLengthError={true}
+                // @ts-ignore
+                t={k => k}
             />
         );
         assert(!wrapper0.html().includes('Auto-detect'))
 
         const wrapper1 = shallow(
-            <DelimiterInput
+            <DelimiterInputComponent
                 value={''}
                 onChange={() => {}}
                 showAutoDetect={true}
                 showLengthError={true}
+                // @ts-ignore
+                t={k => k}
             />
         );
         assert(wrapper1.html().includes('Auto-detect'))
@@ -35,11 +39,13 @@ describe('DelimiterInput', () => {
 
         // When the user selects other, show custom input
         const wrapper0 = shallow(
-            <DelimiterInput
+            <DelimiterInputComponent
                 value={value}
                 onChange={onChange}
                 showAutoDetect={true}
                 showLengthError={true}
+                // @ts-ignore
+                t={k => k}
             />
         );
         assert(!wrapper0.exists(TextField));
@@ -70,11 +76,13 @@ describe('DelimiterInput', () => {
 
         // Test value matching for custom input when auto-detect is not an option
         const wrapper1 = shallow(
-            <DelimiterInput
+            <DelimiterInputComponent
                 value={'a'}
                 onChange={onChange}
                 showAutoDetect={false}
                 showLengthError={true}
+                // @ts-ignore
+                t={k => k}
             />
         );
         wrapper1.find(Dropdown).simulate('change', null, {key: DropdownOptionKey.comma});
@@ -86,11 +94,13 @@ describe('DelimiterInput', () => {
         let result = null;
 
         const wrapper = shallow(
-            <DelimiterInput
+            <DelimiterInputComponent
                 value={''}
                 onChange={(newDelimiter) => result = newDelimiter}
                 showAutoDetect={true}
                 showLengthError={true}
+                // @ts-ignore
+                t={k => k}
             />
         );
         const dropdown = wrapper.find(Dropdown);
@@ -131,11 +141,13 @@ describe('DelimiterInput', () => {
 
         for (const test of tests) {
             const wrapper = shallow(
-                <DelimiterInput
+                <DelimiterInputComponent
                     value={''}
                     onChange={() => {}}
                     showAutoDetect={true}
                     showLengthError={true}
+                    // @ts-ignore
+                    t={k => k}
                 />
             );
             wrapper.find(Dropdown)
@@ -148,19 +160,19 @@ describe('DelimiterInput', () => {
 
     it('codePoint()', () => {
         // @ts-ignore
-        assert.strictEqual(DelimiterInput.codePoint(','), 'U+002C');
+        assert.strictEqual(DelimiterInputComponent.codePoint(','), 'U+002C');
         // @ts-ignore
-        assert.strictEqual(DelimiterInput.codePoint('\u0100'), 'U+0100');
+        assert.strictEqual(DelimiterInputComponent.codePoint('\u0100'), 'U+0100');
     });
 
     it('getErrorMessage()', () => {
-        const dropdown0 = new DelimiterInput({showLengthError: true})
+        const dropdown0 = new DelimiterInputComponent({showLengthError: true})
         // @ts-ignore
         assert.strictEqual(dropdown0.getErrorMessage('a'), '');
         // @ts-ignore
         assert(dropdown0.getErrorMessage('aa') !== '');
 
-        const dropdown1 = new DelimiterInput({showLengthError: false});
+        const dropdown1 = new DelimiterInputComponent({showLengthError: false});
         // @ts-ignore
         assert.strictEqual(dropdown1.getErrorMessage('aa'), '');
     });

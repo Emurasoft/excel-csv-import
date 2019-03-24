@@ -5,8 +5,9 @@ import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {ExportType} from '../Parser';
+import {withTranslation} from 'react-i18next';
 
-export class ExportTypeDropdown extends React.Component<BaseProps<ExportType>, {}> {
+export class ExportTypeDropdownComponent extends React.Component<BaseProps<ExportType>, {}> {
     public render(): React.ReactNode {
         const options: IDropdownOption[] = [
             {
@@ -30,3 +31,6 @@ export class ExportTypeDropdown extends React.Component<BaseProps<ExportType>, {
         );
     }
 }
+
+// @ts-ignore
+export const ExportTypeDropdown = withTranslation('importExport')(ExportTypeDropdownComponent);

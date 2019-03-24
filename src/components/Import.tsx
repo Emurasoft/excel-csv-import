@@ -15,7 +15,9 @@ import {StoredComponent} from './StoredComponent';
 import {withTranslation} from 'react-i18next';
 import {TranslateFunction} from './BaseProps';
 
-type Props = {store: Store} & TranslateFunction;
+interface Props extends TranslateFunction {
+    store: Store;
+}
 
 export class ImportComponent extends StoredComponent<Props & TranslateFunction, ImportOptions> {
     public constructor(props: Props) {
@@ -100,4 +102,4 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
     }
 }
 
-export default withTranslation('import')(connect(ImportComponent));
+export default withTranslation('importExport')(connect(ImportComponent));

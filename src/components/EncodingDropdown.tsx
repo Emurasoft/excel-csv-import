@@ -2,10 +2,14 @@ import {BaseProps} from './BaseProps';
 import * as React from 'react';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {AutoDetectOption, EncodingDropdownOptions} from './EncodingDropdownOptions';
+import {withTranslation} from 'react-i18next';
 
-type Props = BaseProps<string> & {showAutoDetect: boolean; hidden: boolean};
+interface Props extends BaseProps<string> {
+    showAutoDetect: boolean;
+    hidden: boolean;
+}
 
-export class EncodingDropdown extends React.Component<Props, {}> {
+export class EncodingDropdownComponent extends React.Component<Props, {}> {
     public constructor(props: Props) {
         super(props);
 
@@ -36,3 +40,6 @@ export class EncodingDropdown extends React.Component<Props, {}> {
 
     private readonly _dropdownOptions: IDropdownOption[];
 }
+
+// @ts-ignore
+export const EncodingDropdown = withTranslation('importExport')(EncodingDropdownComponent);
