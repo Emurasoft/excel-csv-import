@@ -6,7 +6,7 @@ describe('App', () => {
     it('_parseQuery()', () => {
         interface Test {
             query: querystring.ParsedQuery;
-            expected: {page: string, language: string};
+            expected: {page: string; language: string};
         }
         const tests: Test[] = [
             {
