@@ -83,7 +83,8 @@ describe('ChunkProcessor', () => {
                 encoding: '',
             };
 
-            await processor.run(importOptions);
+            const errors = await processor.run(importOptions);
+            assert.deepStrictEqual(errors, []);
             assert(setChunkDone);
             assert(syncDone);
             assert(progressCallbackDone);
@@ -107,7 +108,8 @@ describe('ChunkProcessor', () => {
                 encoding: '',
             };
 
-            await processor.run(importOptions);
+            const errors = await processor.run(importOptions);
+            assert.deepStrictEqual(errors, []);
         });
     });
 });

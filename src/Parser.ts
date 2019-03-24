@@ -53,13 +53,13 @@ export class ChunkProcessor {
         this._currentProgress = 0.0;
     }
 
-    public run(importOptions: ImportOptions & Papa.ParseConfig): Promise<void> {
+    public run(importOptions: ImportOptions & Papa.ParseConfig): Promise<Papa.ParseError[]> {
         this._progressCallback(0.0);
         this._progressPerChunk = ChunkProcessor.progressPerChunk(importOptions.source);
 
         return new Promise(resolve => {
             importOptions.chunk = this.chunk;
-            importOptions.complete = () => resolve(); // TODO output any errors
+            importOptions.complete = results => resolve(results.errors);
 
             switch (importOptions.source.inputType) {
             case InputType.file:
@@ -115,11 +115,13 @@ export async function importCSV(
     importOptions: ImportOptions,
     progressCallback: ProgressCallback,
     abortFlag: AbortFlag,
-): Promise<void> {
+): Promise<Papa.ParseError[]> {
+    let errors = null;
     await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
         const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
-        await chunkProcessor.run(importOptions);
+        errors = await chunkProcessor.run(importOptions);
     });
+    return errors;
 }
 
 export function _nameToUse(workbookName: string, worksheetName: string): string {
@@ -189,7 +191,7 @@ export async function csvStringAndName(
     exportOptions: ExportOptions,
     abortFlag: AbortFlag,
     excelAPI = ExcelAPI,
-): Promise<CsvStringAndName> {
+): Promise<CsvStringAndName> { // TODO progress
     const namesAndValues = await excelAPI.workbookNamesAndValues();
     return {
         name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),

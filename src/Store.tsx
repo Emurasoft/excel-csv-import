@@ -5,6 +5,7 @@ import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
 import {version} from './version';
 import {AbortFlagArray} from './AbortFlag';
+import * as Papa from 'papaparse';
 
 export interface Progress {
     show: boolean;
@@ -133,6 +134,7 @@ export class Store extends React.Component<{}, State> {
         this.setState(
             state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
         );
+        let errors: Papa.ParseError[] = null;
         try {
             await Parser.importCSV(options, this.setProgress, this._abortFlags.newFlag());
         } catch (err) {
@@ -141,6 +143,10 @@ export class Store extends React.Component<{}, State> {
         this.setState(
             state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
         );
+
+        if (errors.length > 0) {
+            this.setParserOutput({type: OutputType.info, output: JSON.stringify(errors)});
+        }
         this._log.push('import', {options});
     }
 
