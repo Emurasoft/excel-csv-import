@@ -13,14 +13,11 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {withTranslation} from 'react-i18next';
-import i18next from 'i18next';
+import {TranslateFunction} from './BaseProps';
 
-interface Props {
-    store: Store;
-    t: i18next.TFunction;
-}
+type Props = {store: Store} & TranslateFunction;
 
-export class ImportComponent extends StoredComponent<Props, ImportOptions> {
+export class ImportComponent extends StoredComponent<Props & TranslateFunction, ImportOptions> {
     public constructor(props: Props) {
         super(props, 'Import', {
             source: {inputType: InputType.file, file: null, text: ''},
@@ -33,7 +30,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     public render(): React.ReactNode {
         return (
             <div className={style.pageMargin}>
-                {this.props.t('import.title')}
+                {this.props.t('title')}
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}
@@ -103,4 +100,4 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     }
 }
 
-export default withTranslation()(connect(ImportComponent));
+export default withTranslation('import')(connect(ImportComponent));

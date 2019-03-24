@@ -5,9 +5,10 @@ import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {BaseProps} from './BaseProps';
+import {BaseProps, TranslateFunction} from './BaseProps';
+import {withTranslation} from 'react-i18next';
 
-export class SourceInput extends React.Component<BaseProps<Source>, {}> {
+export class SourceInputComponent extends React.Component<BaseProps<Source> & TranslateFunction, {}> {
     public render(): React.ReactNode {
         const fileSourceMenu: IDropdownOption[] = [
             {
@@ -69,3 +70,6 @@ export class SourceInput extends React.Component<BaseProps<Source>, {}> {
         this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
     }
 }
+
+// @ts-ignore
+export const SourceInput = withTranslation('import')(SourceInputComponent);
