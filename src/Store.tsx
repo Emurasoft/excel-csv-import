@@ -3,7 +3,7 @@ import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
-import {version} from './version';
+import {version} from './version.json';
 import {AbortFlagArray} from './AbortFlag';
 
 export interface Progress {
