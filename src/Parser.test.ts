@@ -11,7 +11,7 @@ import {
     Source,
 } from './Parser';
 import {ParseConfig} from 'papaparse';
-import * as assert from 'assert'; // TODO don't need assert library
+import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 
