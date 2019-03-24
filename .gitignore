@@ -10,5 +10,6 @@ node_modules
 !webpack.*.js
 !.eslintrc.js
 !src/components/generateEncodingList.js
+!src/retrace.js
 build
 .nyc_output

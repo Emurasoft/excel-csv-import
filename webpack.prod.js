@@ -13,4 +13,5 @@ module.exports = merge(common, {
             {from: 'public/*.png', flatten: true},
         ]),
     ],
+    devtool: 'source-map', // source-map gets the most accurate traces
 });
