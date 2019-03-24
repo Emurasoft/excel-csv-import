@@ -177,7 +177,7 @@ export function _csvString(
     abortFlag: AbortFlag,
 ): string {
     let result = '';
-    const updateRate = 10; // Number of rows processed per progress bar update
+    const updateRate = 100; // Number of rows processed per progress bar update and abort check
 
     for (let i = 0; i < values.length; i++) {
         if (i % updateRate === 0) {
