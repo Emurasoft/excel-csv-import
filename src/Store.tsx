@@ -136,11 +136,7 @@ export class Store extends React.Component<{}, State> {
         );
         let errors: Papa.ParseError[] = null;
         try {
-            errors = await Parser.importCSV(
-                options,
-                this.setProgress,
-                this._abortFlags.newFlag(),
-            );
+            errors = await Parser.importCSV(options, this.setProgress, this._abortFlags.newFlag());
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }
