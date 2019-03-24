@@ -8,7 +8,7 @@ import {
     ExportOptions,
     InputType,
     NewlineSequence,
-    Source
+    Source,
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';

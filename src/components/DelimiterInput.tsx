@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Dropdown, IDropdownOption, TextField} from 'office-ui-fabric-react';
 import * as style from './style.css';
 import {
-    ResponsiveMode
+    ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {BaseProps} from './BaseProps';
 

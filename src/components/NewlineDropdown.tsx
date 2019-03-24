@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    ResponsiveMode
+    ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {BaseProps} from './BaseProps';

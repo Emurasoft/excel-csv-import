@@ -24,7 +24,7 @@ module.exports = {
     },
     rules: {
         'max-len': ['error', {code: 100}],
-        // 'comma-dangle': ['error', 'always-multiline'],
+        'comma-dangle': ['error', 'always-multiline'],
         '@typescript-eslint/indent': ['error', 4, {SwitchCase: 0}],
         'jsx-quotes': ['error', 'prefer-single'],
     },

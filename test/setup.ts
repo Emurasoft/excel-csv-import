@@ -2,7 +2,7 @@ import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import {
     ResponsiveMode,
-    setResponsiveMode
+    setResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {setIconOptions} from 'office-ui-fabric-react/lib-commonjs';
 import * as jsdom from 'jsdom-global';
