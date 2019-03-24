@@ -17,7 +17,7 @@ import {ProgressCallback} from './Store';
 
 describe('ChunkProcessor', () => {
     it('progressPerChunk()', () => {
-        const tests: {source: Source, expected: number}[] = [
+        const tests: {source: Source; expected: number}[] = [
             {
                 source: {inputType: InputType.text, text: ''},
                 expected: 1.0,
@@ -49,9 +49,9 @@ describe('ChunkProcessor', () => {
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const worksheetStub: any = {context: {
-                    application: {suspendApiCalculationUntilNextSync: () => {}},
-                    sync: async () => syncDone = true,
-                }}
+                application: {suspendApiCalculationUntilNextSync: () => {}},
+                sync: async () => syncDone = true,
+            }};
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const api: any = {};
             api.setChunk = (worksheet, row, data) => {
@@ -61,7 +61,7 @@ describe('ChunkProcessor', () => {
                 setChunkDone = true;
             }
 
-            const progressCallback: ProgressCallback = progress => {
+            const progressCallback: ProgressCallback = (progress): void => {
                 assert(progress === 0.0 || progress > 1.0);
                 if (progress > 1.0) {
                     progressCallbackDone = true;
@@ -91,7 +91,7 @@ describe('ChunkProcessor', () => {
         });
 
         it('abort', async () => {
-            const progressCallback: ProgressCallback = progress => {
+            const progressCallback: ProgressCallback = (progress): void => {
                 assert.strictEqual(progress, 0.0);
             };
 

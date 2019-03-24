@@ -17,8 +17,8 @@ describe('ProgressBar', () => {
     it('click stop', () => {
         let clicked = false;
         const wrapper = shallow(
-            <ProgressBar onClick={() => clicked = true} progress={{show: true, percent: 0.0}}
-        />);
+            <ProgressBar onClick={() => clicked = true} progress={{show: true, percent: 0.0}} />
+        );
         wrapper.find(Link).simulate('click')
         assert(clicked);
     });

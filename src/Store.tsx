@@ -5,7 +5,6 @@ import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
 import {version} from './version';
 import {AbortFlagArray} from './AbortFlag';
-import * as Papa from 'papaparse';
 
 export interface Progress {
     show: boolean;
