@@ -3,19 +3,26 @@ import * as React from 'react';
 import {ErrorBoundary} from './ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
 import * as queryString from 'query-string';
-import {paths} from './Paths';
-import i18n from '../i18n';
+import {Pages} from '../Pages';
+import {i18n, languageList} from '../i18n';
 import {I18nextProvider} from 'react-i18next';
 
-i18n.changeLanguage('en');
-
-function initialEntry(name): string {
-    // I don't know if this is necessary but extra precaution doesn't hurt.
-    if (['import', 'export', 'about'].includes(name as string)) {
-        return '/' + name;
+function parseQuery(query: queryString.ParsedQuery): {page: string, language: string} {
+    let page = null;
+    if (query.page in Pages) {
+        page = Pages[query.page as string];
     } else {
-        return '';
+        page = '';
     }
+
+    let language = null;
+    if (languageList.includes(query.language as string)) {
+        language = query.language;
+    } else {
+        language = 'en';
+    }
+
+    return {page, language};
 }
 
 const Import = React.lazy(
@@ -29,20 +36,23 @@ const About = React.lazy(
 );
 
 export function App(): JSX.Element {
+    const query = parseQuery(queryString.parse(location.search));
+    i18n.changeLanguage(query.language);
+
     return (
         <ErrorBoundary>
             <Store>
-                <I18nextProvider i18n={i18n}>
-                    <React.Suspense fallback={''}>
+                <React.Suspense fallback={'Loading'}>
+                    <I18nextProvider i18n={i18n}>
                         <MemoryRouter
-                            initialEntries={[initialEntry(queryString.parse(location.search).page)]}
+                            initialEntries={[query.page]}
                         >
-                            <Route path={paths.import} component={Import} />
-                            <Route path={paths.export} component={Export} />
-                            <Route path={paths.about} component={About} />
+                            <Route path={Pages.import} component={Import} />
+                            <Route path={Pages.export} component={Export} />
+                            <Route path={Pages.about} component={About} />
                         </MemoryRouter>
-                    </React.Suspense>
-                </I18nextProvider>
+                    </I18nextProvider>
+                </React.Suspense>
             </Store>
         </ErrorBoundary>
     );
