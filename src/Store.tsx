@@ -23,7 +23,7 @@ export interface State {
 export enum OutputType {hidden, info, error}
 
 export interface ParserOutput {
-    outputType: OutputType;
+    type: OutputType;
     output: string;
 }
 
@@ -39,7 +39,7 @@ export class Store extends React.Component<{}, State> {
             initialized: false,
             supported: true,
             parserOutput: {
-                outputType: OutputType.hidden,
+                type: OutputType.hidden,
                 output: '',
             },
             largeFile: false,
@@ -84,12 +84,12 @@ export class Store extends React.Component<{}, State> {
             this._log.push('APIVersion', version)
 
             if (!version.supported) {
-                this.setParserError(
+                this.setParserError(new Error(
                     'Your version of Excel is not supported:\n' + JSON.stringify(version, null, 2),
-                );
+                ));
             }
         } catch (err) {
-            this.logError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(Store.getErrorMessage(err)));
         }
         this._log.push('initAPI');
         await this.checkLargeFile();
@@ -102,16 +102,28 @@ export class Store extends React.Component<{}, State> {
         this._log.push('checkLargeFile');
     }
 
-    public setParserError = (output: string) => {
-        if (output.includes('RichApi.Error') && output.includes('refresh the page')) {
+    public setParserOutput = (parserOutput: ParserOutput) => {
+        this.setState({parserOutput});
+        this._log.push('setParserOutput', {parserOutput});
+    }
+
+    public setParserError = (err: Error) => {
+        // eslint-disable-next-line no-console
+        console.trace(Store.getErrorMessage(err));
+
+        let output = Store.getErrorMessage(err);
+        if (
+            output.includes('RichApi.Error')
+            && output.includes('refresh the page')
+        ) {
             output = 'Session has expired; please refresh the page.\n\n' + output;
         }
 
-        this.setState({parserOutput: {outputType: OutputType.error, output}});
-        this._log.push('setParserError', {output});
+        // Action is logged inside setParserOutput()
+        this.setParserOutput({type: OutputType.error, output});
     }
 
-    // Aborts any import or export processes that are currently running.
+    // Aborts all import and export processes that are currently running.
     public abort = () => {
         this._abortFlags.abort();
         this._log.push('abort');
@@ -124,7 +136,7 @@ export class Store extends React.Component<{}, State> {
         try {
             await Parser.importCSV(options, this.setProgress, this._abortFlags.newFlag());
         } catch (err) {
-            this.logError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(Store.getErrorMessage(err)));
         }
         this.setState(
             state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
@@ -137,7 +149,7 @@ export class Store extends React.Component<{}, State> {
         try {
             result = await ExcelAPI.worksheetArea();
         } catch (err) {
-            this.logError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(Store.getErrorMessage(err)));
         }
         this._log.push('worksheetArea');
         return result;
@@ -151,24 +163,18 @@ export class Store extends React.Component<{}, State> {
         try {
             result = await Parser.csvStringAndName(options, this._abortFlags.newFlag());
         } catch (err) {
-            this.logError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(Store.getErrorMessage(err)));
         }
         this._log.push('csvStringAndName', {options});
         return result;
     }
 
-    private readonly _log: Logger;
-    private readonly _abortFlags: AbortFlagArray;
-
     private static getErrorMessage(err: Error): string {
         return err.toString() + '\n' + err.stack
     }
 
-    private logError(err) {
-        // eslint-disable-next-line no-console
-        console.trace(Store.getErrorMessage(err));
-        this.setParserError(Store.getErrorMessage(err));
-    }
+    private readonly _log: Logger;
+    private readonly _abortFlags: AbortFlagArray;
 
     private setProgress: ProgressCallback = (progress: number) => {
         this.setState(state => ({progress: {show: state.progress.show, percent: progress}}));

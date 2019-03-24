@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as style from './style.css';
 
 export function ErrorOutput(props: {parserOutput: ParserOutput}): JSX.Element {
-    if (props.parserOutput.outputType === OutputType.error) {
+    if (props.parserOutput.type === OutputType.error) {
         return (
             <TextField
                 className={style.monospace  + ' ' + style.redText}
