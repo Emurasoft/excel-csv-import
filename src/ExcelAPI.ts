@@ -82,6 +82,7 @@ export async function worksheetArea(): Promise<number> {
 interface WorkbookNamesAndValues {
     workbookName: string;
     worksheetName: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     values: any[][];
 }
 

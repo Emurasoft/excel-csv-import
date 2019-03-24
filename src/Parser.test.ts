@@ -15,6 +15,7 @@ import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 describe('ChunkProcessor', () => {
     it('progressPerChunk()', () => {
         const tests: {source: Source; expected: number}[] = [
@@ -47,12 +48,11 @@ describe('ChunkProcessor', () => {
             let syncDone = false;
             let progressCallbackDone = false;
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const worksheetStub: any = {context: {
                 application: {suspendApiCalculationUntilNextSync: () => {}},
                 sync: async () => syncDone = true,
             }};
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             const api: any = {};
             api.setChunk = (worksheet, row, data) => {
                 assert.strictEqual(worksheet, worksheetStub);

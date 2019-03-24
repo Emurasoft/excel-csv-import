@@ -10,6 +10,7 @@ export class Logger {
 
     // Adds name and a deep copy of args if defined otherwise empty object, as a new record.
     // Do not add sensitive information.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public push(name: string, args?: {[key: string]: any}): void {
         this._log.push(Object.freeze({name, args: args ? Logger.deepCopy(args) : {}}));
     }

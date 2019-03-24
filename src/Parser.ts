@@ -160,6 +160,7 @@ export function _addQuotes(row: string[], delimiter: string): void {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): string {
     const stringValues = row.map(a => a.toString());
     _addQuotes(stringValues, exportOptions.delimiter);
@@ -167,6 +168,7 @@ export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): 
 }
 
 export function _csvString(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     values: any[][],
     exportOptions: Readonly<ExportOptions>,
     abortFlag: AbortFlag,
@@ -195,6 +197,6 @@ export async function csvStringAndName(
     const namesAndValues = await excelAPI.workbookNamesAndValues();
     return {
         name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),
-        string: _csvString(namesAndValues.values, exportOptions, abortFlag)
+        string: _csvString(namesAndValues.values, exportOptions, abortFlag),
     };
 }

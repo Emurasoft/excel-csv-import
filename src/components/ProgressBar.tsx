@@ -5,7 +5,7 @@ import {Progress} from '../Store';
 
 interface Props {
     // Fired when the "Stop" link is clicked.
-    onClick: () => any;
+    onClick: () => void;
     progress: Progress;
 }
 
