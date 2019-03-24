@@ -12,9 +12,16 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
+import {withTranslation} from 'react-i18next';
+import i18next from 'i18next';
 
-export class ImportComponent extends StoredComponent<{store: Store}, ImportOptions> {
-    public constructor(props: {store: Store}) {
+interface Props {
+    store: Store;
+    t: i18next.TFunction;
+}
+
+export class ImportComponent extends StoredComponent<Props, ImportOptions> {
+    public constructor(props: Props) {
         super(props, 'Import', {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
@@ -26,6 +33,7 @@ export class ImportComponent extends StoredComponent<{store: Store}, ImportOptio
     public render(): React.ReactNode {
         return (
             <div className={style.pageMargin}>
+                {this.props.t('import.title')}
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}
@@ -95,4 +103,4 @@ export class ImportComponent extends StoredComponent<{store: Store}, ImportOptio
     }
 }
 
-export default connect(ImportComponent);
+export default withTranslation()(connect(ImportComponent));

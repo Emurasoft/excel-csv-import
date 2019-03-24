@@ -18,7 +18,8 @@ describe('ImportComponent', () => {
         const stub: any = {};
         stub.state = {initialized: true};
         stub.import = (options) => receivedOptions = options
-        const wrapper = shallow(<ImportComponent store={stub} />);
+        // @ts-ignore
+        const wrapper = shallow(<ImportComponent store={stub}  t={k => k} />);
 
         wrapper.find(SourceInput)
             .simulate('change', {inputType: InputType.text, text: 'csv text'});

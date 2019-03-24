@@ -9,6 +9,7 @@
       "es2018"
     ],
     "jsx": "react",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   }
 }
