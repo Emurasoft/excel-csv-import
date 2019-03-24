@@ -134,9 +134,16 @@ export class Store extends React.Component<{}, State> {
         this.setState(
             state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
         );
-        let errors: Papa.ParseError[] = null;
+
         try {
-            errors = await Parser.importCSV(options, this.setProgress, this._abortFlags.newFlag());
+            const errors = await Parser.importCSV(
+                options,
+                this.setProgress,
+                this._abortFlags.newFlag(),
+            );
+            if (errors.length > 0) {
+                this.setParserOutput({type: OutputType.info, output: JSON.stringify(errors)});
+            }
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }
@@ -144,9 +151,6 @@ export class Store extends React.Component<{}, State> {
             state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
         );
 
-        if (errors.length > 0) {
-            this.setParserOutput({type: OutputType.info, output: JSON.stringify(errors)});
-        }
         this._log.push('import', {options});
     }
 
