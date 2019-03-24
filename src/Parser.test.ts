@@ -11,7 +11,7 @@ import {
     Source,
 } from './Parser';
 import {ParseConfig} from 'papaparse';
-import * as assert from 'assert';
+import * as assert from 'assert'; // TODO don't need assert library
 import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 
@@ -249,54 +249,98 @@ describe('Parser', () => {
         }
     });
 
-    it('_csvString()', () => {
-        const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
-            {
-                values: [[]],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
+    describe('_csvString()', () => {
+        it('result', () => {
+            const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
+                {
+                    values: [[]],
+                    exportOptions: {
+                        delimiter: '',
+                        newline: NewlineSequence.LF,
+                        exportType: null,
+                        encoding: null,
+                    },
+                    expected: '\n',
                 },
-                expected: '\n',
-            },
-            {
-                values: [['a', 'b']],
-                exportOptions: {
-                    delimiter: ',',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
+                {
+                    values: [['a', 'b']],
+                    exportOptions: {
+                        delimiter: ',',
+                        newline: NewlineSequence.LF,
+                        exportType: null,
+                        encoding: null,
+                    },
+                    expected: 'a,b\n',
                 },
-                expected: 'a,b\n',
-            },
-            {
-                values: [['a', 'b'], ['c']],
-                exportOptions: {
-                    delimiter: ',',
-                    newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
+                {
+                    values: [['a', 'b'], ['c']],
+                    exportOptions: {
+                        delimiter: ',',
+                        newline: NewlineSequence.LF,
+                        exportType: null,
+                        encoding: null,
+                    },
+                    expected: 'a,b\nc\n',
                 },
-                expected: 'a,b\nc\n',
-            },
-            {
-                values: [['a', 'b'], ['c'], ['d','e']],
-                exportOptions: {
-                    delimiter: ',',
-                    newline: NewlineSequence.CRLF,
-                    exportType: null,
-                    encoding: null,
+                {
+                    values: [['a', 'b'], ['c'], ['d','e']],
+                    exportOptions: {
+                        delimiter: ',',
+                        newline: NewlineSequence.CRLF,
+                        exportType: null,
+                        encoding: null,
+                    },
+                    expected: 'a,b\r\nc\r\nd,e\r\n',
                 },
-                expected: 'a,b\r\nc\r\nd,e\r\n',
-            },
-        ];
+            ];
 
-        const flag = new AbortFlag();
-        for (const test of tests) {
-            assert.strictEqual(_csvString(test.values, test.exportOptions, flag), test.expected);
-        }
+            const flag = new AbortFlag();
+            for (const test of tests) {
+                const progressCallback = (progress): void => assert.strictEqual(progress, 0.0);
+                const result = _csvString(test.values, test.exportOptions, progressCallback, flag);
+                assert.strictEqual(result, test.expected);
+            }
+        });
+
+        it('progressCallback', () => {
+            const values = new Array(20).fill([]);
+            const options = {
+                delimiter: ',',
+                newline: NewlineSequence.LF,
+                exportType: null,
+                encoding: null,
+            };
+            let called = 0;
+            const progressCallback = progress => {
+                switch (called) {
+                case 0:
+                    assert.strictEqual(progress, 0.0);
+                    break;
+                case 1:
+                    assert.strictEqual(progress, 0.5);
+                    break;
+                default:
+                    assert.fail('called too many times');
+                }
+                ++called;
+            }
+
+            _csvString(values, options, progressCallback, new AbortFlag());
+            assert.strictEqual(called, 2);
+        });
+
+        it('abort', () => {
+            const options = {
+                delimiter: ',',
+                newline: NewlineSequence.LF,
+                exportType: null,
+                encoding: null,
+            };
+            const flag = new AbortFlag();
+            flag.abort();
+            const result = _csvString([['a']], options, () => {}, flag);
+            assert.strictEqual(result, '');
+        });
     });
 
     it('_nameToUse()', () => {

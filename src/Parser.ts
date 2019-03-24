@@ -107,6 +107,8 @@ export class ChunkProcessor {
         this._currRow += chunk.data.length;
         parser.pause();
         this._worksheet.context.sync().then(parser.resume);
+        // Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
+        // on performance.
         this._progressCallback(this._currentProgress += this._progressPerChunk);
     }
 }
@@ -171,15 +173,22 @@ export function _csvString(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     values: any[][],
     exportOptions: Readonly<ExportOptions>,
+    progressCallback: ProgressCallback,
     abortFlag: AbortFlag,
 ): string {
     let result = '';
+    const updateRate = 10; // Number of rows processed per progress bar update
 
-    for (const row of values) {
-        if (abortFlag.aborted()) {
-            return result;
+    for (let i = 0; i < values.length; i++) {
+        if (i % updateRate === 0) {
+            if (abortFlag.aborted()) {
+                return result;
+            }
+            // values.length is never 0
+            progressCallback(i / values.length);
         }
-        result += _rowString(row, exportOptions);
+
+        result += _rowString(values[i], exportOptions);
     }
     return result;
 }
@@ -191,12 +200,13 @@ export interface CsvStringAndName {
 
 export async function csvStringAndName(
     exportOptions: ExportOptions,
+    progressCallback: ProgressCallback,
     abortFlag: AbortFlag,
     excelAPI = ExcelAPI,
-): Promise<CsvStringAndName> { // TODO progress
+): Promise<CsvStringAndName> {
     const namesAndValues = await excelAPI.workbookNamesAndValues();
     return {
         name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),
-        string: _csvString(namesAndValues.values, exportOptions, abortFlag),
+        string: _csvString(namesAndValues.values, exportOptions, progressCallback, abortFlag),
     };
 }

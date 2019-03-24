@@ -168,12 +168,24 @@ export class Store extends React.Component<{}, State> {
     public csvStringAndName = async (
         options: Parser.ExportOptions
     ): Promise<CsvStringAndName|null> => {
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
+        );
+
         let result: CsvStringAndName = null;
         try {
-            result = await Parser.csvStringAndName(options, this._abortFlags.newFlag());
+            result = await Parser.csvStringAndName(
+                options,
+                this.setProgress,
+                this._abortFlags.newFlag(),
+            );
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
+        );
+
         this._log.push('csvStringAndName', {options});
         return result;
     }
