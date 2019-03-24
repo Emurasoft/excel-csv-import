@@ -16,6 +16,7 @@ export class Logger {
     }
 
     public log(): string {
+        // eslint-disable-next-line no-undef
         if (!process) { // If not running in unit test
             // eslint-disable-next-line no-console
             console.table(this._log);

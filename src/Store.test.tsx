@@ -7,7 +7,7 @@ import * as assert from 'assert';
 describe('Store', () => {
     it('setParserOutput()', (done) => {
         class Component extends React.Component<{store: Store}> {
-            public render() {
+            public render(): React.ReactNode {
                 return null;
             }
 
