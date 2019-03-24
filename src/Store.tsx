@@ -132,7 +132,7 @@ export class Store extends React.Component<{}, State> {
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
         this.setState(
-            state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
+            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
         );
 
         try {
@@ -148,7 +148,7 @@ export class Store extends React.Component<{}, State> {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }
         this.setState(
-            state => ({progress: {show: !state.progress.show, percent: state.progress.percent}}),
+            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
         );
 
         this._log.push('import', {options});
