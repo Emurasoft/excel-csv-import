@@ -31,7 +31,9 @@ describe('ExportComponent', () => {
             assert.deepStrictEqual(options, expected);
             return {string: 'export result'};
         }
-        const wrapper = shallow(<ExportComponent store={store} />)
+
+        // @ts-ignore
+        const wrapper = shallow(<ExportComponent store={store} t={k => k}/>)
         wrapper.find(ExportTypeDropdown).simulate('change', ExportType.text);
         wrapper.find(DelimiterInput).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);

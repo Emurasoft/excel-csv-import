@@ -13,6 +13,8 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
+import {TranslateFunction} from './BaseProps';
+import {withTranslation} from 'react-i18next';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -20,11 +22,14 @@ export interface OutputText {
     text: string;
 }
 
-type State = ExportOptions & {outputText: OutputText; processing: boolean};
+interface State extends ExportOptions {
+    outputText: OutputText;
+    processing: boolean;
+}
 
-export class ExportComponent extends StoredComponent<{store: Store}, State> {
-    public constructor(props: {store: Store}) {
-        super(props, 'Export', {
+export class ExportComponent extends StoredComponent<{store: Store} & TranslateFunction, State> {
+    public constructor(props: {store: Store} & TranslateFunction) {
+        super(props, 'export', {
             exportType: ExportType.file,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
@@ -38,9 +43,10 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
     }
 
     public render(): React.ReactNode {
+        const t = this.props.t;
         const outputTextField = (
             <TextField
-                label='Export result'
+                label={t('Export.Export result')}
                 className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
@@ -49,9 +55,9 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
             />
         );
 
-        const largeFileWarning = (
+        const largeFileWarning = ( // TODO Check what is considered large file for exporting
             <Text style={{color: 'red'}} variant='medium'>
-                Large file export is not supported.
+                {t('Export.Large file export is not supported')}
             </Text>
         );
 
@@ -99,7 +105,7 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
                     progress={this.props.store.state.progress}
                 />
                 <Toggle
-                    inlineLabel label='Save options'
+                    inlineLabel label={t('Save options')}
                     defaultChecked={this.initialSaveStatus()}
                     onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
@@ -145,11 +151,11 @@ export class ExportComponent extends StoredComponent<{store: Store}, State> {
 
     private buttonTooltipContent(): string {
         if (!this.props.store.state.initialized) {
-            return 'Excel API is not initialized';
+            return this.props.t('Excel API is not initialized');
         } else {
             return '';
         }
     }
 }
 
-export default connect(ExportComponent);
+export default withTranslation('importExport')(connect(ExportComponent));

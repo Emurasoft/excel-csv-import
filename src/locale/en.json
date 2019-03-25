@@ -1,13 +1,18 @@
 {
   "importExport": {
-    "Import CSV": "Import CSV",
-    "Import source is not selected": "Import source is not selected",
-    "Delimiter is invalid": "Delimiter is invalid",
-    "Excel API is not initialized": "Excel API is not initialized",
-    "Save options": "Save options",
     "Auto-detect": "Auto-detect",
     "Other": "Other",
-    "About": "About",
+    "Excel API is not initialized": "Excel API is not initialized",
+    "Save options": "Save options",
+    "Import": {
+      "Import CSV": "Import CSV",
+      "Import source is not selected": "Import source is not selected",
+      "Delimiter is invalid": "Delimiter is invalid"
+    },
+    "Export": {
+      "Export result": "Export result",
+      "Large file export is not supported": "Large file export is not supported"
+    },
     "SourceInput": {
       "Import type": "Import type",
       "File": "File",
@@ -26,6 +31,9 @@
     },
     "ProgressBar": {
       "Stop": "Stop"
+    },
+    "BottomBar": {
+      "About": "About"
     }
   }
 }

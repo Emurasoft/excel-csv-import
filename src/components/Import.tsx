@@ -21,7 +21,7 @@ interface Props extends TranslateFunction {
 
 export class ImportComponent extends StoredComponent<Props & TranslateFunction, ImportOptions> {
     public constructor(props: Props) {
-        super(props, 'Import', {
+        super(props, 'import', {
             source: {inputType: InputType.file, file: null, text: ''},
             delimiter: '',
             newline: NewlineSequence.AutoDetect,
@@ -65,7 +65,7 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
                     <PrimaryButton
                         disabled={this.buttonTooltipContent() !== ''}
                         onClick={this.buttonOnClick}
-                        text={t('Import CSV')}
+                        text={t('Import.Import CSV')}
                     />
                 </TooltipHost>
                 <br />
@@ -91,9 +91,9 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
     private buttonTooltipContent(): string {
         const t = this.props.t;
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
-            return t('Import source is not selected');
+            return t('Import.Import source is not selected');
         } else if (this.state.delimiter.length > 1) {
-            return t('Delimiter is invalid');
+            return t('Import.Delimiter is invalid');
         } else if (!this.props.store.state.initialized) {
             return t('Excel API is not initialized');
         } else {
