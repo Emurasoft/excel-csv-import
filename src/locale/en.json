@@ -7,38 +7,24 @@
     "Other": "Other",
     "Excel API is not initialized": "Excel API is not initialized",
     "Save options": "Save options",
-    "Import": {
-      "Import CSV": "Import CSV",
-      "Import source is not selected": "Import source is not selected",
-      "Delimiter is invalid": "Delimiter is invalid"
-    },
-    "Export": {
-      "Large file export is not supported": "Large file export is not supported",
-      "Export to CSV": "Export to CSV",
-      "Export result": "Export result"
-    },
-    "SourceInput": {
-      "Import type": "Import type",
-      "File": "File",
-      "Text input": "Text input"
-    },
-    "EncodingDropdown": {
-      "Encoding": "Encoding"
-    },
-    "DelimiterInput": {
-      "Delimiter": "Delimiter",
-      "Enter custom delimiter": "Enter custom delimiter",
-      "Delimiter length must be 0 or 1": "Delimiter length must be 0 or 1"
-    },
-    "NewlineDropdown": {
-      "Newline sequence": "Newline sequence"
-    },
-    "ProgressBar": {
-      "Stop": "Stop"
-    },
-    "BottomBar": {
-      "About": "About"
-    }
+    "Import CSV": "Import CSV",
+    "Import source is not selected": "Import source is not selected",
+    "Delimiter is invalid": "Delimiter is invalid",
+    "Large file export is not supported": "Large file export is not supported",
+    "Export to CSV": "Export to CSV",
+    "Export result": "Export result",
+    "Import type": "Import type",
+    "File": "File",
+    "Text input": "Text input",
+    "Encoding": "Encoding",
+    "Delimiter": "Delimiter",
+    "Enter custom delimiter": "Enter custom delimiter",
+    "Delimiter length must be 0 or 1": "Delimiter length must be 0 or 1",
+    "Newline sequence": "Newline sequence",
+    "Export type": "Export type",
+    "Textbox": "Textbox",
+    "Stop": "Stop",
+    "About": "About"
   },
   "about": {
     "Go back": "Go back",

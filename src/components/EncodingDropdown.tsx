@@ -33,7 +33,7 @@ export class EncodingDropdownComponent extends React.Component<Props, {}> {
             return (
                 <>
                     <Dropdown
-                        label={t('EncodingDropdown.Encoding')}
+                        label={t('Encoding')}
                         selectedKey={this.props.value}
                         options={this._dropdownOptions}
                         onChange={(_, option) => this.props.onChange(option.key as string)}

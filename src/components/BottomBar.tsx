@@ -10,7 +10,7 @@ export function BottomBar(): JSX.Element {
     return (
         <div className={style.bottomBar}>
             <Text variant='medium'>
-                <RouterLink to={Pages.about}>{t('BottomBar.About')}</RouterLink>
+                <RouterLink to={Pages.about}>{t('About')}</RouterLink>
             </Text>
         </div>
     );

@@ -29,7 +29,7 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
         }, ['delimiter', 'newline', 'encoding']);
     }
 
-    public render(): React.ReactNode { // TODO fix namespace character
+    public render(): React.ReactNode {
         const t = this.props.t;
         return (
             <div className={style.pageMargin}>
@@ -65,7 +65,7 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
                     <PrimaryButton
                         disabled={this.buttonTooltipContent() !== ''}
                         onClick={this.buttonOnClick}
-                        text={t('Import.Import CSV')}
+                        text={t('Import CSV')}
                     />
                 </TooltipHost>
                 <br />
@@ -91,9 +91,9 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
     private buttonTooltipContent(): string {
         const t = this.props.t;
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
-            return t('Import.Import source is not selected');
+            return t('Import source is not selected');
         } else if (this.state.delimiter.length > 1) {
-            return t('Import.Delimiter is invalid');
+            return t('Delimiter is invalid');
         } else if (!this.props.store.state.initialized) {
             return t('Excel API is not initialized');
         } else {

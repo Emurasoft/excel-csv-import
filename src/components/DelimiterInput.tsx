@@ -72,7 +72,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
                     description={DelimiterInputComponent.description(this.props.value)}
                     onGetErrorMessage={this.getErrorMessage}
                     deferredValidationTime={1}
-                    placeholder={t('DelimiterInput.Enter custom delimiter')}
+                    placeholder={t('Enter custom delimiter')}
                 />
             </div>
         );
@@ -80,7 +80,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
         return (
             <>
                 <Dropdown
-                    label={t('DelimiterInput.Delimiter')}
+                    label={t('Delimiter')}
                     options={this._dropdownOptions}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.selectedKey()}
@@ -145,7 +145,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
 
     private getErrorMessage = (value: string) => {
         if (this.props.showLengthError && value.length > 1) {
-            return this.props.t('DelimiterInput.Delimiter length must be 0 or 1');
+            return this.props.t('Delimiter length must be 0 or 1');
         } else {
             return '';
         }

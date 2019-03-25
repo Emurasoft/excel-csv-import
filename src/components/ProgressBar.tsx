@@ -18,7 +18,7 @@ export class ProgressBarComponent extends React.Component<Props, {}> {
             contents = (
                 <>
                     <Text variant='small'>
-                        <Link onClick={this.props.onClick}>{this.props.t('ProgressBar.Stop')}</Link>
+                        <Link onClick={this.props.onClick}>{this.props.t('Stop')}</Link>
                     </Text>
                     <ProgressIndicator percentComplete={this.props.progress.percent} />
                 </>

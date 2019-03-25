@@ -50,7 +50,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
         const t = this.props.t;
         const outputTextField = (
             <TextField
-                label={t('Export.Export result')}
+                label={t('Export result')}
                 className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
@@ -61,7 +61,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         const largeFileWarning = ( // TODO Check what is considered large file for exporting
             <Text style={{color: 'red'}} variant='medium'>
-                {t('Export.Large file export is not supported')}
+                {t('Large file export is not supported')}
             </Text>
         );
 

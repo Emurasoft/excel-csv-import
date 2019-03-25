@@ -14,11 +14,11 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
         const fileSourceMenu: IDropdownOption[] = [
             {
                 key: InputType.file,
-                text: t('SourceInput.File'),
+                text: t('File'),
             },
             {
                 key: InputType.text,
-                text: t('SourceInput.Text input'),
+                text: t('Text input'),
             },
         ];
 
@@ -50,7 +50,7 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
         return (
             <>
                 <Dropdown
-                    label={t('SourceInput.Import type')}
+                    label={t('Import type')}
                     options={fileSourceMenu}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.props.value.inputType}
