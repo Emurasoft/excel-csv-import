@@ -6,7 +6,6 @@ module.exports = merge(common, {
     mode: 'production',
     entry: __dirname + '/src/index.tsx',
     output: {
-        filename: 'index.js',
         path: __dirname + '/build',
     },
     plugins: [
@@ -14,4 +13,5 @@ module.exports = merge(common, {
             {from: 'public/*.png', flatten: true},
         ]),
     ],
+    devtool: 'source-map', // source-map gets the most accurate traces
 });

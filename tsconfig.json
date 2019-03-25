@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es2018",
     "sourceMap": true,
     "declaration": false,
@@ -9,13 +9,7 @@
       "es2018"
     ],
     "jsx": "react",
-    "moduleResolution": "node"
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  }
 }

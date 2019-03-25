@@ -1,0 +1,48 @@
+{
+  "app": {
+    "CSV Import+Export": ""
+  },
+  "importExport": {
+    "Auto-detect": "",
+    "Other": "",
+    "Excel API is not initialized": "",
+    "Save options": "",
+    "Import CSV": "",
+    "Import source is not selected": "",
+    "Delimiter is invalid": "",
+    "Large file export is not supported": "",
+    "Export to CSV": "",
+    "Export result": "",
+    "Import type": "",
+    "File": "",
+    "Text input": "",
+    "Encoding": "",
+    "Delimiter": "",
+    "Enter custom delimiter": "",
+    "Delimiter length must be 0 or 1": "",
+    "Newline sequence": "",
+    "Export type": "",
+    "Textbox": "",
+    "Stop": "",
+    "About": ""
+  },
+  "about": {
+    "Go back": "",
+    "Github logo": "",
+    "CSV Import+Export on Github": "",
+    "EmEditor localized homepage [URL]": "",
+    "EmEditor logo": "",
+    "EmEditor description [paragraph]": "",
+    "Report bugs/send feedback": "",
+    "For bug reports, please attach the log file:": "",
+    "Save log": "",
+    "How to send feedback [paragraph]": "",
+    "License info": "",
+    "CSV Import+Export is licensed under the MIT License.": "",
+    "Third party libraries [paragraph]": ""
+  },
+  "store": {
+    "Your version of Excel is not supported": "",
+    "Session has expired; please refresh the page.": ""
+  }
+}

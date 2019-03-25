@@ -5,11 +5,11 @@
   "license": "MIT",
   "description": "",
   "scripts": {
-    "test": "TS_NODE_FILES=true mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
+    "test": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
     "lint": "eslint --ext .js,.ts,.tsx .",
     "devServer": "webpack-dev-server --config webpack.dev.js",
     "validateManifest": "validate-office-addin manifests/manifestDev.xml && validate-office-addin manifests/manifestProd.xml",
-    "build": "webpack --config webpack.prod.js"
+    "build": "rm -rf build && webpack --config webpack.prod.js"
   },
   "dependencies": {
     "@microsoft/office-js": "^1.1.10",
@@ -18,15 +18,19 @@
     "@types/papaparse": "^4.5.9",
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.2",
+    "@types/react-router-dom": "^4.3.1",
     "copy-webpack-plugin": "^5.0.1",
     "css-loader": "^2.1.1",
     "file-saver": "^2.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "i18next": "^15.0.7",
     "office-ui-fabric-react": "^6.152.1",
     "papaparse": "^4.6.3",
     "query-string": "^6.4.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-i18next": "^10.5.3",
+    "react-router-dom": "^5.0.0",
     "style-loader": "^0.23.1",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3333",
@@ -50,9 +54,25 @@
     "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
     "office-addin-validator": "^1.0.5",
+    "retrace": "^1.0.0",
     "sinon": "^7.2.7",
+    "source-map-support": "^0.5.11",
     "ts-node": "^8.0.3",
     "webpack-dev-server": "^3.2.1"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   }
 }

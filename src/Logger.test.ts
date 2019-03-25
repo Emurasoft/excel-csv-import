@@ -18,5 +18,11 @@ describe('Logger', () => {
         const result = Logger.deepCopy(a);
         a.a = 1;
         assert.deepStrictEqual(result, {a: 0});
+
+        const file = new File([], 'filename');
+        const importOptions = {options: {source: {file}}};
+        const expected =  {options: {source: {file: {name: 'filename'}}}};
+        // @ts-ignore
+        assert.deepStrictEqual(Logger.deepCopy(importOptions), expected);
     });
 });

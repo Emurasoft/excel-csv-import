@@ -3,12 +3,14 @@ import {shallow} from 'enzyme';
 import * as React from 'react';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {ExportType, NewlineSequence} from '../Parser';
-import {DelimiterDropdown} from './DelimiterDropdown';
+import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, TextField} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 
 describe('ExportComponent', () => {
+    afterEach(() => localStorage.clear());
+
     it('export text', (done) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const store: any = {};
@@ -29,9 +31,11 @@ describe('ExportComponent', () => {
             assert.deepStrictEqual(options, expected);
             return {string: 'export result'};
         }
-        const wrapper = shallow(<ExportComponent store={store} />)
+
+        // @ts-ignore
+        const wrapper = shallow(<ExportComponent store={store} t={k => k}/>)
         wrapper.find(ExportTypeDropdown).simulate('change', ExportType.text);
-        wrapper.find(DelimiterDropdown).simulate('change', ',');
+        wrapper.find(DelimiterInput).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
         wrapper.find(PrimaryButton).simulate('click');
         setTimeout(() => {

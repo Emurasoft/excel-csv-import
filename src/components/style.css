@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
+pre {
+  font-family: Inconsolata, monospace;
+  margin: 0;
+}
+
 .pageMargin {
   margin: 5px;
 }
@@ -11,6 +16,10 @@
 
 .redText * > input, .redText * > textarea {
   color: #c50000;
+}
+
+.greyText {
+  color: #4b4b4b;
 }
 
 .smallDivider {
@@ -26,4 +35,18 @@
 
 .fullWidth {
   width: 100%;
+}
+
+.centerContent {
+  display: flex;
+  justify-content: center;
+}
+
+.verticallyCenterContent {
+  display: flex;
+  align-items: center;
+}
+
+.emeditorLogo {
+  width: 150px;
 }

@@ -10,4 +10,5 @@ module.exports = merge(common, {
         https: true,
         historyApiFallback: true,
     },
+    devtool: 'cheap-module-eval-source-map',
 });

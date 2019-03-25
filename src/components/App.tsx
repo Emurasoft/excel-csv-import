@@ -1,29 +1,60 @@
-import {Import} from './Import';
 import {Store} from '../Store';
 import * as React from 'react';
-import * as queryString from 'query-string';
-import {Export} from './Export';
-import {About} from './About';
 import {ErrorBoundary} from './ErrorBoundary';
-
-function page(name: string[] | string ): React.ReactNode {
-    switch (name) {
-    case 'import':
-        return <Import />;
-    case 'export':
-        return <Export />;
-    case 'about':
-        return <About />
-    default:
-        return null;
+import {MemoryRouter, Route} from 'react-router';
+import * as queryString from 'query-string';
+import {Pages} from '../Pages';
+import {i18n, languageList} from '../i18n';
+import {I18nextProvider} from 'react-i18next';
+// TODO test on all browsers
+// TODO test on desktop Excel
+// Returns checked parameters.
+export function _parseQuery(query: queryString.ParsedQuery): {page: string; language: string} {
+    let page = null;
+    if (query.page in Pages) {
+        page = Pages[query.page as string];
+    } else {
+        page = '';
     }
+
+    let language = null;
+    if (languageList.includes(query.language as string)) {
+        language = query.language;
+    } else {
+        language = 'en';
+    }
+
+    return {page, language};
 }
 
+const Import = React.lazy(
+    () => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./Import'),
+);
+const Export = React.lazy(
+    () => import(/* webpackChunkName: 'export', webpackPrefetch: true */'./Export'),
+);
+const About = React.lazy(
+    () => import(/* webpackChunkName: 'about', webpackPrefetch: true */'./About'),
+);
+
 export function App(): JSX.Element {
+    const query = _parseQuery(queryString.parse(location.search));
+    i18n.changeLanguage(query.language);
+
     return (
         <ErrorBoundary>
             <Store>
-                {page(queryString.parse(location.search).page)}
+                <React.Suspense fallback={'Loading'}>
+                    <I18nextProvider i18n={i18n}>
+                        <MemoryRouter
+                            initialEntries={[query.page]}
+                        >
+                            <Route path={Pages.import} component={Import} />
+                            <Route path={Pages.export} component={Export} />
+                            <Route path={Pages.about} component={About} />
+                        </MemoryRouter>
+                    </I18nextProvider>
+                </React.Suspense>
             </Store>
         </ErrorBoundary>
     );

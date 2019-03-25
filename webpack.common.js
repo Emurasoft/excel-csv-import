@@ -6,6 +6,9 @@ module.exports = {
     },
     target: 'web',
     entry: __dirname + '/src/index.tsx',
+    output: {
+        filename: '[name].[contenthash].js',
+    },
     module: {
         rules: [
             {

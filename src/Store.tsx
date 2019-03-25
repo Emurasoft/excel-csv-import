@@ -3,42 +3,55 @@ import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
-import {version} from './version';
+import {version} from './version.json';
+import {AbortFlagArray} from './AbortFlag';
+import {TranslateFunction} from './components/BaseProps';
+import {withTranslation} from 'react-i18next';
+
+export interface Progress {
+    show: boolean;
+    percent: number;
+}
 
 export interface State {
     initialized: boolean;
     supported: boolean;
     version: string;
-    parserStatus: ParserStatus;
     largeFile: boolean;
+    parserOutput: ParserOutput;
+    progress: Progress;
 }
 
-export interface ParserStatus {
-    errorOccurred: boolean;
+export enum OutputType {hidden, info, error}
+
+export interface ParserOutput {
+    type: OutputType;
     output: string;
 }
 
+export type ProgressCallback = (progress: number) => void
+
 export const Context = React.createContext(undefined);
 
-export class Store extends React.Component<{}, State> {
-    public constructor(props: {}) {
+export class StoreComponent extends React.Component<TranslateFunction, State> {
+    public constructor(props: TranslateFunction) {
         super(props);
         this.state = {
+            version: version,
             initialized: false,
             supported: true,
-            version: version,
-            parserStatus: {
-                errorOccurred: false,
+            parserOutput: {
+                type: OutputType.hidden,
                 output: '',
             },
             largeFile: false,
+            progress: {show: false, percent: 0.0},
         };
 
         this._log = new Logger();
         this._log.push('version', {version});
 
-        // noinspection JSIgnoredPromiseFromCall
-        this.initAPI();
+        this._abortFlags = new AbortFlagArray();
     }
 
     public render(): React.ReactNode {
@@ -60,6 +73,10 @@ export class Store extends React.Component<{}, State> {
         );
     }
 
+    public async componentDidMount(): Promise<void> {
+        await this.initAPI();
+    }
+
     public log = () => this._log.log()
 
     public initAPI = async (): Promise<void> => {
@@ -69,12 +86,13 @@ export class Store extends React.Component<{}, State> {
             this._log.push('APIVersion', version)
 
             if (!version.supported) {
-                this.setParserError(
-                    'Your version of Excel is not supported:\n' + JSON.stringify(version, null, 2),
-                );
+                this.setParserError(new Error(
+                    this.props.t('Your version of Excel is not supported')
+                    + '\n' + JSON.stringify(version, null, 2),
+                ));
             }
         } catch (err) {
-            this.setParserError(err.stack);
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this._log.push('initAPI');
         await this.checkLargeFile();
@@ -87,19 +105,58 @@ export class Store extends React.Component<{}, State> {
         this._log.push('checkLargeFile');
     }
 
-    public setParserError = (output: string) => {
-        // output may contain something about refreshing the browser, in which case it should not
-        // display an error and instead tell the user to refresh.
-        this.setState({parserStatus: {errorOccurred: true, output}});
-        this._log.push('setParserError', {output});
+    public setParserOutput = (parserOutput: ParserOutput) => {
+        this.setState({parserOutput});
+        this._log.push('setParserOutput', {parserOutput});
+    }
+
+    public setParserError = (err: Error) => {
+        // eslint-disable-next-line no-undef
+        if (!process) { // If not running in unit test
+            // eslint-disable-next-line no-console
+            console.trace(StoreComponent.getErrorMessage(err));
+        }
+
+        let output = StoreComponent.getErrorMessage(err);
+        if (
+            output.includes('RichApi.Error')
+            && output.includes('refresh the page')
+        ) {
+            output = this.props.t('Session has expired; please refresh the page.')
+                     + '\n\n' + output;
+        }
+
+        // Action is logged inside setParserOutput()
+        this.setParserOutput({type: OutputType.error, output});
+    }
+
+    // Aborts all import and export processes that are currently running.
+    public abort = () => {
+        this._abortFlags.abort();
+        this._log.push('abort');
     }
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
+        );
+
         try {
-            await Parser.importCSV(options);
-        } catch (e) {
-            this.logError(new Error(e.stack));
+            const errors = await Parser.importCSV(
+                options,
+                this.setProgress,
+                this._abortFlags.newFlag(),
+            );
+            if (errors.length > 0) {
+                this.setParserOutput({type: OutputType.info, output: JSON.stringify(errors)});
+            }
+        } catch (err) {
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
+        );
+
         this._log.push('import', {options});
     }
 
@@ -108,7 +165,7 @@ export class Store extends React.Component<{}, State> {
         try {
             result = await ExcelAPI.worksheetArea();
         } catch (err) {
-            this.setParserError(err.stack);
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this._log.push('worksheetArea');
         return result;
@@ -118,21 +175,39 @@ export class Store extends React.Component<{}, State> {
     public csvStringAndName = async (
         options: Parser.ExportOptions
     ): Promise<CsvStringAndName|null> => {
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
+        );
+
         let result: CsvStringAndName = null;
         try {
-            result = await Parser.csvStringAndName(options);
+            result = await Parser.csvStringAndName(
+                options,
+                this.setProgress,
+                this._abortFlags.newFlag(),
+            );
         } catch (err) {
-            this.setParserError(err.stack);
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
+        this.setState(
+            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
+        );
+
         this._log.push('csvStringAndName', {options});
         return result;
     }
 
-    private readonly _log: Logger;
+    private static getErrorMessage(err: Error): string {
+        return err.toString() + '\n' + err.stack
+    }
 
-    private logError = (err) => {
-        // eslint-disable-next-line no-console
-        console.trace(err.stack);
-        this.setParserError(err.stack);
+    private readonly _log: Logger;
+    private readonly _abortFlags: AbortFlagArray;
+
+    private setProgress: ProgressCallback = (progress: number) => {
+        this.setState(state => ({progress: {show: state.progress.show, percent: progress}}));
     }
 }
+
+// @ts-ignore
+export const Store = withTranslation('store')(StoreComponent);

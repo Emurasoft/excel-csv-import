@@ -2,14 +2,16 @@
 
 interface APIVersionInfo {
     supported: boolean;
-    environmentInfo: Office.ContextInformation;
+    diagnostics: Office.ContextInformation;
+    userAgent: string;
 }
 
 export async function initAndGetAPIVersion(): Promise<APIVersionInfo> {
     await Office.onReady();
     return {
         supported: Office.context.requirements.isSetSupported('ExcelApi', 1.7),
-        environmentInfo: {...Office.context.diagnostics},
+        diagnostics: {...Office.context.diagnostics},
+        userAgent: window.navigator.userAgent,
     };
 }
 
@@ -31,7 +33,9 @@ export async function runOnBlankWorksheet(
     batch: (worksheet: Excel.Worksheet) => Promise<void>
 ): Promise<void> {
     await Excel.run(async (context) => {
-        await batch(await blankWorksheet(context));
+        const worksheetToUse = await blankWorksheet(context);
+        await batch(worksheetToUse);
+        worksheetToUse.activate();
         await context.sync();
     });
 }
@@ -56,9 +60,12 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
     // New range values must have the same shape as range
     const maxLength = _maxLength(chunk);
     _resize(chunk, maxLength);
-    const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
-    range.values = chunk;
-    range.untrack();
+    // getRangeByIndexes() throws error if rowCount or columnCount is 0
+    if (chunk.length > 0 && maxLength > 0) {
+        const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
+        range.values = chunk;
+        range.untrack();
+    }
 }
 
 export async function worksheetArea(): Promise<number> {
@@ -75,6 +82,7 @@ export async function worksheetArea(): Promise<number> {
 interface WorkbookNamesAndValues {
     workbookName: string;
     worksheetName: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     values: any[][];
 }
 

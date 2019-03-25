@@ -1,17 +1,20 @@
-import {Store} from '../Store';
+import {StoreComponent} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
-import {DelimiterDropdown} from './DelimiterDropdown';
+import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, Text, TextField, Toggle, TooltipHost} from 'office-ui-fabric-react';
 import {CsvStringAndName, ExportOptions, ExportType, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressText} from './ProgressText';
+import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
-import {ErrorOutput} from './ErrorOutput';
+import {ParserOutputBox} from './ParserOutputBox';
+import {StoredComponent} from './StoredComponent';
+import {TranslateFunction} from './BaseProps';
+import {withTranslation} from 'react-i18next';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -19,12 +22,18 @@ export interface OutputText {
     text: string;
 }
 
-type State = ExportOptions & {outputText: OutputText; processing: boolean};
+interface Props extends TranslateFunction {
+    store: StoreComponent;
+}
 
-export class ExportComponent extends React.Component<{store: Store}, State> {
-    public constructor(props: {store: Store}) {
-        super(props);
-        this.state = {
+interface State extends ExportOptions {
+    outputText: OutputText;
+    processing: boolean;
+}
+
+export class ExportComponent extends StoredComponent<Props, State> {
+    public constructor(props: {store: StoreComponent} & TranslateFunction) {
+        super(props, 'export', {
             exportType: ExportType.file,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
@@ -34,13 +43,14 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                 show: false,
                 text: '',
             },
-        };
+        }, ['exportType', 'delimiter', 'newline', 'encoding']);
     }
 
     public render(): React.ReactNode {
+        const t = this.props.t;
         const outputTextField = (
             <TextField
-                label='Export result'
+                label={t('Export result')}
                 className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
@@ -49,9 +59,9 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
             />
         );
 
-        const largeFileWarning = (
+        const largeFileWarning = ( // TODO Check what is considered large file for exporting
             <Text style={{color: 'red'}} variant='medium'>
-                Large file export is not supported.
+                {t('Large file export is not supported')}
             </Text>
         );
 
@@ -68,7 +78,7 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     hidden={this.state.exportType === ExportType.text}
                     showAutoDetect={false}
                 />
-                <DelimiterDropdown
+                <DelimiterInput
                     value={this.state.delimiter}
                     onChange={(delimiter) => this.setState({delimiter})}
                     showAutoDetect={false}
@@ -88,18 +98,22 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
                     <PrimaryButton
                         onClick={this.buttonOnClick}
                         disabled={this.buttonTooltipContent() !== ''}
-                    >
-                        Export to CSV
-                    </PrimaryButton>
+                        text={t('Export to CSV')}
+                    />
                 </TooltipHost>
                 <br />
                 {this.props.store.state.largeFile ? largeFileWarning : null}
-                <ProgressText hidden={!this.state.processing} />
+                <ProgressBar
+                    onClick={this.props.store.abort}
+                    progress={this.props.store.state.progress}
+                />
                 <Toggle
-                    inlineLabel label='Save options'
+                    inlineLabel label={t('Save options')}
+                    defaultChecked={this.initialSaveStatus()}
+                    onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
                 {this.state.outputText.show ? outputTextField : null}
-                <ErrorOutput parserStatus={this.props.store.state.parserStatus} />
+                <ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
                 <BottomBar />
             </div>
         );
@@ -140,11 +154,11 @@ export class ExportComponent extends React.Component<{store: Store}, State> {
 
     private buttonTooltipContent(): string {
         if (!this.props.store.state.initialized) {
-            return 'Excel API is not initialized';
+            return this.props.t('Excel API is not initialized');
         } else {
             return '';
         }
     }
 }
 
-export const Export = connect(ExportComponent);
+export default withTranslation('importExport')(connect(ExportComponent));

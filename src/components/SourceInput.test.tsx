@@ -1,5 +1,5 @@
 import {shallow} from 'enzyme';
-import {SourceInput} from './SourceInput';
+import {SourceInputComponent} from './SourceInput';
 import * as React from 'react';
 import {InputType, Source} from '../Parser';
 import * as assert from 'assert';
@@ -19,9 +19,11 @@ describe('SourceInput', () => {
 
         for (const test of tests) {
             const wrapper = shallow(
-                <SourceInput
+                <SourceInputComponent
                     value={test.source}
                     onChange={() => {}}
+                    // @ts-ignore
+                    t={k => k}
                 />
             );
 
@@ -56,9 +58,11 @@ describe('SourceInput', () => {
         for (const test of tests) {
             let receivedValue: Source = {inputType: test.inputType, file: null, text: null};
             const wrapper = shallow(
-                <SourceInput
+                <SourceInputComponent
                     value={receivedValue}
                     onChange={(v) => {receivedValue = v}}
+                    // @ts-ignore
+                    t={k => k}
                 />
             );
 
