@@ -37,7 +37,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     <br /><br />
                     <Link href='https://github.com/Emurasoft/excel-csv-import' className={style.greyText + ' ' + style.verticallyCenterContent}>
                         <img src={'GitHub-Mark.svg'} alt={t('Github logo')} width='25px' style={{marginRight: '6px'}}/>
-                        CSV Import+Export on Github
+                        {t('CSV Import+Export on Github')}
                     </Link>
                 </Text>
                 <br /><br />

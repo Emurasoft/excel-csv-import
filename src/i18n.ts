@@ -3,10 +3,12 @@ import {initReactI18next} from 'react-i18next';
 // @ts-ignore
 import en from './locale/en.json';
 // @ts-ignore
+import blank from './locale/blank.json';
+// @ts-ignore
 import ja from './locale/ja.json';
 
-const languageList = Object.freeze(['en', 'ja']);
-const resources = {en, ja};
+const languageList = Object.freeze(['en', 'blank', 'ja']);
+const resources = {en, blank, ja};
 
 // noinspection JSIgnoredPromiseFromCall
 i18n

@@ -11,5 +11,6 @@ node_modules
 !.eslintrc.js
 !src/components/generateEncodingList.js
 !src/retrace.js
+!src/copyLocaleFile.js
 build
 .nyc_output
