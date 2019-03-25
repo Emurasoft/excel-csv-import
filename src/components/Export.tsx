@@ -22,12 +22,16 @@ export interface OutputText {
     text: string;
 }
 
+interface Props extends TranslateFunction {
+    store: StoreComponent;
+}
+
 interface State extends ExportOptions {
     outputText: OutputText;
     processing: boolean;
 }
 
-export class ExportComponent extends StoredComponent<{store: StoreComponent} & TranslateFunction, State> {
+export class ExportComponent extends StoredComponent<Props, State> {
     public constructor(props: {store: StoreComponent} & TranslateFunction) {
         super(props, 'export', {
             exportType: ExportType.file,

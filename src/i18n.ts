@@ -24,8 +24,8 @@ i18n
             // @ts-ignore
             transSupportBasicHtmlNodes: true,
             // @ts-ignore
-            transKeepBasicHtmlNodesFor: ['br']
-        }
+            transKeepBasicHtmlNodesFor: ['br'],
+        },
     });
 
 export {i18n, languageList};

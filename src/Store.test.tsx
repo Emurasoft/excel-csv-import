@@ -1,4 +1,4 @@
-import {OutputType, Store, StoreComponent} from './Store';
+import {OutputType, StoreComponent} from './Store';
 import {mount} from 'enzyme';
 import * as React from 'react';
 import {connect} from './connect';
