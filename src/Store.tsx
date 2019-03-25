@@ -165,7 +165,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
         try {
             result = await ExcelAPI.worksheetArea();
         } catch (err) {
-            this.setParserError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this._log.push('worksheetArea');
         return result;

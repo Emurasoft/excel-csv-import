@@ -1,13 +1,18 @@
 import * as React from 'react';
-import {Store} from '../Store';
+import {StoreComponent} from '../Store';
 import {connect} from '../connect';
 import {DefaultButton, IconButton, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';
 
+interface Props {
+    store: StoreComponent;
+    history: MemoryHistory;
+}
+
 /* eslint-disable max-len */
-export class AboutComponent extends React.Component<{store: Store; history: MemoryHistory}, {}> {
+export class AboutComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         return (
             <div className={style.pageMargin}>
@@ -19,7 +24,7 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                 />
                 <br /><br />
                 <Text variant='xLarge'>
-                    <strong>CSV Import+Export</strong>
+                    <strong>CSV Import+Export</strong>{/* TODO should the title be translated? */}
                 </Text>
                 <br />
                 <Text variant='medium'>
@@ -47,8 +52,9 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                 </Text>
                 <br />
                 <Text variant='medium'>
-                    For bug reports, please include the log file:
+                    For bug reports, please attach the log file:
                 </Text>
+                <br />
                 <DefaultButton
                     onClick={this.exportLog}
                     title='Save log file for issue report'
@@ -58,8 +64,8 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                 <br /><br />
                 <Text variant='medium'>
                     There are two ways to submit bug reports or feedback:<br />
-                    <a href='https://www.emeditor.com/csv-importexport-contact-form/'>Via the contact form</a><br />
-                    <a href='https://github.com/Emurasoft/excel-csv-import/issues'>Issues page of the GitHub repo</a>
+                    <a href='https://www.emeditor.com/csv-importexport-contact-form/'>Via the contact form ↗</a><br />
+                    <a href='https://github.com/Emurasoft/excel-csv-import/issues'>Issues page of the GitHub repo ↗</a>
                 </Text>
                 <br /><br /><br />
                 <Text variant='medium'>
@@ -77,7 +83,7 @@ export class AboutComponent extends React.Component<{store: Store; history: Memo
                 </textarea>
                 <br /><br />
                 <Text variant='medium'>
-                    A huge thank you goes to <a href='https://www.papaparse.com/'>Papa Parse</a> for their open-source CSV parser. Also thanks to all third-party libraries used in this app:
+                    A huge thank you goes to <a href='https://www.papaparse.com/'>Papa Parse</a> for their open-source CSV parser. CSV Import+Export uses the following third-party libraries:
                 </Text>
                 <textarea className={style.fullWidth} rows={20} readOnly>
 
