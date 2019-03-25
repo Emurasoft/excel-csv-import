@@ -18,7 +18,14 @@ i18n
             escapeValue: false,
         },
         resources,
-        defaultNS: 'default',
+        nsSeparator: '::',
+        keySeparator: '..',
+        react: {
+            // @ts-ignore
+            transSupportBasicHtmlNodes: true,
+            // @ts-ignore
+            transKeepBasicHtmlNodesFor: ['br']
+        }
     });
 
 export {i18n, languageList};

@@ -18,6 +18,10 @@ pre {
   color: #c50000;
 }
 
+.greyText {
+  color: #4b4b4b;
+}
+
 .smallDivider {
   margin-top: 5px;
 }
@@ -36,6 +40,11 @@ pre {
 .centerContent {
   display: flex;
   justify-content: center;
+}
+
+.verticallyCenterContent {
+  display: flex;
+  align-items: center;
 }
 
 .emeditorLogo {

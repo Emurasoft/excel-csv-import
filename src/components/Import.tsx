@@ -29,7 +29,7 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
         }, ['delimiter', 'newline', 'encoding']);
     }
 
-    public render(): React.ReactNode {
+    public render(): React.ReactNode { // TODO fix namespace character
         const t = this.props.t;
         return (
             <div className={style.pageMargin}>

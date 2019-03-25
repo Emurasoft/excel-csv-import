@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {StoreComponent} from '../Store';
 import {connect} from '../connect';
-import {DefaultButton, IconButton, Text} from 'office-ui-fabric-react';
+import {DefaultButton, IconButton, Link, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';
+import {TranslateFunction} from './BaseProps';
+import {Trans, withTranslation} from 'react-i18next';
 
-interface Props {
+interface Props extends TranslateFunction {
     store: StoreComponent;
     history: MemoryHistory;
 }
@@ -14,63 +16,65 @@ interface Props {
 /* eslint-disable max-len */
 export class AboutComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
-        return (
+        const t = this.props.t;
+        return (// TODO test dark mode
             <div className={style.pageMargin}>
                 <IconButton
                     iconProps={{iconName: 'Back'}}
                     onClick={this.props.history.goBack}
-                    ariaLabel='Go back'
-                    title='Go back'
+                    ariaLabel={t('Go back')}
+                    title={t('Go back')}
                 />
                 <br /><br />
                 <Text variant='xLarge'>
-                    <strong>CSV Import+Export</strong>{/* TODO should the title be translated? */}
+                    <strong>{t('app::CSV Import+Export')}</strong>
                 </Text>
                 <br />
                 <Text variant='medium'>
-                    <pre>
-                        {this.props.store.state.version}
-                    </pre>
-                </Text>
-                <Text variant='medium'>
+                    <pre>{this.props.store.state.version}</pre>
+                    <div className={style.smallDivider} />
                     Copyright 2019 Emurasoft Inc.
+                    <br /><br />
+                    <Link href='https://github.com/Emurasoft/excel-csv-import' className={style.greyText + ' ' + style.verticallyCenterContent}>
+                        <img src={'GitHub-Mark.svg'} alt={t('Github logo')} width='25px' style={{marginRight: '6px'}}/>
+                        CSV Import+Export on Github
+                    </Link>
                 </Text>
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
-                    <a href='https://www.emeditor.com/'>
-                        <img className={style.emeditorLogo} src={'emeditor_logo.png'} alt='EmEditor logo' />
+                    <a href={t('EmEditor localized homepage [URL]')}>
+                        <img
+                            className={style.emeditorLogo}
+                            src={'emeditor_logo.png'}
+                            alt={t('EmEditor logo')}
+                        />
                     </a>
                 </div>
                 <Text variant='medium'>
-                    EmEditor is a text editor which features CSV editing tools and large file support. <a href='https://www.emeditor.com/'>Try EmEditor for free.</a>
+                    <Trans ns='about' i18nKey='EmEditor description [paragraph]'>
+                        EmEditor is a text editor which features CSV editing tools and large file support. <Link href={t('EmEditor localized homepage [URL]')}>Try EmEditor for free.</Link>
+                    </Trans>
                 </Text>
                 <br /><br /><br />
                 <Text variant='medium'>
-                    <strong>
-                    Report bugs/send feedback
-                    </strong>
+                    <strong>{t('Report bugs/send feedback')}</strong>
+                    <br />
+                    {t('For bug reports, please attach the log file:')}
                 </Text>
                 <br />
-                <Text variant='medium'>
-                    For bug reports, please attach the log file:
-                </Text>
-                <br />
-                <DefaultButton
-                    onClick={this.exportLog}
-                    title='Save log file for issue report'
-                >
-                    Save log
-                </DefaultButton>
+                <DefaultButton onClick={this.exportLog} text={t('Save log')} />
                 <br /><br />
                 <Text variant='medium'>
-                    There are two ways to submit bug reports or feedback:<br />
-                    <a href='https://www.emeditor.com/csv-importexport-contact-form/'>Via the contact form ↗</a><br />
-                    <a href='https://github.com/Emurasoft/excel-csv-import/issues'>Issues page of the GitHub repo ↗</a>
+                    <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
+                        There are two ways to submit bug reports or feedback:
+                        <Link href='https://www.emeditor.com/csv-importexport-contact-form/'>Via the contact form ↗</Link>
+                        <Link href='https://github.com/Emurasoft/excel-csv-import/issues'>Issues page of the GitHub repo ↗</Link>
+                    </Trans>
                 </Text>
                 <br /><br /><br />
                 <Text variant='medium'>
-                    <strong>License info</strong><br />
-                    CSV Import+Export is licensed under the MIT License. <a href='https://github.com/Emurasoft/excel-csv-import'>The source code is hosted on GitHub.</a>
+                    <strong>{t('License info')}</strong><br />
+                    {t('CSV Import+Export is licensed under the MIT License.')}
                 </Text>
                 <textarea className={style.fullWidth} rows={10} readOnly>
                     MIT License
@@ -83,7 +87,9 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </textarea>
                 <br /><br />
                 <Text variant='medium'>
-                    A huge thank you goes to <a href='https://www.papaparse.com/'>Papa Parse</a> for their open-source CSV parser. CSV Import+Export uses the following third-party libraries:
+                    <Trans ns='about' i18nKey='Third party libraries [paragraph]'>
+                        A huge thank you goes to <a href='https://www.papaparse.com/'>Papa Parse</a> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries:
+                    </Trans>
                 </Text>
                 <textarea className={style.fullWidth} rows={20} readOnly>
 
@@ -98,4 +104,4 @@ export class AboutComponent extends React.Component<Props, {}> {
     }
 }
 
-export default connect(AboutComponent);
+export default withTranslation('about')(connect(AboutComponent));

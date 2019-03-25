@@ -94,9 +94,8 @@ export class ExportComponent extends StoredComponent<{store: StoreComponent} & T
                     <PrimaryButton
                         onClick={this.buttonOnClick}
                         disabled={this.buttonTooltipContent() !== ''}
-                    >
-                        Export to CSV
-                    </PrimaryButton>
+                        text={t('Export to CSV')}
+                    />
                 </TooltipHost>
                 <br />
                 {this.props.store.state.largeFile ? largeFileWarning : null}
