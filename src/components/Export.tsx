@@ -1,4 +1,4 @@
-import {Store} from '../Store';
+import {StoreComponent} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
@@ -27,8 +27,8 @@ interface State extends ExportOptions {
     processing: boolean;
 }
 
-export class ExportComponent extends StoredComponent<{store: Store} & TranslateFunction, State> {
-    public constructor(props: {store: Store} & TranslateFunction) {
+export class ExportComponent extends StoredComponent<{store: StoreComponent} & TranslateFunction, State> {
+    public constructor(props: {store: StoreComponent} & TranslateFunction) {
         super(props, 'export', {
             exportType: ExportType.file,
             delimiter: '\u002c',

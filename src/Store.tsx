@@ -5,6 +5,8 @@ import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
 import {version} from './version.json';
 import {AbortFlagArray} from './AbortFlag';
+import {TranslateFunction} from './components/BaseProps';
+import {withTranslation} from 'react-i18next';
 
 export interface Progress {
     show: boolean;
@@ -31,8 +33,8 @@ export type ProgressCallback = (progress: number) => void
 
 export const Context = React.createContext(undefined);
 
-export class Store extends React.Component<{}, State> {
-    public constructor(props: {}) {
+export class StoreComponent extends React.Component<TranslateFunction, State> {
+    public constructor(props: TranslateFunction) {
         super(props);
         this.state = {
             version: version,
@@ -85,11 +87,12 @@ export class Store extends React.Component<{}, State> {
 
             if (!version.supported) {
                 this.setParserError(new Error(
-                    'Your version of Excel is not supported:\n' + JSON.stringify(version, null, 2),
+                    this.props.t('Your version of Excel is not supported')
+                    + '\n' + JSON.stringify(version, null, 2),
                 ));
             }
         } catch (err) {
-            this.setParserError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this._log.push('initAPI');
         await this.checkLargeFile();
@@ -111,15 +114,16 @@ export class Store extends React.Component<{}, State> {
         // eslint-disable-next-line no-undef
         if (!process) { // If not running in unit test
             // eslint-disable-next-line no-console
-            console.trace(Store.getErrorMessage(err));
+            console.trace(StoreComponent.getErrorMessage(err));
         }
 
-        let output = Store.getErrorMessage(err);
+        let output = StoreComponent.getErrorMessage(err);
         if (
             output.includes('RichApi.Error')
             && output.includes('refresh the page')
         ) {
-            output = 'Session has expired; please refresh the page.\n\n' + output;
+            output = this.props.t('Session has expired; please refresh the page.')
+                     + '\n\n' + output;
         }
 
         // Action is logged inside setParserOutput()
@@ -147,7 +151,7 @@ export class Store extends React.Component<{}, State> {
                 this.setParserOutput({type: OutputType.info, output: JSON.stringify(errors)});
             }
         } catch (err) {
-            this.setParserError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this.setState(
             state => ({progress: {show: !state.progress.show, percent: 1.0}}),
@@ -183,7 +187,7 @@ export class Store extends React.Component<{}, State> {
                 this._abortFlags.newFlag(),
             );
         } catch (err) {
-            this.setParserError(new Error(Store.getErrorMessage(err)));
+            this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this.setState(
             state => ({progress: {show: !state.progress.show, percent: 1.0}}),
@@ -204,3 +208,6 @@ export class Store extends React.Component<{}, State> {
         this.setState(state => ({progress: {show: state.progress.show, percent: progress}}));
     }
 }
+
+// @ts-ignore
+export const Store = withTranslation('store')(StoreComponent);

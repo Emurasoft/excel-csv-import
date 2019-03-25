@@ -35,5 +35,9 @@
     "BottomBar": {
       "About": "About"
     }
+  },
+  "store": {
+    "Your version of Excel is not supported": "Your version of Excel is not supported",
+    "Session has expired; please refresh the page.": "Session has expired; please refresh the page."
   }
 }

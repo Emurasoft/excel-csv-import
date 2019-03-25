@@ -1,4 +1,4 @@
-import {Store} from '../Store';
+import {StoreComponent} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
@@ -16,7 +16,7 @@ import {withTranslation} from 'react-i18next';
 import {TranslateFunction} from './BaseProps';
 
 interface Props extends TranslateFunction {
-    store: Store;
+    store: StoreComponent;
 }
 
 export class ImportComponent extends StoredComponent<Props & TranslateFunction, ImportOptions> {
