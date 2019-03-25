@@ -30,9 +30,9 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
     }
 
     public render(): React.ReactNode {
+        const t = this.props.t;
         return (
             <div className={style.pageMargin}>
-                {this.props.t('title')}
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}
@@ -65,9 +65,8 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
                     <PrimaryButton
                         disabled={this.buttonTooltipContent() !== ''}
                         onClick={this.buttonOnClick}
-                    >
-                        Import CSV
-                    </PrimaryButton>
+                        text={t('Import CSV')}
+                    />
                 </TooltipHost>
                 <br />
                 <ProgressBar
@@ -75,7 +74,7 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
                     progress={this.props.store.state.progress}
                 />
                 <Toggle
-                    inlineLabel label='Save options'
+                    inlineLabel label={t('Save options')}
                     defaultChecked={this.initialSaveStatus()}
                     onChange={(_, checked) => this.setSaveStatus(checked)}
                 />
@@ -90,12 +89,13 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
     }
 
     private buttonTooltipContent(): string {
+        const t = this.props.t;
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
-            return 'Import source is not selected';
+            return t('Import source is not selected');
         } else if (this.state.delimiter.length > 1) {
-            return 'Delimiter is invalid';
+            return t('Delimiter is invalid');
         } else if (!this.props.store.state.initialized) {
-            return 'Excel API is not initialized';
+            return t('Excel API is not initialized');
         } else {
             return '';
         }

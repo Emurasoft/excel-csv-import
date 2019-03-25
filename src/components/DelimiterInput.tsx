@@ -9,33 +9,6 @@ import {withTranslation} from 'react-i18next';
 
 export enum DropdownOptionKey {autoDetect, comma, space, tab, other}
 
-const DropdownOptionsNoAutoDetect: ReadonlyArray<IDropdownOption> = Object.freeze([
-    {
-        key: DropdownOptionKey.comma,
-        text: 'Comma (U+002C)',
-    },
-    {
-        key: DropdownOptionKey.space,
-        text: 'Space (U+0020)',
-    },
-    {
-        key: DropdownOptionKey.tab,
-        text: 'Tab (U+0009)',
-    },
-    {
-        key: DropdownOptionKey.other,
-        text: 'Other',
-    },
-]);
-
-const DropdownOptionsWithAutoDetect: ReadonlyArray<IDropdownOption> = Object.freeze([
-    {
-        key: DropdownOptionKey.autoDetect,
-        text: 'Auto-detect',
-    },
-    ...DropdownOptionsNoAutoDetect,
-]);
-
 interface Props extends BaseProps<string> {
     showAutoDetect: boolean;
     showLengthError: boolean;
@@ -56,15 +29,40 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
             '\u0009': DropdownOptionKey.tab,
         };
 
+        const DropdownOptionsNoAutoDetect: IDropdownOption[] = [
+            {
+                key: DropdownOptionKey.comma,
+                text: 'Comma (U+002C)',
+            },
+            {
+                key: DropdownOptionKey.space,
+                text: 'Space (U+0020)',
+            },
+            {
+                key: DropdownOptionKey.tab,
+                text: 'Tab (U+0009)',
+            },
+            {
+                key: DropdownOptionKey.other,
+                text: props.t('Other'),
+            },
+        ];
+
+        const AutoDetectOption: IDropdownOption = {
+            key: DropdownOptionKey.autoDetect,
+            text: props.t('Auto-detect'),
+        };
+
         if (props.showAutoDetect) {
             this._stringToDropdownKey[''] = DropdownOptionKey.autoDetect;
-            this._dropdownOptions = [...DropdownOptionsWithAutoDetect];
+            this._dropdownOptions = [AutoDetectOption, ...DropdownOptionsNoAutoDetect];
         } else {
-            this._dropdownOptions = [...DropdownOptionsNoAutoDetect];
+            this._dropdownOptions = DropdownOptionsNoAutoDetect;
         }
     }
 
     public render(): React.ReactNode {
+        const t = this.props.t;
         const customInput = (
             <div className={style.smallDivider}>
                 <TextField
@@ -74,7 +72,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
                     description={DelimiterInputComponent.description(this.props.value)}
                     onGetErrorMessage={this.getErrorMessage}
                     deferredValidationTime={1}
-                    placeholder='Enter custom delimiter'
+                    placeholder={t('DelimiterInput.Enter custom delimiter')}
                 />
             </div>
         );
@@ -82,7 +80,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
         return (
             <>
                 <Dropdown
-                    label='Delimiter'
+                    label={t('DelimiterInput.Delimiter')}
                     options={this._dropdownOptions}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.selectedKey()}
@@ -147,7 +145,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
 
     private getErrorMessage = (value: string) => {
         if (this.props.showLengthError && value.length > 1) {
-            return 'Delimiter length must be 0 or 1';
+            return this.props.t('DelimiterInput.Delimiter length must be 0 or 1');
         } else {
             return '';
         }

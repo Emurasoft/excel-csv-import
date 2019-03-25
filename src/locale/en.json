@@ -1,5 +1,31 @@
 {
   "importExport": {
-    "title": "translated title"
+    "Import CSV": "Import CSV",
+    "Import source is not selected": "Import source is not selected",
+    "Delimiter is invalid": "Delimiter is invalid",
+    "Excel API is not initialized": "Excel API is not initialized",
+    "Save options": "Save options",
+    "Auto-detect": "Auto-detect",
+    "Other": "Other",
+    "About": "About",
+    "SourceInput": {
+      "Import type": "Import type",
+      "File": "File",
+      "Text input": "Text input"
+    },
+    "EncodingDropdown": {
+      "Encoding": "Encoding"
+    },
+    "DelimiterInput": {
+      "Delimiter": "Delimiter",
+      "Enter custom delimiter": "Enter custom delimiter",
+      "Delimiter length must be 0 or 1": "Delimiter length must be 0 or 1"
+    },
+    "NewlineDropdown": {
+      "Newline sequence": "Newline sequence"
+    },
+    "ProgressBar": {
+      "Stop": "Stop"
+    }
   }
 }

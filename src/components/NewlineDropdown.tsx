@@ -7,26 +7,6 @@ import {BaseProps} from './BaseProps';
 import {NewlineSequence} from '../Parser';
 import {withTranslation} from 'react-i18next';
 
-const autoDetectOption: Readonly<IDropdownOption> = Object.freeze({
-    key: NewlineSequence.AutoDetect,
-    text: "Auto-detect",
-});
-
-const newlineSequeneceMenu: ReadonlyArray<IDropdownOption> = Object.freeze([
-    {
-        key: NewlineSequence.CRLF,
-        text: "CRLF",
-    },
-    {
-        key: NewlineSequence.CR,
-        text: "CR",
-    },
-    {
-        key: NewlineSequence.LF,
-        text: "LF",
-    },
-]);
-
 interface Props extends BaseProps<NewlineSequence> {
     showAutoDetect: boolean;
 }
@@ -34,21 +14,42 @@ interface Props extends BaseProps<NewlineSequence> {
 export class NewlineDropdownComponent extends React.Component<Props, {}> {
     public constructor(props: Props) {
         super(props);
+        const autoDetectOption: IDropdownOption = {
+            key: NewlineSequence.AutoDetect,
+            text: props.t('Auto-detect'),
+        };
+
+        const newlineSequeneceMenu = [
+            {
+                key: NewlineSequence.CRLF,
+                text: 'CRLF',
+            },
+            {
+                key: NewlineSequence.CR,
+                text: 'CR',
+            },
+            {
+                key: NewlineSequence.LF,
+                text: 'LF',
+            },
+        ];
+
         if (props.showAutoDetect) {
             this._options = [autoDetectOption, ...newlineSequeneceMenu];
         } else {
-            this._options = [...newlineSequeneceMenu];
+            this._options = newlineSequeneceMenu;
         }
     }
 
     public render(): React.ReactNode {
+        const t = this.props.t;
         return (
             <Dropdown
-                label='Newline sequence'
+                label={t('NewlineDropdown.Newline sequence')}
                 responsiveMode={ResponsiveMode.large}
                 selectedKey={this.props.value}
                 options={this._options}
-                onChange={(_, option) => {this.props.onChange(option.key as NewlineSequence)}}
+                onChange={(_, option) => this.props.onChange(option.key as NewlineSequence)}
             />
         );
     }

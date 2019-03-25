@@ -166,13 +166,13 @@ describe('DelimiterInput', () => {
     });
 
     it('getErrorMessage()', () => {
-        const dropdown0 = new DelimiterInputComponent({showLengthError: true})
+        const dropdown0 = new DelimiterInputComponent({showLengthError: true, t: k => k})
         // @ts-ignore
         assert.strictEqual(dropdown0.getErrorMessage('a'), '');
         // @ts-ignore
         assert(dropdown0.getErrorMessage('aa') !== '');
 
-        const dropdown1 = new DelimiterInputComponent({showLengthError: false});
+        const dropdown1 = new DelimiterInputComponent({showLengthError: false, t: k => k});
         // @ts-ignore
         assert.strictEqual(dropdown1.getErrorMessage('aa'), '');
     });

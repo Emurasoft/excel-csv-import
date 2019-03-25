@@ -1,11 +1,6 @@
 import {IDropdownOption} from 'office-ui-fabric-react';
 
-export const AutoDetectOption: Readonly<IDropdownOption> = Object.freeze({
-    "key": "",
-    "text": "Auto-detect",
-});
-
-export const EncodingDropdownOptions: ReadonlyArray<IDropdownOption> = Object.freeze([
+export const EncodingDropdownOptions: IDropdownOption[] = [
     // Use generateEncodingList.js to generate list
     {
         "key": "Big5",
@@ -167,4 +162,4 @@ export const EncodingDropdownOptions: ReadonlyArray<IDropdownOption> = Object.fr
         "key": "x-user-defined",
         "text": "x-user-defined",
     },
-]);
+];
