@@ -122,7 +122,8 @@ export class ExportComponent extends StoredComponent<Props, State> {
     private buttonOnClick = async () => {
         this.setState((state) => ({
             processing: !state.processing,
-            outputText: {show: !state.outputText.show, text: state.outputText.text},
+            // This is a race condition, but I'm not sure how to fix it.
+            outputText: {show: false, text: state.outputText.text},
         }));
 
         // Copy values before async operation
@@ -143,6 +144,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
             const options = {type: 'text/csv;charset=' + exportOptions.encoding};
             const blob = new Blob([csvStringAndName.string], options);
             FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
+            // state.outputText.show is already false so no need to setState
             return;
         }
         case ExportType.text: {
