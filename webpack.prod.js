@@ -10,7 +10,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new CopyPlugin([
-            {from: 'public/*.png', flatten: true},
+            {from: 'public/*', ignore: 'public/index.html', flatten: true},
         ]),
     ],
     devtool: 'source-map', // source-map gets the most accurate traces
