@@ -76,7 +76,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     <strong>{t('License info')}</strong><br />
                     {t('CSV Import+Export is licensed under the MIT License.')}
                 </Text>
-                <textarea className={style.fullWidth} rows={10} readOnly>
+                <textarea className={style.fullWidth} rows={10} readOnly>{/* TODO add licenses */}
                     MIT License
                     &#10;
                     &#10;Copyright 2019 Emurasoft Inc.
