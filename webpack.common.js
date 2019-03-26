@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.css'],
+        extensions: ['.ts', '.tsx', '.css'],
     },
     target: 'web',
     entry: __dirname + '/src/index.tsx',
@@ -13,10 +13,8 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
-                options: {
-                    configFile: 'tsconfig.json',
-                },
+                exclude: /node_modules/,
+                loader: 'babel-loader',
             },
             {
                 test: /\.css$/,
@@ -29,11 +27,6 @@ module.exports = {
                         },
                     },
                 ],
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
             },
         ],
     },
