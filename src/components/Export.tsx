@@ -28,7 +28,6 @@ interface Props extends TranslateFunction {
 
 interface State extends ExportOptions {
     outputText: OutputText;
-    processing: boolean;
 }
 
 export class ExportComponent extends StoredComponent<Props, State> {
@@ -38,7 +37,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
             encoding: 'UTF-8',
-            processing: false,
             outputText: {
                 show: false,
                 text: '',
@@ -120,17 +118,27 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     private buttonOnClick = async () => {
-        this.setState((state) => ({
-            processing: !state.processing,
-            // This is a race condition, but I'm not sure how to fix it.
-            outputText: {show: false, text: state.outputText.text},
-        }));
+        function newOutputText(state, exportOptions): OutputText {
+            // If exportType is text:
+            //      If last outputText.show was true, flip twice otherwise change once later
+            // If exportType is a file, show is set to false once.
+            if (exportOptions.exportType === ExportType.text) {
+                if (exportOptions.outputText.show) {
+                    return {show: !state.outputText.show, text: state.outputText.text};
+                } else {
+                    return {show: state.outputText.show, text: state.outputText.text};
+                }
+            } else {
+                return {show: false, text: ''};
+            }
+        }
 
         // Copy values before async operation
         const exportOptions = {...this.state};
 
+        this.setState(state => ({outputText: newOutputText(state, exportOptions)}));
+
         const csvStringAndName = await this.props.store.csvStringAndName(this.state);
-        this.setState((state) => ({processing: !state.processing}))
         if (csvStringAndName === null) {
             return;
         }
@@ -144,11 +152,13 @@ export class ExportComponent extends StoredComponent<Props, State> {
             const options = {type: 'text/csv;charset=' + exportOptions.encoding};
             const blob = new Blob([csvStringAndName.string], options);
             FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
-            // state.outputText.show is already false so no need to setState
+            // state.outputText.show is already false
             return;
         }
         case ExportType.text: {
-            this.setState({outputText: {show: true, text: csvStringAndName.string}});
+            this.setState(state => ({
+                outputText: {show: !state.outputText.show, text: csvStringAndName.string},
+            }));
             return;
         }
         }
