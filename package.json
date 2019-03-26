@@ -12,6 +12,8 @@
     "build": "rm -rf build && webpack --config webpack.prod.js"
   },
   "dependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "@microsoft/office-js": "^1.1.10",
     "@types/file-saver": "^2.0.0",
     "@types/office-js": "0.0.166",
@@ -19,6 +21,7 @@
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.2",
     "@types/react-router-dom": "^4.3.1",
+    "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.1",
     "css-loader": "^2.1.1",
     "file-saver": "^2.0.1",
@@ -62,6 +65,9 @@
     "ts-node": "^8.0.3",
     "webpack-dev-server": "^3.2.1"
   },
+  "browserslist": [
+    "ie 11, last 1 edge version, last 1 firefox version, last 1 chrome version"
+  ],
   "nyc": {
     "extension": [
       ".ts",
