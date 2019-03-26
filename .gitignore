@@ -9,6 +9,7 @@ node_modules
 **/*.js.map
 !webpack.*.js
 !.eslintrc.js
+!.babelrc.js
 !src/components/generateEncodingList.js
 !src/retrace.js
 !src/copyLocaleFile.js
