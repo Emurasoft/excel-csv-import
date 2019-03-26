@@ -35,14 +35,20 @@ export class AboutComponent extends React.Component<Props, {}> {
                     <div className={style.smallDivider} />
                     Copyright 2019 Emurasoft Inc.
                     <br /><br />
-                    <Link href='https://github.com/Emurasoft/excel-csv-import' className={style.greyText + ' ' + style.verticallyCenterContent}>
+                    <Link
+                        href='https://github.com/Emurasoft/excel-csv-import'
+                        className={style.greyText + ' ' + style.verticallyCenterContent}
+                        target="_blank" rel="noopener noreferrer"
+                    >
                         <img src={'GitHub-Mark.svg'} alt={t('Github logo')} width='25px' style={{marginRight: '6px'}}/>
                         {t('CSV Import+Export on Github')}
                     </Link>
                 </Text>
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
-                    <a href={t('EmEditor localized homepage [URL]')}>
+                    <a href={t('EmEditor localized homepage [URL]')}
+                       target="_blank" rel="noopener noreferrer"
+                    >
                         <img
                             className={style.emeditorLogo}
                             src={'emeditor_logo.png'}
@@ -52,7 +58,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </div>
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='EmEditor description [paragraph]'>
-                        EmEditor is a text editor which features CSV editing tools and large file support. <Link href={t('EmEditor localized homepage [URL]')}>Try EmEditor for free.</Link>
+                        EmEditor is a text editor which features CSV editing tools and large file support. <Link href={t('EmEditor localized homepage [URL]')}  target="_blank" rel="noopener noreferrer">Try EmEditor for free.</Link>
                     </Trans>
                 </Text>
                 <br /><br /><br />
@@ -67,8 +73,8 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
                         There are two ways to submit bug reports or feedback:
-                        <Link href='https://www.emeditor.com/csv-importexport-contact-form/'>Via the contact form ↗</Link>
-                        <Link href='https://github.com/Emurasoft/excel-csv-import/issues'>Issues page of the GitHub repo ↗</Link>
+                        <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target="_blank" rel="noopener noreferrer">Via the contact form ↗</Link>
+                        <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target="_blank" rel="noopener noreferrer">Issues page of the GitHub repo ↗</Link>
                     </Trans>
                 </Text>
                 <br /><br /><br />
@@ -88,7 +94,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <br /><br />
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='Third party libraries [paragraph]'>
-                        A huge thank you goes to <a href='https://www.papaparse.com/'>Papa Parse</a> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries:
+                        A huge thank you goes to <Link href='https://www.papaparse.com/'  target="_blank" rel="noopener noreferrer">Papa Parse</Link> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries:
                     </Trans>
                 </Text>
                 <textarea className={style.fullWidth} rows={20} readOnly>
