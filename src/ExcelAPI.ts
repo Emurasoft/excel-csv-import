@@ -87,7 +87,8 @@ interface WorkbookNamesAndValues {
 }
 
 export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> {
-    let result: WorkbookNamesAndValues = null; // TODO split up query to prevent error
+    // TODO split up query to prevent error (fix after v1.0.0)
+    let result: WorkbookNamesAndValues = null;
     await Excel.run(async (context) => {
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
