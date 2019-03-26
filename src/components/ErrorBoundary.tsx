@@ -35,7 +35,10 @@ export class ErrorBoundary extends React.Component<{}, State> {
                     <div>
                         If you are seeing this, sorry about that. I would appreciate it if you
                         sent me the above debugging info via the contact form:&nbsp;
-                        <a href='https://www.emeditor.com/csv-importexport-contact-form/'>
+                        <a
+                            href='https://www.emeditor.com/csv-importexport-contact-form/'
+                            target='_blank' rel='noopener noreferrer'
+                        >
                             https://www.emeditor.com/csv-importexport-contact-form/
                         </a>
                     </div>

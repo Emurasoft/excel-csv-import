@@ -15,4 +15,5 @@ deploy:
   keep-history: true
   local-dir: build
   on:
+    branch: master
     tags: true

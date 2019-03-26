@@ -23,10 +23,9 @@ describe('ExportComponent', () => {
                 delimiter: ',',
                 newline: NewlineSequence.LF,
                 outputText: {
-                    show: true,
+                    show: false,
                     text: '',
                 },
-                processing: true,
             }
             assert.deepStrictEqual(options, expected);
             return {string: 'export result'};
