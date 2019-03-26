@@ -57,7 +57,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
             />
         );
 
-        const largeFileWarning = ( // TODO Check what is considered large file for exporting
+        const largeFileWarning = (
             <Text style={{color: 'red'}} variant='medium'>
                 {t('Large file export is not supported')}
             </Text>
