@@ -106,6 +106,7 @@ export class ChunkProcessor {
         this._excelAPI.setChunk(this._worksheet, this._currRow, chunk.data);
         this._currRow += chunk.data.length;
         parser.pause();
+        // sync() must be called after each chunk, otherwise API may crash
         this._worksheet.context.sync().then(parser.resume);
         // Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
         // on performance.
