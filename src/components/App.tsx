@@ -7,7 +7,6 @@ import {Pages} from '../Pages';
 import {i18n, languageList} from '../i18n';
 import {I18nextProvider} from 'react-i18next';
 
-// TODO test on desktop Excel
 // Returns checked parameters.
 export function _parseQuery(query: queryString.ParsedQuery): {page: string; language: string} {
     let page = null;
