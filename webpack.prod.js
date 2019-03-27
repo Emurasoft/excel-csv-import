@@ -4,7 +4,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
     mode: 'production',
-    entry: __dirname + '/src/index.tsx',
     output: {
         path: __dirname + '/build',
     },
