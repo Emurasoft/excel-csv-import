@@ -9,7 +9,8 @@
     "lint": "eslint --ext .js,.ts,.tsx .",
     "devServer": "webpack-dev-server --config webpack.dev.js",
     "validateManifest": "validate-office-addin manifests/manifestDev.xml && validate-office-addin manifests/manifestProd.xml",
-    "build": "rm -rf build && webpack --config webpack.prod.js"
+    "build": "rm -rf build && webpack --config webpack.prod.js",
+    "generateLicensesText": "echo 'export default `'\"$(yarn licenses generate-disclaimer | tail -n +7 | sed -e 's/`/\\\\`/g')\"'`;' > src/licenses/thirdParty.ts"
   },
   "dependencies": {
     "@babel/core": "^7.4.0",
