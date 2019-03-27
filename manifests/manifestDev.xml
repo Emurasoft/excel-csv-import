@@ -15,7 +15,7 @@
     <DisplayName DefaultValue="CSV Import+Export" />
     <Description DefaultValue="Adds CSV import and export functions to Excel." />
 
-    <IconUrl DefaultValue="https://localhost:3000/icon-32.png" />
+    <IconUrl DefaultValue="https://localhost:3000/import.png" />
     <HighResolutionIconUrl DefaultValue="https://localhost:3000/hi-res-icon.png" />
 
     <SupportUrl DefaultValue="https://www.emeditor.com/csv-importexport-contact-form/" />
@@ -44,9 +44,9 @@
                             <Group id="Emurasoft.Group">
                                 <Label resid="Emurasoft.Group.Label" />
                                 <Icon>
-                                    <bt:Image size="16" resid="Emurasoft.icon16" />
-                                    <bt:Image size="32" resid="Emurasoft.icon32" />
-                                    <bt:Image size="80" resid="Emurasoft.icon80" />
+                                    <bt:Image size="16" resid="Emurasoft.Button0.icon16" />
+                                    <bt:Image size="32" resid="Emurasoft.Button0.icon16" />
+                                    <bt:Image size="80" resid="Emurasoft.Button0.icon16" />
                                 </Icon>
 
                                 <!--## Button0 ################################################-->
@@ -57,9 +57,9 @@
                                         <Description resid="Emurasoft.Button0.Description" />
                                     </Supertip>
                                     <Icon>
-                                        <bt:Image size="16" resid="Emurasoft.icon16" />
-                                        <bt:Image size="32" resid="Emurasoft.icon32" />
-                                        <bt:Image size="80" resid="Emurasoft.icon80" />
+                                        <bt:Image size="16" resid="Emurasoft.Button0.icon16" />
+                                        <bt:Image size="32" resid="Emurasoft.Button0.icon32" />
+                                        <bt:Image size="80" resid="Emurasoft.Button0.icon80" />
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
@@ -76,9 +76,9 @@
                                         <Description resid="Emurasoft.Button1.Description" />
                                     </Supertip>
                                     <Icon>
-                                        <bt:Image size="16" resid="Emurasoft.icon16" />
-                                        <bt:Image size="32" resid="Emurasoft.icon32" />
-                                        <bt:Image size="80" resid="Emurasoft.icon80" />
+                                        <bt:Image size="16" resid="Emurasoft.Button1.icon16" />
+                                        <bt:Image size="32" resid="Emurasoft.Button1.icon32" />
+                                        <bt:Image size="80" resid="Emurasoft.Button1.icon80" />
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane1</TaskpaneId>
@@ -95,9 +95,12 @@
 
         <Resources>
             <bt:Images>
-                <bt:Image id="Emurasoft.icon16" DefaultValue="https://localhost:3000/icon-16.png" />
-                <bt:Image id="Emurasoft.icon32" DefaultValue="https://localhost:3000/icon-32.png" />
-                <bt:Image id="Emurasoft.icon80" DefaultValue="https://localhost:3000/icon-80.png" />
+                <bt:Image id="Emurasoft.Button0.icon16" DefaultValue="https://localhost:3000/import.png" />
+                <bt:Image id="Emurasoft.Button0.icon32" DefaultValue="https://localhost:3000/import.png" />
+                <bt:Image id="Emurasoft.Button0.icon80" DefaultValue="https://localhost:3000/import.png" />
+                <bt:Image id="Emurasoft.Button1.icon16" DefaultValue="https://localhost:3000/export.png" />
+                <bt:Image id="Emurasoft.Button1.icon32" DefaultValue="https://localhost:3000/export.png" />
+                <bt:Image id="Emurasoft.Button1.icon80" DefaultValue="https://localhost:3000/export.png" />
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="Emurasoft.GetStarted.URL" DefaultValue="https://github.com/Emurasoft/excel-csv-import" />
