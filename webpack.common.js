@@ -5,7 +5,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.css'],
     },
     target: 'web',
-    entry: __dirname + '/src/index.tsx',
+    entry: ['@babel/polyfill', __dirname + '/src/index.tsx'],
     output: {
         filename: '[name].[contenthash].js',
     },
@@ -13,10 +13,10 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
-                options: {
-                    configFile: 'tsconfig.json',
-                },
+                use: [
+                    'babel-loader',
+                    'ts-loader',
+                ],
             },
             {
                 test: /\.css$/,
@@ -29,11 +29,6 @@ module.exports = {
                         },
                     },
                 ],
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
             },
         ],
     },
