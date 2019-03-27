@@ -8,20 +8,22 @@ import * as style from './style.css';
 import {TranslateFunction} from './BaseProps';
 import {Trans, withTranslation} from 'react-i18next';
 import {BackButton} from './BackButton';
+import {Pages} from '../Pages';
+import {Link as RouterLink} from 'react-router-dom';
 
 interface Props extends TranslateFunction {
     store: StoreComponent;
     history: MemoryHistory;
 }
 
-/* eslint-disable max-len */
 export class AboutComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         const t = this.props.t;
         return (
+            /* eslint-disable max-len */
             <div className={style.pageMargin}>
                 <BackButton onClick={this.props.history.goBack} />
-                <br /><br />
+                <br />
                 <Text variant='xLarge'>
                     <strong>{t('app::CSV Import+Export')}</strong>
                 </Text>
@@ -79,31 +81,15 @@ export class AboutComponent extends React.Component<Props, {}> {
                         <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo ↗</Link>
                     </Trans>
                 </Text>
-                <br /><br /><br />
-                <Text variant='medium'>
-                    <strong>{t('License info')}</strong><br />
-                    {t('CSV Import+Export is licensed under the MIT License.')}
-                </Text>
-                <textarea className={style.fullWidth} rows={10} readOnly>{/* TODO add licenses */}
-                    MIT License
-                    &#10;
-                    &#10;Copyright 2019 Emurasoft Inc.
-                    &#10;
-                    &#10;Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-                    &#10;The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-                    &#10;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-                </textarea>
                 <br /><br />
                 <Text variant='medium'>
-                    <Trans ns='about' i18nKey='Third party libraries [paragraph]'>
-                        A huge thank you goes to <Link href='https://www.papaparse.com/'  target='_blank' rel='noopener noreferrer'>Papa Parse</Link> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries:
-                    </Trans>
+                    <RouterLink to={Pages.licenseInformation}>
+                        <Link>{t('licenseInforation:License information')}</Link>
+                    </RouterLink>
                 </Text>
-                <textarea className={style.fullWidth} rows={20} readOnly>
-
-                </textarea>
             </div>
-        )
+            /* eslint-enable max-len */
+        );
     }
 
     public exportLog = () => {

@@ -35,6 +35,9 @@ const Export = React.lazy(
 const About = React.lazy(
     () => import(/* webpackChunkName: 'about', webpackPrefetch: true */'./About'),
 );
+const LicenseInformation = React.lazy(
+    () => import(/* webpackChunkName: 'license' */'./LicenseInformation'),
+);
 
 export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
@@ -51,6 +54,7 @@ export function App(): JSX.Element {
                             <Route path={Pages.import} component={Import} />
                             <Route path={Pages.export} component={Export} />
                             <Route path={Pages.about} component={About} />
+                            <Route path={Pages.licenseInformation} component={LicenseInformation} />
                         </MemoryRouter>
                     </I18nextProvider>
                 </React.Suspense>
