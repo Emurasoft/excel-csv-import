@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StoreComponent} from '../Store';
 import {connect} from '../connect';
-import {DefaultButton, IconButton, Link, Text} from 'office-ui-fabric-react';
+import {DefaultButton, Link, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';

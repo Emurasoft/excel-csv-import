@@ -9,11 +9,11 @@ import thisApp from '../licenses/thisApp';
 import thirdParty from '../licenses/thirdParty';
 
 interface Props extends TranslateFunction {
-    history: MemoryHistory
+    history: MemoryHistory;
 }
 
 class LicenseInformation extends React.Component<Props> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const t = this.props.t;
         return ( // TODO check textarea styling on other browsers
             <div className={style.pageMargin}>
