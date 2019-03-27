@@ -15,7 +15,7 @@ interface Props extends TranslateFunction {
 class LicenseInformation extends React.Component<Props> {
     public render(): React.ReactNode {
         const t = this.props.t;
-        return ( // TODO check textarea styling on other browsers
+        return (
             <div className={style.pageMargin}>
                 <BackButton onClick={this.props.history.goBack}/>
                 <br/>
