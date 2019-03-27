@@ -7,6 +7,7 @@ import {MemoryHistory} from 'history';
 import * as style from './style.css';
 import {TranslateFunction} from './BaseProps';
 import {Trans, withTranslation} from 'react-i18next';
+import {BackButton} from './BackButton';
 
 interface Props extends TranslateFunction {
     store: StoreComponent;
@@ -19,12 +20,7 @@ export class AboutComponent extends React.Component<Props, {}> {
         const t = this.props.t;
         return (
             <div className={style.pageMargin}>
-                <IconButton
-                    iconProps={{iconName: 'Back'}}
-                    onClick={this.props.history.goBack}
-                    ariaLabel={t('Go back')}
-                    title={t('Go back')}
-                />
+                <BackButton onClick={this.props.history.goBack} />
                 <br /><br />
                 <Text variant='xLarge'>
                     <strong>{t('app::CSV Import+Export')}</strong>

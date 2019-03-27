@@ -40,7 +40,7 @@ export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
     i18n.changeLanguage(query.language);
 
-    return (
+    return (// TODO translate 'Loading'
         <ErrorBoundary>
             <Store>
                 <React.Suspense fallback={'Loading'}>
