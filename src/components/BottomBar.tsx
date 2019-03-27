@@ -10,7 +10,9 @@ export function BottomBar(): JSX.Element {
     return (
         <div className={style.bottomBar}>
             <Text variant='medium'>
-                <RouterLink to={Pages.about}><Link>{t('About')}</Link></RouterLink>
+                <RouterLink to={Pages.about} className={style.removeUnderline}>
+                    <Link>{t('About')}</Link>
+                </RouterLink>
             </Text>
         </div>
     );

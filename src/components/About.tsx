@@ -83,8 +83,8 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
-                    <RouterLink to={Pages.licenseInformation}>
-                        <Link>{t('licenseInforation:License information')}</Link>
+                    <RouterLink to={Pages.licenseInformation} className={style.removeUnderline}>
+                        <Link>{t('licenseInformation::License information')}</Link>
                     </RouterLink>
                 </Text>
             </div>

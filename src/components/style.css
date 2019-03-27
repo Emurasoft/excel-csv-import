@@ -50,3 +50,7 @@ pre {
 .emeditorLogo {
   width: 150px;
 }
+
+.removeUnderline {
+  text-decoration: none;
+}
