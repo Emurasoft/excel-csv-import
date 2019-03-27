@@ -1,9 +1,9 @@
 {
   "name": "excel-csv-import",
   "version": "0.0.0",
-  "author": "Makoto Emura",
+  "repository": "https://github.com/Emurasoft/excel-csv-import.git",
+  "author": "Makoto",
   "license": "MIT",
-  "description": "",
   "scripts": {
     "test": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
     "lint": "eslint --ext .js,.ts,.tsx .",
