@@ -17,7 +17,7 @@ interface Props extends TranslateFunction {
 export class AboutComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         const t = this.props.t;
-        return (// TODO test dark mode
+        return (
             <div className={style.pageMargin}>
                 <IconButton
                     iconProps={{iconName: 'Back'}}
