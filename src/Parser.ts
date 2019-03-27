@@ -38,7 +38,6 @@ export interface ExportOptions {
 }
 
 // @ts-ignore
-// TODO There is no limitation on desktop, and can use default chunk size
 Papa.LocalChunkSize = 10000;
 
 export class ChunkProcessor {
