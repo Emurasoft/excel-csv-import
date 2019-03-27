@@ -31,7 +31,7 @@
     "i18next": "^15.0.7",
     "office-ui-fabric-react": "^6.152.1",
     "papaparse": "^4.6.3",
-    "query-string": "^6.4.0",
+    "query-string": "^5.1.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-i18next": "^10.5.3",
@@ -68,7 +68,7 @@
     "webpack-dev-server": "^3.2.1"
   },
   "browserslist": [
-    "ie 11, last 1 edge version, last 1 firefox version, last 1 chrome version"
+    "ie 11"
   ],
   "nyc": {
     "extension": [
