@@ -26,14 +26,12 @@ class LicenseInformation extends React.Component<Props> {
                 <Text variant='medium'>
                     {t('CSV Import+Export is licensed under the MIT License.')}
                 </Text>
-                <textarea className={style.fullWidth} rows={20} value={thisApp} readOnly>
-                </textarea>
+                <textarea className={style.fullWidth} rows={20} value={thisApp} readOnly />
                 <br/><br/>
                 <Text variant='medium'>
                     {t('CSV Import+Export uses the following third-party libraries.')}
                 </Text>
-                <textarea className={style.fullWidth} rows={20} value={thirdParty} readOnly>
-                </textarea>
+                <textarea className={style.fullWidth} rows={20} value={thirdParty} readOnly />
             </div>
         );
     }
