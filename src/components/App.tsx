@@ -6,6 +6,8 @@ import * as queryString from 'query-string';
 import {Pages} from '../Pages';
 import {i18n, languageList} from '../i18n';
 import {I18nextProvider} from 'react-i18next';
+import {IconButton} from 'office-ui-fabric-react';
+import * as style from './style.css';
 
 // Returns checked parameters.
 export function _parseQuery(query: queryString.ParsedQuery): {page: string; language: string} {
@@ -43,14 +45,19 @@ export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
     i18n.changeLanguage(query.language);
 
-    return (// TODO translate 'Loading'
+    const loadingIcon = (
+        <IconButton
+            className={style.fullWidth + ' ' + style.centerContent}
+            iconProps={{iconName: 'ProgressRingDots'}}
+        />
+    );
+
+    return (
         <ErrorBoundary>
             <Store>
-                <React.Suspense fallback={'Loading'}>
+                <React.Suspense fallback={loadingIcon}>
                     <I18nextProvider i18n={i18n}>
-                        <MemoryRouter
-                            initialEntries={[query.page]}
-                        >
+                        <MemoryRouter initialEntries={[query.page]}>
                             <Route path={Pages.import} component={Import} />
                             <Route path={Pages.export} component={Export} />
                             <Route path={Pages.about} component={About} />
