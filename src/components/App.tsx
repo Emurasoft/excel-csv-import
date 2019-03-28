@@ -45,17 +45,10 @@ export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
     i18n.changeLanguage(query.language);
 
-    const loadingIcon = (
-        <Icon
-            className={style.fullWidth + ' ' + style.centerContent}
-            iconName='ProgressRingDots'
-        />
-    );
-
     return (
         <ErrorBoundary>
             <Store>
-                <React.Suspense fallback={loadingIcon}>
+                <React.Suspense fallback={''}>
                     <I18nextProvider i18n={i18n}>
                         <MemoryRouter initialEntries={[query.page]}>
                             <Route path={Pages.import} component={Import} />

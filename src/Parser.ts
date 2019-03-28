@@ -37,13 +37,15 @@ export interface ExportOptions {
     encoding: string;
 }
 
+let reduceChunkSize = null;
+
 export async function init() {
     const result = await ExcelAPI.init();
     if (result.platform === Office.PlatformType.OfficeOnline) {
         // Online API can throw error if request size is too large
+        reduceChunkSize = true;
         // @ts-ignore
         Papa.LocalChunkSize = 10000;
-        console.log('chunk size set')
     }
     return result;
 }
@@ -178,30 +180,55 @@ export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): 
     return stringValues.join(exportOptions.delimiter) + exportOptions.newline;
 }
 
-export function _csvString(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    values: any[][],
-    exportOptions: Readonly<ExportOptions>,
-    progressCallback: ProgressCallback,
-    abortFlag: AbortFlag,
-): string {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function _chunkString(values: any[][], exportOptions: Readonly<ExportOptions>): string {
     let result = '';
-    const updateRate = 500; // Number of rows processed per progress bar update and abort check
 
     for (let i = 0; i < values.length; i++) {
-        if (i % updateRate === 0) {
-            if (abortFlag.aborted()) {
-                return result;
-            }
-            // values.length is never 0
-            progressCallback(i / values.length);
-        }
-
         result += _rowString(values[i], exportOptions);
     }
     return result;
 }
 
+export async function _csvString(
+    worksheet: Excel.Worksheet,
+    shape: {rows: number, columns: number}, // TODO lock worksheet during operation
+    exportOptions: Readonly<ExportOptions>,
+    reduceChunkSize: boolean,
+    progressCallback: ProgressCallback,
+    abortFlag: AbortFlag,
+): Promise<string> {
+    let result = '';
+    const chunkRows = reduceChunkSize ? Math.floor(10000 / shape.columns) : shape.rows;
+
+    for (let i = 0; i < Math.floor(shape.rows / chunkRows); i++) {
+        if (abortFlag.aborted()) {
+            break;
+        }
+
+        progressCallback(i * chunkRows / shape.rows);
+
+        const range = worksheet.getRangeByIndexes(
+            i * chunkRows,
+            0,
+            (i + 1) * chunkRows,
+            shape.columns,
+        ).load('values');
+        await worksheet.context.sync();
+        result += _chunkString(range.values, exportOptions);
+    }
+    const range = worksheet.getRangeByIndexes(
+        Math.floor(shape.rows / chunkRows) * chunkRows,
+        0,
+        shape.rows % chunkRows,
+        shape.columns,
+    ).load('values');
+    await worksheet.context.sync();
+    result += _chunkString(range.values, exportOptions);
+
+    return result;
+}
+// TODO create CSVToString
 export interface CsvStringAndName {
     name: string;
     string: string;
@@ -213,9 +240,14 @@ export async function csvStringAndName(
     abortFlag: AbortFlag,
     excelAPI = ExcelAPI,
 ): Promise<CsvStringAndName> {
-    const namesAndValues = await excelAPI.workbookNamesAndValues();
+    const namesAndShape = await excelAPI.worksheetNamesAndShape();
+    let resultString = '';
+    await ExcelAPI.runOnCurrentWorksheet(async (worksheet) => {
+        resultString = await _csvString(worksheet, namesAndShape.shape, exportOptions, reduceChunkSize, progressCallback, abortFlag);
+    });
+
     return {
-        name: _nameToUse(namesAndValues.workbookName, namesAndValues.worksheetName),
-        string: _csvString(namesAndValues.values, exportOptions, progressCallback, abortFlag),
+        name: _nameToUse(namesAndShape.workbookName, namesAndShape.worksheetName),
+        string: resultString,
     };
 }

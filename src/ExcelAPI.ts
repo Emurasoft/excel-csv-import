@@ -32,12 +32,21 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
 
 // Executes batch on a blank worksheet.
 export async function runOnBlankWorksheet(
-    batch: (worksheet: Excel.Worksheet) => Promise<void>
+    batch: (worksheet: Excel.Worksheet) => Promise<void>,
 ): Promise<void> {
     await Excel.run(async (context) => {
         const worksheetToUse = await blankWorksheet(context);
         await batch(worksheetToUse);
         worksheetToUse.activate();
+        await context.sync();
+    });
+}
+
+export async function runOnCurrentWorksheet(
+    batch: (worksheet: Excel.Worksheet) => Promise<void>,
+): Promise<void> {
+    await Excel.run(async (context) => {
+        await batch(context.workbook.worksheets.getActiveWorksheet());
         await context.sync();
     });
 }
@@ -75,28 +84,31 @@ export async function worksheetArea(): Promise<number> {
     await Excel.run(async (context) => {
         const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
         const range = currentWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
-        await context.sync(); // This line has to go before getting properties
+        await context.sync();
         result = range.rowCount * range.columnCount;
     });
     return result;
 }
 
-interface WorkbookNamesAndValues {
+interface WorksheetNamesAndShape {
     workbookName: string;
     worksheetName: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    values: any[][];
+    shape: {rows: number, columns: number};
 }
 
-export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> {
-    // TODO split up query to prevent error (fix after v1.0.0)
-    let result: WorkbookNamesAndValues = null;
+export async function worksheetNamesAndShape(): Promise<WorksheetNamesAndShape> {
+    let result: WorksheetNamesAndShape = null;
     await Excel.run(async (context) => {
         const workbook = context.workbook.load('name');
         const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
-        const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1').load('values');
+        const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1')
+            .load(['rowCount', 'columnCount']);
         await context.sync();
-        result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
+        result = {
+            workbookName: workbook.name,
+            worksheetName: worksheet.name,
+            shape: {rows: range.rowCount, columns: range.columnCount},
+        };
     });
     return result;
 }
