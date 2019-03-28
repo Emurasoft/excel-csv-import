@@ -37,9 +37,16 @@ export interface ExportOptions {
     encoding: string;
 }
 
-// @ts-ignore
-// TODO There is no limitation on desktop, and can use default chunk size
-Papa.LocalChunkSize = 10000;
+export async function init() {
+    const result = await ExcelAPI.init();
+    if (result.platform === Office.PlatformType.OfficeOnline) {
+        // Online API can throw error if request size is too large
+        // @ts-ignore
+        Papa.LocalChunkSize = 10000;
+        console.log('chunk size set')
+    }
+    return result;
+}
 
 export class ChunkProcessor {
     public constructor(

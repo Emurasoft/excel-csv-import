@@ -81,15 +81,14 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
 
     public initAPI = async (): Promise<void> => {
         try {
-            const version = await ExcelAPI.initAndGetAPIVersion();
-            this.setState({initialized: true, supported: version.supported});
-            this._log.push('APIVersion', version)
+            const environmentInfo = await Parser.init();
+            this.setState({initialized: true, supported: environmentInfo.supported});
+            this._log.push('APIVersion', environmentInfo)
 
-            if (!version.supported) {
-                this.setParserError(new Error(
-                    this.props.t('Your version of Excel is not supported')
-                    + '\n' + JSON.stringify(version, null, 2),
-                ));
+            if (!environmentInfo.supported) {
+                const msg = this.props.t('Your version of Excel is not supported') + '\n'
+                    + JSON.stringify(environmentInfo, null, 2);
+                this.setParserError(new Error(msg));
             }
         } catch (err) {
             this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
