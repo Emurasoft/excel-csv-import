@@ -6,7 +6,7 @@ import * as queryString from 'query-string';
 import {Pages} from '../Pages';
 import {i18n, languageList} from '../i18n';
 import {I18nextProvider} from 'react-i18next';
-import {IconButton} from 'office-ui-fabric-react';
+import {Icon} from 'office-ui-fabric-react';
 import * as style from './style.css';
 
 // Returns checked parameters.
@@ -46,9 +46,9 @@ export function App(): JSX.Element {
     i18n.changeLanguage(query.language);
 
     const loadingIcon = (
-        <IconButton
+        <Icon
             className={style.fullWidth + ' ' + style.centerContent}
-            iconProps={{iconName: 'ProgressRingDots'}}
+            iconName='ProgressRingDots'
         />
     );
 
