@@ -8,6 +8,7 @@
     "Excel API is not initialized": "Excel API is not initialized",
     "Save options": "Save options",
     "Import CSV": "Import CSV",
+    "Export CSV": "Export CSV",
     "Import source is not selected": "Import source is not selected",
     "Delimiter is invalid": "Delimiter is invalid",
     "Large file export is not supported": "Large file export is not supported",

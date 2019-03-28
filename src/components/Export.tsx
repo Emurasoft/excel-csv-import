@@ -65,6 +65,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <div className={style.pageMargin}>
+                <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                 <ExportTypeDropdown
                     value={this.state.exportType}
                     onChange={(exportType) => this.setState({exportType})}
