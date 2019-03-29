@@ -12,26 +12,31 @@ interface Props extends TranslateFunction{
 }
 
 export class ProgressBarComponent extends React.Component<Props, {}> {
-    public render(): React.ReactNode {
-        let contents: React.ReactNode;
+    public render(): JSX.Element {
+        return (
+            <div className={style.smallDivider}>{this.contents()}</div>
+        );
+    }
+
+    private contents(): React.ReactNode {
         if (this.props.progress.show) {
-            contents = (
+            return (
                 <>
-                    <Text variant='small'>
-                        <Link onClick={this.props.onClick}>{this.props.t('Stop')}</Link>
-                    </Text>
-                    <ProgressIndicator percentComplete={this.props.progress.percent} />
+                    <Text variant='small'>{this.stopLink()}</Text>
+                    <ProgressIndicator percentComplete={this.props.progress.percent}/>
                 </>
             );
         } else {
-            contents = <Text variant='small'>&nbsp;</Text>;
+            return <Text variant='small'>&nbsp;</Text>;
         }
+    }
 
-        return (
-            <div className={style.smallDivider}>
-                {contents}
-            </div>
-        );
+    private stopLink(): React.ReactNode {
+        if (this.props.progress.aborting) {
+            return this.props.t('Stopping...');
+        } else {
+            return <Link onClick={this.props.onClick}>{this.props.t('Stop')}</Link>;
+        }
     }
 }
 
