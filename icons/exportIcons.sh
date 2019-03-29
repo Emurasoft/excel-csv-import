@@ -13,4 +13,4 @@ exportPNG import.svg icon0-64.png 64
 exportPNG import.svg icon0-80.png 80
 exportPNG export.svg icon1-16.png 16
 exportPNG export.svg icon1-32.png 32
-exportPNG export.svg icon1-64.png 64
+exportPNG export.svg icon1-64.png 80
