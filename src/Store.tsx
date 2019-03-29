@@ -137,9 +137,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     }
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
-        this.setState(
-            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
-        );
+        this.setState(state => ({progress: {show: !state.progress.show, percent: 0.0}}));
 
         try {
             const errors = await Parser.importCSV(
@@ -153,9 +151,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
         } catch (err) {
             this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
-        this.setState(
-            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
-        );
+        this.setState(state => ({progress: {show: !state.progress.show, percent: 1.0}}));
 
         this._log.push('import', {options});
     }
