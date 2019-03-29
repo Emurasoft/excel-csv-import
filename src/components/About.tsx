@@ -25,7 +25,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <BackButton onClick={this.props.history.goBack} />
                 <br />
                 <Text variant='xLarge'>
-                    <strong>{t('app::CSV Import+Export')}</strong>
+                    <strong>{t('CSV Import+Export')}</strong>
                 </Text>
                 <br />
                 <Text variant='medium'>
@@ -62,7 +62,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </div>
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='EmEditor description [paragraph]'>
-                        EmEditor is a text editor which features CSV editing tools and large file support. <Link href={t('EmEditor localized homepage [URL]')}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
+                        EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={t('EmEditor localized homepage [URL]')}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
                     </Trans>
                 </Text>
                 <br /><br /><br />

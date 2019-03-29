@@ -1,18 +1,9 @@
 {
-  "app": {
-    "CSV Import+Export": ""
-  },
   "importExport": {
     "Auto-detect": "",
     "Other": "",
-    "Excel API is not initialized": "",
-    "Save options": "",
     "Import CSV": "",
-    "Import source is not selected": "",
-    "Delimiter is invalid": "",
-    "Large file export is not supported": "",
-    "Export to CSV": "",
-    "Export result": "",
+    "Export CSV": "",
     "Import type": "",
     "File": "",
     "Text input": "",
@@ -24,22 +15,33 @@
     "Export type": "",
     "Textbox": "",
     "Stop": "",
+    "Stopping": "",
+    "Export to CSV": "",
+    "Export result": "",
+    "Excel API is not initialized": "",
+    "Import source is not selected": "",
+    "Delimiter is invalid": "",
+    "Large file export is not supported": "",
+    "Save options": "",
     "About": ""
   },
   "about": {
     "Go back": "",
-    "Github logo": "",
-    "CSV Import+Export on Github": "",
-    "EmEditor localized homepage [URL]": "",
+    "CSV Import+Export": "",
+    "GitHub logo": "",
+    "CSV Import+Export on GitHub": "",
     "EmEditor logo": "",
     "EmEditor description [paragraph]": "",
+    "EmEditor localized homepage [URL]": "",
     "Report bugs/send feedback": "",
     "For bug reports, please attach the log file:": "",
     "Save log": "",
-    "How to send feedback [paragraph]": "",
-    "License info": "",
+    "How to send feedback [paragraph]": ""
+  },
+  "licenseInformation": {
+    "License information": "",
     "CSV Import+Export is licensed under the MIT License.": "",
-    "Third party libraries [paragraph]": ""
+    "CSV Import+Export uses the following third-party libraries.": ""
   },
   "store": {
     "Your version of Excel is not supported": "",
