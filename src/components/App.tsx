@@ -6,8 +6,7 @@ import * as queryString from 'query-string';
 import {Pages} from '../Pages';
 import {i18n, languageList} from '../i18n';
 import {I18nextProvider} from 'react-i18next';
-// TODO test on all browsers
-// TODO test on desktop Excel
+
 // Returns checked parameters.
 export function _parseQuery(query: queryString.ParsedQuery): {page: string; language: string} {
     let page = null;
@@ -36,22 +35,25 @@ const Export = React.lazy(
 const About = React.lazy(
     () => import(/* webpackChunkName: 'about', webpackPrefetch: true */'./About'),
 );
+const LicenseInformation = React.lazy(
+    () => import(/* webpackChunkName: 'license' */'./LicenseInformation'),
+);
 
 export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
+    // noinspection JSIgnoredPromiseFromCall
     i18n.changeLanguage(query.language);
 
     return (
         <ErrorBoundary>
             <Store>
-                <React.Suspense fallback={'Loading'}>
+                <React.Suspense fallback={''}>
                     <I18nextProvider i18n={i18n}>
-                        <MemoryRouter
-                            initialEntries={[query.page]}
-                        >
+                        <MemoryRouter initialEntries={[query.page]}>
                             <Route path={Pages.import} component={Import} />
                             <Route path={Pages.export} component={Export} />
                             <Route path={Pages.about} component={About} />
+                            <Route path={Pages.licenseInformation} component={LicenseInformation} />
                         </MemoryRouter>
                     </I18nextProvider>
                 </React.Suspense>

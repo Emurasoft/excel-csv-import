@@ -1,7 +1,8 @@
 import * as Parser from './Parser';
 import {
     _addQuotes,
-    _csvString,
+    _chunkRange,
+    _chunkString, _csvString,
     _nameToUse,
     _rowString,
     ChunkProcessor,
@@ -14,6 +15,7 @@ import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
+import {Shape} from './ExcelAPI';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 describe('ChunkProcessor', () => {
@@ -25,20 +27,20 @@ describe('ChunkProcessor', () => {
             },
             {
                 source: {inputType: InputType.text, text: 'a'},
-                expected: 10000.0},
+                expected: 10.0},
             {
                 source: {inputType: InputType.file, text: '', file: new File([], '')},
                 expected: 1.0,
             },
             {
                 source: {inputType: InputType.file, text: '', file: new File(['a'], '')},
-                expected: 10000.0,
+                expected: 10.0,
             },
         ];
 
         for (const test of tests) {
             // @ts-ignore
-            assert.strictEqual(ChunkProcessor.progressPerChunk(test.source), test.expected);
+            assert.strictEqual(ChunkProcessor.progressPerChunk(test.source, 10), test.expected);
         }
     });
 
@@ -115,6 +117,128 @@ describe('ChunkProcessor', () => {
 });
 
 describe('Parser', () => {
+    it('_chunkRange()', () => {
+        interface Test {
+            chunk: number;
+            shape: Shape;
+            chunkRows: number;
+            expected: {
+                startRow: number;
+                startColumn: number;
+                rowCount: number;
+                columnCount: number;
+            };
+        }
+
+        const tests: Test[] = [
+            {
+                chunk: 0,
+                shape: {rows: 0, columns: 0},
+                chunkRows: 0,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 0,
+                    columnCount: 0,
+                },
+            },
+            {
+                chunk: 1,
+                shape: {rows: 0, columns: 0},
+                chunkRows: 0,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 0,
+                    columnCount: 0,
+                },
+            },
+            {
+                chunk: 0,
+                shape: {rows: 1, columns: 0},
+                chunkRows: 0,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 0,
+                    columnCount: 0,
+                },
+            },
+            {
+                chunk: 0,
+                shape: {rows: 0, columns: 1},
+                chunkRows: 0,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 0,
+                    columnCount: 1,
+                },
+            },
+            {
+                chunk: 0,
+                shape: {rows: 0, columns: 0},
+                chunkRows: 1,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 0,
+                    columnCount: 0,
+                },
+            },
+            {
+                chunk: 0,
+                shape: {rows: 1, columns: 0},
+                chunkRows: 1,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 1,
+                    columnCount: 0,
+                },
+            },
+            {
+                chunk: 0,
+                shape: {rows: 1, columns: 1},
+                chunkRows: 1,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 1,
+                    columnCount: 1,
+                },
+            },
+            {
+                chunk: 0,
+                shape: {rows: 1, columns: 1},
+                chunkRows: 2,
+                expected: {
+                    startRow: 0,
+                    startColumn: 0,
+                    rowCount: 1,
+                    columnCount: 1,
+                },
+            },
+            {
+                chunk: 1,
+                shape: {rows: 2, columns: 1},
+                chunkRows: 1,
+                expected: {
+                    startRow: 1,
+                    startColumn: 0,
+                    rowCount: 1,
+                    columnCount: 1,
+                },
+            },
+            // chunk argument is never greater than or equal to shape.rows
+        ];
+
+        for (const test of tests) {
+            const result = _chunkRange(test.chunk, test.shape, test.chunkRows);
+            assert.deepStrictEqual(result, test.expected);
+        }
+    });
+
     it('_addQuotes()', () => {
         const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
             {
@@ -167,8 +291,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: '',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: '\n',
             },
@@ -177,8 +299,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: '',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: 'a\n',
             },
@@ -187,8 +307,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: '',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: '"\n"\n',
             },
@@ -197,8 +315,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: ',',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: '\n',
             },
@@ -207,8 +323,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: '',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: 'a0\n',
             },
@@ -217,8 +331,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: ',',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: 'a,b\n',
             },
@@ -227,8 +339,6 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: ',,',
                     newline: NewlineSequence.LF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: 'a,,b\n',
             },
@@ -237,78 +347,136 @@ describe('Parser', () => {
                 exportOptions: {
                     delimiter: ',',
                     newline: NewlineSequence.CRLF,
-                    exportType: null,
-                    encoding: null,
                 },
                 expected: 'a,b\r\n',
             },
         ];
 
         for (const test of tests) {
-            assert.strictEqual(_rowString(test.row, test.exportOptions), test.expected);
+            const result = _rowString(test.row, test.exportOptions);
+            assert.strictEqual(result, test.expected);
+        }
+    });
+
+    it('_chunkString()', async () => {
+        const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
+            {
+                values: [[]],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                },
+                expected: '\n',
+            },
+            {
+                values: [['a'], ['b']],
+                exportOptions: {
+                    delimiter: ',',
+                    newline: NewlineSequence.LF,
+                },
+                expected: 'a\nb\n',
+            },
+        ];
+
+        for (const test of tests) {
+            assert.strictEqual(_chunkString(test.values, test.exportOptions), test.expected);
         }
     });
 
     describe('_csvString()', () => {
-        it('result', () => {
-            const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
+        it('normal operation', async () => {
+            interface Test {
+                shape: Shape;
+                chunkRows: number;
+                exportOptions: ExportOptions;
+                chunks: any[][][];
+                expected: string;
+            }
+
+            const exportOptions: ExportOptions = {
+                delimiter: ',',
+                newline: NewlineSequence.LF,
+            }
+            const tests: Test[] = [
+                // shape and chunkRows is never 0
                 {
-                    values: [[]],
-                    exportOptions: {
-                        delimiter: '',
-                        newline: NewlineSequence.LF,
-                        exportType: null,
-                        encoding: null,
+                    shape: {
+                        rows: 1,
+                        columns: 1,
                     },
+                    chunkRows: 1,
+                    exportOptions,
+                    chunks: [[['']]],
                     expected: '\n',
                 },
                 {
-                    values: [['a', 'b']],
-                    exportOptions: {
-                        delimiter: ',',
-                        newline: NewlineSequence.LF,
-                        exportType: null,
-                        encoding: null,
+                    shape: {
+                        rows: 1,
+                        columns: 1,
                     },
-                    expected: 'a,b\n',
+                    chunkRows: 2,
+                    exportOptions,
+                    chunks: [[['']]],
+                    expected: '\n',
                 },
                 {
-                    values: [['a', 'b'], ['c']],
-                    exportOptions: {
-                        delimiter: ',',
-                        newline: NewlineSequence.LF,
-                        exportType: null,
-                        encoding: null,
+                    shape: {
+                        rows: 2,
+                        columns: 1,
                     },
-                    expected: 'a,b\nc\n',
-                },
-                {
-                    values: [['a', 'b'], ['c'], ['d','e']],
-                    exportOptions: {
-                        delimiter: ',',
-                        newline: NewlineSequence.CRLF,
-                        exportType: null,
-                        encoding: null,
-                    },
-                    expected: 'a,b\r\nc\r\nd,e\r\n',
+                    chunkRows: 1,
+                    exportOptions,
+                    chunks: [[['a']],[['b']]],
+                    expected: 'a\nb\n',
                 },
             ];
 
-            const flag = new AbortFlag();
             for (const test of tests) {
-                const progressCallback = (progress): void => assert.strictEqual(progress, 0.0);
-                const result = _csvString(test.values, test.exportOptions, progressCallback, flag);
+                let chunk = 0;
+                const worksheetStub: any = {
+                    getRangeByIndexes: (
+                        startRow: number,
+                        startColumn: number,
+                        rowCount: number,
+                        columnCount: number,
+                    ) => {
+                        const expectedRange = _chunkRange(
+                            chunk,
+                            test.shape,
+                            test.chunkRows,
+                        );
+                        assert.strictEqual(startRow, expectedRange.startRow);
+                        assert.strictEqual(startColumn, expectedRange.startColumn);
+                        assert.strictEqual(rowCount, expectedRange.rowCount);
+                        assert.strictEqual(columnCount, expectedRange.columnCount);
+                        return {load: () => ({values: test.chunks[chunk++]})};
+                    },
+                    context: {sync: async () => {}},
+                };
+
+                const result = await _csvString(
+                    worksheetStub,
+                    test.shape,
+                    test.chunkRows,
+                    test.exportOptions,
+                    () => {},
+                    new AbortFlag(),
+                );
                 assert.strictEqual(result, test.expected);
             }
         });
 
-        it('progressCallback', () => {
-            const values = new Array(1000).fill([]);
-            const options = {
+        it('progressCallback', async () => {
+            const worksheetStub: any = {
+                getRangeByIndexes: () => ({load: () => ({values: [[]]})}),
+                context: {sync: async () => {}},
+            };
+
+            const shape: Shape = {rows: 2, columns: 1};
+
+            const options: ExportOptions = {
                 delimiter: ',',
                 newline: NewlineSequence.LF,
-                exportType: null,
-                encoding: null,
             };
             let called = 0;
             const progressCallback = (progress): void => {
@@ -325,21 +493,38 @@ describe('Parser', () => {
                 ++called;
             }
 
-            _csvString(values, options, progressCallback, new AbortFlag());
+            await _csvString(
+                worksheetStub,
+                shape,
+                1,
+                options,
+                progressCallback,
+                new AbortFlag(),
+            );
             assert.strictEqual(called, 2);
         });
 
-        it('abort', () => {
+        it('abort', async () => {
+            const worksheetStub: any = {
+                getRangeByIndexes: () => ({load: () => ({values: [['a']]})}),
+                context: {sync: async () => {}},
+            };
+
+            const shape: Shape = {rows: 1, columns: 1};
+
             const options = {
                 delimiter: ',',
                 newline: NewlineSequence.LF,
-                exportType: null,
-                encoding: null,
             };
-            const flag = new AbortFlag();
-            flag.abort();
-            const result = _csvString([['a']], options, () => {}, flag);
-            assert.strictEqual(result, '');
+
+            const flag0 = new AbortFlag();
+            const result0 = await _csvString(worksheetStub, shape, 1, options, () => {}, flag0);
+            assert.strictEqual(result0, 'a\n');
+
+            const flag1 = new AbortFlag();
+            flag1.abort();
+            const result1 = await _csvString(worksheetStub, shape, 1, options, () => {}, flag1);
+            assert.strictEqual(result1, '');
         });
     });
 

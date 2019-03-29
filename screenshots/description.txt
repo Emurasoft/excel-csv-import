@@ -1,0 +1,5 @@
+CSV Import+Export adds the ability to import and export CSV files to Excel. You can specify several options for importing and exporting: type of input/output (file or textbox), character encoding, delimiter character, and newline sequence. It can import large CSV files, but export size is limited by available memory.
+
+Importing and exporting times are shorter if this add-in is used on the desktop edition of Excel than Online.
+
+Japanese and Chinese translations will be added soon.

@@ -3,7 +3,7 @@ const fs = require('fs');
 const newLocale = 'ja'; // Locale name of new file
 
 function main() {
-    const text = fs.readFileSync(__dirname + '/locale/en.json');
+    const text = fs.readFileSync(__dirname + '/en.json');
     const copied = {};
     for (const namespace of Object.entries(JSON.parse(text.toString()))) { // namespace.ID
         const copiedNamespace = {};
@@ -19,7 +19,7 @@ function main() {
         }
         copied[namespace[0]] = copiedNamespace;
     }
-    fs.writeFileSync(__dirname + `/locale/${newLocale}.json`, JSON.stringify(copied, null, 2));
+    fs.writeFileSync(__dirname + `/${newLocale}.json`, JSON.stringify(copied, null, 2));
 }
 
 main();

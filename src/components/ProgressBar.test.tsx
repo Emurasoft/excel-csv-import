@@ -9,13 +9,15 @@ describe('ProgressBar', () => {
         const wrapper = shallow(
             <ProgressBarComponent
                 onClick={() => {}}
-                progress={{show: true, percent: 0.0}}
+                progress={{show: true, aborting: false, percent: 0.0}}
                 // @ts-ignore
                 t={k => k}
             />
         );
         assert(wrapper.exists(Link));
-        wrapper.setProps({progress: {show: false}});
+        wrapper.setProps({progress: {aborting: true}});
+        assert(!wrapper.exists(Link));
+        wrapper.setProps({progress: {show: false, aborting: false}});
         assert(!wrapper.exists(Link));
     });
 
@@ -24,7 +26,7 @@ describe('ProgressBar', () => {
         const wrapper = shallow(
             <ProgressBarComponent
                 onClick={() => clicked = true}
-                progress={{show: true, percent: 0.0}}
+                progress={{show: true, aborting: false, percent: 0.0}}
                 // @ts-ignore
                 t={k => k}
             />

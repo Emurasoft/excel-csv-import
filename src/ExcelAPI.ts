@@ -1,15 +1,17 @@
 /* global Office, Excel */
 
-interface APIVersionInfo {
+export interface APIVersionInfo {
     supported: boolean;
+    platform: Office.PlatformType;
     diagnostics: Office.ContextInformation;
     userAgent: string;
 }
 
-export async function initAndGetAPIVersion(): Promise<APIVersionInfo> {
+export async function init(): Promise<APIVersionInfo> {
     await Office.onReady();
     return {
         supported: Office.context.requirements.isSetSupported('ExcelApi', 1.7),
+        platform: Office.context.platform,
         diagnostics: {...Office.context.diagnostics},
         userAgent: window.navigator.userAgent,
     };
@@ -30,12 +32,21 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
 
 // Executes batch on a blank worksheet.
 export async function runOnBlankWorksheet(
-    batch: (worksheet: Excel.Worksheet) => Promise<void>
+    batch: (worksheet: Excel.Worksheet) => Promise<void>,
 ): Promise<void> {
     await Excel.run(async (context) => {
         const worksheetToUse = await blankWorksheet(context);
         await batch(worksheetToUse);
         worksheetToUse.activate();
+        await context.sync();
+    });
+}
+
+export async function runOnCurrentWorksheet(
+    batch: (worksheet: Excel.Worksheet) => Promise<void>,
+): Promise<void> {
+    await Excel.run(async (context) => {
+        await batch(context.workbook.worksheets.getActiveWorksheet());
         await context.sync();
     });
 }
@@ -73,27 +84,34 @@ export async function worksheetArea(): Promise<number> {
     await Excel.run(async (context) => {
         const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
         const range = currentWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
-        await context.sync(); // This line has to go before getting properties
+        await context.sync();
         result = range.rowCount * range.columnCount;
     });
     return result;
 }
 
-interface WorkbookNamesAndValues {
-    workbookName: string;
-    worksheetName: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    values: any[][];
+export interface Shape {
+    rows: number;
+    columns: number;
 }
 
-export async function workbookNamesAndValues(): Promise<WorkbookNamesAndValues> {
-    let result: WorkbookNamesAndValues = null;
-    await Excel.run(async (context) => {
-        const workbook = context.workbook.load('name');
-        const worksheet = context.workbook.worksheets.getActiveWorksheet().load('name');
-        const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1').load('values');
-        await context.sync();
-        result = {workbookName: workbook.name, worksheetName: worksheet.name, values: range.values};
-    });
-    return result;
+interface WorksheetNamesAndShape {
+    workbookName: string;
+    worksheetName: string;
+    shape: Shape;
+}
+
+export async function worksheetNamesAndShape(
+    worksheet: Excel.Worksheet
+): Promise<WorksheetNamesAndShape> {
+    const workbook = worksheet.context.workbook.load('name');
+    worksheet.load('name');
+    const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1')
+        .load(['rowCount', 'columnCount']);
+    await worksheet.context.sync();
+    return {
+        workbookName: workbook.name,
+        worksheetName: worksheet.name,
+        shape: {rows: range.rowCount, columns: range.columnCount},
+    };
 }

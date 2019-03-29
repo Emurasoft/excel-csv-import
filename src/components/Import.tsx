@@ -1,7 +1,7 @@
 import {StoreComponent} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
+import {PrimaryButton, Toggle, TooltipDelay, TooltipHost, Text} from 'office-ui-fabric-react';
 import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
@@ -33,6 +33,7 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
         const t = this.props.t;
         return (
             <div className={style.pageMargin}>
+                <Text variant='xLarge'><strong>{t('Import CSV')}</strong></Text>
                 <SourceInput
                     value={this.state.source}
                     onChange={(source) => this.setState({source})}

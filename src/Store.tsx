@@ -10,7 +10,8 @@ import {withTranslation} from 'react-i18next';
 
 export interface Progress {
     show: boolean;
-    percent: number;
+    aborting: boolean;
+    percent: number; // 1.0 === 100%
 }
 
 export interface State {
@@ -45,7 +46,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
                 output: '',
             },
             largeFile: false,
-            progress: {show: false, percent: 0.0},
+            progress: {show: false, aborting: false, percent: 0.0},
         };
 
         this._log = new Logger();
@@ -81,15 +82,14 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
 
     public initAPI = async (): Promise<void> => {
         try {
-            const version = await ExcelAPI.initAndGetAPIVersion();
-            this.setState({initialized: true, supported: version.supported});
-            this._log.push('APIVersion', version)
+            const environmentInfo = await Parser.init();
+            this.setState({initialized: true, supported: environmentInfo.supported});
+            this._log.push('APIVersion', environmentInfo)
 
-            if (!version.supported) {
-                this.setParserError(new Error(
-                    this.props.t('Your version of Excel is not supported')
-                    + '\n' + JSON.stringify(version, null, 2),
-                ));
+            if (!environmentInfo.supported) {
+                const msg = this.props.t('Your version of Excel is not supported') + '\n'
+                    + JSON.stringify(environmentInfo, null, 2);
+                this.setParserError(new Error(msg));
             }
         } catch (err) {
             this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
@@ -99,8 +99,9 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     }
 
     public checkLargeFile = async (): Promise<void> => {
-        const aLargeExcelDocumentProbablyHasThisManyCells = 100000;
-        const largeFile = await this.worksheetArea() > aLargeExcelDocumentProbablyHasThisManyCells;
+        // 1 GB file / 20 bytes per cell
+        const aLargeExcelWorksheetProbablyHasThisManyCells = 1_000_000_000 / 20;
+        const largeFile = await this.worksheetArea() > aLargeExcelWorksheetProbablyHasThisManyCells;
         this.setState({largeFile});
         this._log.push('checkLargeFile');
     }
@@ -133,12 +134,15 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     // Aborts all import and export processes that are currently running.
     public abort = () => {
         this._abortFlags.abort();
+        this.setState(state => ({
+            progress: {show: state.progress.show, aborting: true, percent: state.progress.percent},
+        }));
         this._log.push('abort');
     }
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
         this.setState(
-            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
+            state => ({progress: {show: !state.progress.show, aborting: false, percent: 0.0}}),
         );
 
         try {
@@ -154,7 +158,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
             this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this.setState(
-            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
+            state => ({progress: {show: !state.progress.show, aborting: false, percent: 1.0}})
         );
 
         this._log.push('import', {options});
@@ -176,7 +180,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
         options: Parser.ExportOptions
     ): Promise<CsvStringAndName|null> => {
         this.setState(
-            state => ({progress: {show: !state.progress.show, percent: 0.0}}),
+            state => ({progress: {show: !state.progress.show, aborting: false, percent: 0.0}}),
         );
 
         let result: CsvStringAndName = null;
@@ -190,7 +194,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
             this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
         this.setState(
-            state => ({progress: {show: !state.progress.show, percent: 1.0}}),
+            state => ({progress: {show: !state.progress.show, aborting: false, percent: 1.0}}),
         );
 
         this._log.push('csvStringAndName', {options});
@@ -204,8 +208,11 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     private readonly _log: Logger;
     private readonly _abortFlags: AbortFlagArray;
 
-    private setProgress: ProgressCallback = (progress: number) => {
-        this.setState(state => ({progress: {show: state.progress.show, percent: progress}}));
+    // percent of 1.0 === 100%
+    private setProgress: ProgressCallback = (percent: number) => {
+        this.setState(state => ({
+            progress: {show: state.progress.show, aborting: state.progress.aborting, percent},
+        }));
     }
 }
 

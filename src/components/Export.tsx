@@ -5,7 +5,7 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, Text, TextField, Toggle, TooltipHost} from 'office-ui-fabric-react';
-import {CsvStringAndName, ExportOptions, ExportType, NewlineSequence} from '../Parser';
+import {CsvStringAndName, ExportOptions, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';
@@ -26,8 +26,12 @@ interface Props extends TranslateFunction {
     store: StoreComponent;
 }
 
+export enum ExportType {file, text}
+
 interface State extends ExportOptions {
+    exportType: ExportType;
     outputText: OutputText;
+    encoding: string;
 }
 
 export class ExportComponent extends StoredComponent<Props, State> {
@@ -57,7 +61,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
             />
         );
 
-        const largeFileWarning = ( // TODO Check what is considered large file for exporting
+        const largeFileWarning = (
             <Text style={{color: 'red'}} variant='medium'>
                 {t('Large file export is not supported')}
             </Text>
@@ -65,6 +69,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <div className={style.pageMargin}>
+                <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                 <ExportTypeDropdown
                     value={this.state.exportType}
                     onChange={(exportType) => this.setState({exportType})}
@@ -146,7 +151,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
         this.saveOrOutput(csvStringAndName, exportOptions);
     }
 
-    private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: ExportOptions): void {
+    private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: State): void {
         switch (exportOptions.exportType) {
         case ExportType.file: {
             const options = {type: 'text/csv;charset=' + exportOptions.encoding};
