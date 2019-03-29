@@ -6,8 +6,6 @@ import * as queryString from 'query-string';
 import {Pages} from '../Pages';
 import {i18n, languageList} from '../i18n';
 import {I18nextProvider} from 'react-i18next';
-import {Icon} from 'office-ui-fabric-react';
-import * as style from './style.css';
 
 // Returns checked parameters.
 export function _parseQuery(query: queryString.ParsedQuery): {page: string; language: string} {
@@ -43,6 +41,7 @@ const LicenseInformation = React.lazy(
 
 export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
+    // noinspection JSIgnoredPromiseFromCall
     i18n.changeLanguage(query.language);
 
     return (
