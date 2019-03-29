@@ -98,8 +98,9 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     }
 
     public checkLargeFile = async (): Promise<void> => {
-        const aLargeExcelDocumentProbablyHasThisManyCells = 100000;
-        const largeFile = await this.worksheetArea() > aLargeExcelDocumentProbablyHasThisManyCells;
+        // 1 GB file / 20 bytes per cell
+        const aLargeExcelWorksheetProbablyHasThisManyCells = 1_000_000_000 / 20;
+        const largeFile = await this.worksheetArea() > aLargeExcelWorksheetProbablyHasThisManyCells;
         this.setState({largeFile});
         this._log.push('checkLargeFile');
     }
