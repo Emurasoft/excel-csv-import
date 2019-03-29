@@ -7,6 +7,27 @@ module.exports = merge(common, {
     output: {
         path: __dirname + '/build',
     },
+    entry: ['@babel/polyfill', __dirname + '/src/index.tsx'],
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: ['babel-loader', 'ts-loader'],
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                        },
+                    },
+                ],
+            },
+        ],
+    },
     plugins: [
         new CopyPlugin([
             {from: 'public/*', ignore: 'public/index.html', flatten: true},

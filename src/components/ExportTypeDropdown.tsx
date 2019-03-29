@@ -4,8 +4,8 @@ import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {ExportType} from '../Parser';
 import {withTranslation} from 'react-i18next';
+import {ExportType} from './Export';
 
 export class ExportTypeDropdownComponent extends React.Component<BaseProps<ExportType>, {}> {
     public render(): React.ReactNode {

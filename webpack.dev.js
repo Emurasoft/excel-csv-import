@@ -10,5 +10,26 @@ module.exports = merge(common, {
         https: true,
         historyApiFallback: true,
     },
+    entry: __dirname + '/src/index.tsx',
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: ['ts-loader'],
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                        },
+                    },
+                ],
+            },
+        ],
+    },
     devtool: 'cheap-module-eval-source-map',
 });

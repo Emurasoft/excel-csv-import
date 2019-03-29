@@ -1,8 +1,8 @@
-import {ExportComponent} from './Export';
+import {ExportComponent, ExportType} from './Export';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
-import {ExportType, NewlineSequence} from '../Parser';
+import {NewlineSequence} from '../Parser';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, TextField} from 'office-ui-fabric-react';
