@@ -65,7 +65,6 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
-                                        <Title resid="Emurasoft.Title" />
                                         <SourceLocation resid="Emurasoft.importURL" />
                                     </Action>
                                 </Control>
@@ -84,7 +83,6 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
-                                        <Title resid="Emurasoft.Title" />
                                         <SourceLocation resid="Emurasoft.exportURL" />
                                     </Action>
                                 </Control>
@@ -111,7 +109,6 @@
             </bt:Urls>
             <!-- ShortStrings max length = 125 -->
             <bt:ShortStrings>
-                <bt:String id="Emurasoft.Title" DefaultValue="CSV Import+Export" />
                 <bt:String id="Emurasoft.GetStarted.Title" DefaultValue="CSV Import+Export added" />
                 <bt:String id="Emurasoft.Group.Label" DefaultValue="CSV" />
                 <bt:String id="Emurasoft.Button0.Title" DefaultValue="Import CSV" />
