@@ -13,7 +13,7 @@
     <ProviderName>Emurasoft, Inc.</ProviderName>
     <DefaultLocale>en-US</DefaultLocale>
     <DisplayName DefaultValue="CSV Import+Export" />
-    <Description DefaultValue="Adds CSV import and export functions to Excel." />
+    <Description DefaultValue="Import and export CSV files on Excel." />
 
     <!-- 32x32 -->
     <IconUrl DefaultValue="https://localhost:3000/icon0-32.png" />
