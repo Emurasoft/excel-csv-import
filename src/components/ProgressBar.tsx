@@ -33,7 +33,7 @@ export class ProgressBarComponent extends React.Component<Props, {}> {
 
     private stopLink(): React.ReactNode {
         if (this.props.progress.aborting) {
-            return this.props.t('Stopping...');
+            return this.props.t('Stopping');
         } else {
             return <Link onClick={this.props.onClick}>{this.props.t('Stop')}</Link>;
         }

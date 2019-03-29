@@ -40,11 +40,11 @@ export class AboutComponent extends React.Component<Props, {}> {
                     >
                         <img
                             src={'GitHub-Mark.svg'}
-                            alt={t('Github logo')}
+                            alt={t('GitHub logo')}
                             width='25px'
                             style={{marginRight: '6px'}}
                         />
-                        {t('CSV Import+Export on Github')}
+                        {t('CSV Import+Export on GitHub')}
                     </Link>
                 </Text>
                 <br /><br />
