@@ -28,7 +28,7 @@ class LicenseInformation extends React.Component<Props> {
                 </Text>
                 <textarea className={style.fullWidth} rows={20} value={thisApp} readOnly />
                 <br/><br/>
-                <Text variant='medium'>
+                <Text variant='medium'>{/* TODO add acknowledgement for Papa Parse*/}
                     {t('CSV Import+Export uses the following third-party libraries.')}
                 </Text>
                 <textarea className={style.fullWidth} rows={20} value={thirdParty} readOnly />
