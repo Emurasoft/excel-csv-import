@@ -16,9 +16,9 @@
     <Description DefaultValue="Import and export CSV files on Excel." />
 
     <!-- 32x32 -->
-    <IconUrl DefaultValue="https://localhost:3000/icon0-32.png" />
+    <IconUrl DefaultValue="https://emurasoft.github.io/excel-csv-import/icon0-32.png" />
     <!-- 64x64 -->
-    <HighResolutionIconUrl DefaultValue="https://localhost:3000/icon0-64.png" />
+    <HighResolutionIconUrl DefaultValue="https://emurasoft.github.io/excel-csv-import/icon0-64.png" />
 
     <SupportUrl DefaultValue="https://www.emeditor.com/csv-importexport-contact-form/" />
 
@@ -26,7 +26,7 @@
         <Host Name="Workbook" />
     </Hosts>
     <DefaultSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/" />
+        <SourceLocation DefaultValue="https://emurasoft.github.io/excel-csv-import/" />
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>
@@ -100,21 +100,20 @@
 
         <Resources>
             <bt:Images>
-                <bt:Image id="Emurasoft.Button0.icon16" DefaultValue="https://localhost:3000/icon0-16.png" />
-                <bt:Image id="Emurasoft.Button0.icon32" DefaultValue="https://localhost:3000/icon0-32.png" />
-                <bt:Image id="Emurasoft.Button0.icon80" DefaultValue="https://localhost:3000/icon0-80.png" />
-                <bt:Image id="Emurasoft.Button1.icon16" DefaultValue="https://localhost:3000/icon1-16.png" />
-                <bt:Image id="Emurasoft.Button1.icon32" DefaultValue="https://localhost:3000/icon1-32.png" />
-                <bt:Image id="Emurasoft.Button1.icon80" DefaultValue="https://localhost:3000/icon1-80.png" />
+                <bt:Image id="Emurasoft.Button0.icon16" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon0-16.png" />
+                <bt:Image id="Emurasoft.Button0.icon32" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon0-32.png" />
+                <bt:Image id="Emurasoft.Button0.icon80" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon0-80.png" />
+                <bt:Image id="Emurasoft.Button1.icon16" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon1-16.png" />
+                <bt:Image id="Emurasoft.Button1.icon32" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon1-32.png" />
+                <bt:Image id="Emurasoft.Button1.icon80" DefaultValue="https://emurasoft.github.io/excel-csv-import/icon1-80.png" />
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="Emurasoft.GetStarted.URL" DefaultValue="https://github.com/Emurasoft/excel-csv-import" />
-                <bt:Url id="Emurasoft.importURL" DefaultValue="https://localhost:3000/?page=import&amp;language=en" />
-                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://localhost:3000/?page=export&amp;language=en" />
+                <bt:Url id="Emurasoft.importURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import&amp;language=en" />
+                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=export&amp;language=en" />
             </bt:Urls>
             <!-- ShortStrings max length = 125 -->
             <bt:ShortStrings>
-                <bt:String id="Emurasoft.Title" DefaultValue="CSV Import+Export" />
                 <bt:String id="Emurasoft.GetStarted.Title" DefaultValue="CSV Import+Export added" />
                 <bt:String id="Emurasoft.Group.Label" DefaultValue="CSV" />
                 <bt:String id="Emurasoft.Button0.Title" DefaultValue="Import CSV" />
