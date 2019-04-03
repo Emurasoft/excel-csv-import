@@ -31,6 +31,11 @@
 
     <Permissions>ReadWriteDocument</Permissions>
 
+    <Requirements>
+        <Sets DefaultMinVersion="1.7">
+        </Sets>
+    </Requirements>
+
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
         <Hosts>
             <Host xsi:type="Workbook">
@@ -65,7 +70,6 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
-                                        <Title resid="Emurasoft.Title" />
                                         <SourceLocation resid="Emurasoft.importURL" />
                                     </Action>
                                 </Control>
@@ -84,7 +88,6 @@
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <TaskpaneId>Taskpane0</TaskpaneId>
-                                        <Title resid="Emurasoft.Title" />
                                         <SourceLocation resid="Emurasoft.exportURL" />
                                     </Action>
                                 </Control>
