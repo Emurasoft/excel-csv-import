@@ -10,6 +10,7 @@ export interface APIVersionInfo {
 export async function init(): Promise<APIVersionInfo> {
     await Office.onReady();
     return {
+        // TODO don't need isSetSupported()
         supported: Office.context.requirements.isSetSupported('ExcelApi', 1.7),
         platform: Office.context.platform,
         diagnostics: {...Office.context.diagnostics},
