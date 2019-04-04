@@ -32,7 +32,8 @@
     <Permissions>ReadWriteDocument</Permissions>
 
     <Requirements>
-        <Sets DefaultMinVersion="1.7">
+        <Sets>
+            <Set Name="ExcelApi" MinVersion="1.7" />
         </Sets>
     </Requirements>
 
