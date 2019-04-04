@@ -31,6 +31,12 @@
 
     <Permissions>ReadWriteDocument</Permissions>
 
+    <Requirements>
+        <Sets>
+            <Set Name="ExcelApi" MinVersion="1.7" />
+        </Sets>
+    </Requirements>
+
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
         <Hosts>
             <Host xsi:type="Workbook">
