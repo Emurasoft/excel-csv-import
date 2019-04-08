@@ -56,6 +56,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                 className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
+                spellCheck={false}
                 wrap='off'
                 value={this.state.outputText.text}
             />
