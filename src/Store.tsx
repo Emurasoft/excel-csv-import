@@ -15,6 +15,7 @@ export interface Progress {
 export interface State {
     initialized: boolean;
     version: string;
+    exportEnabled: boolean;
     largeFile: boolean;
     parserOutput: ParserOutput;
     progress: Progress;
@@ -35,13 +36,14 @@ export class Store extends React.Component<{}, State> {
     public constructor(props: {}) {
         super(props);
         this.state = {
-            version: version,
             initialized: false,
+            version: version,
+            exportEnabled: true,
+            largeFile: false,
             parserOutput: {
                 type: OutputType.hidden,
                 output: '',
             },
-            largeFile: false,
             progress: {show: false, aborting: false, percent: 0.0},
         };
 
@@ -79,7 +81,14 @@ export class Store extends React.Component<{}, State> {
     public initAPI = async (): Promise<void> => {
         try {
             const environmentInfo = await Parser.init();
-            this.setState({initialized: true});
+            const disableExportOn: Office.PlatformType[] = [
+                Office.PlatformType.Mac,
+                Office.PlatformType.iOS,
+            ];
+            this.setState({
+                initialized: true,
+                exportEnabled: !disableExportOn.includes(environmentInfo.platform),
+            });
             this._log.push('environmentInfo', environmentInfo)
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
