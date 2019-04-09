@@ -14,9 +14,12 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {withTranslation} from 'react-i18next';
 import {TranslateFunction} from './BaseProps';
+import {BackButton} from './BackButton';
+import {MemoryHistory} from 'history';
 
 interface Props extends TranslateFunction {
     store: StoreComponent;
+    history: MemoryHistory;
 }
 
 export class ImportComponent extends StoredComponent<Props, ImportOptions> {
@@ -33,6 +36,11 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
         const t = this.props.t;
         return (
             <div className={style.pageMargin}>
+                {
+                    navigator.platform === 'iPad'
+                        ? <><BackButton onClick={this.props.history.goBack} /><br /></>
+                        : null
+                }
                 <Text variant='xLarge'><strong>{t('Import CSV')}</strong></Text>
                 <SourceInput
                     value={this.state.source}

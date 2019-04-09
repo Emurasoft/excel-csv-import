@@ -15,6 +15,8 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
+import {BackButton} from './BackButton';
+import {MemoryHistory} from 'history';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -24,6 +26,7 @@ export interface OutputText {
 
 interface Props extends TranslateFunction {
     store: StoreComponent;
+    history: MemoryHistory;
 }
 
 export enum ExportType {file, text}
@@ -35,7 +38,7 @@ interface State extends ExportOptions {
 }
 
 export class ExportComponent extends StoredComponent<Props, State> {
-    public constructor(props: {store: StoreComponent} & TranslateFunction) {
+    public constructor(props: Props) {
         super(props, 'export', {
             exportType: ExportType.file,
             delimiter: '\u002c',
@@ -70,6 +73,11 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <div className={style.pageMargin}>
+                {
+                    navigator.platform === 'iPad'
+                        ? <BackButton onClick={this.props.history.goBack} />
+                        : null
+                }
                 <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                 <ExportTypeDropdown
                     value={this.state.exportType}
