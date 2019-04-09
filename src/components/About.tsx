@@ -68,16 +68,25 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <br /><br /><br />
                 <Text variant='medium'>
                     <strong>{t('Report bugs/send feedback')}</strong>
-                    {navigator.platform !== 'iPad' ? <><br />{t('For bug reports, please attach the log file:')}</> : null}
+                    {
+                        this.props.store.state.exportEnabled
+                            ? <><br />{t('For bug reports, please attach the log file:')}</>
+                            : null
+                    }
                 </Text>
                 <br />
-                {navigator.platform !== 'iPad' ? <><DefaultButton onClick={this.exportLog} text={t('Save log')} /><br /><br /></> : null}
+                {
+                    this.props.store.state.exportEnabled
+                        ? <><DefaultButton onClick={this.exportLog} text={t('Save log')} /><br /><br /></>
+                        : null
+                }
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
                         There are two ways to submit bug reports or feedback:{/* <br> is added in locale file */}
                         <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Via the contact form ↗</Link>
                         <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo ↗</Link>
                     </Trans>
+                    {/* TODO text about including system info */}
                 </Text>
                 <br /><br />
                 <Text variant='medium'>

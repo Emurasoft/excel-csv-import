@@ -15,6 +15,10 @@ export interface Progress {
 export interface State {
     initialized: boolean;
     version: string;
+
+    // True if file saving features must be enabled or false if it should be disabled. Filesaver.js
+    // does not work in an add-in on Excel for Mac and iPad. Reproduce in Script Lab:
+    // https://gist.github.com/MakotoE/a5e2b715e73ab245efec8c6e5874dcae
     exportEnabled: boolean;
     largeFile: boolean;
     parserOutput: ParserOutput;
