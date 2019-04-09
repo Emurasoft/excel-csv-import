@@ -33,7 +33,7 @@
     </Requirements>
 
     <DefaultSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/?page=indexMenu&amp;language=en" />
+        <SourceLocation DefaultValue="https://localhost:3000/?page=import&amp;language=en" />
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>
