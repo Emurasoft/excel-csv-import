@@ -15,7 +15,7 @@ export async function init(): Promise<APIVersionInfo> {
         platform: Office.context.platform,
         diagnostics: {...Office.context.diagnostics},
         userAgent: window.navigator.userAgent,
-    };
+    }; // TODO check for iPad to fix file saving
 }
 
 // Returns current worksheet if empty, otherwise returns new worksheet.
