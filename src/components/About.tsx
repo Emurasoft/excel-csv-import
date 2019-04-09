@@ -68,12 +68,10 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <br /><br /><br />
                 <Text variant='medium'>
                     <strong>{t('Report bugs/send feedback')}</strong>
-                    <br />
-                    {navigator.platform !== 'iPad' ? t('For bug reports, please attach the log file:') : null}
+                    {navigator.platform !== 'iPad' ? <><br />{t('For bug reports, please attach the log file:')}</> : null}
                 </Text>
                 <br />
-                {navigator.platform !== 'iPad' ? <DefaultButton onClick={this.exportLog} text={t('Save log')} /> : null}
-                <br /><br />
+                {navigator.platform !== 'iPad' ? <><DefaultButton onClick={this.exportLog} text={t('Save log')} /><br /><br /></> : null}
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
                         There are two ways to submit bug reports or feedback:{/* <br> is added in locale file */}
