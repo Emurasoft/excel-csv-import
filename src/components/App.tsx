@@ -39,7 +39,7 @@ const LicenseInformation = React.lazy(
     () => import(/* webpackChunkName: 'license' */'./LicenseInformation'),
 );
 
-export function App(): JSX.Element {
+export function App(): JSX.Element { // TODO Add menu to index for iPad
     const query = _parseQuery(queryString.parse(location.search));
     // noinspection JSIgnoredPromiseFromCall
     i18n.changeLanguage(query.language);
