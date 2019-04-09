@@ -22,7 +22,6 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
-import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 
 export interface OutputText {
@@ -80,10 +79,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <>
-                <MenuBar
-                    hidden={navigator.platform !== 'iPad'}
-                    onClick={(page) => this.props.history.push(page)}
-                />
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                     <ExportTypeDropdown
@@ -134,15 +129,9 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     {this.state.outputText.show ? outputTextField : null}
                     <ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
                     <BottomBar />
-                    <CompoundButton text='File test' onClick={this.onClick}/>
                 </div>
             </>
         );
-    }
-
-    private onClick(): void {
-        const blob = new Blob(['saved text'], {type: 'application/octet-stream'});
-        FileSaver.saveAs(blob, 'file.csv');
     }
 
     private buttonOnClick = async () => {

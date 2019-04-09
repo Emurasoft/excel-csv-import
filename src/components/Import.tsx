@@ -14,7 +14,6 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {withTranslation} from 'react-i18next';
 import {TranslateFunction} from './BaseProps';
-import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 
 interface Props extends TranslateFunction {
@@ -36,10 +35,6 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
         const t = this.props.t;
         return (
             <>
-                <MenuBar
-                    hidden={navigator.platform !== 'iPad'}
-                    onClick={(page) => this.props.history.push(page)}
-                />
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Import CSV')}</strong></Text>
                     <SourceInput
