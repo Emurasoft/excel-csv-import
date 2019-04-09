@@ -53,7 +53,6 @@ export function App(): JSX.Element {
                 <React.Suspense fallback={''}>
                     <I18nextProvider i18n={i18n}>
                         <MemoryRouter initialEntries={[query.page]}>
-                            <Route path={Pages.indexMenu} component={IndexMenu} />
                             <Route path={Pages.import} component={Import} />
                             <Route path={Pages.export} component={Export} />
                             <Route path={Pages.about} component={About} />

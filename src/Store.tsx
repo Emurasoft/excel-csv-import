@@ -108,7 +108,7 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
         if (
             output.includes('RichApi.Error')
             && output.includes('refresh the page')
-        ) {
+        ) { // TODO remove this
             output = this.props.t('Session has expired; please refresh the page.')
                      + '\n\n' + output;
         }
