@@ -16,7 +16,6 @@ export interface Progress {
 
 export interface State {
     initialized: boolean;
-    supported: boolean;
     version: string;
     largeFile: boolean;
     parserOutput: ParserOutput;
@@ -40,7 +39,6 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
         this.state = {
             version: version,
             initialized: false,
-            supported: true,
             parserOutput: {
                 type: OutputType.hidden,
                 output: '',
@@ -83,14 +81,8 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     public initAPI = async (): Promise<void> => {
         try {
             const environmentInfo = await Parser.init();
-            this.setState({initialized: true, supported: environmentInfo.supported});
-            this._log.push('APIVersion', environmentInfo)
-
-            if (!environmentInfo.supported) {
-                const msg = this.props.t('Your version of Excel is not supported') + '\n'
-                    + JSON.stringify(environmentInfo, null, 2);
-                this.setParserError(new Error(msg));
-            }
+            this.setState({initialized: true});
+            this._log.push('environmentInfo', environmentInfo)
         } catch (err) {
             this.setParserError(new Error(StoreComponent.getErrorMessage(err)));
         }
@@ -112,12 +104,6 @@ export class StoreComponent extends React.Component<TranslateFunction, State> {
     }
 
     public setParserError = (err: Error) => {
-        // eslint-disable-next-line no-undef
-        if (!process) { // If not running in unit test
-            // eslint-disable-next-line no-console
-            console.trace(StoreComponent.getErrorMessage(err));
-        }
-
         let output = StoreComponent.getErrorMessage(err);
         if (
             output.includes('RichApi.Error')
