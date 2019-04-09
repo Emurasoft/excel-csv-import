@@ -25,17 +25,18 @@
     <Hosts>
         <Host Name="Workbook" />
     </Hosts>
-    <DefaultSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/" />
-    </DefaultSettings>
-
-    <Permissions>ReadWriteDocument</Permissions>
 
     <Requirements>
         <Sets>
             <Set Name="ExcelApi" MinVersion="1.7" />
         </Sets>
     </Requirements>
+
+    <DefaultSettings>
+        <SourceLocation DefaultValue="https://localhost:3000/" />
+    </DefaultSettings>
+
+    <Permissions>ReadWriteDocument</Permissions>
 
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
         <Hosts>
