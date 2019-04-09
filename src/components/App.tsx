@@ -26,9 +26,6 @@ export function _parseQuery(query: queryString.ParsedQuery): {page: string; lang
     return {page, language};
 }
 
-const IndexMenu = React.lazy(
-    () => import (/* webpackChunkName: 'import' */'./IndexMenu'),
-)
 const Import = React.lazy(
     () => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./Import'),
 );
