@@ -69,10 +69,10 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <Text variant='medium'>
                     <strong>{t('Report bugs/send feedback')}</strong>
                     <br />
-                    {t('For bug reports, please attach the log file:')}
+                    {navigator.platform !== 'iPad' ? t('For bug reports, please attach the log file:') : null}
                 </Text>
                 <br />
-                <DefaultButton onClick={this.exportLog} text={t('Save log')} />
+                {navigator.platform !== 'iPad' ? <DefaultButton onClick={this.exportLog} text={t('Save log')} /> : null}
                 <br /><br />
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
