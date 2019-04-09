@@ -26,6 +26,9 @@ export function _parseQuery(query: queryString.ParsedQuery): {page: string; lang
     return {page, language};
 }
 
+const IndexMenu = React.lazy(
+    () => import (/* webpackChunkName: 'import' */'./IndexMenu'),
+)
 const Import = React.lazy(
     () => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./Import'),
 );
@@ -39,7 +42,7 @@ const LicenseInformation = React.lazy(
     () => import(/* webpackChunkName: 'license' */'./LicenseInformation'),
 );
 
-export function App(): JSX.Element { // TODO Add menu to index for iPad
+export function App(): JSX.Element {
     const query = _parseQuery(queryString.parse(location.search));
     // noinspection JSIgnoredPromiseFromCall
     i18n.changeLanguage(query.language);
@@ -50,6 +53,7 @@ export function App(): JSX.Element { // TODO Add menu to index for iPad
                 <React.Suspense fallback={''}>
                     <I18nextProvider i18n={i18n}>
                         <MemoryRouter initialEntries={[query.page]}>
+                            <Route path={Pages.indexMenu} component={IndexMenu} />
                             <Route path={Pages.import} component={Import} />
                             <Route path={Pages.export} component={Export} />
                             <Route path={Pages.about} component={About} />

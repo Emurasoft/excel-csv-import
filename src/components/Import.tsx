@@ -19,7 +19,7 @@ interface Props extends TranslateFunction {
     store: StoreComponent;
 }
 
-export class ImportComponent extends StoredComponent<Props & TranslateFunction, ImportOptions> {
+export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     public constructor(props: Props) {
         super(props, 'import', {
             source: {inputType: InputType.file, file: null, text: ''},
