@@ -1,4 +1,4 @@
-import {StoreComponent} from '../Store';
+import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {ExportTypeDropdown} from './ExportTypeDropdown';
@@ -32,7 +32,7 @@ export interface OutputText {
 }
 
 interface Props extends TranslateFunction {
-    store: StoreComponent;
+    store: Store;
     history: MemoryHistory;
 }
 

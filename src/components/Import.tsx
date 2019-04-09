@@ -1,4 +1,4 @@
-import {StoreComponent} from '../Store';
+import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {PrimaryButton, Toggle, TooltipDelay, TooltipHost, Text} from 'office-ui-fabric-react';
@@ -18,7 +18,7 @@ import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 
 interface Props extends TranslateFunction {
-    store: StoreComponent;
+    store: Store;
     history: MemoryHistory;
 }
 

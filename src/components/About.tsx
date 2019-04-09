@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StoreComponent} from '../Store';
+import {Store} from '../Store';
 import {connect} from '../connect';
 import {DefaultButton, Link, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
@@ -12,7 +12,7 @@ import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
 
 interface Props extends TranslateFunction {
-    store: StoreComponent;
+    store: Store;
     history: MemoryHistory;
 }
 

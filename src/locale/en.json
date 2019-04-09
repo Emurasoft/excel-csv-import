@@ -42,9 +42,5 @@
     "License information": "License information",
     "CSV Import+Export is licensed under the MIT License.": "CSV Import+Export is licensed under the MIT License.",
     "Third-party licenses [paragraph]": "We would like to thank <1>Papa Parse</1> for their CSV parser. CSV Import+Export also uses the following third-party libraries."
-  },
-  "store": {
-    "Your version of Excel is not supported": "Your version of Excel is not supported",
-    "Session has expired; please refresh the page.": "Session has expired; please refresh the page."
   }
 }
