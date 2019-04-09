@@ -141,7 +141,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     private onClick(): void {
-        const blob = new Blob(['saved text'], {type: 'text/csv'});
+        const blob = new Blob(['saved text'], {type: 'application/octet-stream'});
         FileSaver.saveAs(blob, 'file.csv');
     }
 
