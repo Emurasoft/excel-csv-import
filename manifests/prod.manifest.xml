@@ -33,7 +33,7 @@
     </Requirements>
 
     <DefaultSettings>
-        <SourceLocation DefaultValue="https://emurasoft.github.io/excel-csv-import/" />
+        <SourceLocation DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import&amp;language=en" />
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>

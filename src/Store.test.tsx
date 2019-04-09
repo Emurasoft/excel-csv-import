@@ -1,4 +1,4 @@
-import {OutputType, StoreComponent} from './Store';
+import {OutputType, Store} from './Store';
 import {mount} from 'enzyme';
 import * as React from 'react';
 import {connect} from './connect';
@@ -6,7 +6,7 @@ import * as assert from 'assert';
 
 describe('Store', () => {
     it('setParserOutput()', (done) => {
-        class Component extends React.Component<{store: StoreComponent}> {
+        class Component extends React.Component<{store: Store}> {
             public render(): React.ReactNode {
                 return null;
             }
@@ -31,9 +31,9 @@ describe('Store', () => {
 
         const wrapper = mount(
             // @ts-ignore
-            <StoreComponent t={k => k}>
+            <Store t={k => k}>
                 <C />
-            </StoreComponent>
+            </Store>
         );
         wrapper.render();
     });

@@ -1,4 +1,4 @@
-import {StoreComponent} from '../Store';
+import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
 import {PrimaryButton, Toggle, TooltipDelay, TooltipHost, Text} from 'office-ui-fabric-react';
@@ -14,12 +14,15 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {withTranslation} from 'react-i18next';
 import {TranslateFunction} from './BaseProps';
+import {MenuBar} from './MenuBar';
+import {MemoryHistory} from 'history';
 
 interface Props extends TranslateFunction {
-    store: StoreComponent;
+    store: Store;
+    history: MemoryHistory;
 }
 
-export class ImportComponent extends StoredComponent<Props & TranslateFunction, ImportOptions> {
+export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     public constructor(props: Props) {
         super(props, 'import', {
             source: {inputType: InputType.file, file: null, text: ''},
@@ -32,56 +35,62 @@ export class ImportComponent extends StoredComponent<Props & TranslateFunction, 
     public render(): React.ReactNode {
         const t = this.props.t;
         return (
-            <div className={style.pageMargin}>
-                <Text variant='xLarge'><strong>{t('Import CSV')}</strong></Text>
-                <SourceInput
-                    value={this.state.source}
-                    onChange={(source) => this.setState({source})}
+            <>
+                <MenuBar
+                    hidden={navigator.platform !== 'iPad'}
+                    onClick={(page) => this.props.history.push(page)}
                 />
-                <br />
-                <EncodingDropdown
-                    value={this.state.encoding}
-                    onChange={(encoding) => this.setState({encoding})}
-                    hidden={this.state.source.inputType === InputType.text}
-                    showAutoDetect={true}
-                />
-                <DelimiterInput
-                    value={this.state.delimiter}
-                    onChange={(delimiter) => this.setState({delimiter})}
-                    showAutoDetect={true}
-                    showLengthError={true}
-                />
-                <br />
-                <NewlineDropdown
-                    value={this.state.newline as NewlineSequence}
-                    onChange={(newline) => this.setState({newline})}
-                    showAutoDetect={true}
-                />
-                <br />
-                <TooltipHost
-                    styles={{root: {display: 'inline-block'}} /* Resize to fit button */}
-                    content={this.buttonTooltipContent()}
-                    delay={TooltipDelay.zero}
-                >
-                    <PrimaryButton
-                        disabled={this.buttonTooltipContent() !== ''}
-                        onClick={this.buttonOnClick}
-                        text={t('Import CSV')}
+                <div className={style.pageMargin}>
+                    <Text variant='xLarge'><strong>{t('Import CSV')}</strong></Text>
+                    <SourceInput
+                        value={this.state.source}
+                        onChange={(source) => this.setState({source})}
                     />
-                </TooltipHost>
-                <br />
-                <ProgressBar
-                    onClick={this.props.store.abort}
-                    progress={this.props.store.state.progress}
-                />
-                <Toggle
-                    inlineLabel label={t('Save options')}
-                    defaultChecked={this.initialSaveStatus()}
-                    onChange={(_, checked) => this.setSaveStatus(checked)}
-                />
-                <ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
-                <BottomBar />
-            </div>
+                    <br />
+                    <EncodingDropdown
+                        value={this.state.encoding}
+                        onChange={(encoding) => this.setState({encoding})}
+                        hidden={this.state.source.inputType === InputType.text}
+                        showAutoDetect={true}
+                    />
+                    <DelimiterInput
+                        value={this.state.delimiter}
+                        onChange={(delimiter) => this.setState({delimiter})}
+                        showAutoDetect={true}
+                        showLengthError={true}
+                    />
+                    <br />
+                    <NewlineDropdown
+                        value={this.state.newline as NewlineSequence}
+                        onChange={(newline) => this.setState({newline})}
+                        showAutoDetect={true}
+                    />
+                    <br />
+                    <TooltipHost
+                        styles={{root: {display: 'inline-block'}} /* Resize to fit button */}
+                        content={this.buttonTooltipContent()}
+                        delay={TooltipDelay.zero}
+                    >
+                        <PrimaryButton
+                            disabled={this.buttonTooltipContent() !== ''}
+                            onClick={this.buttonOnClick}
+                            text={t('Import CSV')}
+                        />
+                    </TooltipHost>
+                    <br />
+                    <ProgressBar
+                        onClick={this.props.store.abort}
+                        progress={this.props.store.state.progress}
+                    />
+                    <Toggle
+                        inlineLabel label={t('Save options')}
+                        defaultChecked={this.initialSaveStatus()}
+                        onChange={(_, checked) => this.setSaveStatus(checked)}
+                    />
+                    <ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
+                    <BottomBar />
+                </div>
+            </>
         );
     }
 

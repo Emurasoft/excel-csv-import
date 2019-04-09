@@ -39,6 +39,7 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
                 <TextField
                     className={style.monospace}
                     multiline rows={10}
+                    spellCheck={false}
                     wrap='off'
                     onChange={(_, text) => this.props.onChange({inputType: InputType.text, text})}
                     value={this.props.value.text as string}

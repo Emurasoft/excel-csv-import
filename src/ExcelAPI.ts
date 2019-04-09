@@ -1,7 +1,6 @@
 /* global Office, Excel */
 
 export interface APIVersionInfo {
-    supported: boolean;
     platform: Office.PlatformType;
     diagnostics: Office.ContextInformation;
     userAgent: string;
@@ -10,11 +9,10 @@ export interface APIVersionInfo {
 export async function init(): Promise<APIVersionInfo> {
     await Office.onReady();
     return {
-        supported: Office.context.requirements.isSetSupported('ExcelApi', 1.7),
         platform: Office.context.platform,
         diagnostics: {...Office.context.diagnostics},
         userAgent: window.navigator.userAgent,
-    };
+    }; // TODO check for iPad to fix file saving
 }
 
 // Returns current worksheet if empty, otherwise returns new worksheet.
