@@ -31,20 +31,16 @@
     "GitHub logo": "",
     "CSV Import+Export on GitHub": "",
     "EmEditor logo": "",
-    "EmEditor description [paragraph]": "EmEditor is a text editor which features a CSV editing interface and large file support. <1>Try EmEditor for free.</1>",
-    "EmEditor localized homepage [URL]": "https://jp.emeditor.com/",
+    "EmEditor description [paragraph]": "EmEditor is a text editor which features a CSV editing interface and large file support. <1>Try EmEditor for free.↗</1>",
+    "EmEditor localized homepage [URL]": "https://www.emeditor.com/",
     "Report bugs/send feedback": "",
     "For bug reports, please attach the log file:": "",
     "Save log": "",
-    "How to send feedback [paragraph]": "There are two ways to submit bug reports or feedback:<br><1>Via the contact form ↗</1><br><2>Issues page of the GitHub repo ↗</2>"
+    "How to send feedback [paragraph]": "There are two ways to submit bug reports or feedback:<br><1>Via the contact form↗</1><br><2>Issues page of the GitHub repo↗</2>"
   },
   "licenseInformation": {
     "License information": "",
     "CSV Import+Export is licensed under the MIT License.": "",
-    "CSV Import+Export uses the following third-party libraries.": ""
-  },
-  "store": {
-    "Your version of Excel is not supported": "",
-    "Session has expired; please refresh the page.": ""
+    "Third-party licenses [paragraph]": "We would like to thank <1>Papa Parse</1> for their CSV parser. CSV Import+Export also uses the following third-party libraries."
   }
 }
