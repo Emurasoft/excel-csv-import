@@ -12,7 +12,7 @@ export function MenuBar(props: Props): JSX.Element {
         return null;
     }
 
-    return (
+    return (// TODO translations
         <>
             <CommandBar
                 items={[

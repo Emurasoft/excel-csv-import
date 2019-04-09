@@ -10,7 +10,7 @@ import {
     Text,
     TextField,
     Toggle,
-    TooltipHost
+    TooltipHost,
 } from 'office-ui-fabric-react';
 import {CsvStringAndName, ExportOptions, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
@@ -134,14 +134,14 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     {this.state.outputText.show ? outputTextField : null}
                     <ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
                     <BottomBar />
-                    <CompoundButton text="File test" onClick={this.onClick}/>
+                    <CompoundButton text='File test' onClick={this.onClick}/>
                 </div>
             </>
         );
     }
 
-    private onClick() {
-        const blob = new Blob(["saved text"], {type: 'text/csv'});
+    private onClick(): void {
+        const blob = new Blob(['saved text'], {type: 'text/csv'});
         FileSaver.saveAs(blob, 'file.csv');
     }
 
