@@ -43,7 +43,7 @@ interface State extends ExportOptions {
 export class ExportComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'export', {
-            exportType: ExportType.file,
+            exportType: Store.enableFileExport ? ExportType.file : ExportType.text,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
             encoding: 'UTF-8',
@@ -74,20 +74,13 @@ export class ExportComponent extends StoredComponent<Props, State> {
             </Text>
         );
 
-        let exportTypeDisplayedValue: ExportType;
-        if (this.props.store.state.enableFileExport) {
-            exportTypeDisplayedValue = this.state.exportType;
-        } else {
-            exportTypeDisplayedValue = ExportType.text;
-        }
-
         return (
             <>
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                     <ExportTypeDropdown
-                        enableFileExport={this.props.store.state.enableFileExport}
-                        value={exportTypeDisplayedValue}
+                        enableFileExport={Store.enableFileExport}
+                        value={this.state.exportType}
                         onChange={(exportType) => this.setState({exportType})}
                     />
                     <br />
@@ -157,12 +150,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         // Copy values before async operation
         const exportOptions = {...this.state};
-
-        // If export is disabled, displayed export type is always text regardless of state. That is
-        // why the state is ignored here.
-        if (!this.props.store.state.enableFileExport) {
-            exportOptions.exportType = ExportType.text;
-        }
 
         this.setState(state => ({outputText: newOutputText(state, exportOptions)}));
 

@@ -15,11 +15,6 @@ export interface Progress {
 export interface State {
     initialized: boolean;
     version: string;
-
-    // True if file saving features must be enabled or false if it should be disabled. Filesaver.js
-    // does not work in an add-in on Excel for Mac and iPad. Reproduce in Script Lab:
-    // https://gist.github.com/MakotoE/a5e2b715e73ab245efec8c6e5874dcae
-    enableFileExport: boolean;
     largeFile: boolean;
     parserOutput: ParserOutput;
     progress: Progress;
@@ -37,12 +32,13 @@ export type ProgressCallback = (progress: number) => void
 export const Context = React.createContext(undefined);
 
 export class Store extends React.Component<{}, State> {
+    public static enableFileExport = ExcelAPI.enableFileExport;
+
     public constructor(props: {}) {
         super(props);
         this.state = {
             initialized: false,
             version: version,
-            enableFileExport: true,
             largeFile: false,
             parserOutput: {
                 type: OutputType.hidden,
@@ -85,14 +81,7 @@ export class Store extends React.Component<{}, State> {
     public initAPI = async (): Promise<void> => {
         try {
             const environmentInfo = await Parser.init();
-            const disableExportOn: Office.PlatformType[] = [
-                Office.PlatformType.Mac,
-                Office.PlatformType.iOS,
-            ];
-            this.setState({
-                initialized: true,
-                enableFileExport: !disableExportOn.includes(environmentInfo.platform),
-            });
+            this.setState({initialized: true});
             this._log.push('environmentInfo', environmentInfo)
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
