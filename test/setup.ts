@@ -25,7 +25,6 @@ global.localStorage = {...localStorage};
 
 // @ts-ignore
 global.Office = {
-    PlatformType: {},
     context: {},
 }
 

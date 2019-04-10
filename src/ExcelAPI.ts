@@ -15,15 +15,13 @@ export async function init(): Promise<APIVersionInfo> {
     };
 }
 
-const disableExportOn: Office.PlatformType[] = [
-    Office.PlatformType.Mac,
-    Office.PlatformType.iOS,
-];
+const disableExportOn = ['Mac', 'iOS'];
 
 // True if file saving features must be enabled or false if it should be disabled. Filesaver.js
 // does not work in an add-in on Excel for Mac and iPad. Reproduce in Script Lab:
 // https://gist.github.com/MakotoE/a5e2b715e73ab245efec8c6e5874dcae
-export const enableFileExport = !disableExportOn.includes(Office.context.platform);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const enableFileExport = !disableExportOn.includes(Office.context.platform as any);
 
 // Returns current worksheet if empty, otherwise returns new worksheet.
 async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Worksheet> {
