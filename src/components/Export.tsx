@@ -21,6 +21,8 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
+import {MenuBar} from './MenuBar';
+import {MemoryHistory} from 'history';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -30,6 +32,7 @@ export interface OutputText {
 
 interface Props extends TranslateFunction {
     store: Store;
+    history: MemoryHistory;
 }
 
 export enum ExportType {file, text}
@@ -76,6 +79,10 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <>
+                <MenuBar
+                    hidden={navigator.platform !== 'iPad'}
+                    onClick={(page) => this.props.history.push(page)}
+                />
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                     <ExportTypeDropdown
