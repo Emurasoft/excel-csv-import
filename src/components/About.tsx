@@ -69,14 +69,14 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <Text variant='medium'>
                     <strong>{t('Report bugs/send feedback')}</strong>
                     {
-                        this.props.store.state.exportEnabled
+                        this.props.store.state.enableFileExport
                             ? <><br />{t('For bug reports, please attach the log file:')}</>
                             : null
                     }
                 </Text>
                 <br />
                 {
-                    this.props.store.state.exportEnabled
+                    this.props.store.state.enableFileExport
                         ? <><DefaultButton onClick={this.exportLog} text={t('Save log')} /><br /><br /></>
                         : null
                 }

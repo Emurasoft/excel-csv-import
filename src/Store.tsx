@@ -19,7 +19,7 @@ export interface State {
     // True if file saving features must be enabled or false if it should be disabled. Filesaver.js
     // does not work in an add-in on Excel for Mac and iPad. Reproduce in Script Lab:
     // https://gist.github.com/MakotoE/a5e2b715e73ab245efec8c6e5874dcae
-    exportEnabled: boolean;
+    enableFileExport: boolean;
     largeFile: boolean;
     parserOutput: ParserOutput;
     progress: Progress;
@@ -42,7 +42,7 @@ export class Store extends React.Component<{}, State> {
         this.state = {
             initialized: false,
             version: version,
-            exportEnabled: true,
+            enableFileExport: true,
             largeFile: false,
             parserOutput: {
                 type: OutputType.hidden,
@@ -91,7 +91,7 @@ export class Store extends React.Component<{}, State> {
             ];
             this.setState({
                 initialized: true,
-                exportEnabled: !disableExportOn.includes(environmentInfo.platform),
+                enableFileExport: !disableExportOn.includes(environmentInfo.platform),
             });
             this._log.push('environmentInfo', environmentInfo)
         } catch (err) {

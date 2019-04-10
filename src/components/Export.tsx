@@ -5,7 +5,6 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
-    CompoundButton,
     PrimaryButton,
     Text,
     TextField,
@@ -22,7 +21,6 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
-import {MemoryHistory} from 'history';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -32,7 +30,6 @@ export interface OutputText {
 
 interface Props extends TranslateFunction {
     store: Store;
-    history: MemoryHistory;
 }
 
 export enum ExportType {file, text}
@@ -77,12 +74,20 @@ export class ExportComponent extends StoredComponent<Props, State> {
             </Text>
         );
 
+        let exportTypeDisplayedValue: ExportType;
+        if (this.props.store.state.enableFileExport) {
+            exportTypeDisplayedValue = this.state.exportType;
+        } else {
+            exportTypeDisplayedValue = ExportType.text;
+        }
+
         return (
             <>
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                     <ExportTypeDropdown
-                        value={this.state.exportType}
+                        enableFileExport={this.props.store.state.enableFileExport}
+                        value={exportTypeDisplayedValue}
                         onChange={(exportType) => this.setState({exportType})}
                     />
                     <br />
@@ -152,6 +157,12 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         // Copy values before async operation
         const exportOptions = {...this.state};
+
+        // If export is disabled, displayed export type is always text regardless of state. That is
+        // why the state is ignored here.
+        if (!this.props.store.state.enableFileExport) {
+            exportOptions.exportType = ExportType.text;
+        }
 
         this.setState(state => ({outputText: newOutputText(state, exportOptions)}));
 
