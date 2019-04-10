@@ -25,6 +25,12 @@ global.localStorage = {...localStorage};
 /* eslint-enable no-undef */
 
 // @ts-ignore
+global.Office = {
+    PlatformType: {},
+    context: {},
+}
+
+// @ts-ignore
 window.requestAnimationFrame = (cb) => cb();
 
 setResponsiveMode(ResponsiveMode.small);
