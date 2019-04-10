@@ -29,23 +29,9 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </Text>
                 <br />
                 <Text variant='medium'>
-                    <pre>{this.props.store.state.version}</pre>
+                    <pre>{this.props.store.state.version}</pre>{/* TODO version doesn't need to be a state*/}
                     <div className={style.smallDivider} />
-                    Copyright 2019 Emurasoft Inc.
-                    <br /><br />
-                    <Link
-                        href='https://github.com/Emurasoft/excel-csv-import'
-                        className={style.greyText + ' ' + style.verticallyCenterContent}
-                        target='_blank' rel='noopener noreferrer'
-                    >
-                        <img
-                            src={'GitHub-Mark.svg'}
-                            alt={t('GitHub logo')}
-                            width='25px'
-                            style={{marginRight: '6px'}}
-                        />
-                        {t('CSV Import+Export on GitHub')}
-                    </Link>
+                    © 2019 Emurasoft Inc.
                 </Text>
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
@@ -54,7 +40,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                         target='_blank' rel='noopener noreferrer'
                     >
                         <img
-                            className={style.emeditorLogo}
+                            style={{width: '150px'}}
                             src={'emeditor_logo.png'}
                             alt={t('EmEditor logo')}
                         />
