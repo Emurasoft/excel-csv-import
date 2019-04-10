@@ -1,3 +1,4 @@
+/* eslint-env node */
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import {
@@ -12,7 +13,6 @@ Enzyme.configure({adapter: new Adapter()});
 
 jsdom();
 
-/* eslint-disable no-undef */
 const localStorage = {
     // @ts-ignore
     setItem: (k, v) => global.localStorage[k] = v,
@@ -22,7 +22,6 @@ const localStorage = {
 
 // @ts-ignore
 global.localStorage = {...localStorage};
-/* eslint-enable no-undef */
 
 // @ts-ignore
 global.Office = {
