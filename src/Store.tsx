@@ -14,7 +14,6 @@ export interface Progress {
 
 export interface State {
     initialized: boolean;
-    version: string;
     largeFile: boolean;
     parserOutput: ParserOutput;
     progress: Progress;
@@ -38,7 +37,6 @@ export class Store extends React.Component<{}, State> {
         super(props);
         this.state = {
             initialized: false,
-            version: version,
             largeFile: false,
             parserOutput: {
                 type: OutputType.hidden,

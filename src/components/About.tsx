@@ -10,6 +10,7 @@ import {Trans, withTranslation} from 'react-i18next';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
+import {version} from '../version.json';
 
 interface Props extends TranslateFunction {
     store: Store;
@@ -36,10 +37,8 @@ export class AboutComponent extends React.Component<Props, {}> {
                     </Link>
                 </Text>
                 <br />
-                <Text variant='medium'>
-                    <Text style={{fontFamily: 'Inconsolata, monospace'}}>
-                        {this.props.store.state.version}
-                    </Text>{/* TODO version doesn't need to be a state*/}
+                <Text variant='medium' style={{fontFamily: 'Inconsolata, monospace'}}>
+                    {version}
                 </Text>
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
