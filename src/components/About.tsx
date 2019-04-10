@@ -81,9 +81,13 @@ export class AboutComponent extends React.Component<Props, {}> {
                         <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Contact form↗</Link>
                         <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo↗</Link>
                     </Trans>
-                    {/* TODO text about including system info */}
+                    {
+                        Store.enableFileExport
+                            ? <br />
+                            : <><br />{t('Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.')}<br /></>
+                    }
                 </Text>
-                <br /><br />
+                <br />
                 <Text variant='medium'>
                     © 2019 Emurasoft Inc.
                     <br />

@@ -36,7 +36,8 @@
     "Report bugs/send feedback": "Report bugs/send feedback",
     "For bug reports, please attach the log file:": "For bug reports, please attach the log file:",
     "Save log": "Save log",
-    "How to send feedback [paragraph]": "You can submit bug reports or feedback via:<br><1>Contact form↗</1><br><2>Issues page of the GitHub repo↗</2>"
+    "How to send feedback [paragraph]": "You can submit bug reports or feedback via:<br><1>Contact form↗</1><br><2>Issues page of the GitHub repo↗</2>",
+    "Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.": "Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message."
   },
   "licenseInformation": {
     "License information": "License information",
