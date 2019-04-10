@@ -36,7 +36,8 @@
     "Report bugs/send feedback": "",
     "For bug reports, please attach the log file:": "",
     "Save log": "",
-    "How to send feedback [paragraph]": ""
+    "How to send feedback [paragraph]": "",
+    "Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.": ""
   },
   "licenseInformation": {
     "License information": "",
