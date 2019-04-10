@@ -5,7 +5,6 @@ import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
-    CompoundButton,
     PrimaryButton,
     Text,
     TextField,
@@ -22,6 +21,7 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
+import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 
 export interface OutputText {
@@ -46,7 +46,7 @@ interface State extends ExportOptions {
 export class ExportComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'export', {
-            exportType: ExportType.file,
+            exportType: Store.enableFileExport ? ExportType.file : ExportType.text,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
             encoding: 'UTF-8',
@@ -79,9 +79,14 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <>
+                <MenuBar
+                    hidden={navigator.platform !== 'iPad'}
+                    onClick={(page) => this.props.history.push(page)}
+                />
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                     <ExportTypeDropdown
+                        enableFileExport={Store.enableFileExport}
                         value={this.state.exportType}
                         onChange={(exportType) => this.setState({exportType})}
                     />

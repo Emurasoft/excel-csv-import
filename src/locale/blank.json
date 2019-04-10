@@ -36,15 +36,12 @@
     "Report bugs/send feedback": "",
     "For bug reports, please attach the log file:": "",
     "Save log": "",
-    "How to send feedback [paragraph]": ""
+    "How to send feedback [paragraph]": "",
+    "Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.": ""
   },
   "licenseInformation": {
     "License information": "",
     "CSV Import+Export is licensed under the MIT License.": "",
-    "CSV Import+Export uses the following third-party libraries.": ""
-  },
-  "store": {
-    "Your version of Excel is not supported": "",
-    "Session has expired; please refresh the page.": ""
+    "Third-party licenses [paragraph]": ""
   }
 }

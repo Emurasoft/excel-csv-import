@@ -7,19 +7,31 @@ import {
 import {withTranslation} from 'react-i18next';
 import {ExportType} from './Export';
 
-export class ExportTypeDropdownComponent extends React.Component<BaseProps<ExportType>, {}> {
+interface Props extends BaseProps<ExportType> {
+    enableFileExport: boolean;
+}
+
+export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         const t = this.props.t;
-        const options: IDropdownOption[] = [
-            {
-                key: ExportType.file,
-                text: t('File'),
-            },
-            {
-                key: ExportType.text,
-                text: t('Textbox'),
-            },
-        ];
+
+        const textOption: IDropdownOption = {
+            key: ExportType.text,
+            text: t('Textbox'),
+        }
+
+        let options: IDropdownOption[];
+        if (this.props.enableFileExport) {
+            options = [
+                {
+                    key: ExportType.file,
+                    text: t('File'),
+                },
+                textOption,
+            ];
+        } else {
+            options = [textOption];
+        }
 
         return (
             <Dropdown

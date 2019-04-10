@@ -36,11 +36,12 @@
     "Report bugs/send feedback": "Report bugs/send feedback",
     "For bug reports, please attach the log file:": "For bug reports, please attach the log file:",
     "Save log": "Save log",
-    "How to send feedback [paragraph]": "There are two ways to submit bug reports or feedback:<br><1>Via the contact form↗</1><br><2>Issues page of the GitHub repo↗</2>"
+    "How to send feedback [paragraph]": "You can submit bug reports or feedback via:<br><1>Contact form↗</1><br><2>Issues page of the GitHub repo↗</2>",
+    "Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.": "Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message."
   },
   "licenseInformation": {
     "License information": "License information",
     "CSV Import+Export is licensed under the MIT License.": "CSV Import+Export is licensed under the MIT License.",
-    "Third-party licenses [paragraph]": "We would like to thank <1>Papa Parse</1> for their CSV parser. CSV Import+Export also uses the following third-party libraries."
+    "Third-party licenses [paragraph]": "We would like to thank <1>Papa Parse</1> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries."
   }
 }

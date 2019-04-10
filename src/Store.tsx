@@ -14,7 +14,6 @@ export interface Progress {
 
 export interface State {
     initialized: boolean;
-    version: string;
     largeFile: boolean;
     parserOutput: ParserOutput;
     progress: Progress;
@@ -32,16 +31,17 @@ export type ProgressCallback = (progress: number) => void
 export const Context = React.createContext(undefined);
 
 export class Store extends React.Component<{}, State> {
+    public static enableFileExport = ExcelAPI.enableFileExport;
+
     public constructor(props: {}) {
         super(props);
         this.state = {
-            version: version,
             initialized: false,
+            largeFile: false,
             parserOutput: {
                 type: OutputType.hidden,
                 output: '',
             },
-            largeFile: false,
             progress: {show: false, aborting: false, percent: 0.0},
         };
 
