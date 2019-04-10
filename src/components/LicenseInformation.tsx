@@ -31,7 +31,7 @@ class LicenseInformation extends React.Component<Props> {
                 <br/><br/>
                 <Text variant='medium'>
                     <Trans ns='licenseInformation' i18nKey='Third-party licenses [paragraph]'>
-                        We would like to thank <Link href='https://www.papaparse.com/' target='_blank' rel='noopener noreferrer'>Papa Parse</Link> for their CSV parser. CSV Import+Export also uses the following third-party libraries.
+                        We would like to thank <Link href='https://www.papaparse.com/' target='_blank' rel='noopener noreferrer'>Papa Parse</Link> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries.
                     </Trans>
                 </Text>
                 <textarea className={style.fullWidth} rows={20} value={thirdParty} readOnly />

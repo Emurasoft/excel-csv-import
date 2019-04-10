@@ -25,19 +25,28 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <BackButton onClick={this.props.history.goBack} />
                 <br />
                 <Text variant='xLarge'>
-                    <strong>{t('CSV Import+Export')}</strong>
+                    <Link
+                        href='https://github.com/Emurasoft/excel-csv-import'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        style={{color: 'black'}}
+                        title={t('CSV Import+Export on GitHub')}
+                    >
+                        <strong>{t('CSV Import+Export')}</strong>
+                    </Link>
                 </Text>
                 <br />
                 <Text variant='medium'>
-                    <pre>{this.props.store.state.version}</pre>{/* TODO version doesn't need to be a state*/}
-                    <div className={style.smallDivider} />
-                    © 2019 Emurasoft Inc.
+                    <Text style={{fontFamily: 'Inconsolata, monospace'}}>
+                        {this.props.store.state.version}
+                    </Text>{/* TODO version doesn't need to be a state*/}
                 </Text>
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
                     <a
                         href={t('EmEditor localized homepage [URL]')}
-                        target='_blank' rel='noopener noreferrer'
+                        target='_blank'
+                        rel='noopener noreferrer'
                     >
                         <img
                             style={{width: '150px'}}
@@ -51,7 +60,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                         EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={t('EmEditor localized homepage [URL]')}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
                     </Trans>
                 </Text>
-                <br /><br /><br />
+                <br /><br />
                 <Text variant='medium'>
                     <strong>{t('Report bugs/send feedback')}</strong>
                     {
@@ -68,14 +77,16 @@ export class AboutComponent extends React.Component<Props, {}> {
                 }
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
-                        There are two ways to submit bug reports or feedback:{/* <br> is added in locale file */}
-                        <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Via the contact form ↗</Link>
-                        <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo ↗</Link>
+                        You can submit bug reports or feedback via:{/* <br> is added in locale file */}
+                        <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Contact form↗</Link>
+                        <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo↗</Link>
                     </Trans>
                     {/* TODO text about including system info */}
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
+                    © 2019 Emurasoft Inc.
+                    <br />
                     <RouterLink to={Pages.licenseInformation} className={style.removeUnderline}>
                         <Link>{t('licenseInformation::License information')}</Link>
                     </RouterLink>
