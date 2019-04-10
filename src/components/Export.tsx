@@ -46,7 +46,7 @@ interface State extends ExportOptions {
 export class ExportComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'export', {
-            exportType: Store.enableFileExport ? ExportType.file : ExportType.text,
+            exportType: ExportType.file,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
             encoding: 'UTF-8',
@@ -86,8 +86,8 @@ export class ExportComponent extends StoredComponent<Props, State> {
                 <div className={style.pageMargin}>
                     <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
                     <ExportTypeDropdown
-                        enableFileExport={Store.enableFileExport}
-                        value={this.state.exportType}
+                        enableFileExport={this.props.store.state.enableFileExport}
+                        value={this.exportTypeDropdownValue()}
                         onChange={(exportType) => this.setState({exportType})}
                     />
                     <br />
@@ -139,6 +139,14 @@ export class ExportComponent extends StoredComponent<Props, State> {
         );
     }
 
+    private exportTypeDropdownValue = (): ExportType => {
+        if (this.props.store.state.enableFileExport) {
+            return this.state.exportType
+        } else {
+            return ExportType.text;
+        }
+    }
+
     private buttonOnClick = async () => {
         function newOutputText(state, exportOptions): OutputText {
             // If exportType is text:
@@ -157,6 +165,12 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         // Copy values before async operation
         const exportOptions = {...this.state};
+
+        // If export is disabled, displayed export type is always text regardless of state. That is
+        // why the state is ignored here.
+        if (!this.props.store.state.enableFileExport) {
+            exportOptions.exportType = ExportType.text;
+        }
 
         this.setState(state => ({outputText: newOutputText(state, exportOptions)}));
 

@@ -41,8 +41,8 @@ export async function init(): Promise<APIVersionInfo> {
     if (result.platform === Office.PlatformType.OfficeOnline) {
         // Online API can throw error if request size is too large
         reduceChunkSize = true;
-        // @ts-ignore
-        Papa.LocalChunkSize = 10_000;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (Papa.LocalChunkSize as any) = 10_000;
     } else {
         reduceChunkSize = false;
     }
