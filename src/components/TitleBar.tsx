@@ -14,9 +14,9 @@ interface State {
     visible: boolean;
 }
 
-// TitleBar contains a question mark icon in the top right corner for linking to the help page.
-// This app was designed to be self-explanatory, but Office Store policies demands that a getting
-// started prompt is provided. Their platform, their own stupid rules.
+// TitleBar contains the page title and a question mark icon in the top right corner for linking to
+// the help page. This app was designed to be self-explanatory, but Office Store policies demands
+// that a getting started prompt is provided. Their platform, their own stupid rules.
 // Policy 11.3: Your Office Add-in must provide a seamless first run experience, with a clear value
 // proposition.
 // Validation report: Please provide additional information on the first screen explaining how to
