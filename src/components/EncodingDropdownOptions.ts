@@ -108,11 +108,7 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
     },
     {
         "key": "macintosh",
-        "text": "macintosh",
-    },
-    {
-        "key": "replacement",
-        "text": "replacement",
+        "text": "Mac OS Roman",
     },
     {
         "key": "windows-1250",
@@ -156,10 +152,6 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
     },
     {
         "key": "x-mac-cyrillic",
-        "text": "x-mac-cyrillic",
-    },
-    {
-        "key": "x-user-defined",
-        "text": "x-user-defined",
+        "text": "Mac OS Cyrillic",
     },
 ];

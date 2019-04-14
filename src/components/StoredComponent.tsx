@@ -15,6 +15,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         super(props);
         this._namespace = namespace;
         this._saveKeys = saveKeys;
+        // TODO TitleBar needs to save by default, regardless of other settings
         this._initialSave = localStorage && localStorage['StoredComponent-save'] === '"true"';
         this._save = this._initialSave;
 
