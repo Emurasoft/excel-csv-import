@@ -26,7 +26,6 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
             [InputType.file]: (
                 <>
                     <input
-                        className={style.fullWidth}
                         type='file'
                         accept='text/csv'
                         onChange={this.fileOnChange}

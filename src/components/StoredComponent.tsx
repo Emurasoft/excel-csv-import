@@ -51,7 +51,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
             localStorage.setItem('StoredComponent-save', '"true"');
             this.saveState(this.state);
         } else {
-            localStorage.clear();
+            localStorage.clear(); // TODO clear only namespace
         }
     }
 

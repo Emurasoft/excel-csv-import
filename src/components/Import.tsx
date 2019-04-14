@@ -1,7 +1,12 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {PrimaryButton, Toggle, TooltipDelay, TooltipHost, Text} from 'office-ui-fabric-react';
+import {
+    PrimaryButton,
+    Toggle,
+    TooltipDelay,
+    TooltipHost,
+} from 'office-ui-fabric-react';
 import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
@@ -16,6 +21,7 @@ import {withTranslation} from 'react-i18next';
 import {TranslateFunction} from './BaseProps';
 import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
+import {TitleBar} from './TitleBar';
 
 interface Props extends TranslateFunction {
     store: Store;
@@ -41,7 +47,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                     onClick={(page) => this.props.history.push(page)}
                 />
                 <div className={style.pageMargin}>
-                    <Text variant='xLarge'><strong>{t('Import CSV')}</strong></Text>
+                    <TitleBar text={t('Import CSV')}/>
                     <SourceInput
                         value={this.state.source}
                         onChange={(source) => this.setState({source})}
