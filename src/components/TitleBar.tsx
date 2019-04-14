@@ -24,6 +24,8 @@ interface State {
 export class TitleBarComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
+        this._save = true;
+        this.state = {...this.state, ...StoredComponent.loadState('app', ['firstVisit'])};
         this._icon = React.createRef();
     }
 
