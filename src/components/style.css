@@ -32,4 +32,5 @@
 
 .smallIcon * > i {
   font-size: 1em;
+  height: 6px; /*brings callout closer to icon*/
 }
