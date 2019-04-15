@@ -169,6 +169,8 @@ export function _addQuotes(row: string[], delimiter: string): void {
     for (let i = 0; i < row.length; i++) {
         const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/];
         if (delimiter !== '') {
+            // This is left-over code when auto-detect delimiter was an option. I'm not entirely
+            // sure if I want to remove this.
             charactersToWatchOutFor.push(delimiter);
         }
 
