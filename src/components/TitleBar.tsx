@@ -43,6 +43,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                 >
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
                     <div ref={this._icon} className={style.smallIcon}>
+                        {/* TODO this icon is getting covered up by the add-in info button on Mac*/}
                         <IconButton
                             style={{marginRight: '4px'}}
                             iconProps={{iconName: 'Help'}}
