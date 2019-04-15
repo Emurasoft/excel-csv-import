@@ -43,6 +43,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                 >
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
                     <div ref={this._icon} className={style.smallIcon}>
+                        {/* TODO this icon is getting covered up by the add-in info button on Mac*/}
                         <IconButton
                             style={{marginRight: '4px'}}
                             iconProps={{iconName: 'Help'}}
@@ -59,8 +60,8 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     hidden={!this.state.visible}
                     onDismiss={() => this.setState({visible: false})}
                 >
-                    {t('CSV Import+Export makes it easy to add CSV data to Excel. Click on this' +
-                        ' question mark to open the help page.')}
+                    {t('CSV Import+Export makes it easy to add CSV data to Excel. For help, click'
+                        + ' on the question mark to open the help page.')}
                 </Callout>
             </>
         );
