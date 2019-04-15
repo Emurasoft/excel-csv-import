@@ -7,6 +7,7 @@ import * as style from './style.css';
 
 interface Props extends TranslateFunction{
     text: string;
+    helpLink: string;
 }
 
 interface State {
@@ -43,10 +44,11 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
                     <div ref={this._icon} className={style.smallIcon}>
                         <IconButton
+                            style={{marginRight: '4px'}}
                             iconProps={{iconName: 'Help'}}
                             title={t('Help page')}
                             ariaLabel={t('Help page')}
-                            href='https://github.com/Emurasoft/excel-csv-import'
+                            href={this.props.helpLink}
                             target='_blank'
                             rel='noopener noreferrer'
                         />

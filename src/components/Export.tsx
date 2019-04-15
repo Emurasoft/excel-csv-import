@@ -78,6 +78,9 @@ export class ExportComponent extends StoredComponent<Props, State> {
             </Text>
         );
 
+        const helpLink = 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
+                       + '#export-csv';
+
         return (
             <>
                 <MenuBar
@@ -85,7 +88,10 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     onClick={(page) => this.props.history.push(page)}
                 />
                 <div className={style.pageMargin}>
-                    <TitleBar text={t('Export CSV')}/>
+                    <TitleBar
+                        text={t('Export CSV')}
+                        helpLink={helpLink}
+                    />
                     <ExportTypeDropdown
                         enableFileExport={this.props.store.state.enableFileExport}
                         value={this.exportTypeDropdownValue()}
@@ -101,7 +107,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     <DelimiterInput
                         value={this.state.delimiter}
                         onChange={(delimiter) => this.setState({delimiter})}
-                        showAutoDetect={false}
                         showLengthError={false}
                     />
                     <br />

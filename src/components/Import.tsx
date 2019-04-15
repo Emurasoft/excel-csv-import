@@ -32,7 +32,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     public constructor(props: Props) {
         super(props, 'import', {
             source: {inputType: InputType.file, file: null, text: ''},
-            delimiter: '',
+            delimiter: '\u002c',
             newline: NewlineSequence.AutoDetect,
             encoding: '',
         }, ['delimiter', 'newline', 'encoding']);
@@ -47,7 +47,12 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                     onClick={(page) => this.props.history.push(page)}
                 />
                 <div className={style.pageMargin}>
-                    <TitleBar text={t('Import CSV')}/>
+                    <TitleBar
+                        text={t('Import CSV')}
+                        helpLink={
+                            'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
+                        }
+                    />
                     <SourceInput
                         value={this.state.source}
                         onChange={(source) => this.setState({source})}
@@ -62,7 +67,6 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                     <DelimiterInput
                         value={this.state.delimiter}
                         onChange={(delimiter) => this.setState({delimiter})}
-                        showAutoDetect={true}
                         showLengthError={true}
                     />
                     <br />
@@ -108,7 +112,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
         const t = this.props.t;
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
             return t('Import source is not selected');
-        } else if (this.state.delimiter.length > 1) {
+        } else if (this.state.delimiter.length !== 1) {
             return t('Delimiter is invalid');
         } else if (!this.props.store.state.initialized) {
             return t('Excel API is not initialized');

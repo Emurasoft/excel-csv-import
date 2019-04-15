@@ -12,7 +12,7 @@
     "Encoding": "Encoding",
     "Delimiter": "Delimiter",
     "Enter custom delimiter": "Enter custom delimiter",
-    "Delimiter length must be 0 or 1": "Delimiter length must be 0 or 1",
+    "Delimiter length must be 1": "Delimiter length must be 1",
     "Newline sequence": "Newline sequence",
     "Export type": "Export type",
     "Textbox": "Textbox",
