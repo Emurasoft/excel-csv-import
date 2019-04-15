@@ -21,11 +21,15 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
                 text: t('Text input'),
             },
         ];
-
+        
+        const usingEdgeOrIE = navigator.userAgent.includes('Edge')
+            || navigator.userAgent.includes('Trident');
+        
         const componentMap = {
             [InputType.file]: (
                 <>
                     <input
+                        className={usingEdgeOrIE ? style.fullWidth : null}
                         type='file'
                         accept='text/csv'
                         onChange={this.fileOnChange}

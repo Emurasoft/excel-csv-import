@@ -44,6 +44,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
                     <div ref={this._icon} className={style.smallIcon}>
                         <IconButton
+                            style={{marginRight: '4px'}}
                             iconProps={{iconName: 'Help'}}
                             title={t('Help page')}
                             ariaLabel={t('Help page')}
