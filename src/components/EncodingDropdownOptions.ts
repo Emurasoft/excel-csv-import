@@ -15,6 +15,10 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
         "text": "EUC-KR",
     },
     {
+        "key": "gb18030",
+        "text": "gb18030",
+    },
+    {
         "key": "GBK",
         "text": "GBK",
     },
@@ -87,6 +91,14 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
         "text": "KOI8-U",
     },
     {
+        "key": "x-mac-cyrillic",
+        "text": "Mac OS Cyrillic",
+    },
+    {
+        "key": "macintosh",
+        "text": "Mac OS Roman",
+    },
+    {
         "key": "Shift_JIS",
         "text": "Shift_JIS",
     },
@@ -101,18 +113,6 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
     {
         "key": "UTF-8",
         "text": "UTF-8",
-    },
-    {
-        "key": "gb18030",
-        "text": "gb18030",
-    },
-    {
-        "key": "macintosh",
-        "text": "macintosh",
-    },
-    {
-        "key": "replacement",
-        "text": "replacement",
     },
     {
         "key": "windows-1250",
@@ -153,13 +153,5 @@ export const EncodingDropdownOptions: IDropdownOption[] = [
     {
         "key": "windows-874",
         "text": "windows-874 (Thai)",
-    },
-    {
-        "key": "x-mac-cyrillic",
-        "text": "x-mac-cyrillic",
-    },
-    {
-        "key": "x-user-defined",
-        "text": "x-user-defined",
     },
 ];

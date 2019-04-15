@@ -52,10 +52,11 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
             this.saveState(this.state);
         } else {
             localStorage.clear();
+            localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
         }
     }
 
-    private static loadState(namespace: string, saveKeys: string[]): {} {
+    protected static loadState(namespace: string, saveKeys: string[]): {} {
         const loadedState = {};
         for (const entry of Object.entries(localStorage)) {
             if (
@@ -71,7 +72,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     private readonly _namespace: string;
     private readonly _saveKeys: ReadonlyArray<keyof S>;
     private readonly _initialSave: boolean;
-    private _save: boolean;
+    protected _save: boolean;
 
     private saveState<K extends keyof S>(state: Pick<S, K> | S | null): void {
         for (const entry of Object.entries(state)) {

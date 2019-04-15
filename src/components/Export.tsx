@@ -23,6 +23,7 @@ import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
 import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
+import {TitleBar} from './TitleBar';
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -84,7 +85,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     onClick={(page) => this.props.history.push(page)}
                 />
                 <div className={style.pageMargin}>
-                    <Text variant='xLarge'><strong>{t('Export CSV')}</strong></Text>
+                    <TitleBar text={t('Export CSV')}/>
                     <ExportTypeDropdown
                         enableFileExport={this.props.store.state.enableFileExport}
                         value={this.exportTypeDropdownValue()}

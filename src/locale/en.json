@@ -1,5 +1,7 @@
 {
   "importExport": {
+    "CSV Import+Export makes it easy to add CSV data to Excel. Click on this question mark to open the help page.": "CSV Import+Export makes it easy to add CSV data to Excel. Click on this question mark to open the help page.",
+    "Help page": "Help page",
     "Auto-detect": "Auto-detect",
     "Other": "Other",
     "Import CSV": "Import CSV",
