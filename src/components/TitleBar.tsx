@@ -60,8 +60,8 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     hidden={!this.state.visible}
                     onDismiss={() => this.setState({visible: false})}
                 >
-                    {t('CSV Import+Export makes it easy to add CSV data to Excel. If you need it,'
-                        + ' clicking this question mark will open the help page.')}
+                    {t('CSV Import+Export makes it easy to add CSV data to Excel. For help, click'
+                        + ' on the question mark to open the help page.')}
                 </Callout>
             </>
         );
