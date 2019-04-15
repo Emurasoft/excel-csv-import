@@ -61,6 +61,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
                     onGetErrorMessage={this.getErrorMessage}
                     deferredValidationTime={1}
                     placeholder={t('Enter custom delimiter')}
+                    spellCheck={false}
                 />
             </div>
         );
