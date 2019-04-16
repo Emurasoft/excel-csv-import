@@ -52,7 +52,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
             this.saveState(this.state);
         } else {
             localStorage.clear();
-            localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
+            localStorage.setItem('app1-firstVisit', 'false'); // TODO refactor (if necessary)
         }
     }
 
