@@ -59,7 +59,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                         position: 'absolute',
                         zIndex: 1,
                         width: '100%',
-                        height: '100%',
+                        height: '90%',
                         backgroundColor: '#FFFFFF',
                     }}
                     hidden={!this.state.visible}
@@ -73,7 +73,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                         <br /><br />
                         <PrimaryButton
                             text={t('Continue')}
-                            onClick={() => this.setState({visible: false})}
+                            onClick={() => this.setState({visible: false, firstVisit: false})}
                         />
                     </div>
                 </div>
@@ -83,7 +83,6 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
 
     public componentDidMount(): void {
         this.setState(state => ({visible: state.firstVisit}));
-        this.setState({firstVisit: false});
     }
 }
 
