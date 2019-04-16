@@ -1,7 +1,7 @@
 import {StoredComponent} from './StoredComponent';
 import {TranslateFunction} from './BaseProps';
 import {withTranslation} from 'react-i18next';
-import {Callout, IconButton, Text} from 'office-ui-fabric-react';
+import {IconButton, PrimaryButton, Text} from 'office-ui-fabric-react';
 import * as React from 'react';
 import * as style from './style.css';
 
@@ -24,10 +24,9 @@ interface State {
 // use the add-in, or directing the user to help / configuration information.
 export class TitleBarComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
-        super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
+        super(props, 'app1', {firstVisit: true, visible: false}, ['firstVisit']);
         this._save = true;
-        this.state = {...this.state, ...StoredComponent.loadState('app', ['firstVisit'])};
-        this._icon = React.createRef();
+        this.state = {...this.state, ...StoredComponent.loadState('app1', ['firstVisit'])};
     }
 
     public render(): React.ReactNode {
@@ -42,7 +41,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     }}
                 >
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
-                    <div ref={this._icon} className={style.smallIcon}>
+                    <div className={style.smallIcon}>
                         {/* TODO this icon is getting covered up by the add-in info button on Mac*/}
                         <IconButton
                             style={{marginRight: '4px'}}
@@ -55,14 +54,29 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                         />
                     </div>
                 </div>
-                <Callout
-                    target={this._icon.current}
+                <div
+                    style={{
+                        position: 'absolute',
+                        zIndex: 1,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: '#FFFFFF',
+                    }}
                     hidden={!this.state.visible}
-                    onDismiss={() => this.setState({visible: false})}
                 >
-                    {t('CSV Import+Export makes it easy to add CSV data to Excel. For help, click'
-                        + ' on the question mark to open the help page.')}
-                </Callout>
+                    <div className={style.pageMargin}>
+                        <Text variant='mediumPlus'>
+                            {t('CSV Import+Export makes it easy to add CSV data to Excel. If you'
+                                + ' need any help, the "?" icon in the top right corner will take'
+                                + ' you to the help page.')}
+                        </Text>
+                        <br /><br />
+                        <PrimaryButton
+                            text={t('Continue')}
+                            onClick={() => this.setState({visible: false})}
+                        />
+                    </div>
+                </div>
             </>
         );
     }
@@ -71,8 +85,6 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
         this.setState(state => ({visible: state.firstVisit}));
         this.setState({firstVisit: false});
     }
-
-    private readonly _icon: React.RefObject<HTMLDivElement>;
 }
 
 // @ts-ignore
