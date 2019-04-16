@@ -60,7 +60,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                         zIndex: 1,
                         width: '100%',
                         height: '100%',
-                        backgroundColor: '#FFFFFF'
+                        backgroundColor: '#FFFFFF',
                     }}
                     hidden={!this.state.visible}
                 >
