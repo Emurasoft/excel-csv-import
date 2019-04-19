@@ -38,7 +38,8 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
         return (
             <>
                 <MenuBar
-                    hidden={navigator.platform !== 'iPad'}
+                    // eslint-disable-next-line no-undef
+                    hidden={this.props.store.state.platform !== Office.PlatformType.iOS}
                     onClick={(page) => this.props.history.push(page)}
                 />
                 <div className={style.pageMargin}>
