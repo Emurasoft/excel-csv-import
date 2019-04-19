@@ -8,6 +8,7 @@ import * as style from './style.css';
 interface Props extends TranslateFunction{
     text: string;
     helpLink: string;
+    mac: boolean;
 }
 
 interface State {
@@ -24,9 +25,9 @@ interface State {
 // use the add-in, or directing the user to help / configuration information.
 export class TitleBarComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
-        super(props, 'app1', {firstVisit: true, visible: false}, ['firstVisit']);
+        super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
         this._save = true;
-        this.state = {...this.state, ...StoredComponent.loadState('app1', ['firstVisit'])};
+        this.state = {...this.state, ...StoredComponent.loadState('app', ['firstVisit'])};
     }
 
     public render(): React.ReactNode {
@@ -42,9 +43,9 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                 >
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
                     <div className={style.smallIcon}>
-                        {/* TODO this icon is getting covered up by the add-in info button on Mac*/}
                         <IconButton
-                            style={{marginRight: '4px'}}
+                            // Mac platform puts a big button in the top right corner
+                            style={{marginRight: this.props.mac ? '35px' : '4px'}}
                             iconProps={{iconName: 'Help'}}
                             title={t('Help page')}
                             ariaLabel={t('Help page')}
@@ -66,9 +67,8 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                 >
                     <div className={style.pageMargin}>
                         <Text variant='mediumPlus'>
-                            {t('CSV Import+Export makes it easy to add CSV data to Excel. If you'
-                                + ' need any help, the "?" icon in the top right corner will take'
-                                + ' you to the help page.')}
+                            {/* eslint-disable-next-line max-len */}
+                            {t('CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.')}
                         </Text>
                         <br /><br />
                         <PrimaryButton
