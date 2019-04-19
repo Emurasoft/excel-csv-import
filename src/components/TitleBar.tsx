@@ -8,6 +8,7 @@ import * as style from './style.css';
 interface Props extends TranslateFunction{
     text: string;
     helpLink: string;
+    mac: boolean;
 }
 
 interface State {
@@ -42,9 +43,9 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                 >
                     <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
                     <div className={style.smallIcon}>
-                        {/* TODO this icon is getting covered up by the add-in info button on Mac*/}
                         <IconButton
-                            style={{marginRight: '4px'}}
+                            // Mac platform puts a big button in the top right corner
+                            style={{marginRight: this.props.mac ? '35px' : '4px'}}
                             iconProps={{iconName: 'Help'}}
                             title={t('Help page')}
                             ariaLabel={t('Help page')}
