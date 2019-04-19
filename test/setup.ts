@@ -26,6 +26,14 @@ global.localStorage = {...localStorage};
 // @ts-ignore
 global.Office = {
     context: {},
+    PlatformType: {
+        PC: 0,
+        OfficeOnline: 1,
+        Mac: 2,
+        iOS: 3,
+        Android: 4,
+        Universal: 5,
+    },
 }
 
 // @ts-ignore

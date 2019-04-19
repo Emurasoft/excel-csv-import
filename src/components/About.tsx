@@ -63,14 +63,14 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <Text variant='medium'>
                     <strong>{t('Report bugs/send feedback')}</strong>
                     {
-                        this.props.store.state.enableFileExport
+                        Store.enableFileExport(this.props.store.state.platform)
                             ? <><br />{t('For bug reports, please attach the log file:')}</>
                             : null
                     }
                 </Text>
                 <br />
                 {
-                    this.props.store.state.enableFileExport
+                    Store.enableFileExport(this.props.store.state.platform)
                         ? <><DefaultButton onClick={this.exportLog} text={t('Save log')} /><br /><br /></>
                         : null
                 }
@@ -81,7 +81,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                         <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo↗</Link>
                     </Trans>
                     {
-                        this.props.store.state.enableFileExport
+                        Store.enableFileExport(this.props.store.state.platform)
                             ? <br />
                             : <><br />{t('Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.')}<br /></>
                     }

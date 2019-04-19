@@ -1,3 +1,5 @@
+/* global Office */
+
 import * as React from 'react';
 import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
@@ -15,7 +17,7 @@ export interface Progress {
 export interface State {
     initialized: boolean;
     largeFile: boolean;
-    enableFileExport: boolean;
+    platform: Office.PlatformType;
     parserOutput: ParserOutput;
     progress: Progress;
 }
@@ -32,12 +34,20 @@ export type ProgressCallback = (progress: number) => void
 export const Context = React.createContext(undefined);
 
 export class Store extends React.Component<{}, State> {
+    // Returns true if file export is enabled. The reason for this is because FileSaver.js does
+    // not work in an add-in on Excel for Mac and iPad.
+    // https://github.com/OfficeDev/office-js/issues/471
+    public static enableFileExport(platform: Office.PlatformType): boolean {
+        const disableExportOn = [Office.PlatformType.Mac, Office.PlatformType.iOS];
+        return !disableExportOn.includes(platform);
+    }
+
     public constructor(props: {}) {
         super(props);
         this.state = {
             initialized: false,
             largeFile: false,
-            enableFileExport: true,
+            platform: Office.PlatformType.OfficeOnline,
             parserOutput: {
                 type: OutputType.hidden,
                 output: '',
@@ -80,16 +90,11 @@ export class Store extends React.Component<{}, State> {
         try {
             const environmentInfo = await Parser.init();
 
-            // Filesaver.js does not work in an add-in on Excel for Mac and iPad. Reproduce in
-            // Script Lab: https://gist.github.com/MakotoE/a5e2b715e73ab245efec8c6e5874dcae
-            // eslint-disable-next-line no-undef
-            const disableExportOn = [Office.PlatformType.Mac, Office.PlatformType.iOS];
-
             this.setState({
                 initialized: true,
-                enableFileExport: !disableExportOn.includes(environmentInfo.platform),
+                platform: environmentInfo.platform,
             });
-            this._log.push('environmentInfo', environmentInfo)
+            this._log.push('environmentInfo', environmentInfo);
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }

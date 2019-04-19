@@ -91,9 +91,11 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     <TitleBar
                         text={t('Export CSV')}
                         helpLink={helpLink}
+                        // eslint-disable-next-line no-undef
+                        mac={this.props.store.state.platform === Office.PlatformType.Mac}
                     />
                     <ExportTypeDropdown
-                        enableFileExport={this.props.store.state.enableFileExport}
+                        enableFileExport={Store.enableFileExport(this.props.store.state.platform)}
                         value={this.exportTypeDropdownValue()}
                         onChange={(exportType) => this.setState({exportType})}
                     />
@@ -146,7 +148,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     private exportTypeDropdownValue = (): ExportType => {
-        if (this.props.store.state.enableFileExport) {
+        if (Store.enableFileExport(this.props.store.state.platform)) {
             return this.state.exportType
         } else {
             return ExportType.text;
@@ -174,7 +176,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         // If export is disabled, displayed export type is always text regardless of state. That is
         // why the state is ignored here.
-        if (!this.props.store.state.enableFileExport) {
+        if (!Store.enableFileExport(this.props.store.state.platform)) {
             exportOptions.exportType = ExportType.text;
         }
 

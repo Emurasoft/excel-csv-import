@@ -1,12 +1,7 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {
-    PrimaryButton,
-    Toggle,
-    TooltipDelay,
-    TooltipHost,
-} from 'office-ui-fabric-react';
+import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
 import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
@@ -52,6 +47,8 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                         helpLink={
                             'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
                         }
+                        // eslint-disable-next-line no-undef
+                        mac={this.props.store.state.platform === Office.PlatformType.Mac}
                     />
                     <SourceInput
                         value={this.state.source}
