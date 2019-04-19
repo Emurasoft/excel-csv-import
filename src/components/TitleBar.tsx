@@ -45,7 +45,7 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     <div className={style.smallIcon}>
                         <IconButton
                             // Mac platform puts a big button in the top right corner
-                            style={{marginRight: this.props.mac ? '35px' : '4px'}}
+                            style={{marginRight: this.props.mac ? '30px' : '4px'}}
                             iconProps={{iconName: 'Help'}}
                             title={t('Help page')}
                             ariaLabel={t('Help page')}
