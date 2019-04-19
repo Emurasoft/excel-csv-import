@@ -25,9 +25,9 @@ interface State {
 // use the add-in, or directing the user to help / configuration information.
 export class TitleBarComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
-        super(props, 'app1', {firstVisit: true, visible: false}, ['firstVisit']);
+        super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
         this._save = true;
-        this.state = {...this.state, ...StoredComponent.loadState('app1', ['firstVisit'])};
+        this.state = {...this.state, ...StoredComponent.loadState('app', ['firstVisit'])};
     }
 
     public render(): React.ReactNode {
