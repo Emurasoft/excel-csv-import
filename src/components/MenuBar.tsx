@@ -21,13 +21,13 @@ export function MenuBar(props: Props): JSX.Element {
             items={[
                 {
                     key: 'import',
-                    name: t('Import CSV'),
+                    name: 'Import CSV',
                     iconProps: {iconName: 'Add'},
                     onClick: () => props.onClick(Pages.import),
                 },
                 {
                     key: 'export',
-                    name: t('Export CSV'),
+                    name: 'Export CSV',
                     iconProps: {iconName: 'Download'},
                     onClick: () => props.onClick(Pages.export),
                 },

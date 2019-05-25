@@ -19,7 +19,6 @@ interface Props extends TranslateFunction {
 
 export class AboutComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
-        const t = this.props.t;
         return (
             /* eslint-disable max-len */
             <div className={style.pageMargin}>

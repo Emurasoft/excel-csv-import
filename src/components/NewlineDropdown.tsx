@@ -16,7 +16,7 @@ export class NewlineDropdownComponent extends React.Component<Props, {}> {
         super(props);
         const autoDetectOption: IDropdownOption = {
             key: NewlineSequence.AutoDetect,
-            text: props.t('Auto-detect'),
+            text: 'Auto-detect',
         };
 
         const newlineSequeneceMenu = [
@@ -42,7 +42,6 @@ export class NewlineDropdownComponent extends React.Component<Props, {}> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         return (
             <Dropdown
                 label={'Newline sequence'}

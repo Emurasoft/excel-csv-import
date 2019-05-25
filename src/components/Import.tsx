@@ -34,7 +34,6 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         return (
             <>
                 <MenuBar
@@ -107,13 +106,12 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     }
 
     private buttonTooltipContent(): string {
-        const t = this.props.t;
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
-            return t('Import source is not selected');
+            return 'Import source is not selected';
         } else if (this.state.delimiter.length !== 1) {
-            return t('Delimiter is invalid');
+            return 'Delimiter is invalid';
         } else if (!this.props.store.state.initialized) {
-            return t('Excel API is not initialized');
+            return 'Excel API is not initialized';
         } else {
             return '';
         }

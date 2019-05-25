@@ -13,11 +13,10 @@ interface Props extends BaseProps<ExportType> {
 
 export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
-        const t = this.props.t;
 
         const textOption: IDropdownOption = {
             key: ExportType.text,
-            text: t('Textbox'),
+            text: 'Textbox',
         }
 
         let options: IDropdownOption[];
@@ -25,7 +24,7 @@ export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
             options = [
                 {
                     key: ExportType.file,
-                    text: t('File'),
+                    text: 'File',
                 },
                 textOption,
             ];

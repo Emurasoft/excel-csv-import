@@ -30,7 +30,6 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
 
         const dropdownOptions: IDropdownOption[] = [
             {
@@ -47,7 +46,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
             },
             {
                 key: DropdownOptionKey.other,
-                text: t('Other'),
+                text: 'Other',
             },
         ];
 
@@ -128,7 +127,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
 
     private getErrorMessage = (value: string) => {
         if (this.props.showLengthError && value.length > 1) {
-            return this.props.t('Delimiter length must be 1');
+            return 'Delimiter length must be 1';
         } else {
             return '';
         }

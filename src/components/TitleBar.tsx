@@ -31,7 +31,6 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         return (
             <>
                 <div

@@ -15,7 +15,7 @@ export class EncodingDropdownComponent extends React.Component<Props, {}> {
 
         const AutoDetectOption: IDropdownOption = {
             'key': '',
-            'text': props.t('Auto-detect'),
+            'text': 'Auto-detect',
         };
 
         if (props.showAutoDetect) {
@@ -26,7 +26,6 @@ export class EncodingDropdownComponent extends React.Component<Props, {}> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         if (this.props.hidden) {
             return null;
         } else {

@@ -10,15 +10,14 @@ import {withTranslation} from 'react-i18next';
 
 export class SourceInputComponent extends React.Component<BaseProps<Source>, {}> {
     public render(): React.ReactNode {
-        const t = this.props.t;
         const fileSourceMenu: IDropdownOption[] = [
             {
                 key: InputType.file,
-                text: t('File'),
+                text: 'File',
             },
             {
                 key: InputType.text,
-                text: t('Text input'),
+                text: 'Text input',
             },
         ];
 

@@ -59,7 +59,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         const outputTextField = (
             <TextField
                 label={'Export result'}
@@ -211,7 +210,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
     private buttonTooltipContent(): string {
         if (!this.props.store.state.initialized) {
-            return this.props.t('Excel API is not initialized');
+            return 'Excel API is not initialized';
         } else {
             return '';
         }
