@@ -33,7 +33,7 @@
     </Requirements>
 
     <DefaultSettings>
-        <SourceLocation DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import&amp;language=en" />
+        <SourceLocation DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import" />
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>
@@ -111,8 +111,8 @@
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="Emurasoft.GetStarted.URL" DefaultValue="https://github.com/Emurasoft/excel-csv-import" />
-                <bt:Url id="Emurasoft.importURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import&amp;language=en" />
-                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=export&amp;language=en" />
+                <bt:Url id="Emurasoft.importURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=import" />
+                <bt:Url id="Emurasoft.exportURL" DefaultValue="https://emurasoft.github.io/excel-csv-import/?page=export" />
             </bt:Urls>
             <!-- ShortStrings max length = 125 -->
             <bt:ShortStrings>
