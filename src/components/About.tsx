@@ -5,14 +5,12 @@ import {DefaultButton, Link, Text} from 'office-ui-fabric-react';
 import * as FileSaver from 'file-saver';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';
-import {TranslateFunction} from './BaseProps';
-import {Trans, withTranslation} from 'react-i18next';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
 import {version} from '../version.json';
 
-interface Props extends TranslateFunction {
+interface Props {
     store: Store;
     history: MemoryHistory;
 }
@@ -54,9 +52,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     </a>
                 </div>
                 <Text variant='medium'>
-                    <Trans ns='about' i18nKey='EmEditor description [paragraph]'>
-                        EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'EmEditor localized homepage [URL]'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
-                    </Trans>
+                    EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'EmEditor localized homepage [URL]'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.↗</Link>
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
@@ -74,15 +70,13 @@ export class AboutComponent extends React.Component<Props, {}> {
                         : null
                 }
                 <Text variant='medium'>
-                    <Trans ns='about' i18nKey='How to send feedback [paragraph]'>
-                        You can submit bug reports or feedback via:{/* <br> is added in locale file */}
-                        <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Contact form↗</Link>
-                        <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo↗</Link>
-                    </Trans>
+                    You can submit bug reports or feedback via:
+                    <br /><Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Contact form↗</Link>
+                    <br /><Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo↗</Link>
                     {
                         Store.enableFileExport(this.props.store.state.platform)
                             ? <br />
-                            : <><br />{'Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.'}<br /></>
+                            : <><br />{'Please include system info such as OS name (Windows, macOS, etc.) in your message.'}<br /></>
                     }
                 </Text>
                 <br />
@@ -90,7 +84,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     © 2019 Emurasoft Inc.
                     <br />
                     <RouterLink to={Pages.licenseInformation} className={style.removeUnderline}>
-                        <Link>{'licenseInformation::License information'}</Link>
+                        <Link>{'License information'}</Link>
                     </RouterLink>
                 </Text>
             </div>
@@ -104,4 +98,4 @@ export class AboutComponent extends React.Component<Props, {}> {
     }
 }
 
-export default withTranslation('about')(connect(AboutComponent));
+export default connect(AboutComponent);

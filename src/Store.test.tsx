@@ -30,8 +30,7 @@ describe('Store', () => {
         const C = connect(Component);
 
         const wrapper = mount(
-            // @ts-ignore
-            <Store t={k => k}>
+            <Store>
                 <C />
             </Store>
         );

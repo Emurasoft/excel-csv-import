@@ -12,13 +12,11 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
-import {withTranslation} from 'react-i18next';
-import {TranslateFunction} from './BaseProps';
 import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
 
-interface Props extends TranslateFunction {
+interface Props {
     store: Store;
     history: MemoryHistory;
 }
@@ -118,4 +116,4 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     }
 }
 
-export default withTranslation('importExport')(connect(ImportComponent));
+export default connect(ImportComponent);

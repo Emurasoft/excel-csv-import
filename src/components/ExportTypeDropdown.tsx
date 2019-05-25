@@ -4,14 +4,13 @@ import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {withTranslation} from 'react-i18next';
 import {ExportType} from './Export';
 
 interface Props extends BaseProps<ExportType> {
     enableFileExport: boolean;
 }
 
-export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
+export class ExportTypeDropdown extends React.Component<Props, {}> {
     public render(): React.ReactNode {
 
         const textOption: IDropdownOption = {
@@ -43,6 +42,3 @@ export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
         );
     }
 }
-
-// @ts-ignore
-export const ExportTypeDropdown = withTranslation('importExport')(ExportTypeDropdownComponent);

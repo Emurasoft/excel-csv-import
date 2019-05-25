@@ -1,7 +1,6 @@
 import {CommandBar} from 'office-ui-fabric-react';
 import * as React from 'react';
 import {Pages} from '../Pages';
-import {useTranslation} from 'react-i18next';
 
 interface Props {
     hidden: boolean;
@@ -13,8 +12,6 @@ export function MenuBar(props: Props): JSX.Element {
     if (props.hidden) {
         return null;
     }
-
-    const {t} = useTranslation('importExport');
 
     return (
         <CommandBar

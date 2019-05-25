@@ -6,9 +6,8 @@ import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {BaseProps} from './BaseProps';
-import {withTranslation} from 'react-i18next';
 
-export class SourceInputComponent extends React.Component<BaseProps<Source>, {}> {
+export class SourceInput extends React.Component<BaseProps<Source>, {}> {
     public render(): React.ReactNode {
         const fileSourceMenu: IDropdownOption[] = [
             {
@@ -74,6 +73,3 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
         this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
     }
 }
-
-// @ts-ignore
-export const SourceInput = withTranslation('importExport')(SourceInputComponent);

@@ -1,4 +1,4 @@
-import {EncodingDropdownComponent} from './EncodingDropdown';
+import {EncodingDropdown} from './EncodingDropdown';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {Dropdown} from 'office-ui-fabric-react';
@@ -7,13 +7,11 @@ import * as assert from 'assert';
 describe('EncodingDropdown', () => {
     it('hidden', () => {
         const wrapper = shallow(
-            <EncodingDropdownComponent
+            <EncodingDropdown
                 value={'UTF-8'}
                 onChange={() => {}}
                 showAutoDetect={true}
                 hidden={false}
-                // @ts-ignore
-                t={k => k}
             />
         );
         assert(wrapper.exists(Dropdown));

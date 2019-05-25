@@ -32,7 +32,7 @@ describe('ExportComponent', () => {
         }
 
         // @ts-ignore
-        const wrapper = shallow(<ExportComponent store={store} t={k => k}/>)
+        const wrapper = shallow(<ExportComponent store={store}/>)
         wrapper.find(ExportTypeDropdown).simulate('change', ExportType.text);
         wrapper.find(DelimiterInput).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);

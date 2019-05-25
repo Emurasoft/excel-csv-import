@@ -5,13 +5,12 @@ import {
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {BaseProps} from './BaseProps';
 import {NewlineSequence} from '../Parser';
-import {withTranslation} from 'react-i18next';
 
 interface Props extends BaseProps<NewlineSequence> {
     showAutoDetect: boolean;
 }
 
-export class NewlineDropdownComponent extends React.Component<Props, {}> {
+export class NewlineDropdown extends React.Component<Props, {}> {
     public constructor(props: Props) {
         super(props);
         const autoDetectOption: IDropdownOption = {
@@ -55,6 +54,3 @@ export class NewlineDropdownComponent extends React.Component<Props, {}> {
 
     private readonly _options: IDropdownOption[];
 }
-
-// @ts-ignore
-export const NewlineDropdown = withTranslation('importExport')(NewlineDropdownComponent);

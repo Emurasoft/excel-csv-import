@@ -1,11 +1,9 @@
 import {StoredComponent} from './StoredComponent';
-import {TranslateFunction} from './BaseProps';
-import {withTranslation} from 'react-i18next';
 import {IconButton, PrimaryButton, Text} from 'office-ui-fabric-react';
 import * as React from 'react';
 import * as style from './style.css';
 
-interface Props extends TranslateFunction{
+interface Props {
     text: string;
     helpLink: string;
     mac: boolean;
@@ -23,7 +21,7 @@ interface State {
 // proposition.
 // Validation report: Please provide additional information on the first screen explaining how to
 // use the add-in, or directing the user to help / configuration information.
-export class TitleBarComponent extends StoredComponent<Props, State> {
+export class TitleBar extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
         this._save = true;
@@ -84,6 +82,3 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
         this.setState(state => ({visible: state.firstVisit}));
     }
 }
-
-// @ts-ignore
-export const TitleBar = withTranslation('importExport')(TitleBarComponent);

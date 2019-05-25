@@ -19,8 +19,6 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
-import {TranslateFunction} from './BaseProps';
-import {withTranslation} from 'react-i18next';
 import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
@@ -31,7 +29,7 @@ export interface OutputText {
     text: string;
 }
 
-interface Props extends TranslateFunction {
+interface Props {
     store: Store;
     history: MemoryHistory;
 }
@@ -217,4 +215,4 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 }
 
-export default withTranslation('importExport')(connect(ExportComponent));
+export default connect(ExportComponent);

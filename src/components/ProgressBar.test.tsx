@@ -1,5 +1,5 @@
 import {shallow} from 'enzyme';
-import {ProgressBarComponent} from './ProgressBar';
+import {ProgressBar} from './ProgressBar';
 import * as React from 'react';
 import {Link} from 'office-ui-fabric-react';
 import * as assert from 'assert';
@@ -7,11 +7,9 @@ import * as assert from 'assert';
 describe('ProgressBar', () => {
     it('render()', () => {
         const wrapper = shallow(
-            <ProgressBarComponent
+            <ProgressBar
                 onClick={() => {}}
                 progress={{show: true, aborting: false, percent: 0.0}}
-                // @ts-ignore
-                t={k => k}
             />
         );
         assert(wrapper.exists(Link));
@@ -24,11 +22,9 @@ describe('ProgressBar', () => {
     it('click stop', () => {
         let clicked = false;
         const wrapper = shallow(
-            <ProgressBarComponent
+            <ProgressBar
                 onClick={() => clicked = true}
                 progress={{show: true, aborting: false, percent: 0.0}}
-                // @ts-ignore
-                t={k => k}
             />
         );
         wrapper.find(Link).simulate('click')
