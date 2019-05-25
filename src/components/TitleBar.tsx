@@ -47,8 +47,8 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                             // Mac platform puts a big button in the top right corner
                             style={{marginRight: this.props.mac ? '30px' : '4px'}}
                             iconProps={{iconName: 'Help'}}
-                            title={t('Help page')}
-                            ariaLabel={t('Help page')}
+                            title={'Help page'}
+                            ariaLabel={'Help page'}
                             href={this.props.helpLink}
                             target='_blank'
                             rel='noopener noreferrer'
@@ -68,11 +68,11 @@ export class TitleBarComponent extends StoredComponent<Props, State> {
                     <div className={style.pageMargin}>
                         <Text variant='mediumPlus'>
                             {/* eslint-disable-next-line max-len */}
-                            {t('CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.')}
+                            {'CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.'}
                         </Text>
                         <br /><br />
                         <PrimaryButton
-                            text={t('Continue')}
+                            text={'Continue'}
                             onClick={() => this.setState({visible: false, firstVisit: false})}
                         />
                     </div>

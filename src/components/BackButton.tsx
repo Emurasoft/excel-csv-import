@@ -8,8 +8,8 @@ export function BackButton(props: {onClick: () => void}): JSX.Element {
         <IconButton
             iconProps={{iconName: 'Back'}}
             onClick={props.onClick}
-            ariaLabel={t('Go back')}
-            title={t('Go back')}
+            ariaLabel={'Go back'}
+            title={'Go back'}
         />
     );
 }

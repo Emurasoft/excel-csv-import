@@ -62,7 +62,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
         const t = this.props.t;
         const outputTextField = (
             <TextField
-                label={t('Export result')}
+                label={'Export result'}
                 className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
@@ -74,7 +74,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         const largeFileWarning = (
             <Text style={{color: 'red'}} variant='medium'>
-                {t('Large file export is not supported')}
+                {'Large file export is not supported'}
             </Text>
         );
 
@@ -90,7 +90,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                 />
                 <div className={style.pageMargin}>
                     <TitleBar
-                        text={t('Export CSV')}
+                        text={'Export CSV'}
                         helpLink={helpLink}
                         // eslint-disable-next-line no-undef
                         mac={this.props.store.state.platform === Office.PlatformType.Mac}
@@ -126,7 +126,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         <PrimaryButton
                             onClick={this.buttonOnClick}
                             disabled={this.buttonTooltipContent() !== ''}
-                            text={t('Export to CSV')}
+                            text={'Export to CSV'}
                         />
                     </TooltipHost>
                     <br />
@@ -136,7 +136,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         progress={this.props.store.state.progress}
                     />
                     <Toggle
-                        inlineLabel label={t('Save options')}
+                        inlineLabel label={'Save options'}
                         defaultChecked={this.initialSaveStatus()}
                         onChange={(_, checked) => this.setSaveStatus(checked)}
                     />

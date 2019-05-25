@@ -31,9 +31,9 @@ export class AboutComponent extends React.Component<Props, {}> {
                         target='_blank'
                         rel='noopener noreferrer'
                         style={{color: 'black'}}
-                        title={t('CSV Import+Export on GitHub')}
+                        title={'CSV Import+Export on GitHub'}
                     >
-                        <strong>{t('CSV Import+Export')}</strong>
+                        <strong>{'CSV Import+Export'}</strong>
                     </Link>
                 </Text>
                 <br />
@@ -43,35 +43,35 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
                     <a
-                        href={t('EmEditor localized homepage [URL]')}
+                        href={'EmEditor localized homepage [URL]'}
                         target='_blank'
                         rel='noopener noreferrer'
                     >
                         <img
                             style={{width: '150px'}}
                             src={'emeditor_logo.png'}
-                            alt={t('EmEditor logo')}
+                            alt={'EmEditor logo'}
                         />
                     </a>
                 </div>
                 <Text variant='medium'>
                     <Trans ns='about' i18nKey='EmEditor description [paragraph]'>
-                        EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={t('EmEditor localized homepage [URL]')}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
+                        EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'EmEditor localized homepage [URL]'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
                     </Trans>
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
-                    <strong>{t('Report bugs/send feedback')}</strong>
+                    <strong>{'Report bugs/send feedback'}</strong>
                     {
                         Store.enableFileExport(this.props.store.state.platform)
-                            ? <><br />{t('For bug reports, please attach the log file:')}</>
+                            ? <><br />{'For bug reports, please attach the log file:'}</>
                             : null
                     }
                 </Text>
                 <br />
                 {
                     Store.enableFileExport(this.props.store.state.platform)
-                        ? <><DefaultButton onClick={this.exportLog} text={t('Save log')} /><br /><br /></>
+                        ? <><DefaultButton onClick={this.exportLog} text={'Save log'} /><br /><br /></>
                         : null
                 }
                 <Text variant='medium'>
@@ -83,7 +83,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     {
                         Store.enableFileExport(this.props.store.state.platform)
                             ? <br />
-                            : <><br />{t('Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.')}<br /></>
+                            : <><br />{'Please include the system info such as OS name (Windows, macOS, iOS, etc.) in your message.'}<br /></>
                     }
                 </Text>
                 <br />
@@ -91,7 +91,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     © 2019 Emurasoft Inc.
                     <br />
                     <RouterLink to={Pages.licenseInformation} className={style.removeUnderline}>
-                        <Link>{t('licenseInformation::License information')}</Link>
+                        <Link>{'licenseInformation::License information'}</Link>
                     </RouterLink>
                 </Text>
             </div>

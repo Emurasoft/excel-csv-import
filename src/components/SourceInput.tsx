@@ -21,10 +21,10 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
                 text: t('Text input'),
             },
         ];
-        
+
         const usingEdgeOrIE = navigator.userAgent.includes('Edge')
             || navigator.userAgent.includes('Trident');
-        
+
         const componentMap = {
             [InputType.file]: (
                 <>
@@ -54,7 +54,7 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
         return (
             <>
                 <Dropdown
-                    label={t('Import type')}
+                    label={'Import type'}
                     options={fileSourceMenu}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.props.value.inputType}

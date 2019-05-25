@@ -44,7 +44,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                 />
                 <div className={style.pageMargin}>
                     <TitleBar
-                        text={t('Import CSV')}
+                        text={'Import CSV'}
                         helpLink={
                             'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
                         }
@@ -82,7 +82,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                         <PrimaryButton
                             disabled={this.buttonTooltipContent() !== ''}
                             onClick={this.buttonOnClick}
-                            text={t('Import CSV')}
+                            text={'Import CSV'}
                         />
                     </TooltipHost>
                     <br />
@@ -91,7 +91,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                         progress={this.props.store.state.progress}
                     />
                     <Toggle
-                        inlineLabel label={t('Save options')}
+                        inlineLabel label={'Save options'}
                         defaultChecked={this.initialSaveStatus()}
                         onChange={(_, checked) => this.setSaveStatus(checked)}
                     />

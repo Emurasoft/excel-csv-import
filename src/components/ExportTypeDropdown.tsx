@@ -35,7 +35,7 @@ export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
 
         return (
             <Dropdown
-                label={t('Export type')}
+                label={'Export type'}
                 options={options}
                 responsiveMode={ResponsiveMode.large}
                 selectedKey={this.props.value}
