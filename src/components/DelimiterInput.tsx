@@ -5,7 +5,6 @@ import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {BaseProps} from './BaseProps';
-import {withTranslation} from 'react-i18next';
 
 export enum DropdownOptionKey {comma, space, tab, other}
 
@@ -17,7 +16,7 @@ interface State {
     otherSelected: boolean;
 }
 
-export class DelimiterInputComponent extends React.Component<Props, State> {
+export class DelimiterInput extends React.Component<Props, State> {
     public constructor(props) {
         super(props);
         this.state = {otherSelected: false};
@@ -30,7 +29,6 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
 
         const dropdownOptions: IDropdownOption[] = [
             {
@@ -47,7 +45,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
             },
             {
                 key: DropdownOptionKey.other,
-                text: t('Other'),
+                text: 'Other',
             },
         ];
 
@@ -57,10 +55,10 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
                     className={style.monospace}
                     value={this.props.value}
                     onChange={(_, value) => this.props.onChange(value)}
-                    description={DelimiterInputComponent.description(this.props.value)}
+                    description={DelimiterInput.description(this.props.value)}
                     onGetErrorMessage={this.getErrorMessage}
                     deferredValidationTime={1}
-                    placeholder={t('Enter custom delimiter')}
+                    placeholder={'Enter custom delimiter'}
                     spellCheck={false}
                 />
             </div>
@@ -69,7 +67,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
         return (
             <>
                 <Dropdown
-                    label={t('Delimiter')}
+                    label={'Delimiter'}
                     options={dropdownOptions}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.selectedKey()}
@@ -82,7 +80,7 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
 
     private static description(delimiter: string): string {
         if (delimiter.length == 1) {
-            return DelimiterInputComponent.codePoint(delimiter);
+            return DelimiterInput.codePoint(delimiter);
         } else {
             return '\u00A0';
         }
@@ -128,11 +126,9 @@ export class DelimiterInputComponent extends React.Component<Props, State> {
 
     private getErrorMessage = (value: string) => {
         if (this.props.showLengthError && value.length > 1) {
-            return this.props.t('Delimiter length must be 1');
+            return 'Delimiter length must be 1';
         } else {
             return '';
         }
     }
 }
-
-export const DelimiterInput = withTranslation('importExport')(DelimiterInputComponent);

@@ -4,20 +4,18 @@ import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {withTranslation} from 'react-i18next';
 import {ExportType} from './Export';
 
 interface Props extends BaseProps<ExportType> {
     enableFileExport: boolean;
 }
 
-export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
+export class ExportTypeDropdown extends React.Component<Props, {}> {
     public render(): React.ReactNode {
-        const t = this.props.t;
 
         const textOption: IDropdownOption = {
             key: ExportType.text,
-            text: t('Textbox'),
+            text: 'Textbox',
         }
 
         let options: IDropdownOption[];
@@ -25,7 +23,7 @@ export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
             options = [
                 {
                     key: ExportType.file,
-                    text: t('File'),
+                    text: 'File',
                 },
                 textOption,
             ];
@@ -35,7 +33,7 @@ export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
 
         return (
             <Dropdown
-                label={t('Export type')}
+                label={'Export type'}
                 options={options}
                 responsiveMode={ResponsiveMode.large}
                 selectedKey={this.props.value}
@@ -44,6 +42,3 @@ export class ExportTypeDropdownComponent extends React.Component<Props, {}> {
         );
     }
 }
-
-// @ts-ignore
-export const ExportTypeDropdown = withTranslation('importExport')(ExportTypeDropdownComponent);

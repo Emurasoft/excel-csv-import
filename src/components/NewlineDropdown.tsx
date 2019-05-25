@@ -5,18 +5,17 @@ import {
 import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
 import {BaseProps} from './BaseProps';
 import {NewlineSequence} from '../Parser';
-import {withTranslation} from 'react-i18next';
 
 interface Props extends BaseProps<NewlineSequence> {
     showAutoDetect: boolean;
 }
 
-export class NewlineDropdownComponent extends React.Component<Props, {}> {
+export class NewlineDropdown extends React.Component<Props, {}> {
     public constructor(props: Props) {
         super(props);
         const autoDetectOption: IDropdownOption = {
             key: NewlineSequence.AutoDetect,
-            text: props.t('Auto-detect'),
+            text: 'Auto-detect',
         };
 
         const newlineSequeneceMenu = [
@@ -42,10 +41,9 @@ export class NewlineDropdownComponent extends React.Component<Props, {}> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         return (
             <Dropdown
-                label={t('Newline sequence')}
+                label={'Newline sequence'}
                 responsiveMode={ResponsiveMode.large}
                 selectedKey={this.props.value}
                 options={this._options}
@@ -56,6 +54,3 @@ export class NewlineDropdownComponent extends React.Component<Props, {}> {
 
     private readonly _options: IDropdownOption[];
 }
-
-// @ts-ignore
-export const NewlineDropdown = withTranslation('importExport')(NewlineDropdownComponent);

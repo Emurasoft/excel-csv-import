@@ -6,25 +6,23 @@ import {
     ResponsiveMode,
 } from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
 import {BaseProps} from './BaseProps';
-import {withTranslation} from 'react-i18next';
 
-export class SourceInputComponent extends React.Component<BaseProps<Source>, {}> {
+export class SourceInput extends React.Component<BaseProps<Source>, {}> {
     public render(): React.ReactNode {
-        const t = this.props.t;
         const fileSourceMenu: IDropdownOption[] = [
             {
                 key: InputType.file,
-                text: t('File'),
+                text: 'File',
             },
             {
                 key: InputType.text,
-                text: t('Text input'),
+                text: 'Text input',
             },
         ];
-        
+
         const usingEdgeOrIE = navigator.userAgent.includes('Edge')
             || navigator.userAgent.includes('Trident');
-        
+
         const componentMap = {
             [InputType.file]: (
                 <>
@@ -54,7 +52,7 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
         return (
             <>
                 <Dropdown
-                    label={t('Import type')}
+                    label={'Import type'}
                     options={fileSourceMenu}
                     responsiveMode={ResponsiveMode.large}
                     selectedKey={this.props.value.inputType}
@@ -75,6 +73,3 @@ export class SourceInputComponent extends React.Component<BaseProps<Source>, {}>
         this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
     }
 }
-
-// @ts-ignore
-export const SourceInput = withTranslation('importExport')(SourceInputComponent);

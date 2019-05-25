@@ -1,7 +1,6 @@
 import {CommandBar} from 'office-ui-fabric-react';
 import * as React from 'react';
 import {Pages} from '../Pages';
-import {useTranslation} from 'react-i18next';
 
 interface Props {
     hidden: boolean;
@@ -14,20 +13,18 @@ export function MenuBar(props: Props): JSX.Element {
         return null;
     }
 
-    const {t} = useTranslation('importExport');
-
     return (
         <CommandBar
             items={[
                 {
                     key: 'import',
-                    name: t('Import CSV'),
+                    name: 'Import CSV',
                     iconProps: {iconName: 'Add'},
                     onClick: () => props.onClick(Pages.import),
                 },
                 {
                     key: 'export',
-                    name: t('Export CSV'),
+                    name: 'Export CSV',
                     iconProps: {iconName: 'Download'},
                     onClick: () => props.onClick(Pages.export),
                 },

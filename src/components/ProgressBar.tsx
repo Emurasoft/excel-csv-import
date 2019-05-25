@@ -2,16 +2,14 @@ import * as React from 'react';
 import {Link, ProgressIndicator, Text} from 'office-ui-fabric-react';
 import * as style from './style.css';
 import {Progress} from '../Store';
-import {withTranslation} from 'react-i18next';
-import {TranslateFunction} from './BaseProps';
 
-interface Props extends TranslateFunction{
+interface Props {
     // Fired when the "Stop" link is clicked.
     onClick: () => void;
     progress: Progress;
 }
 
-export class ProgressBarComponent extends React.Component<Props, {}> {
+export class ProgressBar extends React.Component<Props, {}> {
     public render(): JSX.Element {
         return (
             <div className={style.smallDivider}>{this.contents()}</div>
@@ -33,12 +31,9 @@ export class ProgressBarComponent extends React.Component<Props, {}> {
 
     private stopLink(): React.ReactNode {
         if (this.props.progress.aborting) {
-            return this.props.t('Stopping');
+            return 'Stopping';
         } else {
-            return <Link onClick={this.props.onClick}>{this.props.t('Stop')}</Link>;
+            return <Link onClick={this.props.onClick}>Stop</Link>;
         }
     }
 }
-
-// @ts-ignore
-export const ProgressBar = withTranslation('importExport')(ProgressBarComponent)

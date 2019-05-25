@@ -12,13 +12,11 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
-import {withTranslation} from 'react-i18next';
-import {TranslateFunction} from './BaseProps';
 import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
 
-interface Props extends TranslateFunction {
+interface Props {
     store: Store;
     history: MemoryHistory;
 }
@@ -34,7 +32,6 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         return (
             <>
                 <MenuBar
@@ -44,7 +41,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                 />
                 <div className={style.pageMargin}>
                     <TitleBar
-                        text={t('Import CSV')}
+                        text={'Import CSV'}
                         helpLink={
                             'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
                         }
@@ -82,7 +79,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                         <PrimaryButton
                             disabled={this.buttonTooltipContent() !== ''}
                             onClick={this.buttonOnClick}
-                            text={t('Import CSV')}
+                            text={'Import CSV'}
                         />
                     </TooltipHost>
                     <br />
@@ -91,7 +88,7 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
                         progress={this.props.store.state.progress}
                     />
                     <Toggle
-                        inlineLabel label={t('Save options')}
+                        inlineLabel label={'Save options'}
                         defaultChecked={this.initialSaveStatus()}
                         onChange={(_, checked) => this.setSaveStatus(checked)}
                     />
@@ -107,17 +104,16 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
     }
 
     private buttonTooltipContent(): string {
-        const t = this.props.t;
         if (this.state.source.inputType == InputType.file && this.state.source.file == null) {
-            return t('Import source is not selected');
+            return 'Import source is not selected';
         } else if (this.state.delimiter.length !== 1) {
-            return t('Delimiter is invalid');
+            return 'Delimiter is invalid';
         } else if (!this.props.store.state.initialized) {
-            return t('Excel API is not initialized');
+            return 'Excel API is not initialized';
         } else {
             return '';
         }
     }
 }
 
-export default withTranslation('importExport')(connect(ImportComponent));
+export default connect(ImportComponent);

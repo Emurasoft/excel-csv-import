@@ -19,8 +19,6 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
-import {TranslateFunction} from './BaseProps';
-import {withTranslation} from 'react-i18next';
 import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
@@ -31,7 +29,7 @@ export interface OutputText {
     text: string;
 }
 
-interface Props extends TranslateFunction {
+interface Props {
     store: Store;
     history: MemoryHistory;
 }
@@ -59,10 +57,9 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const t = this.props.t;
         const outputTextField = (
             <TextField
-                label={t('Export result')}
+                label={'Export result'}
                 className={style.monospace}
                 readOnly={true}
                 multiline rows={15}
@@ -74,7 +71,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         const largeFileWarning = (
             <Text style={{color: 'red'}} variant='medium'>
-                {t('Large file export is not supported')}
+                {'Large file export is not supported'}
             </Text>
         );
 
@@ -90,7 +87,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                 />
                 <div className={style.pageMargin}>
                     <TitleBar
-                        text={t('Export CSV')}
+                        text={'Export CSV'}
                         helpLink={helpLink}
                         // eslint-disable-next-line no-undef
                         mac={this.props.store.state.platform === Office.PlatformType.Mac}
@@ -126,7 +123,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         <PrimaryButton
                             onClick={this.buttonOnClick}
                             disabled={this.buttonTooltipContent() !== ''}
-                            text={t('Export to CSV')}
+                            text={'Export to CSV'}
                         />
                     </TooltipHost>
                     <br />
@@ -136,7 +133,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         progress={this.props.store.state.progress}
                     />
                     <Toggle
-                        inlineLabel label={t('Save options')}
+                        inlineLabel label={'Save options'}
                         defaultChecked={this.initialSaveStatus()}
                         onChange={(_, checked) => this.setSaveStatus(checked)}
                     />
@@ -211,11 +208,11 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
     private buttonTooltipContent(): string {
         if (!this.props.store.state.initialized) {
-            return this.props.t('Excel API is not initialized');
+            return 'Excel API is not initialized';
         } else {
             return '';
         }
     }
 }
 
-export default withTranslation('importExport')(connect(ExportComponent));
+export default connect(ExportComponent);
