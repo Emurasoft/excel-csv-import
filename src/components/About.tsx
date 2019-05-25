@@ -30,7 +30,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                         style={{color: 'black'}}
                         title={'CSV Import+Export on GitHub'}
                     >
-                        <strong>{'CSV Import+Export'}</strong>
+                        <strong>CSV Import+Export</strong>
                     </Link>
                 </Text>
                 <br />
@@ -56,10 +56,10 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
-                    <strong>{'Report bugs/send feedback'}</strong>
+                    <strong>Report bugs/send feedback</strong>
                     {
                         Store.enableFileExport(this.props.store.state.platform)
-                            ? <><br />{'For bug reports, please attach the log file:'}</>
+                            ? <><br />For bug reports, please attach the log file:</>
                             : null
                     }
                 </Text>
@@ -76,7 +76,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     {
                         Store.enableFileExport(this.props.store.state.platform)
                             ? <br />
-                            : <><br />{'Please include system info such as OS name (Windows, macOS, etc.) in your message.'}<br /></>
+                            : <><br />Please include system info such as OS name (Windows, macOS, etc.) in your message.<br /></>
                     }
                 </Text>
                 <br />
@@ -84,7 +84,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     © 2019 Emurasoft Inc.
                     <br />
                     <RouterLink to={Pages.licenseInformation} className={style.removeUnderline}>
-                        <Link>{'License information'}</Link>
+                        <Link>License information</Link>
                     </RouterLink>
                 </Text>
             </div>

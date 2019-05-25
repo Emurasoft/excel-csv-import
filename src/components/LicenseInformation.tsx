@@ -18,7 +18,7 @@ class LicenseInformation extends React.Component<Props> {
                 <BackButton onClick={this.props.history.goBack}/>
                 <br/>
                 <Text variant='xLarge'>
-                    <strong>{'License information'}</strong>
+                    <strong>License information</strong>
                 </Text>
                 <br/>
                 <Text variant='medium'>
