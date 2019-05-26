@@ -13,6 +13,6 @@ node_modules
 !src/retrace.js
 !src/createLargeCSV.js
 !src/components/generateEncodingList.js
-!src/locale/copyLocaleFile.js
+!src/licenses/generateThirdPartyLicenses.js
 build
 .nyc_output
