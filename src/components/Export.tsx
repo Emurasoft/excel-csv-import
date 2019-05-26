@@ -19,7 +19,6 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
-import {MenuBar} from './MenuBar';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
 
@@ -80,11 +79,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         return (
             <>
-                <MenuBar
-                    // eslint-disable-next-line no-undef
-                    hidden={this.props.store.state.platform !== Office.PlatformType.iOS}
-                    onClick={(page) => this.props.history.push(page)}
-                />
                 <div className={style.pageMargin}>
                     <TitleBar
                         text={'Export CSV'}

@@ -34,12 +34,11 @@ export type ProgressCallback = (progress: number) => void
 export const Context = React.createContext(undefined);
 
 export class Store extends React.Component<{}, State> {
-    // Returns true if file export is enabled. The reason for this is because FileSaver.js does
-    // not work in an add-in on Excel for Mac and iPad.
+    // Returns true if file export is enabled. The reason for this is that FileSaver.js does
+    // not work in an add-in on Excel for Mac.
     // https://github.com/OfficeDev/office-js/issues/471
     public static enableFileExport(platform: Office.PlatformType): boolean {
-        const disableExportOn = [Office.PlatformType.Mac, Office.PlatformType.iOS];
-        return !disableExportOn.includes(platform);
+        return platform != Office.PlatformType.Mac;
     }
 
     public constructor(props: {}) {
