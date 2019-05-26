@@ -9,8 +9,7 @@
     "lint": "eslint --ext .js,.ts,.tsx .",
     "devServer": "webpack-dev-server --config webpack.dev.js",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml",
-    "build": "rm -rf build && webpack --config webpack.prod.js",
-    "generateLicensesText": "echo 'export default `'\"$(yarn licenses generate-disclaimer | tail -n +7 | sed -e 's/`/\\\\`/g')\"'`;' > src/licenses/thirdParty.ts"
+    "build": "rm -rf build && webpack --config webpack.prod.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.0",
@@ -58,8 +57,8 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
-    "mocha": "^6.0.2",
-    "nyc": "^13.3.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
     "office-addin-validator": "^1.0.5",
     "retrace": "^1.0.0",
     "sinon": "^7.2.7",
