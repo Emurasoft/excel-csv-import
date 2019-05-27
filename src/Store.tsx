@@ -55,7 +55,7 @@ export class Store extends React.Component<{}, State> {
         };
 
         this._log = new Logger();
-        this._log.push('version', {version});
+        this._log.write('version', {version});
 
         this._abortFlags = new AbortFlagArray();
     }
@@ -93,11 +93,11 @@ export class Store extends React.Component<{}, State> {
                 initialized: true,
                 platform: environmentInfo.platform,
             });
-            this._log.push('environmentInfo', environmentInfo);
+            this._log.write('environmentInfo', environmentInfo);
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }
-        this._log.push('initAPI');
+        this._log.write('initAPI');
         await this.checkLargeFile();
     }
 
@@ -106,12 +106,12 @@ export class Store extends React.Component<{}, State> {
         const aLargeExcelWorksheetProbablyHasThisManyCells = 1_000_000_000 / 20;
         const largeFile = await this.worksheetArea() > aLargeExcelWorksheetProbablyHasThisManyCells;
         this.setState({largeFile});
-        this._log.push('checkLargeFile');
+        this._log.write('checkLargeFile');
     }
 
     public setParserOutput = (parserOutput: ParserOutput) => {
         this.setState({parserOutput});
-        this._log.push('setParserOutput', {parserOutput});
+        this._log.write('setParserOutput', {parserOutput});
     }
 
     public setParserError = (err: Error) => {
@@ -125,7 +125,7 @@ export class Store extends React.Component<{}, State> {
         this.setState(state => ({
             progress: {show: state.progress.show, aborting: true, percent: state.progress.percent},
         }));
-        this._log.push('abort');
+        this._log.write('abort');
     }
 
     public import = async (options: Parser.ImportOptions): Promise<void> => {
@@ -149,7 +149,7 @@ export class Store extends React.Component<{}, State> {
             state => ({progress: {show: !state.progress.show, aborting: false, percent: 1.0}})
         );
 
-        this._log.push('import', {options});
+        this._log.write('import', {options});
     }
 
     public worksheetArea = async (): Promise<number> => {
@@ -159,7 +159,7 @@ export class Store extends React.Component<{}, State> {
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
         }
-        this._log.push('worksheetArea');
+        this._log.write('worksheetArea');
         return result;
     }
 
@@ -185,7 +185,7 @@ export class Store extends React.Component<{}, State> {
             state => ({progress: {show: !state.progress.show, aborting: false, percent: 1.0}}),
         );
 
-        this._log.push('csvStringAndName', {options});
+        this._log.write('csvStringAndName', {options});
         return result;
     }
 
