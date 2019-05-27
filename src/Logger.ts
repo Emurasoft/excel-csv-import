@@ -1,43 +1,36 @@
-interface Record {
-    readonly name: string;
-    readonly args: {};
-}
-
 export class Logger {
     public constructor() {
-        this._log = [];
+        this._log = '';
     }
 
-    // Adds name and a deep copy of args if defined otherwise empty object, as a new record.
-    // Do not add sensitive information.
+    // Records name and args. Do not add sensitive information.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public push(name: string, args?: {[key: string]: any}): void {
-        this._log.push(Object.freeze({name, args: args ? Logger.deepCopy(args) : {}}));
+    public write(name: string, args?: {[key: string]: any}): void {
+        this._log += JSON.stringify({name, args: args ? Logger.addFileName(args) : {}}) + '\n';
     }
 
     public log(): string {
-        return JSON.stringify(this._log, null, 2);
+        return this._log;
     }
 
-    private readonly _log: Record[];
+    private _log: string;
 
-    private static deepCopy(a: {}): {} {
-        const copy = JSON.parse(JSON.stringify(a));
-
+    private static addFileName(args: {[key: string]: any}): {} {
         // Replace file in ImportOptions with the filename
         if (
-            'options' in copy
-            && 'source' in copy.options
-            && 'file' in copy.options.source
-            && typeof copy.options.source.file === 'object'
-            && 'options' in a
-            && 'source' in (a as {options: {}}).options
-            && 'file' in (a as {options: {source: {}}}).options.source
-            && (a as {options: {source: {file: {}}}}).options.source.file instanceof File
+            'options' in args
+            && 'source' in args.options
+            && 'file' in args.options.source
+            && typeof args.options.source.file === 'object'
+            && 'options' in args
+            && 'source' in (args as {options: {}}).options
+            && 'file' in (args as {options: {source: {}}}).options.source
+            && (args as {options: {source: {file: {}}}}).options.source.file instanceof File
         ) {
-            copy.options.source.file.name
-                = (a as {options: {source: {file: {name?: string}}}}).options.source.file.name;
+            const filename = (args as {options: {source: {file: {name?: string}}}})
+                .options.source.file.name;
+            args.options.source.file = {name: filename};
         }
-        return copy;
+        return args;
     }
 }
