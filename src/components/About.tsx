@@ -94,7 +94,7 @@ export class AboutComponent extends React.Component<Props, {}> {
 
     public exportLog = () => {
         const blob = new Blob([this.props.store.log()]);
-        FileSaver.saveAs(blob, 'csvImportExportLog.json');
+        FileSaver.saveAs(blob, 'csvImportExportLog.txt');
     }
 }
 
