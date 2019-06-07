@@ -60,6 +60,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 
             this._save = save;
         } catch (e) {
+            // eslint-disable-next-line no-console
             console.error(e);
         }
     }

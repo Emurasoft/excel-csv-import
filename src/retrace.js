@@ -1,5 +1,4 @@
 const retrace = require('retrace');
-const https = require('https');
 
 /**
  * @returns {Promise<string>}
