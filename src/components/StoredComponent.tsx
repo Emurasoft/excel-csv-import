@@ -49,14 +49,18 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
     }
 
     public setSaveStatus(save: boolean): void {
-        this._save = save;
+        try {
+            if (save) {
+                localStorage.setItem('StoredComponent-save', '"true"');
+                this.saveState(this.state);
+            } else {
+                localStorage.clear();
+                localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
+            }
 
-        if (save) {
-            localStorage.setItem('StoredComponent-save', '"true"');
-            this.saveState(this.state);
-        } else {
-            localStorage.clear();
-            localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
+            this._save = save;
+        } catch (e) {
+            console.error(e);
         }
     }
 
