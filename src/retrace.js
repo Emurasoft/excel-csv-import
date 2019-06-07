@@ -1,14 +1,22 @@
 const retrace = require('retrace');
-const fs = require('fs');
-const path = require('path');
-const http = require('http');
+const https = require('https');
 
 /**
- * @param {string} name
+ * @param {string} url
  */
-function registerName(name) {
-    const sourceMap = fs.readFileSync(__dirname + `/../build/${name}.js.map`, 'utf8');
-    retrace.register(`http://localhost:3000/excel-csv-import/build/${name}.js`, sourceMap);
+function register(url) {
+    return new Promise(resolve => {
+        https.get(url.replace('.js', '.js.map'), (res) => {
+            const chunks = [];
+            res.on('data', (data) => {
+                chunks.push(data);
+            });
+            res.on('end', () => {
+                retrace.register(url, Buffer.concat(chunks).toString());
+                resolve();
+            });
+        });
+    })
 }
 
 /**
@@ -27,7 +35,6 @@ function inputRawTrace() {
         });
 
         process.stdout.write('Input minified stack trace with an empty line at the end:\n');
-        process.stderr.write('[fix code to use correct paths!]\n');
     });
 }
 
@@ -36,24 +43,17 @@ function inputRawTrace() {
  * @returns {Promise<void>}
  */
 async function main() {
-    const server = http.createServer(function (request, response) {
-        response.writeHead(200);
-        // fs.createReadStream(__dirname + '/../..' + request.url).pipe(response);
-        fs.createReadStream(__dirname + '/../build' + request.url).pipe(response);
-    });
-    server.listen(3000);
-
-    for (const filepath of fs.readdirSync(__dirname + '/../build')) {
-        const pathInfo = path.parse(filepath);
-        if (pathInfo.ext === '.js') {
-            registerName(pathInfo.name);
-        }
-    }
-
     const rawTrace = await inputRawTrace();
-    // rawTrace.replace(/https:\/\/emurasoft.github.io/g, 'http://localhost:3000');
+
+    const jsFiles = new Set(rawTrace.match(/https:\/\/emurasoft\.github\.io\/excel-csv-import\/.*\.js/g));
+
+    const promises = [];
+    for (const url of jsFiles) {
+        promises.push(register(url));
+    }
+    await Promise.all(promises);
+
     const stack = await retrace.map(rawTrace);
-    server.close();
 
     process.stdout.write(stack + '\n');
     process.exit();
