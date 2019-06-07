@@ -15,7 +15,11 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         super(props);
         this._namespace = namespace;
         this._saveKeys = saveKeys;
-        this._initialSave = localStorage && localStorage['StoredComponent-save'] === '"true"';
+        try {
+            this._initialSave = localStorage && localStorage['StoredComponent-save'] === '"true"';
+        } catch {
+            this._initialSave = false;
+        }
         this._save = this._initialSave;
 
         let loadedState = {};
