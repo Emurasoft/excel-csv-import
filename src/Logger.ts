@@ -15,6 +15,7 @@ export class Logger {
 
     private _log: string;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private static addFileName(args: {[key: string]: any}): {} {
         // Replace file in ImportOptions with the filename
         if (
