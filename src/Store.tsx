@@ -5,7 +5,7 @@ import * as Parser from './Parser';
 import * as ExcelAPI from './ExcelAPI';
 import {Logger} from './Logger';
 import {CsvStringAndName} from './Parser';
-import {AbortFlagArray} from './AbortFlag';
+import {AbortFlag} from './AbortFlag';
 
 export interface Progress {
     show: boolean;
@@ -48,7 +48,7 @@ export class Store extends React.Component<{}, State> {
 
         this._log = new Logger();
 
-        this._abortFlags = new AbortFlagArray();
+        this._currentAbortFlag = new AbortFlag();
     }
 
     public render(): React.ReactNode {
@@ -108,9 +108,9 @@ export class Store extends React.Component<{}, State> {
         this.setParserOutput({type: OutputType.error, output: Store.getErrorMessage(err)});
     }
 
-    // Aborts all import and export processes that are currently running.
+    // Aborts current import and export process.
     public abort = () => {
-        this._abortFlags.abort();
+        this._currentAbortFlag.abort();
         this.setState(state => ({
             progress: {show: state.progress.show, aborting: true, percent: state.progress.percent},
         }));
@@ -122,11 +122,14 @@ export class Store extends React.Component<{}, State> {
             state => ({progress: {show: !state.progress.show, aborting: false, percent: 0.0}}),
         );
 
+        this._currentAbortFlag.abort();
+        this._currentAbortFlag = new AbortFlag();
+
         try {
             const errors = await Parser.importCSV(
                 options,
                 this.setProgress,
-                this._abortFlags.newFlag(),
+                this._currentAbortFlag,
             );
             if (errors.length > 0) {
                 this.setParserOutput({type: OutputType.info, output: JSON.stringify(errors)});
@@ -160,12 +163,15 @@ export class Store extends React.Component<{}, State> {
             state => ({progress: {show: !state.progress.show, aborting: false, percent: 0.0}}),
         );
 
+        this._currentAbortFlag.abort();
+        this._currentAbortFlag = new AbortFlag();
+
         let result: CsvStringAndName = null;
         try {
             result = await Parser.csvStringAndName(
                 options,
                 this.setProgress,
-                this._abortFlags.newFlag(),
+                this._currentAbortFlag,
             );
         } catch (err) {
             this.setParserError(new Error(Store.getErrorMessage(err)));
@@ -183,7 +189,7 @@ export class Store extends React.Component<{}, State> {
     }
 
     private readonly _log: Logger;
-    private readonly _abortFlags: AbortFlagArray;
+    private _currentAbortFlag: AbortFlag;
 
     // percent of 1.0 === 100%
     private setProgress: ProgressCallback = (percent: number) => {
