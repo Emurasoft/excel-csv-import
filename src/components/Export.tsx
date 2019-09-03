@@ -89,10 +89,16 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     />
                     <Dropdown
                         label={'Export type'}
-                        options={[{
-                            key: ExportType.file,
-                            text: 'Textbox',
-                        }]}
+                        options={[
+                            {
+                                key: ExportType.file,
+                                text: 'File',
+                            },
+                            {
+                                key: ExportType.text,
+                                text: 'Textbox'
+                            }
+                        ]}
                         responsiveMode={ResponsiveMode.large}
                         selectedKey={this.state.exportType}
                         onChange={(_, option) => this.setState({exportType: option.key as ExportType})}
@@ -163,12 +169,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
         // Copy values before async operation
         const exportOptions = {...this.state};
-
-        // If export is disabled, displayed export type is always text regardless of state. That is
-        // why the state is ignored here.
-        if (!Store.enableFileExport(this.props.store.state.platform)) {
-            exportOptions.exportType = ExportType.text;
-        }
 
         this.setState(state => ({outputText: newOutputText(state, exportOptions)}));
 
