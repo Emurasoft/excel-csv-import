@@ -7,4 +7,4 @@ assignees: ''
 
 ---
 
-<!-- Please attach csvImportExportLog.json to bug reports to provide reproduction info. -->
+<!-- Include Excel version and OS if you use Excel desktop, or browser name and version for Excel Online. -->
