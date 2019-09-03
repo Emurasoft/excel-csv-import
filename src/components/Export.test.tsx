@@ -1,11 +1,10 @@
 import {ExportComponent, ExportType} from './Export';
 import {shallow} from 'enzyme';
 import * as React from 'react';
-import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {NewlineSequence} from '../Parser';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
-import {PrimaryButton, TextField} from 'office-ui-fabric-react';
+import {Dropdown, PrimaryButton, TextField} from 'office-ui-fabric-react';
 import * as assert from 'assert';
 
 describe('ExportComponent', () => {
@@ -33,7 +32,7 @@ describe('ExportComponent', () => {
 
         // @ts-ignore
         const wrapper = shallow(<ExportComponent store={store}/>)
-        wrapper.find(ExportTypeDropdown).simulate('change', ExportType.text);
+        wrapper.find(Dropdown).simulate('change', ExportType.text);
         wrapper.find(DelimiterInput).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
         wrapper.find(PrimaryButton).simulate('click');

@@ -1,10 +1,10 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {ExportTypeDropdown} from './ExportTypeDropdown';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
+    Dropdown,
     PrimaryButton,
     Text,
     TextField,
@@ -21,6 +21,7 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
+import {ResponsiveMode} from "office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode";
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -86,9 +87,15 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         // eslint-disable-next-line no-undef
                         mac={this.props.store.state.platform === Office.PlatformType.Mac}
                     />
-                    <ExportTypeDropdown
-                        value={this.exportTypeDropdownValue()}
-                        onChange={(exportType) => this.setState({exportType})}
+                    <Dropdown
+                        label={'Export type'}
+                        options={[{
+                            key: ExportType.file,
+                            text: 'Textbox',
+                        }]}
+                        responsiveMode={ResponsiveMode.large}
+                        selectedKey={this.state.exportType}
+                        onChange={(_, option) => this.setState({exportType: option.key as ExportType})}
                     />
                     <br />
                     <EncodingDropdown
@@ -136,14 +143,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
                 </div>
             </>
         );
-    }
-
-    private exportTypeDropdownValue = (): ExportType => {
-        if (Store.enableFileExport(this.props.store.state.platform)) {
-            return this.state.exportType
-        } else {
-            return ExportType.text;
-        }
     }
 
     private buttonOnClick = async () => {
