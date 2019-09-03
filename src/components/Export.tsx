@@ -21,7 +21,9 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
-import {ResponsiveMode} from "office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode";
+import {
+    ResponsiveMode,
+} from "office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode";
 
 export interface OutputText {
     // If show is false, do not show text.
@@ -75,7 +77,8 @@ export class ExportComponent extends StoredComponent<Props, State> {
             </Text>
         );
 
-        const helpLink = 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
+        const helpLink
+            = 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
 
         return (
             <>
@@ -95,12 +98,14 @@ export class ExportComponent extends StoredComponent<Props, State> {
                             },
                             {
                                 key: ExportType.text,
-                                text: 'Textbox'
-                            }
+                                text: 'Textbox',
+                            },
                         ]}
                         responsiveMode={ResponsiveMode.large}
                         selectedKey={this.state.exportType}
-                        onChange={(_, option) => this.setState({exportType: option.key as ExportType})}
+                        onChange={
+                            (_, option) => this.setState({exportType: option.key as ExportType})
+                        }
                     />
                     <br />
                     <EncodingDropdown
