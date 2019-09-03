@@ -35,7 +35,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
                     <a
-                        href={'EmEditor localized homepage [URL]'}
+                        href={'https://www.emeditor.com/'}
                         target='_blank'
                         rel='noopener noreferrer'
                     >
@@ -47,7 +47,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     </a>
                 </div>
                 <Text variant='medium'>
-                    EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'EmEditor localized homepage [URL]'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.↗</Link>
+                    EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'https://www.emeditor.com/'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.↗</Link>
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
