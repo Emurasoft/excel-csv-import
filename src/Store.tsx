@@ -113,7 +113,7 @@ export class Store extends React.Component<{}, State> {
         }
     }
 
-    // Aborts current import and export process.
+    // Aborts current import and export task.
     public abort = () => {
         this._currentAbortFlag.abort();
         this.setState(state => ({
