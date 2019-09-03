@@ -8,7 +8,6 @@ import * as style from './style.css';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
-import {version} from '../version.json';
 
 interface Props {
     store: Store;
@@ -34,9 +33,6 @@ export class AboutComponent extends React.Component<Props, {}> {
                     </Link>
                 </Text>
                 <br />
-                <Text variant='medium' style={{fontFamily: 'Inconsolata, monospace'}}>
-                    {version}
-                </Text>
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
                     <a
