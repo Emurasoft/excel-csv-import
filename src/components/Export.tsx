@@ -87,7 +87,6 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         mac={this.props.store.state.platform === Office.PlatformType.Mac}
                     />
                     <ExportTypeDropdown
-                        enableFileExport={Store.enableFileExport(this.props.store.state.platform)}
                         value={this.exportTypeDropdownValue()}
                         onChange={(exportType) => this.setState({exportType})}
                     />
