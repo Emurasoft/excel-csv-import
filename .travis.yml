@@ -6,7 +6,6 @@ script:
   - npm run validateManifest
 
 before_deploy:
-  - src/setVersion.sh $TRAVIS_TAG
   - npm run build
 
 deploy:
