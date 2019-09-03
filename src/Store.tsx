@@ -81,8 +81,6 @@ export class Store extends React.Component<{}, State> {
         await this.initAPI();
     }
 
-    public log = () => this._log.log()
-
     public initAPI = async (): Promise<void> => {
         try {
             const environmentInfo = await Parser.init();
