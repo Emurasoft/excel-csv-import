@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {Store} from '../Store';
 import {connect} from '../connect';
-import {DefaultButton, Link, Text} from 'office-ui-fabric-react';
-import * as FileSaver from 'file-saver';
+import {Link, Text} from 'office-ui-fabric-react';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';
 import {BackButton} from './BackButton';
@@ -66,11 +65,6 @@ export class AboutComponent extends React.Component<Props, {}> {
             </div>
             /* eslint-enable max-len */
         );
-    }
-
-    public exportLog = () => {
-        const blob = new Blob([this.props.store.log()]);
-        FileSaver.saveAs(blob, 'csvImportExportLog.txt');
     }
 }
 
