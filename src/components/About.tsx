@@ -52,30 +52,10 @@ export class AboutComponent extends React.Component<Props, {}> {
                 </Text>
                 <br /><br />
                 <Text variant='medium'>
-                    <strong>Report bugs/send feedback</strong>
-                    {
-                        Store.enableFileExport(this.props.store.state.platform)
-                            ? <><br />For bug reports, please attach the log file:</>
-                            : null
-                    }
+                    <strong>Report bugs/send feedback</strong><br />
+                    Bug reports can be submitted via the <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>issues page of our GitHub repo↗</Link> or the <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>contact form↗</Link>.<br />
                 </Text>
-                <br />
-                {
-                    Store.enableFileExport(this.props.store.state.platform)
-                        ? <><DefaultButton onClick={this.exportLog} text={'Save log'} /><br /><br /></>
-                        : null
-                }
-                <Text variant='medium'>
-                    You can submit bug reports or feedback via:
-                    <br /><Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>Contact form↗</Link>
-                    <br /><Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>Issues page of the GitHub repo↗</Link>
-                    {
-                        Store.enableFileExport(this.props.store.state.platform)
-                            ? <br />
-                            : <><br />Please include system info such as OS name (Windows, macOS, etc.) in your message.<br /></>
-                    }
-                </Text>
-                <br />
+                <br /><br />
                 <Text variant='medium'>
                     © 2019 Emurasoft Inc.
                     <br />
