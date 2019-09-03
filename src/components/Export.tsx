@@ -106,6 +106,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                         onChange={
                             (_, option) => this.setState({exportType: option.key as ExportType})
                         }
+                        id={'exportTypeDropdown'}
                     />
                     <br />
                     <EncodingDropdown

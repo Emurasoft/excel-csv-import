@@ -32,7 +32,7 @@ describe('ExportComponent', () => {
 
         // @ts-ignore
         const wrapper = shallow(<ExportComponent store={store}/>)
-        wrapper.find(Dropdown).simulate('change', null, {key: ExportType.text});
+        wrapper.find('#exportTypeDropdown').simulate('change', null, {key: ExportType.text});
         wrapper.find(DelimiterInput).simulate('change', ',');
         wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
         wrapper.find(PrimaryButton).simulate('click');
