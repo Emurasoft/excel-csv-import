@@ -31,7 +31,6 @@ export class AboutComponent extends React.Component<Props, {}> {
                         <strong>CSV Import+Export</strong>
                     </Link>
                 </Text>
-                <br />
                 <br /><br />
                 <div className={style.fullWidth + ' ' + style.centerContent}>
                     <a
