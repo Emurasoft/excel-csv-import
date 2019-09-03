@@ -75,8 +75,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
             </Text>
         );
 
-        const helpLink = 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
-                       + '#export-csv';
+        const helpLink = 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
 
         return (
             <>
