@@ -104,8 +104,13 @@ export class Store extends React.Component<{}, State> {
     }
 
     public setParserError = (err: Error) => {
-        // Action is logged inside setParserOutput()
-        this.setParserOutput({type: OutputType.error, output: Store.getErrorMessage(err)});
+        // This error is thrown by the Excel API when you spam the Import button. No bug occurs as a
+        // result, so this error is ignored.
+        const ignoreError = err.message.includes("InvalidObjectPath")
+            && err.message.includes("worksheets.add()");
+        if (!ignoreError) {
+            this.setParserOutput({type: OutputType.error, output: Store.getErrorMessage(err)});
+        }
     }
 
     // Aborts current import and export process.
