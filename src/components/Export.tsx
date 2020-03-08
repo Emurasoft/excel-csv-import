@@ -66,6 +66,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
         }];
         // Export file feature only works on Excel Online
         // https://github.com/Emurasoft/excel-csv-import/issues/39
+        // eslint-disable-next-line no-undef
         if (this.props.store.state.platform === Office.PlatformType.OfficeOnline) {
             exportTypeOptions.push({
                 key: ExportType.file,
