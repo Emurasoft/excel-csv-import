@@ -60,12 +60,12 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     public render(): React.ReactNode {
-        // Export file feature only works on Excel Online
-        // https://github.com/Emurasoft/excel-csv-import/issues/39
         const exportTypeOptions: IDropdownOption[] = [{
             key: ExportType.text,
             text: 'Textbox',
         }];
+        // Export file feature only works on Excel Online
+        // https://github.com/Emurasoft/excel-csv-import/issues/39
         if (this.props.store.state.platform === Office.PlatformType.OfficeOnline) {
             exportTypeOptions.push({
                 key: ExportType.file,
