@@ -17,7 +17,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
         this._saveKeys = saveKeys;
         try {
             this._initialSave = localStorage && localStorage['StoredComponent-save'] === '"true"';
-            localStorage.getItem('check'); // Additional check
+            if (localStorage['check']){} // Additional check
         } catch {
             // Disables saving if calling localStorage causes an exception
             this._initialSave = false;
