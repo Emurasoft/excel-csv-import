@@ -34,14 +34,15 @@ export class ImportComponent extends StoredComponent<Props, ImportOptions> {
         return (
             <>
                 <div className={style.pageMargin}>
+                    {/* eslint-disable no-undef */}
                     <TitleBar
                         text={'Import CSV'}
                         helpLink={
                             'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
                         }
-                        // eslint-disable-next-line no-undef
                         mac={this.props.store.state.platform === Office.PlatformType.Mac}
                     />
+                    {/* eslint-enable no-undef */}
                     <SourceInput
                         value={this.state.source}
                         onChange={(source) => this.setState({source})}
