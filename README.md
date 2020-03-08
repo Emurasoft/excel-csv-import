@@ -19,3 +19,5 @@ npm run devServer
 ```
 
 3. Go to `https://localhost:3000/` and accept the self-signed certificate.
+
+<sup>Me in 2020: Sorry for the messy code; I was new to JavaScript at the time...</sup>
