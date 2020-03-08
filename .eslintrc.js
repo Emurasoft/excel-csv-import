@@ -27,6 +27,7 @@ module.exports = {
         'comma-dangle': ['error', 'always-multiline'],
         '@typescript-eslint/indent': ['error', 4, {SwitchCase: 0}],
         'jsx-quotes': ['error', 'prefer-single'],
+        '@typescript-eslint/explicit-function-return-type': ['warn', { allowExpressions: true }],
     },
     overrides: [
         {
