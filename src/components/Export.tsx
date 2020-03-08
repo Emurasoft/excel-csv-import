@@ -83,12 +83,13 @@ export class ExportComponent extends StoredComponent<Props, State> {
         return (
             <>
                 <div className={style.pageMargin}>
+                    {/* eslint-disable no-undef */}
                     <TitleBar
                         text={'Export CSV'}
                         helpLink={helpLink}
-                        // eslint-disable-next-line no-undef
                         mac={this.props.store.state.platform === Office.PlatformType.Mac}
                     />
+                    {/* eslint-enable no-undef */}
                     <Dropdown
                         label={'Export type'}
                         options={[
