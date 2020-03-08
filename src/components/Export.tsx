@@ -5,6 +5,7 @@ import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
     Dropdown,
+    IDropdownOption,
     PrimaryButton,
     Text,
     TextField,
@@ -47,7 +48,7 @@ interface State extends ExportOptions {
 export class ExportComponent extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'export', {
-            exportType: ExportType.file,
+            exportType: ExportType.text,
             delimiter: '\u002c',
             newline: NewlineSequence.CRLF,
             encoding: 'UTF-8',
@@ -59,6 +60,20 @@ export class ExportComponent extends StoredComponent<Props, State> {
     }
 
     public render(): React.ReactNode {
+        const exportTypeOptions: IDropdownOption[] = [{
+            key: ExportType.text,
+            text: 'Textbox',
+        }];
+        // Export file feature only works on Excel Online
+        // https://github.com/Emurasoft/excel-csv-import/issues/39
+        // eslint-disable-next-line no-undef
+        if (this.props.store.state.platform === Office.PlatformType.OfficeOnline) {
+            exportTypeOptions.push({
+                key: ExportType.file,
+                text: 'File',
+            });
+        }
+
         const outputTextField = (
             <TextField
                 label={'Export result'}
@@ -92,16 +107,7 @@ export class ExportComponent extends StoredComponent<Props, State> {
                     {/* eslint-enable no-undef */}
                     <Dropdown
                         label={'Export type'}
-                        options={[
-                            {
-                                key: ExportType.file,
-                                text: 'File',
-                            },
-                            {
-                                key: ExportType.text,
-                                text: 'Textbox',
-                            },
-                        ]}
+                        options={exportTypeOptions}
                         responsiveMode={ResponsiveMode.large}
                         selectedKey={this.state.exportType}
                         onChange={
