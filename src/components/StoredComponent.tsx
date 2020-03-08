@@ -6,6 +6,7 @@ interface StringKey {
 }
 
 export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Component<P, S> {
+    /* eslint-disable @typescript-eslint/array-type */
     public constructor(
         props: Readonly<P>,
         namespace: string,
