@@ -175,7 +175,7 @@ export function _addQuotes(row: string[], delimiter: string): void {
         }
 
         if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
-            row[i] = '\u0022' + row[i].replace('\u0022', '\u0022\u0022') + '\u0022';
+            row[i] = '\u0022' + row[i].replace(/\u0022/g, '\u0022\u0022') + '\u0022';
         }
     }
 }
