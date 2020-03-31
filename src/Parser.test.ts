@@ -242,14 +242,14 @@ describe('Parser', () => {
     it('_addQuotes()', () => {
         const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
             {
-                row: [],
-                delimiter: '',
-                expected: [],
-            },
-            {
                 row: [''],
                 delimiter: ',',
                 expected: [''],
+            },
+            {
+                row: ["\"a\""],
+                delimiter: ',',
+                expected: ["\"\"\"a\"\"\""],
             },
             {
                 row: ['\n'],
@@ -260,11 +260,6 @@ describe('Parser', () => {
                 row: ['a,'],
                 delimiter: ',',
                 expected: ['"a,"'],
-            },
-            {
-                row: ['a,'],
-                delimiter: '',
-                expected: ['a,'],
             },
             {
                 row: ['"'],
@@ -289,42 +284,10 @@ describe('Parser', () => {
             {
                 row: [],
                 exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: '\n',
-            },
-            {
-                row: ['a'],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: 'a\n',
-            },
-            {
-                row: ['\n'],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: '"\n"\n',
-            },
-            {
-                row: [],
-                exportOptions: {
                     delimiter: ',',
                     newline: NewlineSequence.LF,
                 },
                 expected: '\n',
-            },
-            {
-                row: ['a', 0],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: 'a0\n',
             },
             {
                 row: ['a', 'b'],
