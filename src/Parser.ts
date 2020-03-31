@@ -166,14 +166,9 @@ export function _chunkRange(
 }
 
 export function _addQuotes(row: string[], delimiter: string): void {
+    console.assert(delimiter !== '');
+    const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/, delimiter];
     for (let i = 0; i < row.length; i++) {
-        const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/];
-        if (delimiter !== '') {
-            // This is left-over code when auto-detect delimiter was an option. I'm not entirely
-            // sure if I want to remove this.
-            charactersToWatchOutFor.push(delimiter);
-        }
-
         if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
             row[i] = '\u0022' + row[i].replace(/\u0022/g, '\u0022\u0022') + '\u0022';
         }
