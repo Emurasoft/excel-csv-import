@@ -284,42 +284,10 @@ describe('Parser', () => {
             {
                 row: [],
                 exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: '\n',
-            },
-            {
-                row: ['a'],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: 'a\n',
-            },
-            {
-                row: ['\n'],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: '"\n"\n',
-            },
-            {
-                row: [],
-                exportOptions: {
                     delimiter: ',',
                     newline: NewlineSequence.LF,
                 },
                 expected: '\n',
-            },
-            {
-                row: ['a', 0],
-                exportOptions: {
-                    delimiter: '',
-                    newline: NewlineSequence.LF,
-                },
-                expected: 'a0\n',
             },
             {
                 row: ['a', 'b'],
