@@ -25,7 +25,13 @@ export class TitleBar extends StoredComponent<Props, State> {
     public constructor(props: Props) {
         super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
         this._save = true;
-        this.state = {...this.state, ...StoredComponent.loadState('app', ['firstVisit'])};
+        let firstVisit = {};
+        try {
+            firstVisit = StoredComponent.loadState('app', ['firstVisit']);
+        } catch { // localStorage may fail
+            firstVisit = {firstVisit: false};
+        }
+        this.state = {...this.state, ...firstVisit};
     }
 
     public render(): React.ReactNode {
