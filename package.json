@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.ts,.tsx .",
     "devServer": "webpack-dev-server --config webpack.dev.js",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml",
-    "build": "rm -rf build && webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
