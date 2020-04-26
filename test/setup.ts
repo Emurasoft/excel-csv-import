@@ -10,10 +10,10 @@ Enzyme.configure({adapter: new Adapter()});
 jsdom();
 
 const localStorage = {
-    // @ts-ignore
-    setItem: (k, v) => global.localStorage[k] = v,
-    // @ts-ignore
-    clear: () => global.localStorage = {...localStorage},
+	// @ts-ignore
+	setItem: (k, v) => global.localStorage[k] = v,
+	// @ts-ignore
+	clear: () => global.localStorage = {...localStorage},
 };
 
 // @ts-ignore
@@ -21,15 +21,15 @@ global.localStorage = {...localStorage};
 
 // @ts-ignore
 global.Office = {
-    context: {},
-    PlatformType: {
-        PC: 0,
-        OfficeOnline: 1,
-        Mac: 2,
-        iOS: 3,
-        Android: 4,
-        Universal: 5,
-    },
+	context: {},
+	PlatformType: {
+		PC: 0,
+		OfficeOnline: 1,
+		Mac: 2,
+		iOS: 3,
+		Android: 4,
+		Universal: 5,
+	},
 }
 
 // @ts-ignore
