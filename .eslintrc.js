@@ -25,7 +25,7 @@ module.exports = {
     rules: {
         'max-len': ['error', {code: 100}],
         'comma-dangle': ['error', 'always-multiline'],
-        '@typescript-eslint/indent': ['error', 4, {SwitchCase: 0}],
+        '@typescript-eslint/indent': ['error', 'tab'],
         'jsx-quotes': ['error', 'prefer-single'],
         '@typescript-eslint/ban-ts-ignore': 'off',
         '@typescript-eslint/no-empty-function': 'off',

@@ -4,14 +4,14 @@ import * as React from 'react';
 import * as style from './style.css';
 
 interface Props {
-    text: string;
-    helpLink: string;
-    mac: boolean;
+	text: string;
+	helpLink: string;
+	mac: boolean;
 }
 
 interface State {
-    firstVisit: boolean;
-    visible: boolean;
+	firstVisit: boolean;
+	visible: boolean;
 }
 
 // TitleBar contains the page title and a question mark icon in the top right corner for linking to
@@ -22,69 +22,69 @@ interface State {
 // Validation report: Please provide additional information on the first screen explaining how to
 // use the add-in, or directing the user to help / configuration information.
 export class TitleBar extends StoredComponent<Props, State> {
-    public constructor(props: Props) {
-        super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
-        this._save = true;
-        let firstVisit = {};
-        try {
-            firstVisit = StoredComponent.loadState('app', ['firstVisit']);
-        } catch { // localStorage may fail
-            firstVisit = {firstVisit: false};
-        }
-        this.state = {...this.state, ...firstVisit};
-    }
+	public constructor(props: Props) {
+		super(props, 'app', {firstVisit: true, visible: false}, ['firstVisit']);
+		this._save = true;
+		let firstVisit = {};
+		try {
+			firstVisit = StoredComponent.loadState('app', ['firstVisit']);
+		} catch { // localStorage may fail
+			firstVisit = {firstVisit: false};
+		}
+		this.state = {...this.state, ...firstVisit};
+	}
 
-    public render(): React.ReactNode {
-        return (
-            <>
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <Text variant='xLarge'><strong>{this.props.text}</strong></Text>
-                    <div className={style.smallIcon}>
-                        <IconButton
-                            // Mac platform puts a big button in the top right corner
-                            style={{marginRight: this.props.mac ? '30px' : '4px'}}
-                            iconProps={{iconName: 'Help'}}
-                            title={'Help page'}
-                            ariaLabel={'Help page'}
-                            href={this.props.helpLink}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                        />
-                    </div>
-                </div>
-                <div
-                    style={{
-                        position: 'absolute',
-                        zIndex: 1,
-                        width: '100%',
-                        height: '90%',
-                        backgroundColor: '#FFFFFF',
-                    }}
-                    hidden={!this.state.visible}
-                >
-                    <div className={style.pageMargin}>
-                        <Text variant='mediumPlus'>
-                            {/* eslint-disable-next-line max-len */}
-                            {'CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.'}
-                        </Text>
-                        <br /><br />
-                        <PrimaryButton
-                            text={'Continue'}
-                            onClick={() => this.setState({visible: false, firstVisit: false})}
-                        />
-                    </div>
-                </div>
-            </>
-        );
-    }
+	public render(): React.ReactNode {
+		return (
+			<>
+				<div
+					style={{
+						width: '100%',
+						display: 'flex',
+						justifyContent: 'space-between',
+					}}
+				>
+					<Text variant='xLarge'><strong>{this.props.text}</strong></Text>
+					<div className={style.smallIcon}>
+						<IconButton
+							// Mac platform puts a big button in the top right corner
+							style={{marginRight: this.props.mac ? '30px' : '4px'}}
+							iconProps={{iconName: 'Help'}}
+							title={'Help page'}
+							ariaLabel={'Help page'}
+							href={this.props.helpLink}
+							target='_blank'
+							rel='noopener noreferrer'
+						/>
+					</div>
+				</div>
+				<div
+					style={{
+						position: 'absolute',
+						zIndex: 1,
+						width: '100%',
+						height: '90%',
+						backgroundColor: '#FFFFFF',
+					}}
+					hidden={!this.state.visible}
+				>
+					<div className={style.pageMargin}>
+						<Text variant='mediumPlus'>
+							{/* eslint-disable-next-line max-len */}
+							{'CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.'}
+						</Text>
+						<br /><br />
+						<PrimaryButton
+							text={'Continue'}
+							onClick={() => this.setState({visible: false, firstVisit: false})}
+						/>
+					</div>
+				</div>
+			</>
+		);
+	}
 
-    public componentDidMount(): void {
-        this.setState(state => ({visible: state.firstVisit}));
-    }
+	public componentDidMount(): void {
+		this.setState(state => ({visible: state.firstVisit}));
+	}
 }
