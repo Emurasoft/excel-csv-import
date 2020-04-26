@@ -5,7 +5,7 @@ import {AbortFlag} from './AbortFlag';
 import {ProgressCallback} from './Store';
 import {APIVersionInfo, Shape} from './ExcelAPI';
 
-export enum InputType {file, text}
+export const enum InputType {file, text}
 
 export interface Source {
     inputType: InputType;
@@ -17,7 +17,7 @@ type Config = {
     [P in 'delimiter' | 'encoding']: Papa.ParseConfig[P];
 }
 
-export enum NewlineSequence {
+export const enum NewlineSequence {
     AutoDetect = '',
     CRLF = '\r\n',
     CR = '\r',

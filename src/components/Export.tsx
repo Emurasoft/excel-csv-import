@@ -35,7 +35,7 @@ interface Props {
     history: MemoryHistory;
 }
 
-export enum ExportType {file, text}
+export const enum ExportType {file, text}
 
 interface State extends ExportOptions {
     exportType: ExportType;

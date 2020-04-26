@@ -3,7 +3,7 @@ import {Dropdown, IDropdownOption, TextField, ResponsiveMode} from '@fluentui/re
 import * as style from './style.css';
 import {BaseProps} from './BaseProps';
 
-export enum DropdownOptionKey {comma, space, tab, other}
+export const enum DropdownOptionKey {comma, space, tab, other}
 
 interface Props extends BaseProps<string> {
     showLengthError: boolean;

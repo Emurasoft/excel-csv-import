@@ -21,7 +21,7 @@ export interface State {
     progress: Progress;
 }
 
-export enum OutputType {hidden, info, error}
+export const enum OutputType {hidden, info, error}
 
 export interface ParserOutput {
     type: OutputType;
