@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, ProgressIndicator, Text} from 'office-ui-fabric-react';
+import {Link, ProgressIndicator, Text} from '@fluentui/react';
 import * as style from './style.css';
 import {Progress} from '../Store';
 

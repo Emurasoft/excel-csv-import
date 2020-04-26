@@ -1,7 +1,7 @@
 import {Store} from '../Store';
 import * as React from 'react';
 import {connect} from '../connect';
-import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from 'office-ui-fabric-react';
+import {PrimaryButton, Toggle, TooltipDelay, TooltipHost} from '@fluentui/react';
 import {ImportOptions, InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';

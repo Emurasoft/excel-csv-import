@@ -2,7 +2,7 @@ import {shallow} from 'enzyme';
 import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
 import * as React from 'react';
 import * as assert from 'assert';
-import {Dropdown, TextField} from 'office-ui-fabric-react';
+import {Dropdown, TextField} from '@fluentui/react';
 
 describe('DelimiterInput', () => {
     it('custom input display status', () => {

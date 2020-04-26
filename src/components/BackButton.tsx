@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IconButton} from 'office-ui-fabric-react';
+import {IconButton} from '@fluentui/react';
 
 export function BackButton(props: {onClick: () => void}): JSX.Element {
     return (

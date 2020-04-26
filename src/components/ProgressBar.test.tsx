@@ -1,7 +1,7 @@
 import {shallow} from 'enzyme';
 import {ProgressBar} from './ProgressBar';
 import * as React from 'react';
-import {Link} from 'office-ui-fabric-react';
+import {Link} from '@fluentui/react';
 import * as assert from 'assert';
 
 describe('ProgressBar', () => {

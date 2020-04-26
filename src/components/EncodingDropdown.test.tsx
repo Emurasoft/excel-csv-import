@@ -1,7 +1,7 @@
 import {EncodingDropdown} from './EncodingDropdown';
 import {shallow} from 'enzyme';
 import * as React from 'react';
-import {Dropdown} from 'office-ui-fabric-react';
+import {Dropdown} from '@fluentui/react';
 import * as assert from 'assert';
 
 describe('EncodingDropdown', () => {

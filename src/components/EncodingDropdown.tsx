@@ -1,6 +1,6 @@
 import {BaseProps} from './BaseProps';
 import * as React from 'react';
-import {Dropdown, IDropdownOption} from 'office-ui-fabric-react';
+import {Dropdown, IDropdownOption} from '@fluentui/react';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 
 interface Props extends BaseProps<string> {
