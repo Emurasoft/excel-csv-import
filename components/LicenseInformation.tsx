@@ -3,8 +3,8 @@ import * as React from 'react';
 import {BackButton} from './BackButton';
 import * as style from './style.css';
 import {Link, Text} from '@fluentui/react';
-import thisApp from '../licenses/thisApp';
-import thirdParty from '../licenses/thirdParty';
+import thisApp from './licenses/thisApp';
+import thirdParty from './licenses/thirdParty';
 
 interface Props {
     history: MemoryHistory;

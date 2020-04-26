@@ -6,7 +6,7 @@ module.exports = merge(common, {
     output: {
         path: __dirname + '/../build',
     },
-    entry: ['@babel/polyfill', __dirname + '/../src/index.tsx'],
+    entry: ['@babel/polyfill', __dirname + '/../index.tsx'],
     module: {
         rules: [
             {

@@ -1,6 +1,6 @@
 import * as ExcelAPI from './ExcelAPI';
 import * as assert from 'assert';
-import {CheckError} from '../test/util';
+import {CheckError} from './test/util';
 
 describe('ExcelAPI', () => {
     it('_maxLength', () => {
