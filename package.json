@@ -2,14 +2,27 @@
   "name": "excel-csv-import",
   "version": "0.0.0",
   "repository": "https://github.com/Emurasoft/excel-csv-import.git",
-  "author": "Makoto",
   "license": "MIT",
+  "author": "Makoto",
   "scripts": {
-    "test": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
-    "lint": "eslint --ext .js,.ts,.tsx .",
+    "build": "webpack --config webpack/prod.js",
     "devServer": "webpack-dev-server --config webpack/dev.js",
-    "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml",
-    "build": "webpack --config webpack/prod.js"
+    "lint": "eslint --ext .js,.ts,.tsx .",
+    "test": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
+    "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml"
+  },
+  "nyc": {
+    "all": true,
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "reporter": [
+      "html"
+    ]
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -17,64 +30,51 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
     "@microsoft/office-js": "^1.1.38",
+    "@types/enzyme": "^3.10.5",
     "@types/file-saver": "^2.0.1",
+    "@types/mocha": "^7.0.2",
     "@types/office-js": "0.0.166",
     "@types/papaparse": "^4.5.11",
     "@types/react": "^16.9.31",
     "@types/react-dom": "^16.9.6",
     "@types/react-router-dom": "^4.3.5",
+    "@types/sinon": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "@typescript-eslint/typescript-estree": "^2.29.0",
+    "assert": "^2.0.0",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^5.1.1",
     "core-js": "^3.6.5",
     "css-loader": "^3.5.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "file-saver": "^2.0.2",
     "html-webpack-plugin": "^4.2.0",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^16.2.2",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^7.1.2",
     "node-fetch": "^2.6.0",
+    "nyc": "^15.0.1",
+    "office-addin-validator": "^1.0.5",
     "office-ui-fabric-react": "^6.213.0",
     "papaparse": "^4.6.3",
     "query-string": "^5.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
+    "sinon": "^9.0.2",
     "source-map": "^0.7.3",
     "style-loader": "^1.2.0",
     "ts-loader": "^7.0.1",
+    "ts-node": "^8.9.1",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-merge": "^4.2.2",
-    "@types/enzyme": "^3.10.5",
-    "@types/mocha": "^5.2.7",
-    "@types/sinon": "^7.5.2",
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
-    "@typescript-eslint/parser": "^2.26.0",
-    "@typescript-eslint/typescript-estree": "^2.26.0",
-    "assert": "^1.5.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.19.0",
-    "ignore-styles": "^5.0.1",
-    "jsdom": "^16.2.2",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^6.2.3",
-    "nyc": "^14.1.1",
-    "office-addin-validator": "^1.0.5",
-    "sinon": "^7.5.0",
-    "ts-node": "^8.8.1",
-    "webpack-dev-server": "^3.10.3"
-  },
-  "nyc": {
-    "extension": [
-      ".ts",
-      ".tsx"
-    ],
-    "exclude": [
-      "**/*.d.ts"
-    ],
-    "reporter": [
-      "html"
-    ],
-    "all": true
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
   }
 }
