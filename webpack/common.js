@@ -11,6 +11,6 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({template: 'index.html'}),
-        new CopyPlugin([{from: 'public/*'}])
+        new CopyPlugin([{from: 'static/*'}])
     ],
 };
