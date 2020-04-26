@@ -8,7 +8,7 @@ module.exports = merge(common, {
         port: 3000,
         https: true,
     },
-    entry: __dirname + '/../src/index.tsx',
+    entry: __dirname + '/../index.tsx',
     module: {
         rules: [
             {
