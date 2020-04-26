@@ -1,4 +1,4 @@
-import {IDropdownOption} from 'office-ui-fabric-react';
+import {IDropdownOption} from '@fluentui/react';
 
 export const EncodingDropdownOptions: IDropdownOption[] = [
     // Use generateEncodingList.js to generate list

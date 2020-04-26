@@ -1,11 +1,7 @@
 /* eslint-env node */
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-import {
-    ResponsiveMode,
-    setResponsiveMode,
-} from 'office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode';
-import {setIconOptions} from 'office-ui-fabric-react/lib-commonjs';
+import {setIconOptions} from '@fluentui/react';
 import * as jsdom from 'jsdom-global';
 import 'ignore-styles';
 
@@ -39,5 +35,4 @@ global.Office = {
 // @ts-ignore
 window.requestAnimationFrame = (cb) => cb();
 
-setResponsiveMode(ResponsiveMode.small);
 setIconOptions({disableWarnings: true});

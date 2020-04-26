@@ -4,7 +4,7 @@ import * as React from 'react';
 import {NewlineSequence} from '../Parser';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
-import {PrimaryButton, TextField} from 'office-ui-fabric-react';
+import {PrimaryButton, TextField} from '@fluentui/react';
 import * as assert from 'assert';
 
 describe('ExportComponent', () => {

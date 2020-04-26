@@ -1,5 +1,5 @@
 import {OutputType, ParserOutput} from '../Store';
-import {TextField} from 'office-ui-fabric-react';
+import {TextField} from '@fluentui/react';
 import * as React from 'react';
 import * as style from './style.css';
 

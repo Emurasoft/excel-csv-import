@@ -11,7 +11,8 @@ import {
     TextField,
     Toggle,
     TooltipHost,
-} from 'office-ui-fabric-react';
+    ResponsiveMode,
+} from '@fluentui/react';
 import {CsvStringAndName, ExportOptions, NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
@@ -22,9 +23,6 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
 import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
-import {
-    ResponsiveMode,
-} from "office-ui-fabric-react/lib-commonjs/utilities/decorators/withResponsiveMode";
 
 export interface OutputText {
     // If show is false, do not show text.

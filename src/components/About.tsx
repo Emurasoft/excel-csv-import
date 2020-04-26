@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Store} from '../Store';
 import {connect} from '../connect';
-import {Link, Text} from 'office-ui-fabric-react';
+import {Link, Text} from '@fluentui/react';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';
 import {BackButton} from './BackButton';

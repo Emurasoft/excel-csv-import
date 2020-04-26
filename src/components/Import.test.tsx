@@ -5,7 +5,7 @@ import {InputType, NewlineSequence} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
-import {PrimaryButton} from 'office-ui-fabric-react';
+import {PrimaryButton} from '@fluentui/react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 
