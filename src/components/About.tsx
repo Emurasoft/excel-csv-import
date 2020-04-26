@@ -40,7 +40,7 @@ export class AboutComponent extends React.Component<Props, {}> {
                     >
                         <img
                             style={{width: '150px'}}
-                            src={'emeditor_logo.png'}
+                            src={'static/emeditor_logo.png'}
                             alt={'EmEditor logo'}
                         />
                     </a>
