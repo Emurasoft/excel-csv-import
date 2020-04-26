@@ -1,20 +1,18 @@
 const merge = require('webpack-merge');
-const common = require('./webpack.common');
+const common = require('./common');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
-    mode: 'development',
-    devServer: {
-        contentBase: __dirname + '/public',
-        compress: true,
-        port: 3000,
-        https: true,
+    mode: 'production',
+    output: {
+        path: __dirname + '/../build',
     },
-    entry: __dirname + '/src/index.tsx',
+    entry: ['@babel/polyfill', __dirname + '/../src/index.tsx'],
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ['ts-loader'],
+                use: ['babel-loader', 'ts-loader'],
             },
             {
                 test: /\.css$/,
@@ -30,5 +28,10 @@ module.exports = merge(common, {
             },
         ],
     },
-    devtool: 'cheap-module-eval-source-map',
+    plugins: [
+        new CopyPlugin([
+            {from: 'public/*', ignore: ['public/index.html'], flatten: true},
+        ]),
+    ],
+    devtool: 'source-map', // source-map gets the most accurate traces
 });
