@@ -101,7 +101,7 @@ describe('DelimiterInput', () => {
 			},
 		];
 
-		for (const test of tests) {
+		for (const [i, test] of tests.entries()) {
 			const wrapper = shallow(
 				<DelimiterInput
 					value={''}
@@ -113,14 +113,20 @@ describe('DelimiterInput', () => {
 				.simulate('change', null, {key: DropdownOptionKey.other});
 
 			wrapper.setProps({value: test.value});
-			assert(wrapper.html().includes(test.expectIncludes));
+			assert(wrapper.html().includes(test.expectIncludes), i.toString());
 		}
 	});
 
 	it('codePoint()', () => {
-		// @ts-ignore
-		assert.strictEqual(codePoint(','), 'U+002C');
-		// @ts-ignore
-		assert.strictEqual(codePoint('\u0100'), 'U+0100');
+		const tests: {c: string, expected: string}[] = [
+			{
+				c: ',',
+				expected: 'U+002C',
+			},
+		];
+
+		for (const [i, test] of tests.entries()) {
+			assert.strictEqual(codePoint(test.c), test.expected, i.toString());
+		}
 	});
 });
