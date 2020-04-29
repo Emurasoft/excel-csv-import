@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const rows = 10000;
+const rows = 1000;
 const columns = 10;
 const bytesPerCell = 10;
 
