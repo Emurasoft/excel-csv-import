@@ -2,7 +2,6 @@ import * as React from 'react';
 import {InputType, Source} from '../Parser';
 import * as style from './style.css';
 import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react';
-import {BaseProps} from './BaseProps';
 
 interface Props {
 	value: Source;
