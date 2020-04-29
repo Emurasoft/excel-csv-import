@@ -1,72 +1,83 @@
 import * as React from 'react';
 import {InputType, Source} from '../Parser';
 import * as style from './style.css';
-import {Dropdown, IDropdownOption, TextField, ResponsiveMode} from '@fluentui/react';
+import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react';
 import {BaseProps} from './BaseProps';
 
-export class SourceInput extends React.Component<BaseProps<Source>, {}> {
-	public render(): React.ReactNode {
-		const fileSourceMenu: IDropdownOption[] = [
-			{
-				key: InputType.file,
-				text: 'File',
-			},
-			{
-				key: InputType.text,
-				text: 'Text input',
-			},
-		];
+interface Props {
+	value: Source;
+	onChange: (value: Source) => void;
+}
 
-		const usingEdgeOrIE = navigator.userAgent.includes('Edge')
-            || navigator.userAgent.includes('Trident');
+const fileSourceMenu: IDropdownOption[] = [
+	{
+		key: InputType.file,
+		text: 'File',
+	},
+	{
+		key: InputType.text,
+		text: 'Text input',
+	},
+];
 
-		const componentMap = {
-			[InputType.file]: (
-				<>
-					<input
-						className={usingEdgeOrIE ? style.fullWidth : null}
-						type='file'
-						accept='text/csv'
-						onChange={this.fileOnChange}
-						id='SourceInput-FileInput'
-					/>
-					<br />
-				</>
-			),
-			[InputType.text]: (
-				<TextField
-					className={style.monospace}
-					multiline rows={10}
-					spellCheck={false}
-					wrap='off'
-					onChange={(_, text) => this.props.onChange({inputType: InputType.text, text})}
-					value={this.props.value.text as string}
-					id='SourceInput-TextInput'
-				/>
-			),
-		};
+function fileInput(onChange: (value: File) => void): React.ReactElement {
+	const usingEdgeOrIE = navigator.userAgent.includes('Edge')
+		|| navigator.userAgent.includes('Trident');
 
-		return (
-			<>
-				<Dropdown
-					label={'Import type'}
-					options={fileSourceMenu}
-					responsiveMode={ResponsiveMode.large}
-					selectedKey={this.props.value.inputType}
-					onChange={this.dropdownOnChange}
-					id='SourceInput-Dropdown'
-				/>
-				<div className={style.smallDivider} />
-				{componentMap[this.props.value.inputType]}
-			</>
+	// TODO test fullWidth on firefox and chrome
+	return (
+		<>
+			<input
+				className={usingEdgeOrIE ? style.fullWidth : null}
+				type='file'
+				accept='text/csv'
+				onChange={e => onChange(e.target.files[0])}
+				id='SourceInput-FileInput'
+			/>
+			<br />
+		</>
+	);
+}
+
+function textInput(value: string, onChange: (value: string) => void): React.ReactElement {
+	return (
+		<TextField
+			className={style.monospace}
+			multiline rows={10}
+			spellCheck={false}
+			wrap='off'
+			onChange={(_, text) => onChange(text)}
+			value={value}
+			id='SourceInput-TextInput'
+		/>
+	);
+}
+
+export function SourceInput({value, onChange}: Props): React.ReactElement {
+	let input: React.ReactElement;
+	switch (value.inputType) {
+	case InputType.file:
+		input = fileInput(file => onChange({inputType: InputType.file, file, text: ''}));
+		break;
+	case InputType.text:
+		input = textInput(
+			value.text,
+			text => onChange({inputType: InputType.text, file: null, text}),
 		);
 	}
 
-	private dropdownOnChange = (_, option) => {
-		this.props.onChange({inputType: option.key as InputType, file: null, text: ''});
-	}
-
-	private fileOnChange =(e) => {
-		this.props.onChange({inputType: InputType.file, file: e.target.files[0], text: ''});
-	}
+	return (
+		<>
+			<Dropdown
+				label={'Import type'}
+				options={fileSourceMenu}
+				responsiveMode={ResponsiveMode.large}
+				selectedKey={value.inputType}
+				onChange={(_, option) => onChange({inputType: option.key as InputType, file: null, text: ''})}
+				id='SourceInput-Dropdown'
+			/>
+			<div className={style.smallDivider} />
+			{input}
+		</>
+	);
 }

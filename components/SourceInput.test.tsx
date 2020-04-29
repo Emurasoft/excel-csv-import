@@ -49,7 +49,7 @@ describe('SourceInput', () => {
 				inputType: InputType.text,
 				elementSelector: '#SourceInput-TextInput',
 				onChangeArgs: [null, 'text'],
-				expected: {inputType: InputType.text, text: 'text'},
+				expected: {inputType: InputType.text, file: null, text: 'text'},
 			},
 		];
 
