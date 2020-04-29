@@ -13,7 +13,7 @@ export function ParserOutputBox({parserOutput}: Props): React.ReactElement {
 		if (parserOutput.type === OutputType.info) {
 			className = style.monospace;
 		} else {
-			className = style.monospace;
+			className = style.redText;
 		}
 
 		return (
