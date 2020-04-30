@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const rows = 1000000;
-const columns = 100;
+const rows = 1000;
+const columns = 10;
 const bytesPerCell = 10;
 
 /**
@@ -17,8 +17,8 @@ function row() {
 
 function main() {
 	const rowStr = row();
-	fs.writeFileSync(__dirname + '/../largeCSVFile.csv', '');
-	const fd = fs.openSync(__dirname + '/../largeCSVFile.csv', 'a');
+	fs.writeFileSync(__dirname + '/largeCSVFile.csv', '');
+	const fd = fs.openSync(__dirname + '/largeCSVFile.csv', 'a');
 	for (let i = 0; i < rows; i++) {
 		fs.writeSync(fd, rowStr);
 	}

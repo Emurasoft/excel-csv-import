@@ -192,19 +192,19 @@ export class ExportComponent extends StoredComponent<Props, State> {
 
 	private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: State): void {
 		switch (exportOptions.exportType) {
-			case ExportType.file: {
-				const options = {type: 'text/csv;charset=' + exportOptions.encoding};
-				const blob = new Blob([csvStringAndName.string], options);
-				FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
-				// state.outputText.show is already false
-				return;
-			}
-			case ExportType.text: {
-				this.setState(state => ({
-					outputText: {show: !state.outputText.show, text: csvStringAndName.string},
-				}));
-				return;
-			}
+		case ExportType.file: {
+			const options = {type: 'text/csv;charset=' + exportOptions.encoding};
+			const blob = new Blob([csvStringAndName.string], options);
+			FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
+			// state.outputText.show is already false
+			return;
+		}
+		case ExportType.text: {
+			this.setState(state => ({
+				outputText: {show: !state.outputText.show, text: csvStringAndName.string},
+			}));
+			return;
+		}
 		}
 	}
 

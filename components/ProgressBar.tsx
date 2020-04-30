@@ -9,31 +9,24 @@ interface Props {
 	progress: Progress;
 }
 
-export class ProgressBar extends React.Component<Props, {}> {
-	public render(): JSX.Element {
-		return (
-			<div className={style.smallDivider}>{this.contents()}</div>
-		);
+export function ProgressBar({onClick, progress}: Props): React.ReactElement {
+	let stopText: React.ReactElement;
+	if (progress.aborting) {
+		stopText = <Text variant='small'>Stopping</Text>;
+	} else {
+		stopText = <Text variant='small'><Link onClick={onClick}>Stop</Link></Text>
 	}
 
-	private contents(): React.ReactNode {
-		if (this.props.progress.show) {
-			return (
-				<>
-					<Text variant='small'>{this.stopLink()}</Text>
-					<ProgressIndicator percentComplete={this.props.progress.percent}/>
-				</>
-			);
-		} else {
-			return <Text variant='small'>&nbsp;</Text>;
-		}
-	}
-
-	private stopLink(): React.ReactNode {
-		if (this.props.progress.aborting) {
-			return 'Stopping';
-		} else {
-			return <Link onClick={this.props.onClick}>Stop</Link>;
-		}
-	}
+	return (
+		<div className={style.smallDivider}>
+			{
+				progress.show
+					? <>
+						<Text variant='small'>{stopText}</Text>
+						<ProgressIndicator percentComplete={progress.percent} />
+					</>
+					: <Text variant='small'>&nbsp;</Text>
+			}
+		</div>
+	);
 }

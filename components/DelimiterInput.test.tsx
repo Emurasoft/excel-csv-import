@@ -1,5 +1,5 @@
 import {shallow} from 'enzyme';
-import {DelimiterInput, DropdownOptionKey} from './DelimiterInput';
+import {DelimiterInput, DropdownOptionKey, codePoint} from './DelimiterInput';
 import * as React from 'react';
 import * as assert from 'assert';
 import {Dropdown, TextField} from '@fluentui/react';
@@ -101,7 +101,7 @@ describe('DelimiterInput', () => {
 			},
 		];
 
-		for (const test of tests) {
+		for (const [i, test] of tests.entries()) {
 			const wrapper = shallow(
 				<DelimiterInput
 					value={''}
@@ -113,28 +113,20 @@ describe('DelimiterInput', () => {
 				.simulate('change', null, {key: DropdownOptionKey.other});
 
 			wrapper.setProps({value: test.value});
-			assert(wrapper.html().includes(test.expectIncludes));
+			assert(wrapper.html().includes(test.expectIncludes), i.toString());
 		}
 	});
 
 	it('codePoint()', () => {
-		// @ts-ignore
-		assert.strictEqual(DelimiterInput.codePoint(','), 'U+002C');
-		// @ts-ignore
-		assert.strictEqual(DelimiterInput.codePoint('\u0100'), 'U+0100');
+		const tests: {c: string; expected: string}[] = [
+			{
+				c: ',',
+				expected: 'U+002C',
+			},
+		];
+
+		for (const [i, test] of tests.entries()) {
+			assert.strictEqual(codePoint(test.c), test.expected, i.toString());
+		}
 	});
-
-	it('getErrorMessage()', () => {
-		const dropdown0 = new DelimiterInput({showLengthError: true})
-		// @ts-ignore
-		assert.strictEqual(dropdown0.getErrorMessage('a'), '');
-		// @ts-ignore
-		assert(dropdown0.getErrorMessage('aa') !== '');
-
-		const dropdown1 = new DelimiterInput({showLengthError: false});
-		// @ts-ignore
-		assert.strictEqual(dropdown1.getErrorMessage('aa'), '');
-	});
-
-	// Error message rendering can't easily be tested, even with setTimeout
 });

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {IconButton} from '@fluentui/react';
 
-export function BackButton(props: {onClick: () => void}): JSX.Element {
+export function BackButton({onClick}: {onClick: () => void}): React.ReactElement {
 	return (
 		<IconButton
 			iconProps={{iconName: 'Back'}}
-			onClick={props.onClick}
+			onClick={onClick}
 			ariaLabel={'Go back'}
 			title={'Go back'}
 		/>

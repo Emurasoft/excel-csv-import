@@ -25,11 +25,12 @@ module.exports = {
     rules: {
         'max-len': ['error', {code: 100}],
         'comma-dangle': ['error', 'always-multiline'],
-        '@typescript-eslint/indent': ['error', 'tab'],
+        '@typescript-eslint/indent': ['error', 'tab', {SwitchCase: 0}],
         'jsx-quotes': ['error', 'prefer-single'],
         '@typescript-eslint/ban-ts-ignore': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-use-before-define': 'off',
     },
     overrides: [
         {
