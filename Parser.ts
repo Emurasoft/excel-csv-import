@@ -75,28 +75,28 @@ export class ChunkProcessor {
 			importOptions.complete = results => resolve(results.errors);
 
 			switch (importOptions.source.inputType) {
-				case InputType.file:
-					Papa.parse(importOptions.source.file, importOptions);
-					break;
-				case InputType.text:
-					Papa.parse(importOptions.source.text, importOptions);
-					break;
+			case InputType.file:
+				Papa.parse(importOptions.source.file, importOptions);
+				break;
+			case InputType.text:
+				Papa.parse(importOptions.source.text, importOptions);
+				break;
 			}
 		});
 	}
 
 	private static progressPerChunk(source: Source, chunkSize: number): number {
 		switch (source.inputType) {
-			case InputType.file:
-				if (source.file.size === 0) {
-					return 1.0;
-				}
-				return chunkSize / source.file.size;
-			case InputType.text:
-				if (source.text.length === 0) {
-					return 1.0;
-				}
-				return chunkSize / source.text.length;
+		case InputType.file:
+			if (source.file.size === 0) {
+				return 1.0;
+			}
+			return chunkSize / source.file.size;
+		case InputType.text:
+			if (source.text.length === 0) {
+				return 1.0;
+			}
+			return chunkSize / source.text.length;
 		}
 	}
 
