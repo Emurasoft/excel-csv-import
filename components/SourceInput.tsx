@@ -20,14 +20,10 @@ const fileSourceMenu: IDropdownOption[] = [
 ];
 
 function fileInput(onChange: (value: File) => void): React.ReactElement {
-	const usingEdgeOrIE = navigator.userAgent.includes('Edge')
-		|| navigator.userAgent.includes('Trident');
-
-	// TODO test fullWidth on firefox and chrome
 	return (
 		<>
 			<input
-				className={usingEdgeOrIE ? style.fullWidth : null}
+				className={style.fullWidth}
 				type='file'
 				accept='text/csv'
 				onChange={e => onChange(e.target.files[0])}
