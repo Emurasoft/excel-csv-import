@@ -6,7 +6,7 @@ export class Logger {
 	// Records name and args. Do not add sensitive information.
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public write(name: string, args?: {[key: string]: any}): void {
-		this._log += JSON.stringify({name, args: args ? Logger.addFileName(args) : {}}) + '\n';
+		this._log += JSON.stringify({name, args: args ? args : {}}) + '\n';
 	}
 
 	public log(): string {
