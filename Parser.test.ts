@@ -257,9 +257,9 @@ describe('Parser', () => {
 				expected: ['a']
 			},
 			{
-				row: ["\"a\""],
+				row: ['"a"'],
 				delimiter: ',',
-				expected: ["\"\"\"a\"\"\""],
+				expected: ['"""a"""'],
 			},
 			{
 				row: ['\n'],
@@ -280,6 +280,11 @@ describe('Parser', () => {
 				row: ['a\t'],
 				delimiter: '\t',
 				expected: ['"a\t"'],
+			},
+			{
+				row: ['aa'],
+				delimiter: 'aa',
+				expected: ['"aa"']
 			},
 		];
 
