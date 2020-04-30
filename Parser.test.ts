@@ -243,8 +243,18 @@ describe('Parser', () => {
 		const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
 			{
 				row: [''],
+				delimiter: '',
+				expected: [''],
+			},
+			{
+				row: [''],
 				delimiter: ',',
 				expected: [''],
+			},
+			{
+				row: ['a'],
+				delimiter: '',
+				expected: ['a']
 			},
 			{
 				row: ["\"a\""],

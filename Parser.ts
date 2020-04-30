@@ -166,7 +166,10 @@ export function _chunkRange(
 }
 
 export function _addQuotes(row: string[], delimiter: string): void {
-	console.assert(delimiter !== '');
+	if (delimiter == '') {
+		return;
+	}
+
 	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/, delimiter];
 	for (let i = 0; i < row.length; i++) {
 		if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
