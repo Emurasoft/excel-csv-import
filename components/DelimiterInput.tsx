@@ -8,7 +8,7 @@ export const enum DropdownOptionKey {comma, space, tab, other}
 interface Props {
 	showLengthError: boolean;
 	value: string;
-	onChange: (value: string) => any;
+	onChange: (value: string) => void;
 }
 
 const stringToDropdownKey = {

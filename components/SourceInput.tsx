@@ -72,7 +72,11 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 				options={fileSourceMenu}
 				responsiveMode={ResponsiveMode.large}
 				selectedKey={value.inputType}
-				onChange={(_, option) => onChange({inputType: option.key as InputType, file: null, text: ''})}
+				onChange={
+					(_, option) => onChange(
+						{inputType: option.key as InputType, file: null, text: ''},
+					)
+				}
 				id='SourceInput-Dropdown'
 			/>
 			<div className={style.smallDivider} />

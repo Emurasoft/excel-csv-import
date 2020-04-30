@@ -21,11 +21,11 @@ export function ProgressBar({onClick, progress}: Props): React.ReactElement {
 		<div className={style.smallDivider}>
 			{
 				progress.show
-				? <>
-					<Text variant='small'>{stopText}</Text>
-					<ProgressIndicator percentComplete={progress.percent} />
-				</>
-				: <Text variant='small'>&nbsp;</Text>
+					? <>
+						<Text variant='small'>{stopText}</Text>
+						<ProgressIndicator percentComplete={progress.percent} />
+					</>
+					: <Text variant='small'>&nbsp;</Text>
 			}
 		</div>
 	);

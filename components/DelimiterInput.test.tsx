@@ -118,7 +118,7 @@ describe('DelimiterInput', () => {
 	});
 
 	it('codePoint()', () => {
-		const tests: {c: string, expected: string}[] = [
+		const tests: {c: string; expected: string}[] = [
 			{
 				c: ',',
 				expected: 'U+002C',

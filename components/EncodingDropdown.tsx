@@ -1,4 +1,3 @@
-import {BaseProps} from './BaseProps';
 import * as React from 'react';
 import {Dropdown, IDropdownOption} from '@fluentui/react';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
@@ -15,7 +14,9 @@ const AutoDetectOption: IDropdownOption = {
 	'text': 'Auto-detect',
 };
 
-export function EncodingDropdown({showAutoDetect, hidden, value, onChange}: Props): React.ReactElement {
+export function EncodingDropdown(
+	{showAutoDetect, hidden, value, onChange}: Props,
+): React.ReactElement {
 	if (hidden) {
 		return null;
 	}
