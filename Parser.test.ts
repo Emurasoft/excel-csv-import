@@ -243,13 +243,23 @@ describe('Parser', () => {
 		const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
 			{
 				row: [''],
+				delimiter: '',
+				expected: [''],
+			},
+			{
+				row: [''],
 				delimiter: ',',
 				expected: [''],
 			},
 			{
-				row: ["\"a\""],
+				row: ['a'],
+				delimiter: '',
+				expected: ['a'],
+			},
+			{
+				row: ['"a"'],
 				delimiter: ',',
-				expected: ["\"\"\"a\"\"\""],
+				expected: ['"""a"""'],
 			},
 			{
 				row: ['\n'],
@@ -270,6 +280,11 @@ describe('Parser', () => {
 				row: ['a\t'],
 				delimiter: '\t',
 				expected: ['"a\t"'],
+			},
+			{
+				row: ['aa'],
+				delimiter: 'aa',
+				expected: ['"aa"'],
 			},
 		];
 
