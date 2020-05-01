@@ -53,5 +53,18 @@ describe('useLocalStorage', () => {
 			const wrapper = shallow(<E/>);
 			assert.strictEqual(wrapper.find('p').text(), '1');
 		}
+		{
+			const useLocalStorage = namespacedUseLocalStorage('differentNamespace');
+			function E(): React.ReactElement {
+				const [v] = useLocalStorage('key', 0);
+				return (
+					<>
+						<p>{v}</p>
+					</>
+				);
+			}
+			const wrapper = shallow(<E/>);
+			assert.strictEqual(wrapper.find('p').text(), '0');
+		}
 	});
 });
