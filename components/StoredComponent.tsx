@@ -17,8 +17,8 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 		this._namespace = namespace;
 		this._saveKeys = saveKeys;
 		try {
-			this._initialSave = localStorage && localStorage['StoredComponent-save'] === '"true"';
-			if (localStorage['check']){(() => {})()} // Additional check
+			this._initialSave = window.localStorage && window.localStorage['StoredComponent-save'] === '"true"';
+			if (window.localStorage['check']){(() => {})()} // Additional check
 		} catch {
 			// Disables saving if calling localStorage causes an exception
 			this._initialSave = false;
@@ -54,11 +54,11 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 	public setSaveStatus(save: boolean): void {
 		try {
 			if (save) {
-				localStorage.setItem('StoredComponent-save', '"true"');
+				window.localStorage.setItem('StoredComponent-save', '"true"');
 				this.saveState(this.state);
 			} else {
-				localStorage.clear();
-				localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
+				window.localStorage.clear();
+				window.localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
 			}
 
 			this._save = save;
@@ -70,7 +70,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 
 	protected static loadState(namespace: string, saveKeys: string[]): {} {
 		const loadedState = {};
-		for (const entry of Object.entries(localStorage)) {
+		for (const entry of Object.entries(window.localStorage)) {
 			if (
 				entry[0].substring(0, namespace.length + 1) === namespace + '-'
                 && saveKeys.includes(entry[0].substring(namespace.length + 1))
@@ -90,7 +90,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 		for (const entry of Object.entries(state)) {
 			if (this._saveKeys.includes(entry[0])) {
 				const key = this._namespace + '-' + entry[0];
-				localStorage.setItem(key, JSON.stringify(entry[1]));
+				window.localStorage.setItem(key, JSON.stringify(entry[1]));
 			}
 		}
 	}

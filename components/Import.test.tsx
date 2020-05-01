@@ -36,4 +36,24 @@ describe('ImportComponent', () => {
 		};
 		assert.deepStrictEqual(receivedOptions, expected);
 	});
+
+	it('compatabilityTest', () => {
+		window.localStorage.clear();
+		window.localStorage.setItem('StoredComponent-save', '"true"');
+		window.localStorage.setItem('import-delimiter', '"a"');
+		window.localStorage.setItem('import-newline', '"\\n"');
+		window.localStorage.setItem('import-encoding', '"UTF-8"');
+
+		let receivedOptions = null;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const stub: any = {};
+		stub.state = {initialized: true};
+		stub.import = (options) => receivedOptions = options
+		// @ts-ignore
+		const wrapper = shallow(<ImportComponent store={stub} />);
+
+		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
+		assert.strictEqual(wrapper.find(NewlineDropdown).getElement().props.value, '\n');
+		assert.strictEqual(wrapper.find(EncodingDropdown).getElement().props.value, 'UTF-8');
+	});
 });
