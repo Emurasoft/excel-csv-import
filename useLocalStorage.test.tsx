@@ -18,7 +18,7 @@ describe('useLocalStorage', () => {
 		}
 
 		{
-			const wrapper = shallow(<E/>);
+			const wrapper = shallow(<E />);
 			assert.strictEqual(wrapper.find('p').text(), '0');
 			assert.strictEqual(window.localStorage.getItem('key'), null);
 			wrapper.find('button').simulate('click');
@@ -26,7 +26,29 @@ describe('useLocalStorage', () => {
 			assert.strictEqual(window.localStorage.getItem('key'), '1');
 		}
 		{
-			const wrapper = shallow(<E/>);
+			const wrapper = shallow(<E />);
+			assert.strictEqual(wrapper.find('p').text(), '1');
+		}
+	});
+
+	it('empty key', () => {
+		function E(): React.ReactElement {
+			const [v, setV] = useLocalStorage('', 0);
+			return (
+				<>
+					<p>{v}</p>
+					<button onClick={() => setV(1)} />
+				</>
+			);
+		}
+
+		{
+			const wrapper = shallow(<E />);
+			wrapper.find('button').simulate('click');
+			assert.strictEqual(window.localStorage.getItem(''), '1');
+		}
+		{
+			const wrapper = shallow(<E />);
 			assert.strictEqual(wrapper.find('p').text(), '1');
 		}
 	});
@@ -45,7 +67,7 @@ describe('useLocalStorage', () => {
 		}
 
 		{
-			const wrapper = shallow(<E/>);
+			const wrapper = shallow(<E />);
 			wrapper.find('button').simulate('click');
 			assert.strictEqual(window.localStorage.getItem('namespace-key'), '1');
 		}
@@ -55,7 +77,7 @@ describe('useLocalStorage', () => {
 		}
 		{
 			const useLocalStorage = namespacedUseLocalStorage('differentNamespace');
-			function E(): React.ReactElement {
+			function DifferentElement(): React.ReactElement {
 				const [v] = useLocalStorage('key', 0);
 				return (
 					<>
@@ -63,7 +85,7 @@ describe('useLocalStorage', () => {
 					</>
 				);
 			}
-			const wrapper = shallow(<E/>);
+			const wrapper = shallow(<DifferentElement />);
 			assert.strictEqual(wrapper.find('p').text(), '0');
 		}
 	});
