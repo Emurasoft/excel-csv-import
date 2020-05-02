@@ -170,11 +170,10 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 					? <TextField
 						label={'Export result'}
 						className={style.monospace}
-						readOnly={true}
 						multiline rows={15}
 						spellCheck={false}
 						wrap='off'
-						value={outputText.text}
+						value={outputText.text} readOnly
 					/>
 					: null
 				}
