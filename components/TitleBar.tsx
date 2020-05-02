@@ -1,4 +1,3 @@
-import {StoredComponent} from './StoredComponent';
 import {IconButton, PrimaryButton, Text} from '@fluentui/react';
 import * as React from 'react';
 import * as style from './style.css';
