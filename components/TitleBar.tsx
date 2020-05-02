@@ -58,28 +58,31 @@ export class TitleBar extends StoredComponent<Props, State> {
 						/>
 					</div>
 				</div>
-				<div
-					style={{
-						position: 'absolute',
-						zIndex: 1,
-						width: '100%',
-						height: '90%',
-						backgroundColor: '#FFFFFF',
-					}}
-					hidden={!this.state.visible}
-				>
-					<div className={style.pageMargin}>
-						<Text variant='mediumPlus'>
-							{/* eslint-disable-next-line max-len */}
-							{'CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.'}
-						</Text>
-						<br /><br />
-						<PrimaryButton
-							text={'Continue'}
-							onClick={() => this.setState({visible: false, firstVisit: false})}
-						/>
-					</div>
-				</div>
+				{
+					this.state.visible
+						? <div
+								style={{
+									position: 'absolute',
+									zIndex: 1,
+									width: '100%',
+									height: '90%',
+									backgroundColor: '#FFFFFF',
+								}}
+							>
+								<div className={style.pageMargin}>
+									<Text variant='mediumPlus'>
+										{/* eslint-disable-next-line max-len */}
+										{'CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.'}
+									</Text>
+									<br /><br />
+									<PrimaryButton
+										text={'Continue'}
+										onClick={() => this.setState({visible: false, firstVisit: false})}
+									/>
+								</div>
+							</div>
+						: null
+				}
 			</>
 		);
 	}
