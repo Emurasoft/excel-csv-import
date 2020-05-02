@@ -1,4 +1,4 @@
-import Import from './Import';
+import {ImportComponent} from './Import';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {InputType, NewlineSequence} from '../Parser';
@@ -19,7 +19,7 @@ describe('ImportComponent', () => {
 		stub.state = {initialized: true};
 		stub.import = (options) => receivedOptions = options
 		// @ts-ignore
-		const wrapper = shallow(<Import store={stub} />);
+		const wrapper = shallow(<ImportComponent store={stub} />);
 
 		wrapper.find(SourceInput)
 			.simulate('change', {inputType: InputType.text, text: 'csv text'});
@@ -47,7 +47,7 @@ describe('ImportComponent', () => {
 		const stub: any = {};
 		stub.state = {initialized: true};
 		// @ts-ignore
-		const wrapper = shallow(<Import store={stub} />);
+		const wrapper = shallow(<ImportComponent store={stub} />);
 
 		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
 		assert.strictEqual(
