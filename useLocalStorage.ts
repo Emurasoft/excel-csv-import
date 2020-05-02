@@ -2,18 +2,21 @@ import {Dispatch, useState} from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T>] {
 	const [storedValue, setStoredValue] = useState<T>(() => {
+		let value: any = initialValue;
 		try {
 			const item = window.localStorage.getItem(key);
-			return item ? JSON.parse(item) : initialValue;
+			if (item) {
+				value = JSON.parse(item);
+			}
 		} catch (e) {
 			console.warn(e);
-			return initialValue;
 		}
+		return value;
 	});
 
 	const setValue = value => {
+		setStoredValue(value);
 		try {
-			setStoredValue(value);
 			window.localStorage.setItem(key, JSON.stringify(value));
 		} catch (e) {
 			console.warn(e);
