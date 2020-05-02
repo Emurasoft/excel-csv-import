@@ -17,7 +17,8 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 		this._namespace = namespace;
 		this._saveKeys = saveKeys;
 		try {
-			this._initialSave = window.localStorage && window.localStorage['StoredComponent-save'] === '"true"';
+			this._initialSave =
+				window.localStorage && window.localStorage['StoredComponent-save'] === '"true"';
 			if (window.localStorage['check']){(() => {})()} // Additional check
 		} catch {
 			// Disables saving if calling localStorage causes an exception
@@ -58,7 +59,7 @@ export class StoredComponent<P = {}, S extends StringKey = {}> extends React.Com
 				this.saveState(this.state);
 			} else {
 				window.localStorage.clear();
-				window.localStorage.setItem('app-firstVisit', 'false'); // TODO refactor (if necessary)
+				window.localStorage.setItem('app-firstVisit', 'false');
 			}
 
 			this._save = save;

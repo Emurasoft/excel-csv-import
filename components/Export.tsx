@@ -118,8 +118,8 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 					styles={{root: {display: 'inline-block'}}}
 					content={
 						store.state.initialized
-						? ''
-						: 'Excel API is not initialized'
+							? ''
+							: 'Excel API is not initialized'
 					}
 				>
 					<PrimaryButton
@@ -135,15 +135,15 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 				/>
 				{
 					exportType == ExportType.text
-					? <TextField
-						value={outputText} readOnly
-						label={'Export result'}
-						className={style.monospace}
-						multiline rows={15}
-						spellCheck={false}
-						wrap='off'
-					/>
-					: null
+						? <TextField
+							value={outputText} readOnly
+							label={'Export result'}
+							className={style.monospace}
+							multiline rows={15}
+							spellCheck={false}
+							wrap='off'
+						/>
+						: null
 				}
 				<ParserOutputBox parserOutput={store.state.parserOutput} />
 				<BottomBar />
