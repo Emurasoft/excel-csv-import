@@ -37,7 +37,6 @@ describe('ExportComponent', () => {
 	});
 
 	it('compatability test', () => {
-		window.localStorage.setItem('StoredComponent-save', '"true"');
 		window.localStorage.setItem('export-exportType', '1');
 		window.localStorage.setItem('export-delimiter', '"a"');
 		window.localStorage.setItem('export-newline', '"\\n"');
