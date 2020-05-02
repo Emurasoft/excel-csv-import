@@ -3,7 +3,7 @@ const fs = require('fs');
 
 function main() {
     const cwd = __dirname + '/../../'
-    const output = childProcess.execSync('yarn licenses generate-disclaimer', {cwd}).toString();
+    const output = childProcess.execSync('npx yarn licenses generate-disclaimer', {cwd}).toString();
     const trimmed = output.substring(output.indexOf('-----\n\n') + '-----\n\n'.length);
     const escaped = trimmed.replace(/'/g, '\\\'');
     const newlinesReplaced = escaped.replace(/\n/g, '\\n');
