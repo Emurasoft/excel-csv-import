@@ -2,7 +2,7 @@ import {Dispatch, useState} from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T>] {
 	const [storedValue, setStoredValue] = useState<T>(() => {
-		let value: any = initialValue;
+		let value: T = initialValue;
 		try {
 			const item = window.localStorage.getItem(key);
 			if (item) {
