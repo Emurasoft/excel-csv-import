@@ -1,14 +1,15 @@
 import {Context, Store} from '../Store';
 import * as React from 'react';
+import {useContext, useState} from 'react';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
 	Dropdown,
 	IDropdownOption,
 	PrimaryButton,
+	ResponsiveMode,
 	TextField,
 	TooltipHost,
-	ResponsiveMode,
 } from '@fluentui/react';
 import {NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
@@ -17,8 +18,7 @@ import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
-import {TitleBar} from './TitleBar';
-import {useContext, useState} from 'react';
+import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 
 export const enum ExportType {file, text}
@@ -81,7 +81,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 		<>
 			<div className={style.pageMargin}>
 				{/* eslint-disable no-undef */}
-				<TitleBar
+				<Page
 					text={'Export CSV'}
 					helpLink={helpLink}
 					mac={store.state.platform === Office.PlatformType.Mac}

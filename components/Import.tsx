@@ -1,5 +1,6 @@
 import {Context, Store} from '../Store';
 import * as React from 'react';
+import {useContext, useState} from 'react';
 import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react';
 import {InputType, NewlineSequence, Source} from '../Parser';
 import {SourceInput} from './SourceInput';
@@ -10,9 +11,8 @@ import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
-import {TitleBar} from './TitleBar';
+import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {useContext, useState} from 'react';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
 
@@ -43,7 +43,7 @@ export function ImportComponent({store}: {store: Store}): React.ReactElement {
 		<>
 			<div className={style.pageMargin}>
 				{/* eslint-disable no-undef */}
-				<TitleBar
+				<Page
 					text={'Import CSV'}
 					helpLink={
 						'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'

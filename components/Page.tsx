@@ -18,7 +18,7 @@ const useLocalStorage = namespacedUseLocalStorage('app');
 // proposition.
 // Validation report: Please provide additional information on the first screen explaining how to
 // use the add-in, or directing the user to help / configuration information.
-export function TitleBar({text, helpLink, mac}: Props): React.ReactElement {
+export function Page({text, helpLink, mac}: Props): React.ReactElement {
 	const [firstVisit, setFirstVisit] = useLocalStorage('firstVisit', true);
 
 	return (
