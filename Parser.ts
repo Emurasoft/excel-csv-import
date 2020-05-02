@@ -66,8 +66,7 @@ export class ChunkProcessor {
 		this._progressCallback(0.0);
 		this._progressPerChunk = ChunkProcessor.progressPerChunk(
 			importOptions.source,
-			// @ts-ignore
-			Papa.LocalChunkSize,
+			Papa.LocalChunkSize as unknown as number,
 		);
 
 		return new Promise(resolve => {
