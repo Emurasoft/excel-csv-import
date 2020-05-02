@@ -1,4 +1,4 @@
-import {Store} from '../Store';
+import {Context} from '../Store';
 import * as React from 'react';
 import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react';
 import {InputType, NewlineSequence, Source} from '../Parser';
@@ -12,15 +12,12 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {TitleBar} from './TitleBar';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {useState} from 'react';
-
-interface Props {
-	store: Store;
-}
+import {useContext, useState} from 'react';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
 
-export default function Import({store}: Props): React.ReactElement {
+export default function Import(): React.ReactElement {
+	const store = useContext(Context);
 	const [source, setSource] = useState<Source>({inputType: InputType.file, file: null, text: ''});
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
