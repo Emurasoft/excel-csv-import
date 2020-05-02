@@ -7,6 +7,7 @@ interface Props {
 	text: string;
 	helpLink: string;
 	mac: boolean;
+	children: React.ReactElement[];
 }
 
 const useLocalStorage = namespacedUseLocalStorage('app');
@@ -18,7 +19,7 @@ const useLocalStorage = namespacedUseLocalStorage('app');
 // proposition.
 // Validation report: Please provide additional information on the first screen explaining how to
 // use the add-in, or directing the user to help / configuration information.
-export function Page({text, helpLink, mac}: Props): React.ReactElement {
+export function Page({text, helpLink, mac, children}: Props): React.ReactElement {
 	const [firstVisit, setFirstVisit] = useLocalStorage('firstVisit', true);
 
 	return (
@@ -67,7 +68,7 @@ export function Page({text, helpLink, mac}: Props): React.ReactElement {
 							/>
 						</div>
 					</div>
-					: null
+					: children
 			}
 		</>
 	);

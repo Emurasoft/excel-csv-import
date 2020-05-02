@@ -8,12 +8,12 @@ describe('TitleBar', () => {
 
 	it('compatability test', () => {
 		{
-			const wrapper = shallow(<Page text={''} helpLink={''} mac={false}/>);
+			const wrapper = shallow(<Page text={''} helpLink={''} mac={false}>{null}</Page>);
 			assert(wrapper.exists('CustomizedPrimaryButton'));
 		}
 		{
 			window.localStorage.setItem('app-firstVisit', 'false');
-			const wrapper = shallow(<Page text={''} helpLink={''} mac={false}/>);
+			const wrapper = shallow(<Page text={''} helpLink={''} mac={false}>{null}</Page>);
 			assert(!wrapper.exists('CustomizedPrimaryButton'));
 		}
 	});
