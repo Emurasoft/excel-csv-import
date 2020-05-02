@@ -1,4 +1,4 @@
-import {Import} from './Import';
+import Import from './Import';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {InputType, NewlineSequence} from '../Parser';

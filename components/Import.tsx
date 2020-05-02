@@ -20,7 +20,7 @@ interface Props {
 
 const useLocalStorage = namespacedUseLocalStorage('import');
 
-export function Import({store}: Props): React.ReactElement {
+export default function Import({store}: Props): React.ReactElement {
 	const [source, setSource] = useState<Source>({inputType: InputType.file, file: null, text: ''});
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
