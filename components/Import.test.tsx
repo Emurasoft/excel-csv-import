@@ -1,4 +1,4 @@
-import {ImportComponent} from './Import';
+import {Import} from './Import';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {InputType, NewlineSequence} from '../Parser';
@@ -10,7 +10,7 @@ import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 
 describe('ImportComponent', () => {
-	afterEach(() => window.localStorage.clear());
+	beforeEach(() => window.localStorage.clear());
 
 	it('import', () => {
 		let receivedOptions = null;
@@ -19,7 +19,7 @@ describe('ImportComponent', () => {
 		stub.state = {initialized: true};
 		stub.import = (options) => receivedOptions = options
 		// @ts-ignore
-		const wrapper = shallow(<ImportComponent store={stub} />);
+		const wrapper = shallow(<Import store={stub} />);
 
 		wrapper.find(SourceInput)
 			.simulate('change', {inputType: InputType.text, text: 'csv text'});
@@ -38,7 +38,6 @@ describe('ImportComponent', () => {
 	});
 
 	it('compatabilityTest', () => {
-		window.localStorage.clear();
 		window.localStorage.setItem('StoredComponent-save', '"true"');
 		window.localStorage.setItem('import-delimiter', '"a"');
 		window.localStorage.setItem('import-newline', '"\\n"');
@@ -50,10 +49,13 @@ describe('ImportComponent', () => {
 		stub.state = {initialized: true};
 		stub.import = (options) => receivedOptions = options
 		// @ts-ignore
-		const wrapper = shallow(<ImportComponent store={stub} />);
+		const wrapper = shallow(<Import store={stub} />);
 
 		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
-		assert.strictEqual(wrapper.find(NewlineDropdown).getElement().props.value, '\n');
+		assert.strictEqual(
+			wrapper.find(NewlineDropdown).getElement().props.value,
+			NewlineSequence.LF,
+		);
 		assert.strictEqual(wrapper.find(EncodingDropdown).getElement().props.value, 'UTF-8');
 	});
 });
