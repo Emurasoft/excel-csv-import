@@ -21,7 +21,9 @@ export default function Import(): React.ReactElement {
 }
 
 export function ImportComponent({store}: {store: Store}): React.ReactElement {
-	const [source, setSource] = useState<Source>({inputType: InputType.file, file: null, text: ''});
+	const [source, setSource] = useState(
+		{inputType: InputType.file, file: null, text: ''} as Source,
+	);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
 	const [encoding, setEncoding] = useLocalStorage('encoding', '');
@@ -51,24 +53,24 @@ export function ImportComponent({store}: {store: Store}): React.ReactElement {
 				{/* eslint-enable no-undef */}
 				<SourceInput
 					value={source}
-					onChange={(source) => setSource(source)}
+					onChange={setSource}
 				/>
 				<br />
 				<EncodingDropdown
 					value={encoding}
-					onChange={(encoding) => setEncoding(encoding)}
+					onChange={setEncoding}
 					hidden={source.inputType === InputType.text}
 					showAutoDetect={true}
 				/>
 				<DelimiterInput
 					value={delimiter}
-					onChange={(delimiter) => setDelimiter(delimiter)}
+					onChange={setDelimiter}
 					showLengthError={true}
 				/>
 				<br />
 				<NewlineDropdown
 					value={newline}
-					onChange={(newline) => setNewline(newline)}
+					onChange={setNewline}
 					showAutoDetect={true}
 				/>
 				<br />

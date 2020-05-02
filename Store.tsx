@@ -15,7 +15,7 @@ export interface Progress {
 
 export interface State {
 	initialized: boolean;
-	largeFile: boolean;
+	largeFile: boolean; // TODO unneeded
 	platform: Office.PlatformType;
 	parserOutput: ParserOutput;
 	progress: Progress;
