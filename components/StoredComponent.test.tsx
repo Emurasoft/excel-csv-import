@@ -55,7 +55,10 @@ describe('StoredComponent', () => {
 		window.localStorage.setItem('StoredComponent-save', '"true"');
 		const wrapper2 = shallow(<Component />);
 		wrapper2.setState({});
-		assert.strictEqual(Object.entries(window.localStorage).length, originalLocalStorageLength + 1);
+		assert.strictEqual(
+			Object.entries(window.localStorage).length,
+			originalLocalStorageLength + 1,
+		);
 
 		wrapper2.setState({key0: 'v'});
 		wrapper2.setState({key1: {a: 0}});
