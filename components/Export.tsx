@@ -1,14 +1,15 @@
 import {Context, Store} from '../Store';
 import * as React from 'react';
+import {useContext, useState} from 'react';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
 	Dropdown,
 	IDropdownOption,
 	PrimaryButton,
+	ResponsiveMode,
 	TextField,
 	TooltipHost,
-	ResponsiveMode,
 } from '@fluentui/react';
 import {NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
@@ -17,8 +18,7 @@ import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
-import {TitleBar} from './TitleBar';
-import {useContext, useState} from 'react';
+import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 
 export const enum ExportType {file, text}
@@ -50,9 +50,6 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 		});
 	}
 
-	const helpLink
-		= 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
-
 	const buttonOnClick = async () => {
 		setOutputText('');
 
@@ -78,76 +75,74 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 	}
 
 	return (
-		<>
-			<div className={style.pageMargin}>
-				{/* eslint-disable no-undef */}
-				<TitleBar
-					text={'Export CSV'}
-					helpLink={helpLink}
-					mac={store.state.platform === Office.PlatformType.Mac}
-				/>
-				{/* eslint-enable no-undef */}
-				<Dropdown
-					label={'Export type'}
-					options={exportTypeOptions}
-					responsiveMode={ResponsiveMode.large}
-					selectedKey={exportType}
-					onChange={(_, option) => setExportType(option.key as ExportType)}
-					id={'exportTypeDropdown'}
-				/>
-				<br />
-				<EncodingDropdown
-					value={encoding}
-					onChange={setEncoding}
-					hidden={exportType === ExportType.text /* TODO this parameter is unnecessary*/}
-					showAutoDetect={false}
-				/>
-				<DelimiterInput
-					value={delimiter}
-					onChange={setDelimiter}
-					showLengthError={false}
-				/>
-				<br />
-				<NewlineDropdown
-					value={newline}
-					onChange={setNewline}
-					showAutoDetect={false}
-				/>
-				<br />
-				<TooltipHost
-					styles={{root: {display: 'inline-block'}}}
-					content={
-						store.state.initialized
-							? ''
-							: 'Excel API is not initialized'
-					}
-				>
-					<PrimaryButton
-						onClick={buttonOnClick}
-						disabled={!store.state.initialized}
-						text={'Export to CSV'}
-					/>
-				</TooltipHost>
-				<br />
-				<ProgressBar
-					onClick={store.abort}
-					progress={store.state.progress}
-				/>
-				{
-					exportType == ExportType.text
-						? <TextField
-							value={outputText} readOnly
-							label={'Export result'}
-							className={style.monospace}
-							multiline rows={15}
-							spellCheck={false}
-							wrap='off'
-						/>
-						: null
+		<Page
+			text={'Export CSV'}
+			helpLink={
+				'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv'
+			}
+			// eslint-disable-next-line no-undef
+			mac={store.state.platform === Office.PlatformType.Mac}
+		>
+			<Dropdown
+				label={'Export type'}
+				options={exportTypeOptions}
+				responsiveMode={ResponsiveMode.large}
+				selectedKey={exportType}
+				onChange={(_, option) => setExportType(option.key as ExportType)}
+				id={'exportTypeDropdown'}
+			/>
+			<br />
+			<EncodingDropdown
+				value={encoding}
+				onChange={setEncoding}
+				hidden={exportType === ExportType.text /* TODO this parameter is unnecessary*/}
+				showAutoDetect={false}
+			/>
+			<DelimiterInput
+				value={delimiter}
+				onChange={setDelimiter}
+				showLengthError={false}
+			/>
+			<br />
+			<NewlineDropdown
+				value={newline}
+				onChange={setNewline}
+				showAutoDetect={false}
+			/>
+			<br />
+			<TooltipHost
+				styles={{root: {display: 'inline-block'}}}
+				content={
+					store.state.initialized
+						? ''
+						: 'Excel API is not initialized'
 				}
-				<ParserOutputBox parserOutput={store.state.parserOutput} />
-				<BottomBar />
-			</div>
-		</>
+			>
+				<PrimaryButton
+					onClick={buttonOnClick}
+					disabled={!store.state.initialized}
+					text={'Export to CSV'}
+				/>
+			</TooltipHost>
+			<br />
+			<ProgressBar
+				onClick={store.abort}
+				progress={store.state.progress}
+			/>
+			{
+				exportType == ExportType.text
+					? <TextField
+						value={outputText} readOnly
+						label={'Export result'}
+						className={style.monospace}
+						rows={15} multiline
+						spellCheck={false}
+						wrap='off'
+					/>
+					: null
+			}
+			<ParserOutputBox parserOutput={store.state.parserOutput} />
+			<BottomBar />
+		</Page>
 	);
 }

@@ -7,6 +7,7 @@ interface Props {
 	text: string;
 	helpLink: string;
 	mac: boolean;
+	children: React.ReactElement[];
 }
 
 const useLocalStorage = namespacedUseLocalStorage('app');
@@ -18,11 +19,11 @@ const useLocalStorage = namespacedUseLocalStorage('app');
 // proposition.
 // Validation report: Please provide additional information on the first screen explaining how to
 // use the add-in, or directing the user to help / configuration information.
-export function TitleBar({text, helpLink, mac}: Props): React.ReactElement {
+export function Page({text, helpLink, mac, children}: Props): React.ReactElement {
 	const [firstVisit, setFirstVisit] = useLocalStorage('firstVisit', true);
 
 	return (
-		<>
+		<div className={style.pageMargin}>
 			<div
 				style={{
 					width: '100%',
@@ -46,29 +47,19 @@ export function TitleBar({text, helpLink, mac}: Props): React.ReactElement {
 			</div>
 			{
 				firstVisit
-					? <div
-						style={{
-							position: 'absolute',
-							zIndex: 1,
-							width: '100%',
-							height: '90%',
-							backgroundColor: '#FFFFFF',
-						}}
-					>
-						<div className={style.pageMargin}>
-							<Text variant='mediumPlus'>
-								{/* eslint-disable-next-line max-len */}
-								{'CSV Import+Export can open and save CSV files of various formats. If you need any help, the "?" icon in the top right corner will take you to the help page.'}
-							</Text>
-							<br /><br />
-							<PrimaryButton
-								text={'Continue'}
-								onClick={() => setFirstVisit(false)}
-							/>
-						</div>
-					</div>
-					: null
+					? <>
+						<Text variant='mediumPlus'>
+							{/* eslint-disable-next-line max-len */}
+							CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
+						</Text>
+						<br /><br />
+						<PrimaryButton
+							text={'Continue'}
+							onClick={() => setFirstVisit(false)}
+						/>
+					</>
+					: children
 			}
-		</>
+		</div>
 	);
 }
