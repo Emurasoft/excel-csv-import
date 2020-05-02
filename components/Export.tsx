@@ -135,7 +135,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 						value={outputText} readOnly
 						label={'Export result'}
 						className={style.monospace}
-						multiline rows={15}
+						rows={15} multiline
 						spellCheck={false}
 						wrap='off'
 					/>
