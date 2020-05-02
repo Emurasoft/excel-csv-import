@@ -5,19 +5,11 @@ import {setIconOptions} from '@fluentui/react';
 import * as jsdom from 'jsdom-global';
 import 'ignore-styles';
 
+/* eslint-disable  @typescript-eslint/ban-ts-ignore */
+
 Enzyme.configure({adapter: new Adapter()});
 
-jsdom();
-
-const localStorage = {
-	// @ts-ignore
-	setItem: (k, v) => global.localStorage[k] = v,
-	// @ts-ignore
-	clear: () => global.localStorage = {...localStorage},
-};
-
-// @ts-ignore
-global.localStorage = {...localStorage};
+jsdom(undefined, {url: "http://localhost"});
 
 // @ts-ignore
 global.Office = {

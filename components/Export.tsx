@@ -1,220 +1,153 @@
-import {Store} from '../Store';
+import {Context, Store} from '../Store';
 import * as React from 'react';
-import {connect} from '../connect';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
 	Dropdown,
 	IDropdownOption,
 	PrimaryButton,
-	Text,
 	TextField,
-	Toggle,
 	TooltipHost,
 	ResponsiveMode,
 } from '@fluentui/react';
-import {CsvStringAndName, ExportOptions, NewlineSequence} from '../Parser';
+import {NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';
 import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
-import {StoredComponent} from './StoredComponent';
-import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
-
-export interface OutputText {
-	// If show is false, do not show text.
-	show: boolean;
-	text: string;
-}
-
-interface Props {
-	store: Store;
-	history: MemoryHistory;
-}
+import {useContext, useState} from 'react';
+import {namespacedUseLocalStorage} from '../useLocalStorage';
 
 export const enum ExportType {file, text}
 
-interface State extends ExportOptions {
-	exportType: ExportType;
-	outputText: OutputText;
-	encoding: string;
+export default function Export(): React.ReactElement {
+	return <ExportComponent store={useContext(Context)} />;
 }
 
-export class ExportComponent extends StoredComponent<Props, State> {
-	public constructor(props: Props) {
-		super(props, 'export', {
-			exportType: ExportType.text,
-			delimiter: '\u002c',
-			newline: NewlineSequence.CRLF,
-			encoding: 'UTF-8',
-			outputText: {
-				show: false,
-				text: '',
-			},
-		}, ['exportType', 'delimiter', 'newline', 'encoding']);
+const useLocalStorage = namespacedUseLocalStorage('export');
+
+export function ExportComponent({store}: {store: Store}): React.ReactElement {
+	const [exportType, setExportType] = useLocalStorage('exportType', ExportType.text);
+	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
+	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.CRLF);
+	const [encoding, setEncoding] = useLocalStorage('encoding', 'UTF-8');
+	const [outputText, setOutputText] = useState('');
+
+	const exportTypeOptions: IDropdownOption[] = [{
+		key: ExportType.text,
+		text: 'Textbox',
+	}];
+	// Export file feature only works on Excel Online
+	// https://github.com/Emurasoft/excel-csv-import/issues/39
+	// eslint-disable-next-line no-undef
+	if (store.state.platform === Office.PlatformType.OfficeOnline) {
+		exportTypeOptions.push({
+			key: ExportType.file,
+			text: 'File',
+		});
 	}
 
-	public render(): React.ReactNode {
-		const exportTypeOptions: IDropdownOption[] = [{
-			key: ExportType.text,
-			text: 'Textbox',
-		}];
-		// Export file feature only works on Excel Online
-		// https://github.com/Emurasoft/excel-csv-import/issues/39
-		// eslint-disable-next-line no-undef
-		if (this.props.store.state.platform === Office.PlatformType.OfficeOnline) {
-			exportTypeOptions.push({
-				key: ExportType.file,
-				text: 'File',
-			});
-		}
+	const helpLink
+		= 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
 
-		const outputTextField = (
-			<TextField
-				label={'Export result'}
-				className={style.monospace}
-				readOnly={true}
-				multiline rows={15}
-				spellCheck={false}
-				wrap='off'
-				value={this.state.outputText.text}
-			/>
-		);
+	const buttonOnClick = async () => {
+		setOutputText('');
 
-		const largeFileWarning = (
-			<Text style={{color: 'red'}} variant='medium'>
-				{'Large file export is not supported'}
-			</Text>
-		);
-
-		const helpLink
-            = 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
-
-		return (
-			<>
-				<div className={style.pageMargin}>
-					{/* eslint-disable no-undef */}
-					<TitleBar
-						text={'Export CSV'}
-						helpLink={helpLink}
-						mac={this.props.store.state.platform === Office.PlatformType.Mac}
-					/>
-					{/* eslint-enable no-undef */}
-					<Dropdown
-						label={'Export type'}
-						options={exportTypeOptions}
-						responsiveMode={ResponsiveMode.large}
-						selectedKey={this.state.exportType}
-						onChange={
-							(_, option) => this.setState({exportType: option.key as ExportType})
-						}
-						id={'exportTypeDropdown'}
-					/>
-					<br />
-					<EncodingDropdown
-						value={this.state.encoding}
-						onChange={(encoding) => this.setState({encoding})}
-						hidden={this.state.exportType === ExportType.text}
-						showAutoDetect={false}
-					/>
-					<DelimiterInput
-						value={this.state.delimiter}
-						onChange={(delimiter) => this.setState({delimiter})}
-						showLengthError={false}
-					/>
-					<br />
-					<NewlineDropdown
-						value={this.state.newline}
-						onChange={(newline) => this.setState({newline})}
-						showAutoDetect={false}
-					/>
-					<br />
-					<TooltipHost
-						styles={{root: {display: 'inline-block'}}}
-						content={this.buttonTooltipContent()}
-					>
-						<PrimaryButton
-							onClick={this.buttonOnClick}
-							disabled={this.buttonTooltipContent() !== ''}
-							text={'Export to CSV'}
-						/>
-					</TooltipHost>
-					<br />
-					{this.props.store.state.largeFile ? largeFileWarning : null}
-					<ProgressBar
-						onClick={this.props.store.abort}
-						progress={this.props.store.state.progress}
-					/>
-					<Toggle
-						inlineLabel label={'Save options'}
-						defaultChecked={this.initialSaveStatus()}
-						onChange={(_, checked) => this.setSaveStatus(checked)}
-					/>
-					{this.state.outputText.show ? outputTextField : null}
-					<ParserOutputBox parserOutput={this.props.store.state.parserOutput} />
-					<BottomBar />
-				</div>
-			</>
-		);
-	}
-
-	private buttonOnClick = async () => {
-		function newOutputText(state, exportOptions): OutputText {
-			// If exportType is text:
-			//      If last outputText.show was true, flip twice otherwise change once later
-			// If exportType is a file, show is set to false once.
-			if (exportOptions.exportType === ExportType.text) {
-				if (exportOptions.outputText.show) {
-					return {show: !state.outputText.show, text: state.outputText.text};
-				} else {
-					return {show: state.outputText.show, text: state.outputText.text};
-				}
-			} else {
-				return {show: false, text: ''};
-			}
-		}
-
-		// Copy values before async operation
-		const exportOptions = {...this.state};
-
-		this.setState(state => ({outputText: newOutputText(state, exportOptions)}));
-
-		const csvStringAndName = await this.props.store.csvStringAndName(this.state);
+		const exportTypeCopy = exportType; // Copy current options before async task
+		const encodingCopy = encoding;
+		const csvStringAndName = await store.csvStringAndName({delimiter, newline});
 		if (csvStringAndName === null) {
 			return;
 		}
 
-		this.saveOrOutput(csvStringAndName, exportOptions);
-	}
-
-	private saveOrOutput(csvStringAndName: CsvStringAndName, exportOptions: State): void {
-		switch (exportOptions.exportType) {
+		switch (exportTypeCopy) {
 		case ExportType.file: {
-			const options = {type: 'text/csv;charset=' + exportOptions.encoding};
+			const options = {type: 'text/csv;charset=' + encodingCopy};
 			const blob = new Blob([csvStringAndName.string], options);
 			FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
-			// state.outputText.show is already false
 			return;
 		}
 		case ExportType.text: {
-			this.setState(state => ({
-				outputText: {show: !state.outputText.show, text: csvStringAndName.string},
-			}));
+			setOutputText(csvStringAndName.string)
 			return;
 		}
 		}
 	}
 
-	private buttonTooltipContent(): string {
-		if (!this.props.store.state.initialized) {
-			return 'Excel API is not initialized';
-		} else {
-			return '';
-		}
-	}
+	return (
+		<>
+			<div className={style.pageMargin}>
+				{/* eslint-disable no-undef */}
+				<TitleBar
+					text={'Export CSV'}
+					helpLink={helpLink}
+					mac={store.state.platform === Office.PlatformType.Mac}
+				/>
+				{/* eslint-enable no-undef */}
+				<Dropdown
+					label={'Export type'}
+					options={exportTypeOptions}
+					responsiveMode={ResponsiveMode.large}
+					selectedKey={exportType}
+					onChange={(_, option) => setExportType(option.key as ExportType)}
+					id={'exportTypeDropdown'}
+				/>
+				<br />
+				<EncodingDropdown
+					value={encoding}
+					onChange={setEncoding}
+					hidden={exportType === ExportType.text /* TODO this parameter is unnecessary*/}
+					showAutoDetect={false}
+				/>
+				<DelimiterInput
+					value={delimiter}
+					onChange={setDelimiter}
+					showLengthError={false}
+				/>
+				<br />
+				<NewlineDropdown
+					value={newline}
+					onChange={setNewline}
+					showAutoDetect={false}
+				/>
+				<br />
+				<TooltipHost
+					styles={{root: {display: 'inline-block'}}}
+					content={
+						store.state.initialized
+							? ''
+							: 'Excel API is not initialized'
+					}
+				>
+					<PrimaryButton
+						onClick={buttonOnClick}
+						disabled={!store.state.initialized}
+						text={'Export to CSV'}
+					/>
+				</TooltipHost>
+				<br />
+				<ProgressBar
+					onClick={store.abort}
+					progress={store.state.progress}
+				/>
+				{
+					exportType == ExportType.text
+						? <TextField
+							value={outputText} readOnly
+							label={'Export result'}
+							className={style.monospace}
+							multiline rows={15}
+							spellCheck={false}
+							wrap='off'
+						/>
+						: null
+				}
+				<ParserOutputBox parserOutput={store.state.parserOutput} />
+				<BottomBar />
+			</div>
+		</>
+	);
 }
-
-export default connect(ExportComponent);
