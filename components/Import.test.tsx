@@ -43,11 +43,9 @@ describe('ImportComponent', () => {
 		window.localStorage.setItem('import-newline', '"\\n"');
 		window.localStorage.setItem('import-encoding', '"UTF-8"');
 
-		let receivedOptions = null;
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const stub: any = {};
 		stub.state = {initialized: true};
-		stub.import = (options) => receivedOptions = options
 		// @ts-ignore
 		const wrapper = shallow(<Import store={stub} />);
 
