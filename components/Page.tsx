@@ -47,7 +47,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 			</div>
 			{
 				firstVisit
-					? <div>
+					? <>
 						<Text variant='mediumPlus'>
 							{/* eslint-disable-next-line max-len */}
 							CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
@@ -57,7 +57,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 							text={'Continue'}
 							onClick={() => setFirstVisit(false)}
 						/>
-					</div>
+					</>
 					: children
 			}
 		</div>
