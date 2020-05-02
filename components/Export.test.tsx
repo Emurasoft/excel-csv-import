@@ -17,14 +17,8 @@ describe('ExportComponent', () => {
 		store.worksheetArea = () => 0;
 		store.csvStringAndName = async (options) => {
 			const expected = {
-				exportType: ExportType.text,
-				encoding: 'UTF-8',
 				delimiter: ',',
 				newline: NewlineSequence.LF,
-				outputText: {
-					show: false,
-					text: '',
-				},
 			}
 			assert.deepStrictEqual(options, expected);
 			return {string: 'export result'};
