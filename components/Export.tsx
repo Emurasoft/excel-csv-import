@@ -10,7 +10,7 @@ import {
 	TooltipHost,
 	ResponsiveMode,
 } from '@fluentui/react';
-import {CsvStringAndName, ExportOptions, NewlineSequence} from '../Parser';
+import {NewlineSequence} from '../Parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';
@@ -21,19 +21,7 @@ import {TitleBar} from './TitleBar';
 import {useContext, useState} from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 
-export interface OutputText {
-	// If show is false, do not show text.
-	show: boolean;
-	text: string;
-}
-
 export const enum ExportType {file, text}
-
-interface State extends ExportOptions {
-	exportType: ExportType;
-	outputText: OutputText;
-	encoding: string;
-}
 
 export default function Export(): React.ReactElement {
 	return <ExportComponent store={useContext(Context)} />;
@@ -46,7 +34,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.CRLF);
 	const [encoding, setEncoding] = useLocalStorage('encoding', 'UTF-8');
-	const [outputText, setOutputText] = useState({show: false, text: ''} as OutputText);
+	const [outputText, setOutputText] = useState('');
 
 	const exportTypeOptions: IDropdownOption[] = [{
 		key: ExportType.text,
@@ -65,48 +53,28 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 	const helpLink
 		= 'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv';
 
-	const saveOrOutput = (csvStringAndName: CsvStringAndName, exportOptions: State): void => {
-		switch (exportOptions.exportType) {
-		case ExportType.file: {
-			const options = {type: 'text/csv;charset=' + exportOptions.encoding};
-			const blob = new Blob([csvStringAndName.string], options);
-			FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
-			// state.outputText.show is already false
-			return;
-		}
-		case ExportType.text: {
-			setOutputText({show: !outputText.show, text: csvStringAndName.string})
-			return;
-		}
-		}
-	}
-
 	const buttonOnClick = async () => {
-		function newOutputText(state): OutputText {
-			// If exportType is text:
-			//      If last outputText.show was true, flip twice otherwise change once later
-			// If exportType is a file, show is set to false once.
-			if (state.exportType === ExportType.text) {
-				if (state.outputText.show) {
-					return {show: !state.outputText.show, text: state.outputText.text};
-				}
+		setOutputText('');
 
-				return {show: state.outputText.show, text: state.outputText.text};
-			}
-
-			return {show: false, text: ''};
-		}
-
-		const exportOptions: State = {exportType, delimiter, encoding, newline, outputText};
-
-		setOutputText(newOutputText(exportOptions))
-
-		const csvStringAndName = await store.csvStringAndName(exportOptions);
+		const exportTypeCopy = exportType; // Copy current options before async task
+		const encodingCopy = encoding;
+		const csvStringAndName = await store.csvStringAndName({delimiter, newline});
 		if (csvStringAndName === null) {
 			return;
 		}
 
-		saveOrOutput(csvStringAndName, exportOptions);
+		switch (exportTypeCopy) {
+		case ExportType.file: {
+			const options = {type: 'text/csv;charset=' + encodingCopy};
+			const blob = new Blob([csvStringAndName.string], options);
+			FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
+			return;
+		}
+		case ExportType.text: {
+			setOutputText(csvStringAndName.string)
+			return;
+		}
+		}
 	}
 
 	return (
@@ -166,14 +134,14 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 					progress={store.state.progress}
 				/>
 				{
-					outputText.show
+					exportType == ExportType.text
 					? <TextField
+						value={outputText} readOnly
 						label={'Export result'}
 						className={style.monospace}
 						multiline rows={15}
 						spellCheck={false}
 						wrap='off'
-						value={outputText.text} readOnly
 					/>
 					: null
 				}
