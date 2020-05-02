@@ -21,7 +21,6 @@ import * as style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {StoredComponent} from './StoredComponent';
-import {MemoryHistory} from 'history';
 import {TitleBar} from './TitleBar';
 
 export interface OutputText {
@@ -32,7 +31,6 @@ export interface OutputText {
 
 interface Props {
 	store: Store;
-	history: MemoryHistory;
 }
 
 export const enum ExportType {file, text}
