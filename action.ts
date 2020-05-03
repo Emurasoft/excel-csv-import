@@ -4,16 +4,14 @@ import * as parser from './Parser';
 import * as Parser from './Parser';
 import {CsvStringAndName} from './Parser';
 import {AppState, OutputType} from './state';
-import * as Redux from 'redux';
 import {AbortFlag} from './AbortFlag';
+import {ThunkDispatch} from 'redux-thunk';
 
 export type Action =
 	SetInitialized
 	| SetPlatform
 	| SetOutput
 	| SetProgress;
-
-type Dispatch = Redux.Dispatch<Action>;
 
 export const SET_INITIALIZED = 'SET_INITIALIZED';
 
@@ -53,6 +51,10 @@ export interface SetProgress {
 
 export interface ExtraArg {
 }
+
+export type Dispatch = ThunkDispatch<AppState, ExtraArg, Action>;
+
+type GetState = () => AppState;
 
 // function errorMessage(err: Error): string {
 // 	return err.toString() + '\n' + err.stack
@@ -153,4 +155,14 @@ export const exportCSV = (options: Parser.ExportOptions) =>
 			progress: {show: false, aborting: false, percent: 1.0},
 		});
 		return result;
+	}
+
+export const abort = () =>
+	async (dispatch: Dispatch, getState: GetState, {}: ExtraArg): Promise<void> => {
+		abortFlag.abort();
+		const {progress} = getState();
+		dispatch({
+			type: SET_PROGRESS,
+			progress: {show: progress.show, aborting: true, percent: progress.percent},
+		});
 	}

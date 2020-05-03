@@ -6,7 +6,7 @@ export const initial = {
 	initialized: false,
 	platform: Office.PlatformType.OfficeOnline,
 	output: {
-		type: OutputType.hidden,
+		type: OutputType.hidden as OutputType,
 		text: '',
 		error: null as Error,
 	},
