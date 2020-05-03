@@ -2,6 +2,7 @@
 
 import * as parser from './Parser';
 import * as Parser from './Parser';
+import {CsvStringAndName} from './Parser';
 import {AppState, OutputType} from './state';
 import * as Redux from 'redux';
 import {AbortFlag} from './AbortFlag';
@@ -60,25 +61,40 @@ export interface ExtraArg {
 export const init = () => async (dispatch: Dispatch, _, {}: ExtraArg): Promise<void> => {
 	try {
 		const environmentInfo = await parser.init();
-		dispatch({type: SET_PLATFORM, platform: environmentInfo.platform});
+		dispatch({
+			type: SET_PLATFORM,
+			platform: environmentInfo.platform,
+		});
 	} catch (e) {
-		dispatch({type: SET_OUTPUT, output: errorOutput(e)});
+		dispatch({
+			type: SET_OUTPUT,
+			output: errorOutput(e),
+		});
 	}
 
-	dispatch({type: SET_INITIALIZED, initialized: true});
+	dispatch({
+		type: SET_INITIALIZED,
+		initialized: true,
+	});
 }
 
 let abortFlag = new AbortFlag(); // TODO move into Parser
 
 function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 	return (percent) => {
-		dispatch({type: SET_PROGRESS, progress: {show: true, aborting: false, percent}});
+		dispatch({
+			type: SET_PROGRESS,
+			progress: {show: true, aborting: false, percent},
+		});
 	}
 }
 
 export const importCSV = (options: Parser.ImportOptions) =>
 	async (dispatch: Dispatch, _, {}: ExtraArg): Promise<void> => {
-		dispatch({type: SET_PROGRESS, progress: {show: true, aborting: false, percent: 0.0}});
+		dispatch({
+			type: SET_PROGRESS,
+			progress: {show: true, aborting: false, percent: 0.0},
+		});
 
 		abortFlag.abort();
 		abortFlag = new AbortFlag();
@@ -96,8 +112,45 @@ export const importCSV = (options: Parser.ImportOptions) =>
 				});
 			}
 		} catch(e) {
-			dispatch({type: SET_OUTPUT, output: errorOutput(e)});
+			dispatch({
+				type: SET_OUTPUT,
+				output: errorOutput(e),
+			});
 		}
 
-		dispatch({type: SET_PROGRESS, progress: {show: false, aborting: false, percent: 1.0}});
+		dispatch({
+			type: SET_PROGRESS,
+			progress: {show: false, aborting: false, percent: 1.0},
+		});
+	}
+
+export const exportCSV = (options: Parser.ExportOptions) =>
+	async (dispatch: Dispatch, _, {}: ExtraArg): Promise<CsvStringAndName|null> => {
+		dispatch({
+			type: SET_PROGRESS,
+			progress: {show: true, aborting: false, percent: 0.0},
+		});
+
+		abortFlag.abort();
+		abortFlag = new AbortFlag();
+
+		let result: CsvStringAndName = null;
+		try {
+			result = await Parser.csvStringAndName(
+				options,
+				setProgressCallback(dispatch),
+				abortFlag,
+			);
+		} catch (e) {
+			dispatch({
+				type: SET_OUTPUT,
+				output: errorOutput(e),
+			});
+		}
+
+		dispatch({
+			type: SET_PROGRESS,
+			progress: {show: false, aborting: false, percent: 1.0},
+		});
+		return result;
 	}
