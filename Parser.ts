@@ -1,9 +1,8 @@
 /* global Office */
 import * as ExcelAPI from './ExcelAPI';
+import {APIVersionInfo, Shape} from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {AbortFlag} from './AbortFlag';
-import {ProgressCallback} from './Store';
-import {APIVersionInfo, Shape} from './ExcelAPI';
 
 export const enum InputType {file, text}
 
@@ -48,6 +47,8 @@ export async function init(): Promise<APIVersionInfo> {
 	}
 	return result;
 }
+
+type ProgressCallback = (progress: number) => void;
 
 export class ChunkProcessor {
 	public constructor(

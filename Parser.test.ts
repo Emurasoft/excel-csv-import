@@ -2,19 +2,19 @@ import * as Parser from './Parser';
 import {
 	_addQuotes,
 	_chunkRange,
-	_chunkString, _csvString,
+	_chunkString,
+	_csvString,
 	_nameToUse,
 	_rowString,
 	ChunkProcessor,
 	ExportOptions,
 	InputType,
 	NewlineSequence,
-	Source,
+	Source
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
-import {ProgressCallback} from './Store';
 import {Shape} from './ExcelAPI';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -63,7 +63,7 @@ describe('ChunkProcessor', () => {
 				setChunkDone = true;
 			}
 
-			const progressCallback: ProgressCallback = (progress): void => {
+			const progressCallback = (progress): void => {
 				assert(progress === 0.0 || progress > 1.0);
 				if (progress > 1.0) {
 					progressCallbackDone = true;
@@ -93,7 +93,7 @@ describe('ChunkProcessor', () => {
 		});
 
 		it('abort', async () => {
-			const progressCallback: ProgressCallback = (progress): void => {
+			const progressCallback = (progress): void => {
 				assert.strictEqual(progress, 0.0);
 			};
 
