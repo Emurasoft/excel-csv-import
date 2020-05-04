@@ -1,4 +1,4 @@
-import {ExportComponent, ExportType} from './Export';
+import Export, {ExportType} from './Export';
 import {shallow} from 'enzyme';
 import * as React from 'react';
 import {NewlineSequence} from '../Parser';
@@ -8,7 +8,7 @@ import {PrimaryButton, TextField} from '@fluentui/react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 
-describe('ExportComponent', () => {
+describe('Export', () => {
 	beforeEach(() => window.localStorage.clear());
 
 	it('export text', (done) => {
@@ -25,7 +25,7 @@ describe('ExportComponent', () => {
 		}
 
 		// @ts-ignore
-		const wrapper = shallow(<ExportComponent store={store}/>)
+		const wrapper = shallow(<Export store={store}/>)
 		wrapper.find('#exportTypeDropdown').simulate('change', null, {key: ExportType.text});
 		wrapper.find(DelimiterInput).simulate('change', ',');
 		wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
@@ -47,7 +47,7 @@ describe('ExportComponent', () => {
 		stub.state.progress = {};
 		stub.state.parserOutput = {};
 		// @ts-ignore
-		const wrapper = shallow(<ExportComponent store={stub} />);
+		const wrapper = shallow(<Export store={stub} />);
 		assert.strictEqual(wrapper.find('#exportTypeDropdown').getElement().props.selectedKey, 1);
 		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
 		assert.strictEqual(
