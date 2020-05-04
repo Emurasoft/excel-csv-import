@@ -1,6 +1,5 @@
-import {Context, Store} from '../Store';
 import * as React from 'react';
-import {useContext, useState} from 'react';
+import {useState} from 'react';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
@@ -20,16 +19,21 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
+import {AppState} from '../state';
+import {useDispatch, useSelector} from 'react-redux'
+import {abort, Dispatch, exportCSV} from '../action';
 
 export const enum ExportType {file, text}
 
-export default function Export(): React.ReactElement {
-	return <ExportComponent store={useContext(Context)} />;
-}
-
 const useLocalStorage = namespacedUseLocalStorage('export');
 
-export function ExportComponent({store}: {store: Store}): React.ReactElement {
+export default function Export(): React.ReactElement {
+	const initialized = useSelector(state => state.initialized) as AppState['initialized'];
+	const platform = useSelector(state => state.platform) as AppState['platform'];
+	const progress = useSelector(state => state.progress) as AppState['progress'];
+	const output = useSelector(state => state.output) as AppState['output'];
+	const dispatch = useDispatch() as Dispatch;
+
 	const [exportType, setExportType] = useLocalStorage('exportType', ExportType.text);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.CRLF);
@@ -43,7 +47,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 	// Export file feature only works on Excel Online
 	// https://github.com/Emurasoft/excel-csv-import/issues/39
 	// eslint-disable-next-line no-undef
-	if (store.state.platform === Office.PlatformType.OfficeOnline) {
+	if (platform === Office.PlatformType.OfficeOnline) {
 		exportTypeOptions.push({
 			key: ExportType.file,
 			text: 'File',
@@ -55,7 +59,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 
 		const exportTypeCopy = exportType; // Copy current options before async task
 		const encodingCopy = encoding;
-		const csvStringAndName = await store.csvStringAndName({delimiter, newline});
+		const csvStringAndName = await dispatch(exportCSV({delimiter, newline}));
 		if (csvStringAndName === null) {
 			return;
 		}
@@ -81,7 +85,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 				'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv'
 			}
 			// eslint-disable-next-line no-undef
-			mac={store.state.platform === Office.PlatformType.Mac}
+			mac={platform === Office.PlatformType.Mac}
 		>
 			<Dropdown
 				label={'Export type'}
@@ -113,21 +117,21 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 			<TooltipHost
 				styles={{root: {display: 'inline-block'}}}
 				content={
-					store.state.initialized
+					initialized
 						? ''
 						: 'Excel API is not initialized'
 				}
 			>
 				<PrimaryButton
 					onClick={buttonOnClick}
-					disabled={!store.state.initialized}
+					disabled={!initialized}
 					text={'Export to CSV'}
 				/>
 			</TooltipHost>
 			<br />
 			<ProgressBar
-				onClick={store.abort}
-				progress={store.state.progress}
+				onClick={() => dispatch(abort())}
+				progress={progress}
 			/>
 			{
 				exportType == ExportType.text
@@ -141,7 +145,7 @@ export function ExportComponent({store}: {store: Store}): React.ReactElement {
 					/>
 					: null
 			}
-			<ParserOutputBox parserOutput={store.state.parserOutput} />
+			<ParserOutputBox output={output} />
 			<BottomBar />
 		</Page>
 	);

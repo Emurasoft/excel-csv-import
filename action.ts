@@ -56,10 +56,6 @@ export type Dispatch = ThunkDispatch<AppState, ExtraArg, Action>;
 
 type GetState = () => AppState;
 
-// function errorMessage(err: Error): string {
-// 	return err.toString() + '\n' + err.stack
-// }
-
 export const init = () => async (dispatch: Dispatch, _, {}: ExtraArg): Promise<void> => {
 	try {
 		const environmentInfo = await parser.init();
