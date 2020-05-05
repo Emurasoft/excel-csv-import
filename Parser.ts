@@ -49,17 +49,58 @@ export abstract class Parser {
 	): Promise<CsvStringAndName>;
 }
 
-export async function init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
-	const result = await ExcelAPI.init();
-	if (result.platform === Office.PlatformType.OfficeOnline) {
-		// Online API can throw error if request size is too large
-		reduceChunkSize = true;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(Papa.LocalChunkSize as any) = 10_000;
-	} else {
-		reduceChunkSize = false;
+export class ParserImpl implements Parser {
+	async init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
+		const result = await ExcelAPI.init();
+		if (result.platform === Office.PlatformType.OfficeOnline) {
+			// Online API can throw error if request size is too large
+			reduceChunkSize = true;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(Papa.LocalChunkSize as any) = 10_000;
+		} else {
+			reduceChunkSize = false;
+		}
+		return result;
 	}
-	return result;
+
+	async importCSV(
+		importOptions: ImportOptions,
+		progressCallback: ProgressCallback,
+		abortFlag: AbortFlag,
+	): Promise<Papa.ParseError[]> {
+		let errors = null;
+		await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
+			const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
+			errors = await chunkProcessor.run(importOptions);
+		});
+		return errors;
+	}
+
+	async csvStringAndName(
+		exportOptions: ExportOptions,
+		progressCallback: ProgressCallback,
+		abortFlag: AbortFlag,
+	): Promise<CsvStringAndName> {
+		let namesAndShape = null;
+		let resultString = '';
+		await ExcelAPI.runOnCurrentWorksheet(async (worksheet) => {
+			namesAndShape = await ExcelAPI.worksheetNamesAndShape(worksheet);
+			worksheet.context.application.suspendApiCalculationUntilNextSync();
+			resultString = await csvString(
+				worksheet,
+				namesAndShape.shape,
+				chunkRows(namesAndShape.shape),
+				exportOptions,
+				progressCallback,
+				abortFlag,
+			);
+		});
+
+		return {
+			name: nameToUse(namesAndShape.workbookName, namesAndShape.worksheetName),
+			string: resultString,
+		};
+	}
 }
 
 type ProgressCallback = (progress: number) => void;
@@ -137,19 +178,6 @@ export class ChunkProcessor {
 		// on performance.
 		this._progressCallback(this._currentProgress += this._progressPerChunk);
 	}
-}
-
-export async function importCSV(
-	importOptions: ImportOptions,
-	progressCallback: ProgressCallback,
-	abortFlag: AbortFlag,
-): Promise<Papa.ParseError[]> {
-	let errors = null;
-	await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
-		const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
-		errors = await chunkProcessor.run(importOptions);
-	});
-	return errors;
 }
 
 /*
@@ -264,30 +292,4 @@ function chunkRows(shape: Shape): number {
 export interface CsvStringAndName {
 	name: string;
 	string: string;
-}
-
-export async function csvStringAndName(
-	exportOptions: ExportOptions,
-	progressCallback: ProgressCallback,
-	abortFlag: AbortFlag,
-): Promise<CsvStringAndName> {
-	let namesAndShape = null;
-	let resultString = '';
-	await ExcelAPI.runOnCurrentWorksheet(async (worksheet) => {
-		namesAndShape = await ExcelAPI.worksheetNamesAndShape(worksheet);
-		worksheet.context.application.suspendApiCalculationUntilNextSync();
-		resultString = await csvString(
-			worksheet,
-			namesAndShape.shape,
-			chunkRows(namesAndShape.shape),
-			exportOptions,
-			progressCallback,
-			abortFlag,
-		);
-	});
-
-	return {
-		name: nameToUse(namesAndShape.workbookName, namesAndShape.worksheetName),
-		string: resultString,
-	};
 }
