@@ -1,8 +1,6 @@
 /* global Office */
 
-import * as parser from './Parser';
-import * as Parser from './Parser';
-import {CsvStringAndName} from './Parser';
+import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './Parser';
 import {AppState, OutputType} from './state';
 import {AbortFlag} from './AbortFlag';
 import {ThunkDispatch} from 'redux-thunk';
@@ -50,13 +48,14 @@ export interface SetProgress {
 }
 
 export interface ExtraArg {
+	parser: Parser;
 }
 
 export type Dispatch = ThunkDispatch<AppState, ExtraArg, Action>;
 
 type GetState = () => AppState;
 
-export const init = () => async (dispatch: Dispatch, _, {}: ExtraArg): Promise<void> => {
+export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
 	try {
 		const environmentInfo = await parser.init();
 		dispatch({
@@ -87,8 +86,8 @@ function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 	}
 }
 
-export const importCSV = (options: Parser.ImportOptions) =>
-	async (dispatch: Dispatch, _, {}: ExtraArg): Promise<void> => {
+export const importCSV = (options: ImportOptions) =>
+	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
 		dispatch({
 			type: SET_PROGRESS,
 			progress: {show: true, aborting: false, percent: 0.0},
@@ -98,7 +97,7 @@ export const importCSV = (options: Parser.ImportOptions) =>
 		abortFlag = new AbortFlag();
 
 		try { // TODO Error handler middleware
-			const parseErrors = await Parser.importCSV(
+			const parseErrors = await parser.importCSV(
 				options,
 				setProgressCallback(dispatch),
 				abortFlag,
@@ -122,8 +121,8 @@ export const importCSV = (options: Parser.ImportOptions) =>
 		});
 	}
 
-export const exportCSV = (options: Parser.ExportOptions) =>
-	async (dispatch: Dispatch, _, {}: ExtraArg): Promise<CsvStringAndName|null> => {
+export const exportCSV = (options: ExportOptions) =>
+	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<CsvStringAndName|null> => {
 		dispatch({
 			type: SET_PROGRESS,
 			progress: {show: true, aborting: false, percent: 0.0},
@@ -134,7 +133,7 @@ export const exportCSV = (options: Parser.ExportOptions) =>
 
 		let result: CsvStringAndName = null;
 		try {
-			result = await Parser.csvStringAndName(
+			result = await parser.csvStringAndName(
 				options,
 				setProgressCallback(dispatch),
 				abortFlag,

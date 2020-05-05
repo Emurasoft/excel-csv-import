@@ -35,7 +35,21 @@ export interface ExportOptions {
 
 let reduceChunkSize = null;
 
-export async function init(): Promise<APIVersionInfo> {
+export abstract class Parser {
+	abstract init(): Promise<APIVersionInfo>;
+	abstract importCSV(
+		importOptions: ImportOptions,
+		progressCallback: ProgressCallback,
+		abortFlag: AbortFlag,
+	): Promise<Papa.ParseError[]>;
+	abstract async csvStringAndName(
+		exportOptions: ExportOptions,
+		progressCallback: ProgressCallback,
+		abortFlag: AbortFlag,
+	): Promise<CsvStringAndName>;
+}
+
+export async function init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
 	const result = await ExcelAPI.init();
 	if (result.platform === Office.PlatformType.OfficeOnline) {
 		// Online API can throw error if request size is too large
