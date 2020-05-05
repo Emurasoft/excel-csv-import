@@ -36,8 +36,8 @@ export interface ExportOptions {
 let reduceChunkSize = null;
 
 export abstract class Parser {
-	abstract init(): Promise<APIVersionInfo>;
-	abstract importCSV(
+	abstract async init(): Promise<APIVersionInfo>;
+	abstract async importCSV(
 		importOptions: ImportOptions,
 		progressCallback: ProgressCallback,
 		abortFlag: AbortFlag,
