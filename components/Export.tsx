@@ -98,12 +98,12 @@ export default function Export(): React.ReactElement {
 			<br />
 			{
 				exportType === ExportType.file
-				? <EncodingDropdown
-					value={encoding}
-					onChange={setEncoding}
-					showAutoDetect={false}
-				/>
-				: null
+					? <EncodingDropdown
+						value={encoding}
+						onChange={setEncoding}
+						showAutoDetect={false}
+					/>
+					: null
 			}
 			<DelimiterInput
 				value={delimiter}
