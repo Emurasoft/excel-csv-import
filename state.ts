@@ -4,7 +4,7 @@ export const enum OutputType {hidden, text, error}
 
 export const initial = {
 	initialized: false,
-	platform: Office.PlatformType.OfficeOnline,
+	platform: null as Office.PlatformType,
 	output: {
 		type: OutputType.hidden as OutputType,
 		text: '',
