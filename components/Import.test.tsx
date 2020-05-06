@@ -1,5 +1,5 @@
 import Import from './Import';
-import {mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import * as React from 'react';
 import {ImportOptions, InputType, NewlineSequence, Parser} from '../Parser';
 import {SourceInput} from './SourceInput';
@@ -32,8 +32,9 @@ describe('Import', () => {
 		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
 		const wrapper = mount(<ImportWithContext store={store} />);
 
+		// simulate() doesn't work
 		wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
-		wrapper.find(DelimiterInput).props().onChange(','); // simulate() doesn't work
+		wrapper.find(DelimiterInput).props().onChange(',');
 		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
 		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
 		wrapper.update();
@@ -55,11 +56,9 @@ describe('Import', () => {
 		window.localStorage.setItem('import-newline', '"\\n"');
 		window.localStorage.setItem('import-encoding', '"UTF-8"');
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const stub: any = {};
-		stub.state = {initialized: true};
-		// @ts-ignore
-		const wrapper = shallow(<Import store={stub} />);
+		const parser = sinon.stub(new Parser());
+		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
+		const wrapper = mount(<ImportWithContext store={store} />);
 
 		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
 		assert.strictEqual(
