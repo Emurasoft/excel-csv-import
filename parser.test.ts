@@ -52,9 +52,9 @@ describe('parser', () => {
 				let progressCallbackDone = false;
 
 				const worksheetStub: any = {context: {
-						application: {suspendApiCalculationUntilNextSync: () => {}},
-						sync: async () => syncDone = true,
-					}};
+					application: {suspendApiCalculationUntilNextSync: () => {}},
+					sync: async () => syncDone = true,
+				}};
 
 				const api: any = {};
 				api.setChunk = (worksheet, row, data) => {
