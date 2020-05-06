@@ -1,40 +1,56 @@
 import Import from './Import';
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import * as React from 'react';
-import {InputType, NewlineSequence} from '../Parser';
+import {ImportOptions, InputType, NewlineSequence, Parser} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton} from '@fluentui/react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
+import {applyMiddleware, createStore, Store} from 'redux';
+import thunk from 'redux-thunk';
+import {reducer} from '../reducer';
+import {Provider} from 'react-redux';
+import {MemoryRouter} from 'react-router';
+import * as Papa from 'papaparse';
 
 describe('Import', () => {
-	beforeEach(() => window.localStorage.clear());
+	beforeEach(
+		() => {
+			window.localStorage.clear()
+			window.localStorage.setItem('app-firstVisit', 'false');
+		},
+	);
 
-	it('import', () => {
-		let receivedOptions = null;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const stub: any = {};
-		stub.state = {initialized: true};
-		stub.import = (options) => receivedOptions = options
-		// @ts-ignore
-		const wrapper = shallow(<Import store={stub} />);
+	function ImportWithContext({store}: {store: Store}): React.ReactElement {
+		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
+	}
 
-		wrapper.find(SourceInput)
-			.simulate('change', {inputType: InputType.text, text: 'csv text'});
-		wrapper.find(DelimiterInput).simulate('change', ',');
-		wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
-		wrapper.find(EncodingDropdown).simulate('change', 'UTF-8');
-		wrapper.find(PrimaryButton).simulate('click');
+	it('import', (done) => {
+		class ParserStub implements Partial<Parser> {
+			async importCSV(importOptions: ImportOptions): Promise<Papa.ParseError[]> {
+				const expected = {
+					source: {inputType: 1, text: 'csv text'},
+					delimiter: ',',
+					newline: NewlineSequence.LF,
+					encoding: 'UTF-8',
+				};
 
-		const expected = {
-			source: {inputType: 1, text: 'csv text'},
-			delimiter: ',',
-			newline: NewlineSequence.LF,
-			encoding: 'UTF-8',
-		};
-		assert.deepStrictEqual(receivedOptions, expected);
+				assert.deepStrictEqual(importOptions, expected);
+				done();
+				return null;
+			}
+		}
+		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser: new ParserStub()})));
+		const wrapper = mount(<ImportWithContext store={store} />);
+
+		wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
+		wrapper.find(DelimiterInput).props().onChange(','); // simulate() doesn't work
+		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
+		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
+		wrapper.update();
+		wrapper.find(PrimaryButton).props().onClick(null);
 	});
 
 	it('compatabilityTest', () => {
