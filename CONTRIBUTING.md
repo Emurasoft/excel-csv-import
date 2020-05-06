@@ -1,1 +1,1 @@
-I appreciate any and all issues and pull requests! Thanks!
+I welcome any and all issues and pull requests! Thanks!
