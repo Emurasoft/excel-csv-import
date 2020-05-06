@@ -18,7 +18,8 @@ import * as sinon from 'sinon';
 describe('Import', () => {
 	beforeEach(
 		() => {
-			window.localStorage.clear()
+			sinon.restore();
+			window.localStorage.clear();
 			window.localStorage.setItem('app-firstVisit', 'false');
 		},
 	);
