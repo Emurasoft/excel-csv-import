@@ -55,12 +55,15 @@ export default function Import(): React.ReactElement {
 				onChange={setSource}
 			/>
 			<br />
-			<EncodingDropdown
-				value={encoding}
-				onChange={setEncoding}
-				hidden={source.inputType === InputType.text}
-				showAutoDetect={true}
-			/>
+			{
+				source.inputType === InputType.file
+					? <EncodingDropdown
+						value={encoding}
+						onChange={setEncoding}
+						showAutoDetect={true}
+					/>
+					: null
+			}
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}

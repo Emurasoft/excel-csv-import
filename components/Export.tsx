@@ -96,12 +96,15 @@ export default function Export(): React.ReactElement {
 				id={'exportTypeDropdown'}
 			/>
 			<br />
-			<EncodingDropdown
-				value={encoding}
-				onChange={setEncoding}
-				hidden={exportType === ExportType.text /* TODO this parameter is unnecessary*/}
-				showAutoDetect={false}
-			/>
+			{
+				exportType === ExportType.file
+					? <EncodingDropdown
+						value={encoding}
+						onChange={setEncoding}
+						showAutoDetect={false}
+					/>
+					: null
+			}
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}

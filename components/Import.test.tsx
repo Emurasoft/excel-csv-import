@@ -61,11 +61,11 @@ describe('Import', () => {
 		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
 		const wrapper = mount(<ImportWithContext store={store} />);
 
-		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
+		assert.strictEqual(wrapper.find(DelimiterInput).props().value, 'a');
 		assert.strictEqual(
-			wrapper.find(NewlineDropdown).getElement().props.value,
+			wrapper.find(NewlineDropdown).props().value,
 			NewlineSequence.LF,
 		);
-		assert.strictEqual(wrapper.find(EncodingDropdown).getElement().props.value, 'UTF-8');
+		assert.strictEqual(wrapper.find(EncodingDropdown).props().value, 'UTF-8');
 	});
 });
