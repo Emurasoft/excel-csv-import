@@ -10,7 +10,7 @@ import {
 	nameToUse,
 	NewlineSequence,
 	rowString,
-	Source
+	Source,
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
