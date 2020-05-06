@@ -4,7 +4,6 @@ import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 
 interface Props {
 	showAutoDetect: boolean;
-	hidden: boolean;
 	value: string;
 	onChange: (value: string) => void;
 }
@@ -14,13 +13,7 @@ const AutoDetectOption: IDropdownOption = {
 	'text': 'Auto-detect',
 };
 
-export function EncodingDropdown(
-	{showAutoDetect, hidden, value, onChange}: Props,
-): React.ReactElement {
-	if (hidden) {
-		return null;
-	}
-
+export function EncodingDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
 	let dropdownOptions: IDropdownOption[];
 	if (showAutoDetect) {
 		dropdownOptions = [AutoDetectOption, ...EncodingDropdownOptions];
