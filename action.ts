@@ -34,7 +34,7 @@ function textOutput(text: string): AppState['output'] {
 	return {type: OutputType.text, text, error: null};
 }
 
-function errorOutput(error: Error): AppState['output'] {
+export function errorOutput(error: Error): AppState['output'] {
 	return {type: OutputType.error, text: '', error};
 }
 
@@ -94,7 +94,7 @@ export const importCSV = (options: ImportOptions) =>
 		abortFlag.abort();
 		abortFlag = new AbortFlag();
 
-		try { // TODO Error handler middleware
+		try {
 			const parseErrors = await parser.importCSV(
 				options,
 				setProgressCallback(dispatch),
