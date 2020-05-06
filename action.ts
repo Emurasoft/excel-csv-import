@@ -1,5 +1,3 @@
-/* global Office */
-
 import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './Parser';
 import {AppState, OutputType} from './state';
 import {AbortFlag} from './AbortFlag';
@@ -153,7 +151,7 @@ export const exportCSV = (options: ExportOptions) =>
 	}
 
 export const abort = () =>
-	async (dispatch: Dispatch, getState: GetState, {}: ExtraArg): Promise<void> => {
+	async (dispatch: Dispatch, getState: GetState): Promise<void> => {
 		abortFlag.abort();
 		const {progress} = getState();
 		dispatch({
