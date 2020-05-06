@@ -5,6 +5,6 @@ export const errorHandler = ({dispatch}) => next => async action => {
 		return await next(action);
 	} catch (error) {
 		dispatch({type: SET_OUTPUT, output: errorOutput(error)});
-		return error;
+		throw error;
 	}
 };
