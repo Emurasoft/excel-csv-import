@@ -11,7 +11,6 @@ describe('EncodingDropdown', () => {
 				value={'UTF-8'}
 				onChange={() => {}}
 				showAutoDetect={true}
-				hidden={false}
 			/>
 		);
 		assert(wrapper.exists(Dropdown));
