@@ -11,6 +11,7 @@ import {Provider, useDispatch} from 'react-redux';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {reducer} from './reducer';
 import {Parser} from './parser';
+import {errorHandler} from './errorhandler';
 
 initializeIcons();
 
@@ -31,7 +32,7 @@ const LicenseInformation = React.lazy(
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const extraArg: ExtraArg = {parser: new Parser()};
-const enhancer = composeEnhancers(applyMiddleware(thunk.withExtraArgument(extraArg)));
+const enhancer = composeEnhancers(applyMiddleware(errorHandler, thunk.withExtraArgument(extraArg)));
 const store = createStore(reducer, enhancer);
 
 function Initializer({children}): React.ReactElement {
