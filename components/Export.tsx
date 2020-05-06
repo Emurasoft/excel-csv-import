@@ -10,7 +10,7 @@ import {
 	TextField,
 	TooltipHost,
 } from '@fluentui/react';
-import {NewlineSequence} from '../Parser';
+import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';

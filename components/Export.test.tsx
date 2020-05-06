@@ -1,7 +1,7 @@
 import Export, {ExportType} from './Export';
 import {mount} from 'enzyme';
 import * as React from 'react';
-import {ExportOptions, NewlineSequence, Parser} from '../Parser';
+import {ExportOptions, NewlineSequence, Parser} from '../parser';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, TextField} from '@fluentui/react';

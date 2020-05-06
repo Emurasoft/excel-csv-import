@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Dropdown, IDropdownOption, ResponsiveMode} from '@fluentui/react';
-import {NewlineSequence} from '../Parser';
+import {NewlineSequence} from '../parser';
 
 interface Props {
 	showAutoDetect: boolean;

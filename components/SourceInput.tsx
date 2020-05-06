@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {InputType, Source} from '../Parser';
+import {InputType, Source} from '../parser';
 import * as style from './style.css';
 import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react';
 

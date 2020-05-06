@@ -1,6 +1,6 @@
 /* global Office */
-import * as ExcelAPI from './ExcelAPI';
-import {APIVersionInfo, Shape} from './ExcelAPI';
+import * as ExcelAPI from './excel';
+import {APIVersionInfo, Shape} from './excel';
 import * as Papa from 'papaparse';
 import {AbortFlag} from './AbortFlag';
 
