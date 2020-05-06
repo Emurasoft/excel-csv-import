@@ -35,21 +35,7 @@ export interface ExportOptions {
 
 let reduceChunkSize = null;
 
-export abstract class Parser {
-	abstract async init(): Promise<APIVersionInfo>;
-	abstract async importCSV(
-		importOptions: ImportOptions,
-		progressCallback: ProgressCallback,
-		abortFlag: AbortFlag,
-	): Promise<Papa.ParseError[]>;
-	abstract async csvStringAndName(
-		exportOptions: ExportOptions,
-		progressCallback: ProgressCallback,
-		abortFlag: AbortFlag,
-	): Promise<CsvStringAndName>;
-}
-
-export class ParserImpl implements Parser {
+export class Parser {
 	async init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
 		const result = await ExcelAPI.init();
 		if (result.platform === Office.PlatformType.OfficeOnline) {

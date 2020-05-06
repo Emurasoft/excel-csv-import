@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import {Provider, useDispatch} from 'react-redux';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {reducer} from './reducer';
-import {ParserImpl} from './Parser';
+import {Parser} from './Parser';
 
 initializeIcons();
 
@@ -30,7 +30,7 @@ const LicenseInformation = React.lazy(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const extraArg: ExtraArg = {parser: new ParserImpl()};
+const extraArg: ExtraArg = {parser: new Parser()};
 const enhancer = composeEnhancers(applyMiddleware(thunk.withExtraArgument(extraArg)));
 const store = createStore(reducer, enhancer);
 

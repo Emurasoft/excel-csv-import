@@ -13,7 +13,7 @@ import thunk from 'redux-thunk';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
-import * as Papa from 'papaparse';
+import * as sinon from 'sinon';
 
 describe('Import', () => {
 	beforeEach(
@@ -27,22 +27,9 @@ describe('Import', () => {
 		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
 	}
 
-	it('import', (done) => {
-		class ParserStub implements Partial<Parser> {
-			async importCSV(importOptions: ImportOptions): Promise<Papa.ParseError[]> {
-				const expected = {
-					source: {inputType: 1, text: 'csv text'},
-					delimiter: ',',
-					newline: NewlineSequence.LF,
-					encoding: 'UTF-8',
-				};
-
-				assert.deepStrictEqual(importOptions, expected);
-				done();
-				return null;
-			}
-		}
-		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser: new ParserStub()})));
+	it('import', () => {
+		const parser = sinon.stub(new Parser());
+		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
 		const wrapper = mount(<ImportWithContext store={store} />);
 
 		wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
@@ -51,6 +38,15 @@ describe('Import', () => {
 		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
 		wrapper.update();
 		wrapper.find(PrimaryButton).props().onClick(null);
+
+		const expected: ImportOptions = {
+			source: {inputType: 1, text: 'csv text'},
+			delimiter: ',',
+			newline: NewlineSequence.LF,
+			encoding: 'UTF-8',
+		};
+		// @ts-ignore
+		assert(parser.importCSV.calledOnceWith(expected));
 	});
 
 	it('compatabilityTest', () => {
