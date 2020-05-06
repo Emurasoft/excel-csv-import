@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import {Provider, useDispatch} from 'react-redux';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {reducer} from './reducer';
-import {Parser} from './Parser';
+import {Parser} from './parser';
 
 initializeIcons();
 

@@ -1,4 +1,4 @@
-import * as Parser from './Parser';
+import * as Parser from './parser';
 import {
 	addQuotes,
 	ChunkProcessor,
@@ -11,112 +11,112 @@ import {
 	NewlineSequence,
 	rowString,
 	Source,
-} from './Parser';
+} from './parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
 import {Shape} from './ExcelAPI';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-describe('ChunkProcessor', () => {
-	it('progressPerChunk()', () => {
-		const tests: {source: Source; expected: number}[] = [
-			{
-				source: {inputType: InputType.text, text: ''},
-				expected: 1.0,
-			},
-			{
-				source: {inputType: InputType.text, text: 'a'},
-				expected: 10.0},
-			{
-				source: {inputType: InputType.file, text: '', file: new File([], '')},
-				expected: 1.0,
-			},
-			{
-				source: {inputType: InputType.file, text: '', file: new File(['a'], '')},
-				expected: 10.0,
-			},
-		];
+describe('parser', () => {
+	/* eslint-disable @typescript-eslint/no-explicit-any */
+	describe('ChunkProcessor', () => {
+		it('progressPerChunk()', () => {
+			const tests: {source: Source; expected: number}[] = [
+				{
+					source: {inputType: InputType.text, text: ''},
+					expected: 1.0,
+				},
+				{
+					source: {inputType: InputType.text, text: 'a'},
+					expected: 10.0},
+				{
+					source: {inputType: InputType.file, text: '', file: new File([], '')},
+					expected: 1.0,
+				},
+				{
+					source: {inputType: InputType.file, text: '', file: new File(['a'], '')},
+					expected: 10.0,
+				},
+			];
 
-		for (const test of tests) {
-			// @ts-ignore
-			assert.strictEqual(ChunkProcessor.progressPerChunk(test.source, 10), test.expected);
-		}
-	});
-
-	describe('run()', () => {
-		it('normal operation', async () => {
-			let setChunkDone = false;
-			let syncDone = false;
-			let progressCallbackDone = false;
-
-			const worksheetStub: any = {context: {
-				application: {suspendApiCalculationUntilNextSync: () => {}},
-				sync: async () => syncDone = true,
-			}};
-
-			const api: any = {};
-			api.setChunk = (worksheet, row, data) => {
-				assert.strictEqual(worksheet, worksheetStub);
-				assert.strictEqual(row, 0);
-				assert.deepStrictEqual(data, [['a', 'b']])
-				setChunkDone = true;
+			for (const test of tests) {
+				// @ts-ignore
+				assert.strictEqual(ChunkProcessor.progressPerChunk(test.source, 10), test.expected);
 			}
+		});
 
-			const progressCallback = (progress): void => {
-				assert(progress === 0.0 || progress > 1.0);
-				if (progress > 1.0) {
-					progressCallbackDone = true;
+		describe('run()', () => {
+			it('normal operation', async () => {
+				let setChunkDone = false;
+				let syncDone = false;
+				let progressCallbackDone = false;
+
+				const worksheetStub: any = {context: {
+						application: {suspendApiCalculationUntilNextSync: () => {}},
+						sync: async () => syncDone = true,
+					}};
+
+				const api: any = {};
+				api.setChunk = (worksheet, row, data) => {
+					assert.strictEqual(worksheet, worksheetStub);
+					assert.strictEqual(row, 0);
+					assert.deepStrictEqual(data, [['a', 'b']])
+					setChunkDone = true;
 				}
-			}
 
-			const processor = new ChunkProcessor(
-				worksheetStub as any,
-				progressCallback,
-				new AbortFlag(),
-			);
-			// @ts-ignore
-			processor._excelAPI = api;
+				const progressCallback = (progress): void => {
+					assert(progress === 0.0 || progress > 1.0);
+					if (progress > 1.0) {
+						progressCallbackDone = true;
+					}
+				}
 
-			const importOptions: Parser.ImportOptions & ParseConfig = {
-				source: {inputType: Parser.InputType.text, text: 'a,b'},
-				delimiter: ',',
-				newline: NewlineSequence.LF,
-				encoding: '',
-			};
+				const processor = new ChunkProcessor(
+					worksheetStub as any,
+					progressCallback,
+					new AbortFlag(),
+				);
+				// @ts-ignore
+				processor._excelAPI = api;
 
-			const errors = await processor.run(importOptions);
-			assert.deepStrictEqual(errors, []);
-			assert(setChunkDone);
-			assert(syncDone);
-			assert(progressCallbackDone);
-		});
+				const importOptions: Parser.ImportOptions & ParseConfig = {
+					source: {inputType: Parser.InputType.text, text: 'a,b'},
+					delimiter: ',',
+					newline: NewlineSequence.LF,
+					encoding: '',
+				};
 
-		it('abort', async () => {
-			const progressCallback = (progress): void => {
-				assert.strictEqual(progress, 0.0);
-			};
+				const errors = await processor.run(importOptions);
+				assert.deepStrictEqual(errors, []);
+				assert(setChunkDone);
+				assert(syncDone);
+				assert(progressCallbackDone);
+			});
 
-			const flag = new AbortFlag();
-			flag.abort();
-			const processor = new ChunkProcessor(null, progressCallback, flag);
-			// @ts-ignore
-			processor._excelAPI = null;
+			it('abort', async () => {
+				const progressCallback = (progress): void => {
+					assert.strictEqual(progress, 0.0);
+				};
 
-			const importOptions: Parser.ImportOptions & ParseConfig = {
-				source: {inputType: Parser.InputType.text, text: 'a,b'},
-				delimiter: ',',
-				newline: NewlineSequence.LF,
-				encoding: '',
-			};
+				const flag = new AbortFlag();
+				flag.abort();
+				const processor = new ChunkProcessor(null, progressCallback, flag);
+				// @ts-ignore
+				processor._excelAPI = null;
 
-			const errors = await processor.run(importOptions);
-			assert.deepStrictEqual(errors, []);
+				const importOptions: Parser.ImportOptions & ParseConfig = {
+					source: {inputType: Parser.InputType.text, text: 'a,b'},
+					delimiter: ',',
+					newline: NewlineSequence.LF,
+					encoding: '',
+				};
+
+				const errors = await processor.run(importOptions);
+				assert.deepStrictEqual(errors, []);
+			});
 		});
 	});
-});
 
-describe('Parser', () => {
 	it('_chunkRange()', () => {
 		interface Test {
 			chunk: number;

@@ -1,4 +1,4 @@
-import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './Parser';
+import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
 import {AppState, OutputType} from './state';
 import {AbortFlag} from './AbortFlag';
 import {ThunkDispatch} from 'redux-thunk';
