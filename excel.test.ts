@@ -1,4 +1,4 @@
-import * as ExcelAPI from './ExcelAPI';
+import * as ExcelAPI from './excel';
 import * as assert from 'assert';
 import {CheckError} from './test/util';
 

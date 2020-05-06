@@ -15,7 +15,7 @@ import {
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
-import {Shape} from './ExcelAPI';
+import {Shape} from './excel';
 
 describe('parser', () => {
 	/* eslint-disable @typescript-eslint/no-explicit-any */
