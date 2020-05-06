@@ -4,8 +4,13 @@ import {initializeIcons} from '@fluentui/react/lib/Icons';
 import * as queryString from 'query-string';
 import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
-import {Store} from './Store';
 import {MemoryRouter, Route} from 'react-router';
+import {ExtraArg, init} from './action';
+import thunk from 'redux-thunk';
+import {Provider, useDispatch} from 'react-redux';
+import {applyMiddleware, compose, createStore} from 'redux';
+import {reducer} from './reducer';
+import {Parser} from './Parser';
 
 initializeIcons();
 
@@ -22,21 +27,35 @@ const LicenseInformation = React.lazy(
 	() => import(/* webpackChunkName: 'license' */'./components/LicenseInformation'),
 );
 
-function App(): JSX.Element {
-	// pageValue could be an array but resulting behavior is expected either way
-	const pageValue = queryString.parse(location.search).page as string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const extraArg: ExtraArg = {parser: new Parser()};
+const enhancer = composeEnhancers(applyMiddleware(thunk.withExtraArgument(extraArg)));
+const store = createStore(reducer, enhancer);
+
+function Initializer({children}): React.ReactElement {
+	useDispatch()(init());
+	return children;
+}
+
+function App(): React.ReactElement {
+	// page could be an array but resulting behavior is expected either way
+	const page = queryString.parse(location.search).page as string;
 	return (
 		<ErrorBoundary>
-			<Store>
-				<React.Suspense fallback={''}>
-					<MemoryRouter initialEntries={[pageValue]}>
-						<Route path={Pages.import} component={Import} />
-						<Route path={Pages.export} component={Export} />
-						<Route path={Pages.about} component={About} />
-						<Route path={Pages.licenseInformation} component={LicenseInformation} />
-					</MemoryRouter>
-				</React.Suspense>
-			</Store>
+			<React.Suspense fallback={''}>
+				<Provider store={store}>
+					<Initializer>
+						<MemoryRouter initialEntries={[page]}>
+							<Route path={Pages.import} component={Import} />
+							<Route path={Pages.export} component={Export} />
+							<Route path={Pages.about} component={About} />
+							<Route path={Pages.licenseInformation} component={LicenseInformation} />
+						</MemoryRouter>
+					</Initializer>
+				</Provider>
+			</React.Suspense>
 		</ErrorBoundary>
 	);
 }

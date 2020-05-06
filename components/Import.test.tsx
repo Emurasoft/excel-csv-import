@@ -1,40 +1,54 @@
-import {ImportComponent} from './Import';
-import {shallow} from 'enzyme';
+import Import from './Import';
+import {mount} from 'enzyme';
 import * as React from 'react';
-import {InputType, NewlineSequence} from '../Parser';
+import {ImportOptions, InputType, NewlineSequence, Parser} from '../Parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton} from '@fluentui/react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
+import {applyMiddleware, createStore, Store} from 'redux';
+import thunk from 'redux-thunk';
+import {reducer} from '../reducer';
+import {Provider} from 'react-redux';
+import {MemoryRouter} from 'react-router';
+import * as sinon from 'sinon';
 
-describe('ImportComponent', () => {
-	beforeEach(() => window.localStorage.clear());
+describe('Import', () => {
+	beforeEach(
+		() => {
+			sinon.restore();
+			window.localStorage.clear();
+			window.localStorage.setItem('app-firstVisit', 'false');
+		},
+	);
+
+	function ImportWithContext({store}: {store: Store}): React.ReactElement {
+		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
+	}
 
 	it('import', () => {
-		let receivedOptions = null;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const stub: any = {};
-		stub.state = {initialized: true};
-		stub.import = (options) => receivedOptions = options
-		// @ts-ignore
-		const wrapper = shallow(<ImportComponent store={stub} />);
+		const parser = sinon.stub(new Parser());
+		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
+		const wrapper = mount(<ImportWithContext store={store} />);
 
-		wrapper.find(SourceInput)
-			.simulate('change', {inputType: InputType.text, text: 'csv text'});
-		wrapper.find(DelimiterInput).simulate('change', ',');
-		wrapper.find(NewlineDropdown).simulate('change', NewlineSequence.LF);
-		wrapper.find(EncodingDropdown).simulate('change', 'UTF-8');
-		wrapper.find(PrimaryButton).simulate('click');
+		// simulate() doesn't work
+		wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
+		wrapper.find(DelimiterInput).props().onChange(',');
+		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
+		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
+		wrapper.update();
+		wrapper.find(PrimaryButton).props().onClick(null);
 
-		const expected = {
+		const expected: ImportOptions = {
 			source: {inputType: 1, text: 'csv text'},
 			delimiter: ',',
 			newline: NewlineSequence.LF,
 			encoding: 'UTF-8',
 		};
-		assert.deepStrictEqual(receivedOptions, expected);
+		// @ts-ignore
+		assert(parser.importCSV.calledOnceWith(expected));
 	});
 
 	it('compatabilityTest', () => {
@@ -43,11 +57,9 @@ describe('ImportComponent', () => {
 		window.localStorage.setItem('import-newline', '"\\n"');
 		window.localStorage.setItem('import-encoding', '"UTF-8"');
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const stub: any = {};
-		stub.state = {initialized: true};
-		// @ts-ignore
-		const wrapper = shallow(<ImportComponent store={stub} />);
+		const parser = sinon.stub(new Parser());
+		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
+		const wrapper = mount(<ImportWithContext store={store} />);
 
 		assert.strictEqual(wrapper.find(DelimiterInput).getElement().props.value, 'a');
 		assert.strictEqual(

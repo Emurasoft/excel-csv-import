@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {connect} from '../connect';
 import {Link, Text} from '@fluentui/react';
 import {MemoryHistory} from 'history';
 import * as style from './style.css';
@@ -11,7 +10,7 @@ interface Props {
 	history: MemoryHistory;
 }
 
-export function About({history}: Props): React.ReactElement {
+export default function About({history}: Props): React.ReactElement {
 	return (
 		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
@@ -62,5 +61,3 @@ export function About({history}: Props): React.ReactElement {
 		/* eslint-enable max-len */
 	);
 }
-
-export default connect(About);

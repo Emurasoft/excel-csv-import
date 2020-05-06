@@ -1,9 +1,8 @@
 /* global Office */
 import * as ExcelAPI from './ExcelAPI';
+import {APIVersionInfo, Shape} from './ExcelAPI';
 import * as Papa from 'papaparse';
 import {AbortFlag} from './AbortFlag';
-import {ProgressCallback} from './Store';
-import {APIVersionInfo, Shape} from './ExcelAPI';
 
 export const enum InputType {file, text}
 
@@ -36,18 +35,61 @@ export interface ExportOptions {
 
 let reduceChunkSize = null;
 
-export async function init(): Promise<APIVersionInfo> {
-	const result = await ExcelAPI.init();
-	if (result.platform === Office.PlatformType.OfficeOnline) {
-		// Online API can throw error if request size is too large
-		reduceChunkSize = true;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(Papa.LocalChunkSize as any) = 10_000;
-	} else {
-		reduceChunkSize = false;
+export class Parser {
+	async init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
+		const result = await ExcelAPI.init();
+		if (result.platform === Office.PlatformType.OfficeOnline) {
+			// Online API can throw error if request size is too large
+			reduceChunkSize = true;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(Papa.LocalChunkSize as any) = 10_000;
+		} else {
+			reduceChunkSize = false;
+		}
+		return result;
 	}
-	return result;
+
+	async importCSV(
+		importOptions: ImportOptions,
+		progressCallback: ProgressCallback,
+		abortFlag: AbortFlag,
+	): Promise<Papa.ParseError[]> {
+		let errors = null;
+		await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
+			const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
+			errors = await chunkProcessor.run(importOptions);
+		});
+		return errors;
+	}
+
+	async csvStringAndName(
+		exportOptions: ExportOptions,
+		progressCallback: ProgressCallback,
+		abortFlag: AbortFlag,
+	): Promise<CsvStringAndName> {
+		let namesAndShape = null;
+		let resultString = '';
+		await ExcelAPI.runOnCurrentWorksheet(async (worksheet) => {
+			namesAndShape = await ExcelAPI.worksheetNamesAndShape(worksheet);
+			worksheet.context.application.suspendApiCalculationUntilNextSync();
+			resultString = await csvString(
+				worksheet,
+				namesAndShape.shape,
+				chunkRows(namesAndShape.shape),
+				exportOptions,
+				progressCallback,
+				abortFlag,
+			);
+		});
+
+		return {
+			name: nameToUse(namesAndShape.workbookName, namesAndShape.worksheetName),
+			string: resultString,
+		};
+	}
 }
+
+type ProgressCallback = (progress: number) => void;
 
 export class ChunkProcessor {
 	public constructor(
@@ -124,19 +166,6 @@ export class ChunkProcessor {
 	}
 }
 
-export async function importCSV(
-	importOptions: ImportOptions,
-	progressCallback: ProgressCallback,
-	abortFlag: AbortFlag,
-): Promise<Papa.ParseError[]> {
-	let errors = null;
-	await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
-		const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
-		errors = await chunkProcessor.run(importOptions);
-	});
-	return errors;
-}
-
 /*
 RFC 4180 standard:
 MS-DOS-style lines that end with (CR/LF) characters (optional for the last line).
@@ -150,8 +179,7 @@ A (double) quote character in a field must be represented by two (double) quote 
 Thanks Wikipedia.
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function _chunkRange(
+export function chunkRange(
 	chunk: number,
 	shape: Shape,
 	chunkRows: number,
@@ -164,7 +192,7 @@ export function _chunkRange(
 	};
 }
 
-export function _addQuotes(row: string[], delimiter: string): void {
+export function addQuotes(row: string[], delimiter: string): void {
 	if (delimiter == '') {
 		return;
 	}
@@ -177,23 +205,25 @@ export function _addQuotes(row: string[], delimiter: string): void {
 	}
 }
 
-export function _rowString(row: any[], exportOptions: Readonly<ExportOptions>): string {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function rowString(row: any[], exportOptions: Readonly<ExportOptions>): string {
 	const stringValues = row.map(a => a.toString());
-	_addQuotes(stringValues, exportOptions.delimiter);
+	addQuotes(stringValues, exportOptions.delimiter);
 	return stringValues.join(exportOptions.delimiter) + exportOptions.newline;
 }
 
-export function _chunkString(values: any[][], exportOptions: Readonly<ExportOptions>): string {
+export function chunkString(values: any[][], exportOptions: Readonly<ExportOptions>): string {
 	let result = '';
 
 	for (let i = 0; i < values.length; i++) {
-		result += _rowString(values[i], exportOptions);
+		result += rowString(values[i], exportOptions);
 	}
 
 	return result;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function _csvString(
+export async function csvString(
 	worksheet: Excel.Worksheet,
 	shape: Shape,
 	chunkRows: number,
@@ -212,23 +242,22 @@ export async function _csvString(
 		// shape.rows is never 0
 		progressCallback(chunk * chunkRows / shape.rows);
 
-		const chunkRange = _chunkRange(chunk, shape, chunkRows);
+		const chunkRange_ = chunkRange(chunk, shape, chunkRows);
 		const range = worksheet.getRangeByIndexes(
-			chunkRange.startRow,
-			chunkRange.startColumn,
-			chunkRange.rowCount,
-			chunkRange.columnCount,
+			chunkRange_.startRow,
+			chunkRange_.startColumn,
+			chunkRange_.rowCount,
+			chunkRange_.columnCount,
 		).load('values');
 		await worksheet.context.sync();
 
-		result += _chunkString(range.values, exportOptions);
+		result += chunkString(range.values, exportOptions);
 	}
 
 	return result;
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */
 
-export function _nameToUse(workbookName: string, worksheetName: string): string {
+export function nameToUse(workbookName: string, worksheetName: string): string {
 	if (/^Sheet\d+$/.test(worksheetName)) { // 'Sheet1' isn't a good name to use
 		// Workbook name usually includes the file extension
 		const to = workbookName.lastIndexOf('.');
@@ -249,30 +278,4 @@ function chunkRows(shape: Shape): number {
 export interface CsvStringAndName {
 	name: string;
 	string: string;
-}
-
-export async function csvStringAndName(
-	exportOptions: ExportOptions,
-	progressCallback: ProgressCallback,
-	abortFlag: AbortFlag,
-): Promise<CsvStringAndName> {
-	let namesAndShape = null;
-	let resultString = '';
-	await ExcelAPI.runOnCurrentWorksheet(async (worksheet) => {
-		namesAndShape = await ExcelAPI.worksheetNamesAndShape(worksheet);
-		worksheet.context.application.suspendApiCalculationUntilNextSync();
-		resultString = await _csvString(
-			worksheet,
-			namesAndShape.shape,
-			chunkRows(namesAndShape.shape),
-			exportOptions,
-			progressCallback,
-			abortFlag,
-		);
-	});
-
-	return {
-		name: _nameToUse(namesAndShape.workbookName, namesAndShape.worksheetName),
-		string: resultString,
-	};
 }

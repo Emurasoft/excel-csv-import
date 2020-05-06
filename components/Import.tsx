@@ -1,6 +1,5 @@
-import {Context, Store} from '../Store';
 import * as React from 'react';
-import {useContext, useState} from 'react';
+import {useState} from 'react';
 import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react';
 import {InputType, NewlineSequence, Source} from '../Parser';
 import {SourceInput} from './SourceInput';
@@ -12,14 +11,19 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
+import {useDispatch, useSelector} from 'react-redux'
+import {abort, Dispatch, importCSV} from '../action';
+import {AppState} from '../state';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
 
 export default function Import(): React.ReactElement {
-	return <ImportComponent store={useContext(Context)} />
-}
+	const initialized = useSelector(state => state.initialized) as AppState['initialized'];
+	const platform = useSelector(state => state.platform) as AppState['platform'];
+	const progress = useSelector(state => state.progress) as AppState['progress'];
+	const output = useSelector(state => state.output) as AppState['output'];
+	const dispatch = useDispatch() as Dispatch;
 
-export function ImportComponent({store}: {store: Store}): React.ReactElement {
 	const [source, setSource] = useState(
 		{inputType: InputType.file, file: null, text: ''} as Source,
 	);
@@ -32,7 +36,7 @@ export function ImportComponent({store}: {store: Store}): React.ReactElement {
 		buttonTooltipContent = 'Import source is not selected';
 	} else if (delimiter.length !== 1) {
 		buttonTooltipContent = 'Delimiter is invalid';
-	} else if (!store.state.initialized) {
+	} else if (!initialized) {
 		buttonTooltipContent = 'Excel API is not initialized';
 	} else {
 		buttonTooltipContent = '';
@@ -43,7 +47,7 @@ export function ImportComponent({store}: {store: Store}): React.ReactElement {
 			text={'Import CSV'}
 			helpLink={'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'}
 			// eslint-disable-next-line no-undef
-			mac={store.state.platform === Office.PlatformType.Mac}
+			mac={platform === Office.PlatformType.Mac}
 		>
 			{/* eslint-enable no-undef */}
 			<SourceInput
@@ -76,16 +80,16 @@ export function ImportComponent({store}: {store: Store}): React.ReactElement {
 			>
 				<PrimaryButton
 					disabled={buttonTooltipContent !== ''}
-					onClick={() => store.import({source, newline, delimiter, encoding})}
+					onClick={() => dispatch(importCSV({source, newline, delimiter, encoding}))}
 					text={'Import CSV'}
 				/>
 			</TooltipHost>
 			<br />
 			<ProgressBar
-				onClick={store.abort}
-				progress={store.state.progress}
+				onClick={() => dispatch(abort())}
+				progress={progress}
 			/>
-			<ParserOutputBox parserOutput={store.state.parserOutput} />
+			<ParserOutputBox output={output} />
 			<BottomBar />
 		</Page>
 	);

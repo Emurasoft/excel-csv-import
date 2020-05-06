@@ -8,7 +8,7 @@ export interface APIVersionInfo {
 
 export async function init(): Promise<APIVersionInfo> {
 	await Office.onReady();
-	return {
+	return { // TODO separate into separate functions
 		platform: Office.context.platform,
 		diagnostics: {...Office.context.diagnostics},
 		userAgent: window.navigator.userAgent,

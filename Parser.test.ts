@@ -1,20 +1,20 @@
 import * as Parser from './Parser';
 import {
-	_addQuotes,
-	_chunkRange,
-	_chunkString, _csvString,
-	_nameToUse,
-	_rowString,
+	addQuotes,
 	ChunkProcessor,
+	chunkRange,
+	chunkString,
+	csvString,
 	ExportOptions,
 	InputType,
+	nameToUse,
 	NewlineSequence,
+	rowString,
 	Source,
 } from './Parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
 import {AbortFlag} from './AbortFlag';
-import {ProgressCallback} from './Store';
 import {Shape} from './ExcelAPI';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -63,7 +63,7 @@ describe('ChunkProcessor', () => {
 				setChunkDone = true;
 			}
 
-			const progressCallback: ProgressCallback = (progress): void => {
+			const progressCallback = (progress): void => {
 				assert(progress === 0.0 || progress > 1.0);
 				if (progress > 1.0) {
 					progressCallbackDone = true;
@@ -93,7 +93,7 @@ describe('ChunkProcessor', () => {
 		});
 
 		it('abort', async () => {
-			const progressCallback: ProgressCallback = (progress): void => {
+			const progressCallback = (progress): void => {
 				assert.strictEqual(progress, 0.0);
 			};
 
@@ -234,7 +234,7 @@ describe('Parser', () => {
 		];
 
 		for (const test of tests) {
-			const result = _chunkRange(test.chunk, test.shape, test.chunkRows);
+			const result = chunkRange(test.chunk, test.shape, test.chunkRows);
 			assert.deepStrictEqual(result, test.expected);
 		}
 	});
@@ -289,7 +289,7 @@ describe('Parser', () => {
 		];
 
 		for (const test of tests) {
-			_addQuotes(test.row, test.delimiter);
+			addQuotes(test.row, test.delimiter);
 			assert.deepStrictEqual(test.row, test.expected);
 		}
 	});
@@ -331,7 +331,7 @@ describe('Parser', () => {
 		];
 
 		for (const test of tests) {
-			const result = _rowString(test.row, test.exportOptions);
+			const result = rowString(test.row, test.exportOptions);
 			assert.strictEqual(result, test.expected);
 		}
 	});
@@ -357,7 +357,7 @@ describe('Parser', () => {
 		];
 
 		for (const test of tests) {
-			assert.strictEqual(_chunkString(test.values, test.exportOptions), test.expected);
+			assert.strictEqual(chunkString(test.values, test.exportOptions), test.expected);
 		}
 	});
 
@@ -418,7 +418,7 @@ describe('Parser', () => {
 						rowCount: number,
 						columnCount: number,
 					) => {
-						const expectedRange = _chunkRange(
+						const expectedRange = chunkRange(
 							chunk,
 							test.shape,
 							test.chunkRows,
@@ -432,7 +432,7 @@ describe('Parser', () => {
 					context: {sync: async () => {}},
 				};
 
-				const result = await _csvString(
+				const result = await csvString(
 					worksheetStub,
 					test.shape,
 					test.chunkRows,
@@ -471,7 +471,7 @@ describe('Parser', () => {
 				++called;
 			}
 
-			await _csvString(
+			await csvString(
 				worksheetStub,
 				shape,
 				1,
@@ -496,12 +496,12 @@ describe('Parser', () => {
 			};
 
 			const flag0 = new AbortFlag();
-			const result0 = await _csvString(worksheetStub, shape, 1, options, () => {}, flag0);
+			const result0 = await csvString(worksheetStub, shape, 1, options, () => {}, flag0);
 			assert.strictEqual(result0, 'a\n');
 
 			const flag1 = new AbortFlag();
 			flag1.abort();
-			const result1 = await _csvString(worksheetStub, shape, 1, options, () => {}, flag1);
+			const result1 = await csvString(worksheetStub, shape, 1, options, () => {}, flag1);
 			assert.strictEqual(result1, '');
 		});
 	});
@@ -536,7 +536,7 @@ describe('Parser', () => {
 		];
 
 		for (const test of tests) {
-			assert.strictEqual(_nameToUse(test.workbookName, test.worksheetName), test.expected);
+			assert.strictEqual(nameToUse(test.workbookName, test.worksheetName), test.expected);
 		}
 	});
 });
