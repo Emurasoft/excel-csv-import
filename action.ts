@@ -54,18 +54,11 @@ export type Dispatch = ThunkDispatch<AppState, ExtraArg, Action>;
 type GetState = () => AppState;
 
 export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
-	try {
-		const environmentInfo = await parser.init();
-		dispatch({
-			type: SET_PLATFORM,
-			platform: environmentInfo.platform,
-		});
-	} catch (e) {
-		dispatch({
-			type: SET_OUTPUT,
-			output: errorOutput(e),
-		});
-	}
+	const environmentInfo = await parser.init();
+	dispatch({
+		type: SET_PLATFORM,
+		platform: environmentInfo.platform,
+	});
 
 	dispatch({
 		type: SET_INITIALIZED,
@@ -94,22 +87,15 @@ export const importCSV = (options: ImportOptions) =>
 		abortFlag.abort();
 		abortFlag = new AbortFlag();
 
-		try {
-			const parseErrors = await parser.importCSV(
-				options,
-				setProgressCallback(dispatch),
-				abortFlag,
-			);
-			if (parseErrors.length > 0) {
-				dispatch({
-					type: SET_OUTPUT,
-					output: textOutput(JSON.stringify(parseErrors)),
-				});
-			}
-		} catch(e) {
+		const parseErrors = await parser.importCSV(
+			options,
+			setProgressCallback(dispatch),
+			abortFlag,
+		);
+		if (parseErrors.length > 0) {
 			dispatch({
 				type: SET_OUTPUT,
-				output: errorOutput(e),
+				output: textOutput(JSON.stringify(parseErrors)),
 			});
 		}
 
@@ -129,19 +115,11 @@ export const exportCSV = (options: ExportOptions) =>
 		abortFlag.abort();
 		abortFlag = new AbortFlag();
 
-		let result: CsvStringAndName = null;
-		try {
-			result = await parser.csvStringAndName(
-				options,
-				setProgressCallback(dispatch),
-				abortFlag,
-			);
-		} catch (e) {
-			dispatch({
-				type: SET_OUTPUT,
-				output: errorOutput(e),
-			});
-		}
+		const result = await parser.csvStringAndName(
+			options,
+			setProgressCallback(dispatch),
+			abortFlag,
+		);
 
 		dispatch({
 			type: SET_PROGRESS,
