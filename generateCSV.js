@@ -17,8 +17,8 @@ function row() {
 
 function main() {
 	const rowStr = row();
-	fs.writeFileSync(__dirname + '/largeCSVFile.csv', '');
-	const fd = fs.openSync(__dirname + '/largeCSVFile.csv', 'a');
+	fs.writeFileSync(__dirname + '/csvFile.csv', '');
+	const fd = fs.openSync(__dirname + '/csvFile.csv', 'a');
 	for (let i = 0; i < rows; i++) {
 		fs.writeSync(fd, rowStr);
 	}

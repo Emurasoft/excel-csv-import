@@ -1,6 +1,5 @@
 import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
 import {AppState, OutputType} from './state';
-import {AbortFlag} from './AbortFlag';
 import {ThunkDispatch} from 'redux-thunk';
 
 export type Action =
@@ -66,8 +65,6 @@ export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Pro
 	});
 }
 
-let abortFlag = new AbortFlag(); // TODO move into Parser
-
 function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 	return (percent) => {
 		dispatch({
@@ -84,13 +81,9 @@ export const importCSV = (options: ImportOptions) =>
 			progress: {show: true, aborting: false, percent: 0.0},
 		});
 
-		abortFlag.abort();
-		abortFlag = new AbortFlag();
-
 		const parseErrors = await parser.importCSV(
 			options,
 			setProgressCallback(dispatch),
-			abortFlag,
 		);
 		if (parseErrors.length > 0) {
 			dispatch({
@@ -112,13 +105,9 @@ export const exportCSV = (options: ExportOptions) =>
 			progress: {show: true, aborting: false, percent: 0.0},
 		});
 
-		abortFlag.abort();
-		abortFlag = new AbortFlag();
-
 		const result = await parser.csvStringAndName(
 			options,
 			setProgressCallback(dispatch),
-			abortFlag,
 		);
 
 		dispatch({
@@ -129,8 +118,8 @@ export const exportCSV = (options: ExportOptions) =>
 	}
 
 export const abort = () =>
-	async (dispatch: Dispatch, getState: GetState): Promise<void> => {
-		abortFlag.abort();
+	async (dispatch: Dispatch, getState: GetState, {parser}: ExtraArg): Promise<void> => {
+		parser.abort();
 		const {progress} = getState();
 		dispatch({
 			type: SET_PROGRESS,
