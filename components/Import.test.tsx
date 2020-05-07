@@ -30,6 +30,7 @@ describe('Import', () => {
 
 	it('import', async () => {
 		const parser = sinon.stub(new Parser());
+		parser.importCSV.resolves([]);
 		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
 		const wrapper = mount(<ImportWithContext store={store} />);
 
