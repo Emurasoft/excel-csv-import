@@ -83,7 +83,7 @@ export default function Import(): React.ReactElement {
 			>
 				<PrimaryButton
 					disabled={buttonTooltipContent !== ''}
-					onClick={() => dispatch(importCSV({source, newline, delimiter, encoding}))}
+					onClick={async () => dispatch(importCSV({source, newline, delimiter, encoding}))}
 					text={'Import CSV'}
 				/>
 			</TooltipHost>

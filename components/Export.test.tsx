@@ -27,7 +27,7 @@ describe('Export', () => {
 		return <MemoryRouter><Provider store={store}><Export /></Provider></MemoryRouter>
 	}
 
-	it('export text', (done) => {
+	it('export text', async () => {
 		const parser = sinon.stub(new Parser());
 		parser.csvStringAndName.onFirstCall().resolves({string: 'export result', name: ''});
 
@@ -39,7 +39,7 @@ describe('Export', () => {
 		wrapper.find(DelimiterInput).props().onChange(',');
 		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
 		wrapper.update();
-		wrapper.find(PrimaryButton).props().onClick(null);
+		await wrapper.find(PrimaryButton).props().onClick(null);
 
 		const expected: ExportOptions = {
 			delimiter: ',',
@@ -47,14 +47,8 @@ describe('Export', () => {
 		}
 		// @ts-ignore
 		assert(parser.csvStringAndName.calledOnceWith(expected));
-		setTimeout(
-			() => {
-				wrapper.update();
-				assert.strictEqual(wrapper.find(TextField).props().value, 'export result');
-				done();
-			},
-			2,
-		);
+		wrapper.update();
+		assert.strictEqual(wrapper.find(TextField).props().value, 'export result');
 	});
 
 	it('compatability test', () => {

@@ -28,7 +28,7 @@ describe('Import', () => {
 		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
 	}
 
-	it('import', () => {
+	it('import', async () => {
 		const parser = sinon.stub(new Parser());
 		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
 		const wrapper = mount(<ImportWithContext store={store} />);
@@ -39,7 +39,7 @@ describe('Import', () => {
 		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
 		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
 		wrapper.update();
-		wrapper.find(PrimaryButton).props().onClick(null);
+		await wrapper.find(PrimaryButton).props().onClick(null);
 
 		const expected: ImportOptions = {
 			source: {inputType: 1, text: 'csv text'},
