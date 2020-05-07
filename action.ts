@@ -53,10 +53,9 @@ export type Dispatch = ThunkDispatch<AppState, ExtraArg, Action>;
 type GetState = () => AppState;
 
 export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
-	const environmentInfo = await parser.init();
 	dispatch({
 		type: SET_PLATFORM,
-		platform: environmentInfo.platform,
+		platform: await parser.init(),
 	});
 
 	dispatch({
