@@ -36,6 +36,10 @@ export interface ExportOptions {
 let reduceChunkSize = null;
 
 export class Parser {
+	constructor() {
+		this.abortFlag = new AbortFlag();
+	}
+
 	async init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
 		const result = await ExcelAPI.init();
 		if (result.platform === Office.PlatformType.OfficeOnline) {
@@ -52,11 +56,12 @@ export class Parser {
 	async importCSV(
 		importOptions: ImportOptions,
 		progressCallback: ProgressCallback,
-		abortFlag: AbortFlag,
 	): Promise<Papa.ParseError[]> {
+		this.abort();
+
 		let errors = null;
 		await ExcelAPI.runOnBlankWorksheet(async (worksheet) => {
-			const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, abortFlag);
+			const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, this.abortFlag);
 			errors = await chunkProcessor.run(importOptions);
 		});
 		return errors;
@@ -65,8 +70,9 @@ export class Parser {
 	async csvStringAndName(
 		exportOptions: ExportOptions,
 		progressCallback: ProgressCallback,
-		abortFlag: AbortFlag,
 	): Promise<CsvStringAndName> {
+		this.abort();
+
 		let namesAndShape = null;
 		let resultString = '';
 		await ExcelAPI.runOnCurrentWorksheet(async (worksheet) => {
@@ -78,7 +84,7 @@ export class Parser {
 				chunkRows(namesAndShape.shape),
 				exportOptions,
 				progressCallback,
-				abortFlag,
+				this.abortFlag,
 			);
 		});
 
@@ -87,6 +93,13 @@ export class Parser {
 			string: resultString,
 		};
 	}
+
+	abort(): void {
+		this.abortFlag.abort();
+		this.abortFlag = new AbortFlag();
+	}
+
+	private abortFlag: AbortFlag;
 }
 
 type ProgressCallback = (progress: number) => void;
