@@ -1,6 +1,6 @@
 /* global Office */
 import * as ExcelAPI from './excel';
-import {APIVersionInfo, Shape} from './excel';
+import {Shape} from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {file, text}
@@ -39,17 +39,16 @@ export class Parser {
 		this.abortFlag = new AbortFlag();
 	}
 
-	async init(): Promise<APIVersionInfo> { // TODO clean up the spaghetti
-		const result = await ExcelAPI.init();
-		if (result.platform === Office.PlatformType.OfficeOnline) {
+	async init(): Promise<Office.PlatformType> { // TODO clean up the spaghetti
+		const platform = await ExcelAPI.init();
+		if (platform === Office.PlatformType.OfficeOnline) {
 			// Online API can throw error if request size is too large
 			reduceChunkSize = true;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(Papa.LocalChunkSize as any) = 10_000;
+			(Papa.LocalChunkSize as unknown as number) = 10_000;
 		} else {
 			reduceChunkSize = false;
 		}
-		return result;
+		return platform;
 	}
 
 	async importCSV(

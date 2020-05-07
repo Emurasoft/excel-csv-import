@@ -1,18 +1,8 @@
 /* global Office, Excel */
 
-export interface APIVersionInfo {
-	platform: Office.PlatformType;
-	diagnostics: Office.ContextInformation;
-	userAgent: string;
-}
-
-export async function init(): Promise<APIVersionInfo> {
+export async function init(): Promise<Office.PlatformType> {
 	await Office.onReady();
-	return { // TODO separate into separate functions
-		platform: Office.context.platform,
-		diagnostics: {...Office.context.diagnostics},
-		userAgent: window.navigator.userAgent,
-	};
+	return Office.context.platform;
 }
 
 // Returns current worksheet if empty, otherwise returns new worksheet.

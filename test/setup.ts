@@ -1,18 +1,17 @@
 /* eslint-env node */
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import {setIconOptions} from '@fluentui/react';
 import * as jsdom from 'jsdom-global';
 import 'ignore-styles';
 
-/* eslint-disable  @typescript-eslint/ban-ts-ignore */
-
 Enzyme.configure({adapter: new Adapter()});
 
 jsdom(undefined, {url: "http://localhost"});
 
-// @ts-ignore
-global.Office = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).Office = {
 	context: {},
 	PlatformType: {
 		PC: 0,
