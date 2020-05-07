@@ -1,6 +1,6 @@
 /* global Office */
 import * as ExcelAPI from './excel';
-import {APIVersionInfo, Shape} from './excel';
+import {Shape} from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {file, text}

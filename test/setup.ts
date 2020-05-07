@@ -5,14 +5,11 @@ import {setIconOptions} from '@fluentui/react';
 import * as jsdom from 'jsdom-global';
 import 'ignore-styles';
 
-/* eslint-disable  @typescript-eslint/ban-ts-ignore */
-
 Enzyme.configure({adapter: new Adapter()});
 
 jsdom(undefined, {url: "http://localhost"});
 
-// @ts-ignore
-global.Office = {
+(global as any).Office = {
 	context: {},
 	PlatformType: {
 		PC: 0,
