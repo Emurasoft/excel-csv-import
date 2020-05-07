@@ -1,5 +1,6 @@
 import * as Parser from './parser';
 import {
+	AbortFlag,
 	addQuotes,
 	ChunkProcessor,
 	chunkRange,
@@ -14,7 +15,6 @@ import {
 } from './parser';
 import {ParseConfig} from 'papaparse';
 import * as assert from 'assert';
-import {AbortFlag} from './AbortFlag';
 import {Shape} from './excel';
 
 describe('parser', () => {
@@ -117,7 +117,22 @@ describe('parser', () => {
 		});
 	});
 
-	it('_chunkRange()', () => {
+	describe('AbortFlag', () => {
+		it('abort()', () => {
+			const flag0 = new AbortFlag();
+			assert.strictEqual(flag0.aborted(), false);
+			flag0.abort();
+			assert.strictEqual(flag0.aborted(), true);
+			flag0.abort();
+			assert.strictEqual(flag0.aborted(), true);
+
+			const flag1 = new AbortFlag();
+			flag1.abort();
+			assert.strictEqual(flag1.aborted(), true);
+		});
+	});
+
+	it('chunkRange()', () => {
 		interface Test {
 			chunk: number;
 			shape: Shape;
@@ -239,7 +254,7 @@ describe('parser', () => {
 		}
 	});
 
-	it('_addQuotes()', () => {
+	it('addQuotes()', () => {
 		const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
 			{
 				row: [''],
@@ -294,7 +309,7 @@ describe('parser', () => {
 		}
 	});
 
-	it('_rowString()', () => {
+	it('rowString()', () => {
 		const tests: {row: any[]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				row: [],
@@ -336,7 +351,7 @@ describe('parser', () => {
 		}
 	});
 
-	it('_chunkString()', async () => {
+	it('chunkString()', async () => {
 		const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				values: [[]],
@@ -361,7 +376,7 @@ describe('parser', () => {
 		}
 	});
 
-	describe('_csvString()', () => {
+	describe('csvString()', () => {
 		it('normal operation', async () => {
 			interface Test {
 				shape: Shape;
@@ -506,7 +521,7 @@ describe('parser', () => {
 		});
 	});
 
-	it('_nameToUse()', () => {
+	it('nameToUse()', () => {
 		const tests: {workbookName: string; worksheetName: string; expected: string}[] = [
 			{
 				workbookName: '',

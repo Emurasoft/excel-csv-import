@@ -2,7 +2,6 @@
 import * as ExcelAPI from './excel';
 import {APIVersionInfo, Shape} from './excel';
 import * as Papa from 'papaparse';
-import {AbortFlag} from './AbortFlag';
 
 export const enum InputType {file, text}
 
@@ -100,6 +99,22 @@ export class Parser {
 	}
 
 	private abortFlag: AbortFlag;
+}
+
+export class AbortFlag {
+	public constructor() {
+		this._aborted = false;
+	}
+
+	public abort(): void {
+		this._aborted = true;
+	}
+
+	public aborted(): boolean {
+		return this._aborted;
+	}
+
+	private _aborted: boolean;
 }
 
 type ProgressCallback = (progress: number) => void;
