@@ -176,7 +176,7 @@ export class ChunkProcessor {
 	private _progressPerChunk: number;
 	private _currentProgress: number;
 
-	private chunk = (chunk: Papa.ParseResult, parser: Papa.Parser) => {
+	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser) => {
 		if (this._abortFlag.aborted()) {
 			parser.abort();
 		}
