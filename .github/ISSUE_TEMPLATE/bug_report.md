@@ -7,4 +7,4 @@ assignees: ''
 
 ---
 
-<!-- Include Excel version and OS if you use Excel desktop, or browser name and version for Excel Online. -->
+<!-- Include Excel platform (Are you using the desktop app or online app?), platform info (OS or browser name) and detailed steps to reproduce the issue. -->
