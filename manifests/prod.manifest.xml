@@ -102,12 +102,12 @@
 
         <Resources>
             <bt:Images>
-                <bt:Image id="Emurasoft.Button0.icon16" DefaultValue="https://emurasoft.github.io/static/excel-csv-import/static/icon0-16.png" />
-                <bt:Image id="Emurasoft.Button0.icon32" DefaultValue="https://emurasoft.github.io/static/excel-csv-import/static/icon0-32.png" />
-                <bt:Image id="Emurasoft.Button0.icon80" DefaultValue="https://emurasoft.github.io/static/excel-csv-import/static/icon0-80.png" />
-                <bt:Image id="Emurasoft.Button1.icon16" DefaultValue="https://emurasoft.github.io/static/excel-csv-import/static/icon1-16.png" />
-                <bt:Image id="Emurasoft.Button1.icon32" DefaultValue="https://emurasoft.github.io/static/excel-csv-import/static/icon1-32.png" />
-                <bt:Image id="Emurasoft.Button1.icon80" DefaultValue="https://emurasoft.github.io/static/excel-csv-import/static/icon1-80.png" />
+                <bt:Image id="Emurasoft.Button0.icon16" DefaultValue="https://emurasoft.github.io/excel-csv-import/static/icon0-16.png" />
+                <bt:Image id="Emurasoft.Button0.icon32" DefaultValue="https://emurasoft.github.io/excel-csv-import/static/icon0-32.png" />
+                <bt:Image id="Emurasoft.Button0.icon80" DefaultValue="https://emurasoft.github.io/excel-csv-import/static/icon0-80.png" />
+                <bt:Image id="Emurasoft.Button1.icon16" DefaultValue="https://emurasoft.github.io/excel-csv-import/static/icon1-16.png" />
+                <bt:Image id="Emurasoft.Button1.icon32" DefaultValue="https://emurasoft.github.io/excel-csv-import/static/icon1-32.png" />
+                <bt:Image id="Emurasoft.Button1.icon80" DefaultValue="https://emurasoft.github.io/excel-csv-import/static/icon1-80.png" />
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="Emurasoft.GetStarted.URL" DefaultValue="https://github.com/Emurasoft/excel-csv-import" />
