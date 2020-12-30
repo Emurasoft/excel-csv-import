@@ -11,11 +11,17 @@ CSV Import+Export is an Excel add-in which adds the ability to import and export
 
 1. Open a blank worksheet on Excel Online.  Go to Insert | Office Add-ins. On the top right hand corner under Manage My Add-ins, click Upload my Add-In. Upload `manifests/dev.manifest.xml`.
 
-2. Run Webpack.
+2. Run the following commands to start webpack-dev-server.
 
 ```none
 npm i
 npm run devServer
 ```
 
-3. Go to `https://localhost:3000/` and accept the self-signed certificate.
+3. Go to `https://localhost:3000/` and accept the self-signed certificate if the untrusted certificate warning appears.
+
+4. Go back to Excel and open CSV Import+Export.
+
+- Having both the published version and your dev version of CSV Import+Export installed can get confusing. I recommend removing the published version so you know which one you are working on.
+
+- [Microsoft's detailed sideloading tutorials](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/test-debug-office-add-ins)
