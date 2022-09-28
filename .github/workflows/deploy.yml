@@ -6,14 +6,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
       - uses: actions/setup-node@v1
         with:
-          node-version: '13.x'
+          node-version: '18.x'
       - run: npm i
       - run: npm run build
       - uses: JamesIves/github-pages-deploy-action@releases/v3

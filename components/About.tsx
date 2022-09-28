@@ -3,7 +3,7 @@ import {Link, Text} from '@fluentui/react';
 import * as style from './style.css';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 
 export default function About(): React.ReactElement {
 	return (

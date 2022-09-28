@@ -1,4 +1,3 @@
-import {MemoryHistory} from 'history';
 import * as React from 'react';
 import {BackButton} from './BackButton';
 import * as style from './style.css';
