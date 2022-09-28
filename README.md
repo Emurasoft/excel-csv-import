@@ -18,9 +18,7 @@ npm i
 npm run devServer
 ```
 
-3. Go to `https://localhost:3000/` and accept the self-signed certificate if the untrusted certificate warning appears.
-
-4. Go back to Excel and open CSV Import+Export.
+3. Go back to Excel and open CSV Import+Export.
 
 - Having both the published version and your dev version of CSV Import+Export installed can get confusing. I recommend removing the published version so you know which one you are working on.
 
