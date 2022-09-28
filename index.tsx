@@ -12,6 +12,7 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import {reducer} from './reducer';
 import {Parser} from './parser';
 import {errorHandler} from './errorhandler';
+import {Routes} from 'react-router-dom';
 
 initializeIcons();
 
@@ -42,17 +43,19 @@ function Initializer({children}): React.ReactElement {
 
 function App(): React.ReactElement {
 	// page could be an array but resulting behavior is expected either way
-	const page = queryString.parse(location.search).page as string;
+	const page = '/' + (queryString.parse(location.search).page as string);
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
 				<Provider store={store}>
 					<Initializer>
 						<MemoryRouter initialEntries={[page]}>
-							<Route path={Pages.import} component={Import} />
-							<Route path={Pages.export} component={Export} />
-							<Route path={Pages.about} component={About} />
-							<Route path={Pages.licenseInformation} component={LicenseInformation} />
+							<Routes>
+								<Route path={Pages.import} element={<Import />} />
+								<Route path={Pages.export} element={<Export />} />
+								<Route path={Pages.about} element={<About />} />
+								<Route path={Pages.licenseInformation} element={<LicenseInformation />} />
+							</Routes>
 						</MemoryRouter>
 					</Initializer>
 				</Provider>

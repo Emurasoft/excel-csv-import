@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const common = require('./common');
 
 module.exports = merge(common, {
@@ -7,6 +7,7 @@ module.exports = merge(common, {
 		compress: true,
 		port: 3000,
 		https: true,
+		historyApiFallback: true,
 	},
 	entry: __dirname + '/../index.tsx',
 	module: {
@@ -29,5 +30,5 @@ module.exports = merge(common, {
 			},
 		],
 	},
-	devtool: 'cheap-module-eval-source-map',
+	devtool: 'eval-source-map',
 });

@@ -7,7 +7,7 @@ module.exports = {
 	},
 	target: 'web',
 	output: {
-		filename: '[name].[contenthash].js',
+		filename: '[name].[fullhash].js',
 	},
 	plugins: [
 		new HtmlWebpackPlugin({template: 'index.html'}),

@@ -4,17 +4,15 @@ import {MemoryHistory} from 'history';
 import * as style from './style.css';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 
-interface Props {
-	history: MemoryHistory;
-}
+export default function About(): React.ReactElement {
+	const navigate = useNavigate();
 
-export default function About({history}: Props): React.ReactElement {
 	return (
 		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
-			<BackButton onClick={history.goBack} />
+			<BackButton onClick={() => navigate(-1)} />
 			<br />
 			<Text variant='xLarge'>
 				<Link
