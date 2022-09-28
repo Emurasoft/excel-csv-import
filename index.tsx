@@ -12,6 +12,7 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import {reducer} from './reducer';
 import {Parser} from './parser';
 import {errorHandler} from './errorhandler';
+import {Routes} from 'react-router-dom';
 
 initializeIcons();
 
@@ -41,24 +42,37 @@ function Initializer({children}): React.ReactElement {
 }
 
 function App(): React.ReactElement {
-	// page could be an array but resulting behavior is expected either way
-	const page = queryString.parse(location.search).page as string;
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
 				<Provider store={store}>
 					<Initializer>
-						<MemoryRouter initialEntries={[page]}>
-							<Route path={Pages.import} component={Import} />
-							<Route path={Pages.export} component={Export} />
-							<Route path={Pages.about} component={About} />
-							<Route path={Pages.licenseInformation} component={LicenseInformation} />
+						<MemoryRouter>
+							<Routes>
+								<Route path='/' element={<ParamRouter />} />
+							</Routes>
 						</MemoryRouter>
 					</Initializer>
 				</Provider>
 			</React.Suspense>
 		</ErrorBoundary>
 	);
+}
+
+function ParamRouter() {
+	const page = (queryString.parse(location.search).page as string);
+	switch (page) {
+	case Pages.import:
+		return <Import />;
+	case Pages.export:
+		return <Export />;
+	case Pages.about:
+		return <About />;
+	case Pages.licenseInformation:
+		return <LicenseInformation />;
+	default:
+		throw new Error(`unknown page: ${page}`);
+	}
 }
 
 ReactDOM.render(

@@ -1,20 +1,18 @@
-import {MemoryHistory} from 'history';
 import * as React from 'react';
 import {BackButton} from './BackButton';
 import * as style from './style.css';
 import {Link, Text} from '@fluentui/react';
 import thisApp from './licenses/thisApp';
 import thirdParty from './licenses/thirdParty';
+import {useNavigate} from 'react-router-dom';
 
-interface Props {
-	history: MemoryHistory;
-}
+export default function LicenseInformation(): React.ReactElement {
+	const navigate = useNavigate();
 
-export default function LicenseInformation({history}: Props): React.ReactElement {
 	return (
 		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
-			<BackButton onClick={history.goBack}/>
+			<BackButton onClick={() => navigate(-1)}/>
 			<br/>
 			<Text variant='xLarge'>
 				<strong>License information</strong>
