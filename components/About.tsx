@@ -1,18 +1,15 @@
 import * as React from 'react';
 import {Link, Text} from '@fluentui/react';
-import {MemoryHistory} from 'history';
 import * as style from './style.css';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 
 export default function About(): React.ReactElement {
-	const navigate = useNavigate();
-
 	return (
 		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
-			<BackButton onClick={() => navigate(-1)} />
+			<BackButton onClick={() => history.back()} />
 			<br />
 			<Text variant='xLarge'>
 				<Link

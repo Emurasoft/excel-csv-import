@@ -11,7 +11,11 @@ export function BottomBar(): React.ReactElement {
 			style={{marginTop: '30px'}}
 		>
 			<Text variant='medium'>
-				<RouterLink to={Pages.about} className={style.removeUnderline}>
+				<RouterLink
+					to={`/?page=${Pages.about}`}
+					className={style.removeUnderline}
+					reloadDocument
+				>
 					<Link>About</Link>
 				</RouterLink>
 			</Text>

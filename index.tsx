@@ -42,19 +42,14 @@ function Initializer({children}): React.ReactElement {
 }
 
 function App(): React.ReactElement {
-	// page could be an array but resulting behavior is expected either way
-	const page = '/' + (queryString.parse(location.search).page as string);
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
 				<Provider store={store}>
 					<Initializer>
-						<MemoryRouter initialEntries={[page]}>
+						<MemoryRouter>
 							<Routes>
-								<Route path={Pages.import} element={<Import />} />
-								<Route path={Pages.export} element={<Export />} />
-								<Route path={Pages.about} element={<About />} />
-								<Route path={Pages.licenseInformation} element={<LicenseInformation />} />
+								<Route path='/' element={<ParamRouter />} />
 							</Routes>
 						</MemoryRouter>
 					</Initializer>
@@ -62,6 +57,22 @@ function App(): React.ReactElement {
 			</React.Suspense>
 		</ErrorBoundary>
 	);
+}
+
+function ParamRouter() {
+	const page = (queryString.parse(location.search).page as string);
+	switch (page) {
+	case Pages.import:
+		return <Import />;
+	case Pages.export:
+		return <Export />;
+	case Pages.about:
+		return <About />;
+	case Pages.licenseInformation:
+		return <LicenseInformation />;
+	default:
+		throw new Error(`unknown page: ${page}`);
+	}
 }
 
 ReactDOM.render(
