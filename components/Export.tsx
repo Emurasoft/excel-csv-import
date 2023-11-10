@@ -19,8 +19,8 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {AppState} from '../state';
-import {useDispatch, useSelector} from 'react-redux'
+import {AppState, useAppSelector} from '../state';
+import {TypedUseSelectorHook, useDispatch} from 'react-redux'
 import {abort, Dispatch, exportCSV} from '../action';
 
 export const enum ExportType {file, text}
@@ -28,10 +28,10 @@ export const enum ExportType {file, text}
 const useLocalStorage = namespacedUseLocalStorage('export');
 
 export default function Export(): React.ReactElement {
-	const initialized = useSelector(state => state.initialized) as AppState['initialized'];
-	const platform = useSelector(state => state.platform) as AppState['platform'];
-	const progress = useSelector(state => state.progress) as AppState['progress'];
-	const output = useSelector(state => state.output) as AppState['output'];
+	const initialized = useAppSelector(state => state.initialized);
+	const platform = useAppSelector(state => state.platform) as AppState['platform'];
+	const progress = useAppSelector(state => state.progress) as AppState['progress'];
+	const output = useAppSelector(state => state.output) as AppState['output'];
 	const dispatch = useDispatch() as Dispatch;
 
 	const [exportType, setExportType] = useLocalStorage('exportType', ExportType.text);
