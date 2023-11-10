@@ -12,7 +12,7 @@ export function BottomBar(): React.ReactElement {
 		>
 			<Text variant='medium'>
 				<RouterLink
-					to={`/?page=${Pages.about}`}
+					to={`/excel-csv-import/?page=${Pages.about}`}
 					className={style.removeUnderline}
 					reloadDocument
 				>

@@ -55,9 +55,13 @@ export default function About(): React.ReactElement {
 			</Text>
 			<br /><br />
 			<Text>
-				© 2022 Emurasoft Inc.
+				© 2023 Emurasoft Inc.
 				<br />
-				<RouterLink to={Pages.licenseInformation} className={style.removeUnderline}>
+				<RouterLink
+					to={`/excel-csv-import/?page=${Pages.licenseInformation}`}
+					className={style.removeUnderline}
+					reloadDocument
+				>
 					<Link>License information</Link>
 				</RouterLink>
 			</Text>
