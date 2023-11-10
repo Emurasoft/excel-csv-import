@@ -142,10 +142,10 @@ export class ChunkProcessor {
 
 			switch (importOptions.source.inputType) {
 			case InputType.file:
-				Papa.parse(importOptions.source.file, importOptions);
+				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
 				break;
 			case InputType.text:
-				Papa.parse(importOptions.source.text, importOptions);
+				Papa.parse(importOptions.source.text as any, importOptions as Papa.ParseLocalConfig);
 				break;
 			}
 		});
