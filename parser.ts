@@ -11,9 +11,7 @@ export interface Source {
 	text: string;
 }
 
-type Config = {
-	[P in 'delimiter' | 'encoding']: Papa.ParseConfig[P];
-}
+type Config = Pick<Papa.ParseLocalConfig, 'delimiter' | 'encoding' | 'chunk' | 'complete'>;
 
 export const enum NewlineSequence {
 	AutoDetect = '',
@@ -131,7 +129,7 @@ export class ChunkProcessor {
 		this._currentProgress = 0.0;
 	}
 
-	public run(importOptions: ImportOptions & Papa.ParseConfig): Promise<Papa.ParseError[]> {
+	public run(importOptions: ImportOptions): Promise<Papa.ParseError[]> {
 		this._progressCallback(0.0);
 		this._progressPerChunk = ChunkProcessor.progressPerChunk(
 			importOptions.source,
@@ -144,10 +142,10 @@ export class ChunkProcessor {
 
 			switch (importOptions.source.inputType) {
 			case InputType.file:
-				Papa.parse(importOptions.source.file, importOptions);
+				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
 				break;
 			case InputType.text:
-				Papa.parse(importOptions.source.text, importOptions);
+				Papa.parse(importOptions.source.text as any, importOptions as Papa.ParseLocalConfig);
 				break;
 			}
 		});
