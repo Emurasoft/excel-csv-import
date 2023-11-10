@@ -6,11 +6,15 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - uses: actions/setup-node@v3
         with:
           node-version: '21.x'
@@ -19,6 +23,9 @@ jobs:
       - run: npm run build
       - run: cp -a -v ./static/* .
         name: Copy static files to root
-      - uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload pages
+        if: ${{ github.ref_type == 'tag' }}
+        uses: actions/upload-pages-artifact@v2
         with:
-          folder: build
+          path: .
+      - uses: actions/deploy-pages@v2
