@@ -18,7 +18,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: cp -a ./static/* .
-        displayName: Copy static files to root
+        name: Copy static files to root
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
