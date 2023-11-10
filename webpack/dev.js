@@ -15,6 +15,9 @@ module.exports = merge(common, {
 			ca: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/ca.crt`),
 		},
 	},
+	output: {
+		publicPath: '/excel-csv-import/',
+	},
 	entry: __dirname + '/../index.tsx',
 	module: {
 		rules: [
