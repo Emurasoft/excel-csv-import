@@ -79,7 +79,7 @@ describe('parser', () => {
 				// @ts-ignore
 				processor._excelAPI = api;
 
-				const importOptions: Parser.ImportOptions & ParseConfig = {
+				const importOptions: Parser.ImportOptions | ParseConfig = {
 					source: {inputType: Parser.InputType.text, text: 'a,b'},
 					delimiter: ',',
 					newline: NewlineSequence.LF,
@@ -104,7 +104,7 @@ describe('parser', () => {
 				// @ts-ignore
 				processor._excelAPI = null;
 
-				const importOptions: Parser.ImportOptions & ParseConfig = {
+				const importOptions: Parser.ImportOptions | ParseConfig = {
 					source: {inputType: Parser.InputType.text, text: 'a,b'},
 					delimiter: ',',
 					newline: NewlineSequence.LF,
