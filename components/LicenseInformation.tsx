@@ -4,15 +4,12 @@ import * as style from './style.css';
 import {Link, Text} from '@fluentui/react';
 import thisApp from './licenses/thisApp';
 import thirdParty from './licenses/thirdParty';
-import {useNavigate} from 'react-router-dom';
 
 export default function LicenseInformation(): React.ReactElement {
-	const navigate = useNavigate();
-
 	return (
 		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
-			<BackButton onClick={() => navigate(-1)}/>
+			<BackButton onClick={() => history.back()}/>
 			<br/>
 			<Text variant='xLarge'>
 				<strong>License information</strong>
