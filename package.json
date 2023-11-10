@@ -8,7 +8,7 @@
     "build": "webpack --config webpack/prod.js",
     "devServer": "webpack serve --config webpack/dev.js",
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "test": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
+    "test": "cross-env TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml"
   },
   "nyc": {
@@ -47,6 +47,7 @@
     "babel-loader": "^8.3.0",
     "copy-webpack-plugin": "^5.1.2",
     "core-js": "^3.33.2",
+    "cross-env": "^7.0.3",
     "css-loader": "^3.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
