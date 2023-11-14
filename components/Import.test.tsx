@@ -12,7 +12,7 @@ import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import * as sinon from 'sinon';
-import {Store} from '@reduxjs/toolkit';
+import {Store, configureStore} from '@reduxjs/toolkit';
 
 describe('Import', () => {
 	beforeEach(
@@ -30,7 +30,15 @@ describe('Import', () => {
 	// it('import', async () => {
 	// 	const parser = sinon.stub(new Parser());
 	// 	parser.importCSV.resolves([]);
-	// 	const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
+	// 	const store = configureStore({
+	// 		reducer,
+	// 		middleware: (getDefaultMiddleware) => 
+	// 			getDefaultMiddleware({
+	// 				thunk: {
+	// 					extraArgument: {parser}
+	// 				},
+	// 			}),
+	// 	});
 	// 	const wrapper = mount(<ImportWithContext store={store} />);
 
 	// 	// simulate() doesn't work

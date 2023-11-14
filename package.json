@@ -30,6 +30,7 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.23.3",
     "@fluentui/react": "^7.204.0",
+    "@microsoft/load-themed-styles": "^2.0.88",
     "@microsoft/office-js": "^1.1.89",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/enzyme": "^3.10.16",
