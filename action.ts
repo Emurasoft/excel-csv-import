@@ -1,6 +1,6 @@
+import {ThunkDispatch} from '@reduxjs/toolkit';
 import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
 import {AppState, OutputType} from './state';
-import {ThunkDispatch} from 'redux-thunk';
 
 export type Action =
 	SetInitialized

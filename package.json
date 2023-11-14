@@ -8,7 +8,7 @@
     "build": "webpack --config webpack/prod.js",
     "devServer": "webpack serve --config webpack/dev.js",
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "test": "cross-env TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts **/*.test.ts **/*.test.tsx",
+    "test": "cross-env TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha $NODE_DEBUG_OPTION -r ts-node/register,test/setup.ts --ignore 'node_modules/**/*' **/*.test.ts **/*.test.tsx",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml"
   },
   "nyc": {
@@ -31,6 +31,7 @@
     "@babel/preset-env": "^7.23.3",
     "@fluentui/react": "^7.204.0",
     "@microsoft/office-js": "^1.1.89",
+    "@reduxjs/toolkit": "^1.9.7",
     "@types/enzyme": "^3.10.16",
     "@types/file-saver": "^2.0.7",
     "@types/mocha": "^7.0.2",
@@ -68,8 +69,6 @@
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.9",
     "react-router-dom": "^6.18.0",
-    "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2",
     "sinon": "^9.2.4",
     "source-map": "^0.7.4",
     "style-loader": "^1.3.0",

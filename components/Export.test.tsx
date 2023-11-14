@@ -7,12 +7,11 @@ import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton, TextField} from '@fluentui/react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
-import {applyMiddleware, createStore, Store} from 'redux';
 import {MemoryRouter} from 'react-router';
 import {Provider} from 'react-redux';
 import * as sinon from 'sinon';
 import {reducer} from '../reducer';
-import thunk from 'redux-thunk';
+import {Store} from '@reduxjs/toolkit';
 
 describe('Export', () => {
 	beforeEach(
