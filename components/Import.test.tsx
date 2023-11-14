@@ -8,12 +8,11 @@ import {NewlineDropdown} from './NewlineDropdown';
 import {PrimaryButton} from '@fluentui/react';
 import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
-import {applyMiddleware, createStore, Store} from 'redux';
-import thunk from 'redux-thunk';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import * as sinon from 'sinon';
+import {Store} from '@reduxjs/toolkit';
 
 describe('Import', () => {
 	beforeEach(

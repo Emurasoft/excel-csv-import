@@ -7,12 +7,11 @@ import {ErrorBoundary} from './components/ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
 import {ExtraArg, init} from './action';
 import {Provider, useDispatch} from 'react-redux';
-// import {applyMiddleware, compose, createStore} from 'redux';
 import {reducer} from './reducer';
 import {Parser} from './parser';
 import {errorHandler} from './errorhandler';
 import {Routes} from 'react-router-dom';
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 
 initializeIcons();
 
