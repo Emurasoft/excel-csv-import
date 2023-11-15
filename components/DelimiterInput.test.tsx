@@ -2,7 +2,7 @@ import {DelimiterInput, DropdownOptionKey, codePoint} from './DelimiterInput';
 import * as React from 'react';
 import * as assert from 'assert';
 import {Dropdown, TextField} from '@fluentui/react';
-import {describe, test} from '@jest/globals';
+import {describe, expect, test} from '@jest/globals';
 import {render} from '@testing-library/react';
 
 describe('DelimiterInput', () => {
@@ -20,7 +20,7 @@ describe('DelimiterInput', () => {
 				showLengthError={true}
 			/>
 		);
-		assert(!wrapper0.queryByRole('textbox'));
+		expect(wrapper0.queryByRole('textbox')).toBeNull();
 
 		const dropdown = wrapper0.getByRole('combobox');
 		// dropdown.simulate('change', null, {key: DropdownOptionKey.comma});
