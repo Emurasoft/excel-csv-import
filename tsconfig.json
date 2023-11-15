@@ -11,6 +11,9 @@
     "jsx": "react",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "plugins": [
+      {"name": "typescript-plugin-css-modules"}
+    ]
   }
 }

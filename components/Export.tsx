@@ -14,7 +14,7 @@ import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';
-import * as style from './style.css';
+import style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';

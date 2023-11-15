@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {initializeIcons} from '@fluentui/react/lib/Icons';
-import * as queryString from 'query-string';
+import queryString from 'query-string';
 import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
