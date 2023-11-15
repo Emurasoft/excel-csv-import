@@ -6,7 +6,7 @@ interface State {
 	error: Error;
 }
 
-export class ErrorBoundary extends React.Component<{}, State> {
+export class ErrorBoundary extends React.Component<React.PropsWithChildren, State> {
 	public constructor(props: {}) {
 		super(props);
 
