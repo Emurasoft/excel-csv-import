@@ -21,8 +21,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - run: cp -a -v ./static/* build
-        name: Copy static files to root
       - name: Upload pages
         if: ${{ github.ref_type == 'tag' }}
         uses: actions/upload-pages-artifact@v2
