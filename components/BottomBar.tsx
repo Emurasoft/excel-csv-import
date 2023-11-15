@@ -1,4 +1,4 @@
-import * as style from './style.css';
+import style from './style.css';
 import {Link, Text} from '@fluentui/react';
 import * as React from 'react';
 import {Link as RouterLink} from 'react-router-dom';

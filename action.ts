@@ -1,6 +1,7 @@
 import {ThunkDispatch} from '@reduxjs/toolkit';
 import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
 import {AppState, OutputType} from './state';
+import { useDispatch } from 'react-redux';
 
 export type Action =
 	SetInitialized
@@ -49,6 +50,8 @@ export interface ExtraArg {
 }
 
 export type Dispatch = ThunkDispatch<AppState, ExtraArg, Action>;
+
+export const useAppDispatch: () => Dispatch = useDispatch;
 
 type GetState = () => AppState;
 

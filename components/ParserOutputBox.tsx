@@ -1,6 +1,6 @@
 import {TextField} from '@fluentui/react';
 import * as React from 'react';
-import * as style from './style.css';
+import style from './style.css';
 import {AppState, OutputType} from '../state';
 
 interface Props {

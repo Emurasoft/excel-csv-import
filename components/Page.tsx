@@ -1,6 +1,6 @@
 import {IconButton, PrimaryButton, Text} from '@fluentui/react';
 import * as React from 'react';
-import * as style from './style.css';
+import style from './style.css';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 
 interface Props {

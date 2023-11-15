@@ -1,13 +1,9 @@
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
 import {ResponsiveMode, initializeIcons, setIconOptions, setResponsiveMode} from '@fluentui/react';
 import * as jsdom from 'jsdom-global';
 import 'ignore-styles';
 import {configureLoadStyles} from '@microsoft/load-themed-styles';
-
-Enzyme.configure({adapter: new Adapter()});
 
 jsdom(undefined, {url: "http://localhost"});
 

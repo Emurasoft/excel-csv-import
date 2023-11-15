@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link, ProgressIndicator, Text} from '@fluentui/react';
-import * as style from './style.css';
+import style from './style.css';
 import {AppState} from '../state';
 
 interface Props {
