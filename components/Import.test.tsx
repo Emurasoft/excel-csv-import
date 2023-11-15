@@ -1,5 +1,4 @@
 import Import from './Import';
-import {mount} from 'enzyme';
 import * as React from 'react';
 import {ImportOptions, InputType, NewlineSequence, Parser} from '../parser';
 import {SourceInput} from './SourceInput';
