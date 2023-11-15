@@ -20,8 +20,7 @@ import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import {AppState, useAppSelector} from '../state';
-import {TypedUseSelectorHook, useDispatch} from 'react-redux'
-import {abort, Dispatch, exportCSV} from '../action';
+import {abort, exportCSV, useAppDispatch} from '../action';
 
 export const enum ExportType {file, text}
 
@@ -32,7 +31,7 @@ export default function Export(): React.ReactElement {
 	const platform = useAppSelector(state => state.platform) as AppState['platform'];
 	const progress = useAppSelector(state => state.progress) as AppState['progress'];
 	const output = useAppSelector(state => state.output) as AppState['output'];
-	const dispatch = useDispatch() as Dispatch;
+	const dispatch = useAppDispatch();
 
 	const [exportType, setExportType] = useLocalStorage('exportType', ExportType.text);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');

@@ -5,7 +5,7 @@ import * as queryString from 'query-string';
 import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
-import {ExtraArg, init} from './action';
+import {ExtraArg, init, useAppDispatch} from './action';
 import {Provider, useDispatch} from 'react-redux';
 import {reducer} from './reducer';
 import {Parser} from './parser';
@@ -40,7 +40,7 @@ const store = configureStore({
 });
 
 function Initializer({children}): React.ReactElement {
-	useDispatch()(init());
+	useAppDispatch()(init());
 	return children;
 }
 

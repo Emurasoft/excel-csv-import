@@ -37,7 +37,7 @@ export class Parser {
 		this.abortFlag = new AbortFlag();
 	}
 
-	async init(): Promise<Office.PlatformType> { // TODO clean up the spaghetti
+	async init(): Promise<Office.PlatformType> {
 		const platform = await ExcelAPI.init();
 		if (platform === Office.PlatformType.OfficeOnline) {
 			// Online API can throw error if request size is too large

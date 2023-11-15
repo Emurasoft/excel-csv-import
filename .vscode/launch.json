@@ -24,6 +24,19 @@
             "runtimeExecutable": "npx",
             "runtimeArgs": ["tsc", "--noEmit"],
             "outputCapture": "std"
-        }
+        },
+        {
+            "name": "Run dev",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "devServer"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
     ]
 }

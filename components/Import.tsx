@@ -11,8 +11,7 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {useDispatch} from 'react-redux'
-import {abort, Dispatch, importCSV} from '../action';
+import {abort, importCSV, useAppDispatch} from '../action';
 import {AppState, useAppSelector} from '../state';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
@@ -22,7 +21,7 @@ export default function Import(): React.ReactElement {
 	const platform = useAppSelector(state => state.platform) as AppState['platform'];
 	const progress = useAppSelector(state => state.progress) as AppState['progress'];
 	const output = useAppSelector(state => state.output) as AppState['output'];
-	const dispatch = useDispatch() as Dispatch;
+	const dispatch = useAppDispatch();
 
 	const [source, setSource] = useState(
 		{inputType: InputType.file, file: null, text: ''} as Source,
