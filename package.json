@@ -8,7 +8,7 @@
     "build": "webpack --config webpack/prod.js",
     "devServer": "webpack serve --config webpack/dev.js",
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "test": "jest components/Export.test.tsx",
+    "test": "jest components/Import.test.tsx",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml"
   },
   "nyc": {

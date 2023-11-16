@@ -1,59 +1,64 @@
 import Import from './Import';
 import * as React from 'react';
-import {ImportOptions, InputType, NewlineSequence, Parser} from '../parser';
-import {SourceInput} from './SourceInput';
-import {DelimiterInput} from './DelimiterInput';
-import {NewlineDropdown} from './NewlineDropdown';
-import {PrimaryButton} from '@fluentui/react';
-import * as assert from 'assert';
-import {EncodingDropdown} from './EncodingDropdown';
+import {ImportOptions, NewlineSequence, Parser} from '../parser';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import {Store, configureStore} from '@reduxjs/toolkit';
-import {describe, beforeEach, expect, test} from '@jest/globals';
+import {describe, expect, test} from '@jest/globals';
+import {init, useAppDispatch} from '../action';
+import {any, anyFunction, mock} from 'jest-mock-extended';
+import {render} from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 
-// describe('Import', () => {
-// 	beforeEach(
-// 		() => {
-// 			window.localStorage.clear();
-// 			window.localStorage.setItem('app-firstVisit', 'false');
-// 		},
-// 	);
+function Initializer({children}): React.ReactElement {
+	useAppDispatch()(init());
+	return children;
+}
 
-// 	function ImportWithContext({store}: {store: Store}): React.ReactElement {
-// 		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
-// 	}
+describe('Import', () => {
+	function ImportWithContext({store}: {store: Store}): React.ReactElement {
+		return <MemoryRouter><Provider store={store}><Initializer><Import /></Initializer></Provider></MemoryRouter>
+	}
 
-// 	it('import', async () => {
-// 		const parser = sinon.stub(new Parser());
-// 		parser.importCSV.resolves([]);
-// 		const store = configureStore({
-// 			reducer,
-// 			middleware: (getDefaultMiddleware) => 
-// 				getDefaultMiddleware({
-// 					thunk: {
-// 						extraArgument: {parser}
-// 					},
-// 				}),
-// 		});
-// 		const wrapper = mount(<ImportWithContext store={store} />);
+	test('import', async () => {
+        window.localStorage.clear();
+        window.localStorage.setItem('app-firstVisit', 'false');
 
-// 		// simulate() doesn't work
-// 		wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
-// 		wrapper.find(DelimiterInput).props().onChange(',');
-// 		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
-// 		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
-// 		wrapper.update();
-// 		await wrapper.find(PrimaryButton).props().onClick(null);
+        const parser = mock<Parser>();
+        parser.importCSV.calledWith(any(), any()).mockReturnValue([]);
 
-// 		const expected: ImportOptions = {
-// 			source: {inputType: 1, text: 'csv text'},
-// 			delimiter: ',',
-// 			newline: NewlineSequence.LF,
-// 			encoding: 'UTF-8',
-// 		};
-// 		// @ts-ignore
-// 		assert(parser.importCSV.calledOnceWith(expected));
-// 	});
-// });
+        const store = configureStore({
+            reducer,
+            middleware: (getDefaultMiddleware) => 
+                getDefaultMiddleware({
+                    thunk: {
+                        extraArgument: {parser}
+                    },
+                }),
+        });
+        const wrapper = render(<ImportWithContext store={store} />);
+
+        await userEvent.click(wrapper.getByLabelText('Import type'));
+        await userEvent.click(wrapper.getByText('Text input'));
+
+        await userEvent.click(wrapper.getByRole('textbox'));
+        await userEvent.keyboard('csv text');
+
+        await userEvent.click(wrapper.getByLabelText('Delimiter'));
+		await userEvent.click(wrapper.getByText('Tab (U+0009)'));
+
+        await userEvent.click(wrapper.getByLabelText('Newline sequence'));
+		await userEvent.click(wrapper.getByText('LF'));
+
+        await userEvent.click(wrapper.getAllByText('Import CSV')[1]);
+
+        const expected: ImportOptions = {
+            source: {inputType: 1, file: null, text: 'csv text'},
+            delimiter: '\t',
+            newline: NewlineSequence.LF,
+            encoding: '',
+        };
+        expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
+	});
+});
