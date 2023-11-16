@@ -8,7 +8,7 @@
     "build": "webpack --config webpack/prod.js",
     "devServer": "webpack serve --config webpack/dev.js",
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "test": "jest components/ErrorBoundary.test.tsx",
+    "test": "jest components/Export.test.tsx",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml"
   },
   "nyc": {
@@ -61,6 +61,7 @@
     "ignore-styles": "^5.0.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-mock-extended": "^3.0.5",
     "jsdom-global": "^3.0.2",
     "node-fetch": "^3.3.2",
     "nyc": "^15.1.0",
