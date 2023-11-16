@@ -6,7 +6,7 @@ import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
 import {MemoryRouter, Route} from 'react-router';
 import {ExtraArg, init, useAppDispatch} from './action';
-import {Provider, useDispatch} from 'react-redux';
+import {Provider} from 'react-redux';
 import {reducer} from './reducer';
 import {Parser} from './parser';
 import {errorHandler} from './errorhandler';

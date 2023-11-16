@@ -10,42 +10,59 @@ import {EncodingDropdown} from './EncodingDropdown';
 import {MemoryRouter} from 'react-router';
 import {Provider} from 'react-redux';
 import {reducer} from '../reducer';
-import {Store} from '@reduxjs/toolkit';
-import {beforeEach, describe, expect, test} from '@jest/globals';
+import {Store, configureStore} from '@reduxjs/toolkit';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
+import {any, anyFunction, mock} from 'jest-mock-extended';
+import {render} from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
+import {init, useAppDispatch} from '../action';
 
-// describe('Export', () => {
-// 	beforeEach(
-// 		() => {
-// 			window.localStorage.clear();
-// 			window.localStorage.setItem('app-firstVisit', 'false');
-// 		},
-// 	);
+jest.mock('../parser');
 
-// 	function ExportWithContext({store}: {store: Store}): React.ReactElement {
-// 		return <MemoryRouter><Provider store={store}><Export /></Provider></MemoryRouter>
-// 	}
+function Initializer({children}): React.ReactElement {
+	useAppDispatch()(init());
+	return children;
+}
 
-// 	it('export text', async () => {
-// 		const parser = sinon.stub(new Parser());
-// 		parser.csvStringAndName.onFirstCall().resolves({string: 'export result', name: ''});
+describe('Export', () => {
+	function ExportWithContext({store}: {store: Store}): React.ReactElement {
+		return <MemoryRouter><Provider store={store}><Initializer><Export /></Initializer></Provider></MemoryRouter>
+	}
 
-// 		const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({parser})));
-// 		const wrapper = mount(<ExportWithContext store={store} />);
+	test('export', async () => {
+        window.localStorage.clear();
+        window.localStorage.setItem('app-firstVisit', 'false');
 
-// 		// @ts-ignore
-// 		wrapper.find('#exportTypeDropdown').at(0).props().onChange(null, {key: ExportType.text});
-// 		wrapper.find(DelimiterInput).props().onChange(',');
-// 		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
-// 		wrapper.update();
-// 		await wrapper.find(PrimaryButton).props().onClick(null);
+        const parser = mock<Parser>();
+        parser.csvStringAndName.calledWith(any(), any()).mockReturnValue({string: 'export result', name: ''});
 
-// 		const expected: ExportOptions = {
-// 			delimiter: ',',
-// 			newline: NewlineSequence.LF,
-// 		}
-// 		// @ts-ignore
-// 		assert(parser.csvStringAndName.calledOnceWith(expected));
-// 		wrapper.update();
-// 		assert.strictEqual(wrapper.find(TextField).props().value, 'export result');
-// 	});
-// });
+        const store = configureStore({
+            reducer,
+            middleware: (getDefaultMiddleware) => 
+                getDefaultMiddleware({
+                    thunk: {
+                        extraArgument: {parser}
+                    },
+                }),
+        });
+        
+        const wrapper = render(<ExportWithContext store={store} />);
+
+        await userEvent.click(wrapper.getByLabelText('Delimiter'));
+		await userEvent.click(wrapper.getByText('Tab (U+0009)'));
+
+        await userEvent.click(wrapper.getByLabelText('Newline sequence'));
+		await userEvent.click(wrapper.getByText('LF'));
+
+        await userEvent.click(wrapper.getByText('Export to CSV'));
+
+        const expected: ExportOptions = {
+            delimiter: '\t',
+            newline: NewlineSequence.LF,
+        }
+
+        expect(parser.csvStringAndName).toHaveBeenCalledWith(expected, anyFunction());
+
+        expect(wrapper.queryByText("export result")).not.toBeNull();
+	});
+});
