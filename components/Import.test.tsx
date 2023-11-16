@@ -13,47 +13,47 @@ import {MemoryRouter} from 'react-router';
 import {Store, configureStore} from '@reduxjs/toolkit';
 import {describe, beforeEach, expect, test} from '@jest/globals';
 
-describe('Import', () => {
-	beforeEach(
-		() => {
-			window.localStorage.clear();
-			window.localStorage.setItem('app-firstVisit', 'false');
-		},
-	);
+// describe('Import', () => {
+// 	beforeEach(
+// 		() => {
+// 			window.localStorage.clear();
+// 			window.localStorage.setItem('app-firstVisit', 'false');
+// 		},
+// 	);
 
-	function ImportWithContext({store}: {store: Store}): React.ReactElement {
-		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
-	}
+// 	function ImportWithContext({store}: {store: Store}): React.ReactElement {
+// 		return <MemoryRouter><Provider store={store}><Import /></Provider></MemoryRouter>
+// 	}
 
-	// it('import', async () => {
-	// 	const parser = sinon.stub(new Parser());
-	// 	parser.importCSV.resolves([]);
-	// 	const store = configureStore({
-	// 		reducer,
-	// 		middleware: (getDefaultMiddleware) => 
-	// 			getDefaultMiddleware({
-	// 				thunk: {
-	// 					extraArgument: {parser}
-	// 				},
-	// 			}),
-	// 	});
-	// 	const wrapper = mount(<ImportWithContext store={store} />);
+// 	it('import', async () => {
+// 		const parser = sinon.stub(new Parser());
+// 		parser.importCSV.resolves([]);
+// 		const store = configureStore({
+// 			reducer,
+// 			middleware: (getDefaultMiddleware) => 
+// 				getDefaultMiddleware({
+// 					thunk: {
+// 						extraArgument: {parser}
+// 					},
+// 				}),
+// 		});
+// 		const wrapper = mount(<ImportWithContext store={store} />);
 
-	// 	// simulate() doesn't work
-	// 	wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
-	// 	wrapper.find(DelimiterInput).props().onChange(',');
-	// 	wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
-	// 	wrapper.find(EncodingDropdown).props().onChange('UTF-8');
-	// 	wrapper.update();
-	// 	await wrapper.find(PrimaryButton).props().onClick(null);
+// 		// simulate() doesn't work
+// 		wrapper.find(SourceInput).props().onChange({inputType: InputType.text, text: 'csv text'});
+// 		wrapper.find(DelimiterInput).props().onChange(',');
+// 		wrapper.find(NewlineDropdown).props().onChange(NewlineSequence.LF);
+// 		wrapper.find(EncodingDropdown).props().onChange('UTF-8');
+// 		wrapper.update();
+// 		await wrapper.find(PrimaryButton).props().onClick(null);
 
-	// 	const expected: ImportOptions = {
-	// 		source: {inputType: 1, text: 'csv text'},
-	// 		delimiter: ',',
-	// 		newline: NewlineSequence.LF,
-	// 		encoding: 'UTF-8',
-	// 	};
-	// 	// @ts-ignore
-	// 	assert(parser.importCSV.calledOnceWith(expected));
-	// });
-});
+// 		const expected: ImportOptions = {
+// 			source: {inputType: 1, text: 'csv text'},
+// 			delimiter: ',',
+// 			newline: NewlineSequence.LF,
+// 			encoding: 'UTF-8',
+// 		};
+// 		// @ts-ignore
+// 		assert(parser.importCSV.calledOnceWith(expected));
+// 	});
+// });
