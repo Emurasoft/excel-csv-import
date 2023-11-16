@@ -1,11 +1,8 @@
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import {ResponsiveMode, initializeIcons, setIconOptions, setResponsiveMode} from '@fluentui/react';
-import * as jsdom from 'jsdom-global';
 import 'ignore-styles';
 import {configureLoadStyles} from '@microsoft/load-themed-styles';
-
-jsdom(undefined, {url: "http://localhost"});
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Office = {
