@@ -1,6 +1,7 @@
 import {Page} from './Page';
 import * as React from 'react';
 import * as assert from 'assert';
+import {describe, beforeEach, expect, test} from '@jest/globals';
 
 describe('TitleBar', () => {
 	beforeEach(() => window.localStorage.clear());

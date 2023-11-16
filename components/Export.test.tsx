@@ -9,14 +9,13 @@ import * as assert from 'assert';
 import {EncodingDropdown} from './EncodingDropdown';
 import {MemoryRouter} from 'react-router';
 import {Provider} from 'react-redux';
-import * as sinon from 'sinon';
 import {reducer} from '../reducer';
 import {Store} from '@reduxjs/toolkit';
+import {beforeEach, describe, expect, test} from '@jest/globals';
 
 describe('Export', () => {
 	beforeEach(
 		() => {
-			sinon.restore();
 			window.localStorage.clear();
 			window.localStorage.setItem('app-firstVisit', 'false');
 		},

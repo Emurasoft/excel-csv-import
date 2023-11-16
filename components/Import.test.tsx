@@ -10,13 +10,12 @@ import {EncodingDropdown} from './EncodingDropdown';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
-import * as sinon from 'sinon';
 import {Store, configureStore} from '@reduxjs/toolkit';
+import {describe, beforeEach, expect, test} from '@jest/globals';
 
 describe('Import', () => {
 	beforeEach(
 		() => {
-			sinon.restore();
 			window.localStorage.clear();
 			window.localStorage.setItem('app-firstVisit', 'false');
 		},

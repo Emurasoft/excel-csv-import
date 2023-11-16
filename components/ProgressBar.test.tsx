@@ -2,6 +2,7 @@ import {ProgressBar} from './ProgressBar';
 import * as React from 'react';
 import {Link} from '@fluentui/react';
 import * as assert from 'assert';
+import {describe, expect, test} from '@jest/globals';
 
 describe('ProgressBar', () => {
 	// it('render()', () => {

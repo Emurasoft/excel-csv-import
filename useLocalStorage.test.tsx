@@ -1,6 +1,7 @@
 import {useLocalStorage, namespacedUseLocalStorage} from './useLocalStorage';
 import * as React from 'react';
 import * as assert from 'assert';
+import {describe, beforeEach, expect, test} from '@jest/globals';
 
 describe('useLocalStorage', () => {
 	beforeEach(() => window.localStorage.clear());

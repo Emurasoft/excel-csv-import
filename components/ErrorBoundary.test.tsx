@@ -1,6 +1,7 @@
 import {ErrorBoundary} from './ErrorBoundary';
 import * as React from 'react';
 import * as assert from 'assert';
+import {describe, expect, test} from '@jest/globals';
 
 describe('ErrorBoundary', () => {
 	// it('render()', () => {

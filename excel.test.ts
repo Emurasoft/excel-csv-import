@@ -1,9 +1,10 @@
 import * as ExcelAPI from './excel';
 import * as assert from 'assert';
 import {CheckError} from './test/util';
+import {describe, expect, test} from '@jest/globals';
 
 describe('ExcelAPI', () => {
-	it('_maxLength', () => {
+	test('_maxLength', () => {
 		const tests: {a: string[][]; expected: number}[] = [
 			{
 				a: [[]],
@@ -20,7 +21,7 @@ describe('ExcelAPI', () => {
 		}
 	});
 
-	it('_resize', () => {
+	test('_resize', () => {
 		interface Test {
 			a: string[][];
 			maxLength: number;

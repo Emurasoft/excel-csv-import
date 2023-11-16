@@ -2,6 +2,7 @@ import {SourceInput} from './SourceInput';
 import * as React from 'react';
 import {InputType, Source} from '../parser';
 import * as assert from 'assert';
+import {describe, expect, test} from '@jest/globals';
 
 describe('SourceInput', () => {
 	// it('change input type', () => {

@@ -14,13 +14,14 @@ import {
 	Source,
 } from './parser';
 import {ParseConfig} from 'papaparse';
-import * as assert from 'assert';
+import assert from 'assert';
 import {Shape} from './excel';
+import {describe, expect, test} from '@jest/globals';
 
 describe('parser', () => {
 	/* eslint-disable @typescript-eslint/no-explicit-any */
 	describe('ChunkProcessor', () => {
-		it('progressPerChunk()', () => {
+		test('progressPerChunk()', () => {
 			const tests: {source: Source; expected: number}[] = [
 				{
 					source: {inputType: InputType.text, text: ''},
@@ -46,7 +47,7 @@ describe('parser', () => {
 		});
 
 		describe('run()', () => {
-			it('normal operation', async () => {
+			test('normal operation', async () => {
 				let setChunkDone = false;
 				let syncDone = false;
 				let progressCallbackDone = false;
@@ -93,7 +94,7 @@ describe('parser', () => {
 				assert(progressCallbackDone);
 			});
 
-			it('abort', async () => {
+			test('abort', async () => {
 				const progressCallback = (progress): void => {
 					assert.strictEqual(progress, 0.0);
 				};
@@ -118,7 +119,7 @@ describe('parser', () => {
 	});
 
 	describe('AbortFlag', () => {
-		it('abort()', () => {
+		test('abort()', () => {
 			const flag0 = new AbortFlag();
 			assert.strictEqual(flag0.aborted(), false);
 			flag0.abort();
@@ -132,7 +133,7 @@ describe('parser', () => {
 		});
 	});
 
-	it('chunkRange()', () => {
+	test('chunkRange()', () => {
 		interface Test {
 			chunk: number;
 			shape: Shape;
@@ -254,7 +255,7 @@ describe('parser', () => {
 		}
 	});
 
-	it('addQuotes()', () => {
+	test('addQuotes()', () => {
 		const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
 			{
 				row: [''],
@@ -309,7 +310,7 @@ describe('parser', () => {
 		}
 	});
 
-	it('rowString()', () => {
+	test('rowString()', () => {
 		const tests: {row: any[]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				row: [],
@@ -351,7 +352,7 @@ describe('parser', () => {
 		}
 	});
 
-	it('chunkString()', async () => {
+	test('chunkString()', async () => {
 		const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				values: [[]],
@@ -377,7 +378,7 @@ describe('parser', () => {
 	});
 
 	describe('csvString()', () => {
-		it('normal operation', async () => {
+		test('normal operation', async () => {
 			interface Test {
 				shape: Shape;
 				chunkRows: number;
@@ -459,7 +460,7 @@ describe('parser', () => {
 			}
 		});
 
-		it('progressCallback', async () => {
+		test('progressCallback', async () => {
 			const worksheetStub: any = {
 				getRangeByIndexes: () => ({load: () => ({values: [[]]})}),
 				context: {sync: async () => {}},
@@ -497,7 +498,7 @@ describe('parser', () => {
 			assert.strictEqual(called, 2);
 		});
 
-		it('abort', async () => {
+		test('abort', async () => {
 			const worksheetStub: any = {
 				getRangeByIndexes: () => ({load: () => ({values: [['a']]})}),
 				context: {sync: async () => {}},
@@ -521,7 +522,7 @@ describe('parser', () => {
 		});
 	});
 
-	it('nameToUse()', () => {
+	test('nameToUse()', () => {
 		const tests: {workbookName: string; worksheetName: string; expected: string}[] = [
 			{
 				workbookName: '',
