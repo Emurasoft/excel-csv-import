@@ -4,9 +4,10 @@ import * as assert from 'assert';
 import {Dropdown, TextField} from '@fluentui/react';
 import {describe, expect, test} from '@jest/globals';
 import {render} from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 
 describe('DelimiterInput', () => {
-	test('custom input display status', () => {
+	test('custom input display status', async () => {
 		let value = ',';
 		function onChange(v): void {
 			value = v;
@@ -22,41 +23,40 @@ describe('DelimiterInput', () => {
 		);
 		expect(wrapper0.queryByRole('textbox')).toBeNull();
 
-		const dropdown = wrapper0.getByRole('combobox');
-		// dropdown.simulate('change', null, {key: DropdownOptionKey.comma});
-		// assert(!wrapper0.exists(TextField));
+		await userEvent.click(wrapper0.getByRole('combobox'));
 
-		// dropdown.simulate('change', null, {key: DropdownOptionKey.other});
-		// assert(wrapper0.exists(TextField));
+		const commaElements = wrapper0.getAllByText('Comma (U+002C)');
+		// Select item in menu
+		await userEvent.click(commaElements[1]);
+		
+		expect(wrapper0.queryByRole('textbox')).toBeNull();
 
-		// // Show custom input regardless of value if otherSelected == true
-		// wrapper0.setProps({value: ','});
-		// assert(wrapper0.exists(TextField));
+		await userEvent.click(wrapper0.getByRole('combobox'));
+		await userEvent.click(wrapper0.getByText('Other'));
+		
+		expect(wrapper0.queryByRole('textbox')).not.toBeNull();
 
-		// // Show custom input regardless of state if value is not a dropdown key
-		// // (Happens if value is loaded from storage)
-		// dropdown.simulate('change', null, {key: DropdownOptionKey.comma});
-		// wrapper0.setProps({value: ','});
-		// assert(!wrapper0.exists(TextField));
+		await userEvent.click(wrapper0.getByRole('combobox'));
+		await userEvent.click(wrapper0.getByText('Comma (U+002C)'));
+		wrapper0.rerender(
+			<DelimiterInput
+				value={','}
+				onChange={onChange}
+				showLengthError={true}
+			/>
+		);
+		expect(wrapper0.queryByText('Comma (U+002C)')).not.toBeNull();
 
-		// dropdown.simulate('change', null, {key: DropdownOptionKey.comma});
-		// wrapper0.setProps({value: 'a'});
-		// assert(wrapper0.exists(TextField));
-
-		// wrapper0.setProps({value: ','});
-		// assert(!wrapper0.exists(TextField));
-
-		// // Test value matching for custom input when auto-detect is not an option
-		// const wrapper1 = shallow(
-		// 	<DelimiterInput
-		// 		value={'a'}
-		// 		onChange={onChange}
-		// 		showLengthError={true}
-		// 	/>
-		// );
-		// wrapper1.find(Dropdown).simulate('change', null, {key: DropdownOptionKey.comma});
-		// wrapper1.setProps({value: ''});
-		// assert(wrapper1.exists(TextField));
+		// Show custom input regardless of state if value is not a dropdown key
+		// (Happens if value is loaded from storage)
+		wrapper0.rerender(
+			<DelimiterInput
+				value={'a'}
+				onChange={onChange}
+				showLengthError={true}
+			/>
+		);
+		expect(wrapper0.queryByRole('textbox')).not.toBeNull();
 	});
 
 	// it('onChangeCallback', () => {
