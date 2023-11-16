@@ -14,120 +14,84 @@ describe('DelimiterInput', () => {
 		}
 
 		// When the user selects other, show custom input
-		const wrapper0 = render(
+		const input = render(
 			<DelimiterInput
 				value={value}
 				onChange={onChange}
 				showLengthError={true}
 			/>
 		);
-		expect(wrapper0.queryByRole('textbox')).toBeNull();
+		expect(input.queryByRole('textbox')).toBeNull();
 
-		await userEvent.click(wrapper0.getByRole('combobox'));
+		await userEvent.click(input.getByRole('combobox'));
 
-		const commaElements = wrapper0.getAllByText('Comma (U+002C)');
+		const commaElements = input.getAllByText('Comma (U+002C)');
 		// Select item in menu
 		await userEvent.click(commaElements[1]);
 		
-		expect(wrapper0.queryByRole('textbox')).toBeNull();
+		expect(input.queryByRole('textbox')).toBeNull();
 
-		await userEvent.click(wrapper0.getByRole('combobox'));
-		await userEvent.click(wrapper0.getByText('Other'));
+		await userEvent.click(input.getByRole('combobox'));
+		await userEvent.click(input.getByText('Other'));
 		
-		expect(wrapper0.queryByRole('textbox')).not.toBeNull();
+		expect(input.queryByRole('textbox')).not.toBeNull();
 
-		await userEvent.click(wrapper0.getByRole('combobox'));
-		await userEvent.click(wrapper0.getByText('Comma (U+002C)'));
-		wrapper0.rerender(
+		await userEvent.click(input.getByRole('combobox'));
+		await userEvent.click(input.getByText('Comma (U+002C)'));
+		input.rerender(
 			<DelimiterInput
 				value={','}
 				onChange={onChange}
 				showLengthError={true}
 			/>
 		);
-		expect(wrapper0.queryByText('Comma (U+002C)')).not.toBeNull();
+		expect(input.queryByText('Comma (U+002C)')).not.toBeNull();
 
 		// Show custom input regardless of state if value is not a dropdown key
 		// (Happens if value is loaded from storage)
-		wrapper0.rerender(
+		input.rerender(
 			<DelimiterInput
 				value={'a'}
 				onChange={onChange}
 				showLengthError={true}
 			/>
 		);
-		expect(wrapper0.queryByRole('textbox')).not.toBeNull();
+		expect(input.queryByRole('textbox')).not.toBeNull();
 	});
 
-	// it('onChangeCallback', () => {
-	// 	let result = null;
+	test('onChangeCallback', async () => {
+		let result = '';
 
-	// 	const wrapper = shallow(
-	// 		<DelimiterInput
-	// 			value={''}
-	// 			onChange={(newDelimiter) => result = newDelimiter}
-	// 			showLengthError={true}
-	// 		/>
-	// 	);
-	// 	const dropdown = wrapper.find(Dropdown);
+		const input = render(
+			<DelimiterInput
+				value={''}
+				onChange={(v) => result = v}
+				showLengthError={true}
+			/>
+		);
+		
+		await userEvent.click(input.getByRole('combobox'));
+		await userEvent.click(input.getByText('Comma (U+002C)'));
+		expect(result).toEqual(',');
 
-	// 	dropdown.simulate('change', null, {key: DropdownOptionKey.comma});
-	// 	assert.strictEqual(result, '\u002c');
+		await userEvent.click(input.getByRole('combobox'));
+		await userEvent.click(input.getByText('Space (U+0020)'));
+		expect(result).toEqual(' ');
 
-	// 	dropdown.simulate('change', null, {key: DropdownOptionKey.space});
-	// 	assert.strictEqual(result, '\u0020');
+		await userEvent.click(input.getByRole('combobox'));
+		await userEvent.click(input.getByText('Tab (U+0009)'));
+		expect(result).toEqual('\t');
 
-	// 	dropdown.simulate('change', null, {key: DropdownOptionKey.tab});
-	// 	assert.strictEqual(result, '\u0009');
+		await userEvent.click(input.getByRole('combobox'));
+		await userEvent.click(input.getAllByText('Other')[1]);
+		expect(result).toEqual('\t');
 
-	// 	dropdown.simulate('change', null, {key: DropdownOptionKey.other});
-	// 	assert.strictEqual(result, '');
+		await userEvent.click(input.queryByRole('textbox'));
+		await userEvent.keyboard('a');
+		expect(result).toEqual('a');
+	});
 
-	// 	const textfield = wrapper.find(TextField);
-	// 	textfield.simulate('change', null, 'a');
-	// 	assert.strictEqual(result, 'a');
-
-	// 	textfield.simulate('change', null, ',');
-	// 	assert.strictEqual(result, ',');
-
-	// 	dropdown.simulate('change', null, {key: DropdownOptionKey.comma});
-	// 	assert.strictEqual(result, '\u002c');
-	// });
-
-	// it('TextField description', () => {
-	// 	const tests: {value: string; expectIncludes: string}[] = [
-	// 		{
-	// 			value: 'a',
-	// 			expectIncludes: 'U+0061',
-	// 		},
-	// 	];
-
-	// 	for (const [i, test] of tests.entries()) {
-	// 		const wrapper = shallow(
-	// 			<DelimiterInput
-	// 				value={''}
-	// 				onChange={() => {}}
-	// 				showLengthError={true}
-	// 			/>
-	// 		);
-	// 		wrapper.find(Dropdown)
-	// 			.simulate('change', null, {key: DropdownOptionKey.other});
-
-	// 		wrapper.setProps({value: test.value});
-	// 		assert(wrapper.html().includes(test.expectIncludes), i.toString());
-	// 	}
-	// });
-
-	// it('codePoint()', () => {
-	// 	const tests: {c: string; expected: string}[] = [
-	// 		{
-	// 			c: ',',
-	// 			expected: 'U+002C',
-	// 		},
-	// 	];
-
-	// 	for (const [i, test] of tests.entries()) {
-	// 		assert.strictEqual(codePoint(test.c), test.expected, i.toString());
-	// 	}
-	// });
+	test('codePoint', () => {
+		expect(codePoint(',')).toEqual('U+002C')
+	});
 });
