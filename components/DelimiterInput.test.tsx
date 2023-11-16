@@ -1,7 +1,5 @@
 import {DelimiterInput, DropdownOptionKey, codePoint} from './DelimiterInput';
 import * as React from 'react';
-import * as assert from 'assert';
-import {Dropdown, TextField} from '@fluentui/react';
 import {describe, expect, test} from '@jest/globals';
 import {render} from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
