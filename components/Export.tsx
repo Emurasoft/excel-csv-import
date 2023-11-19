@@ -28,9 +28,9 @@ const useLocalStorage = namespacedUseLocalStorage('export');
 
 export default function Export(): React.ReactElement {
 	const initialized = useAppSelector(state => state.initialized);
-	const platform = useAppSelector(state => state.platform) as AppState['platform'];
-	const progress = useAppSelector(state => state.progress) as AppState['progress'];
-	const output = useAppSelector(state => state.output) as AppState['output'];
+	const platform = useAppSelector(state => state.platform);
+	const progress = useAppSelector(state => state.progress);
+	const output = useAppSelector(state => state.output);
 	const dispatch = useAppDispatch();
 
 	const [exportType, setExportType] = useLocalStorage('exportType', ExportType.text);
@@ -39,19 +39,16 @@ export default function Export(): React.ReactElement {
 	const [encoding, setEncoding] = useLocalStorage('encoding', 'UTF-8');
 	const [outputText, setOutputText] = useState('');
 
-	const exportTypeOptions: IDropdownOption[] = [{
-		key: ExportType.text,
-		text: 'Textbox',
-	}];
-	// Export file feature only works on Excel Online
-	// https://github.com/Emurasoft/excel-csv-import/issues/39
-	// eslint-disable-next-line no-undef
-	if (platform === Office.PlatformType.OfficeOnline) {
-		exportTypeOptions.push({
+	const exportTypeOptions: IDropdownOption[] = [
+		{
+			key: ExportType.text,
+			text: 'Textbox',
+		},
+		{
 			key: ExportType.file,
 			text: 'File',
-		});
-	}
+		}
+	];
 
 	const buttonOnClick = async () => {
 		setOutputText('');
