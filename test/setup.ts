@@ -1,5 +1,4 @@
 /* eslint-env node */
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import {ResponsiveMode, initializeIcons, setIconOptions, setResponsiveMode} from '@fluentui/react';
 import 'ignore-styles';
 import {configureLoadStyles} from '@microsoft/load-themed-styles';
@@ -26,4 +25,4 @@ initializeIcons();
 
 setResponsiveMode(ResponsiveMode.large);
 
-configureLoadStyles(styles => {});
+configureLoadStyles(() => {});

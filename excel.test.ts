@@ -1,7 +1,6 @@
 import * as ExcelAPI from './excel';
 import * as assert from 'assert';
-import {CheckError} from './test/util';
-import {describe, test} from '@jest/globals';
+import {describe, test, expect} from '@jest/globals';
 
 describe('ExcelAPI', () => {
 	test('_maxLength', () => {
@@ -68,7 +67,12 @@ describe('ExcelAPI', () => {
 		];
 
 		for (const test of tests) {
-			CheckError(ExcelAPI._resize.bind(null, test.a, test.maxLength), test.expectError);
+			const func = () => {ExcelAPI._resize(test.a, test.maxLength)};
+			if (test.expectError) {
+				expect(func).toThrowError()
+			} else {
+				expect(func).not.toThrowError()
+			}
 			assert.deepStrictEqual(test.a, test.expected);
 		}
 	});
