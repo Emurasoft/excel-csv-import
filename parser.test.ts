@@ -16,7 +16,7 @@ import {
 import {ParseConfig} from 'papaparse';
 import assert from 'assert';
 import {Shape} from './excel';
-import {describe, expect, test} from '@jest/globals';
+import {describe, test} from '@jest/globals';
 
 describe('parser', () => {
 	/* eslint-disable @typescript-eslint/no-explicit-any */

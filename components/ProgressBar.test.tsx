@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 
 describe('ProgressBar', () => {
 	test('ProgressBar', async () => {
-        let clicked = false;
+		let clicked = false;
 		const wrapper = render(
 			<ProgressBar
 				onClick={() => { clicked = true; }}
@@ -14,8 +14,8 @@ describe('ProgressBar', () => {
 			/>
 		);
 
-        await userEvent.click(wrapper.getByRole('button'));
+		await userEvent.click(wrapper.getByRole('button'));
         
-        expect(clicked);
+		expect(clicked);
 	});
 });

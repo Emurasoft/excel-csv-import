@@ -20,17 +20,17 @@ describe('useLocalStorage', () => {
 
 		{
 			const element = render(<E />);
-            expect(localStorage.getItem('namespace-key')).toBeNull();
+			expect(localStorage.getItem('namespace-key')).toBeNull();
 
-            await userEvent.click(element.getByRole('button'));
-            expect(localStorage.getItem('namespace-key')).toEqual('1');
+			await userEvent.click(element.getByRole('button'));
+			expect(localStorage.getItem('namespace-key')).toEqual('1');
 
-            element.baseElement.innerHTML = '';
+			element.baseElement.innerHTML = '';
 		}
 		{
-            // Simulate reload app
+			// Simulate reload app
 			const element = render(<E />);
-            expect(element.baseElement.textContent).toEqual('1');
+			expect(element.baseElement.textContent).toEqual('1');
 		}
 	});
 });

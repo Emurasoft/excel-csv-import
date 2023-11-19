@@ -7,7 +7,7 @@ interface State {
 }
 
 export class ErrorBoundary extends React.Component<React.PropsWithChildren, State> {
-	public constructor(props: {}) {
+	public constructor(props: React.PropsWithChildren) {
 		super(props);
 
 		this.state = {

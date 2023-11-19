@@ -8,18 +8,18 @@ describe('ErrorBoundary', () => {
 		const errorBoundary = render(<ErrorBoundary><div /></ErrorBoundary>);
 		expect(errorBoundary.queryByRole('textbox')).toBeNull();
 
-        // Silence errors for test
-        const consoleError = console.error;
-        console.error = () => {};
+		// Silence errors for test
+		const consoleError = console.error;
+		console.error = () => {};
 
-        const msg = 'you should see this';
+		const msg = 'you should see this';
 
 		function BuggyComponent(): JSX.Element {
 			throw new Error(msg);
 		}
 		errorBoundary.rerender(<ErrorBoundary><BuggyComponent /></ErrorBoundary>);
-        expect(errorBoundary.getByRole('textbox').textContent.includes(msg));
+		expect(errorBoundary.getByRole('textbox').textContent.includes(msg));
 
-        console.error = consoleError;
+		console.error = consoleError;
 	});
 });

@@ -30,6 +30,7 @@ module.exports = {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
     },
     overrides: [
         {

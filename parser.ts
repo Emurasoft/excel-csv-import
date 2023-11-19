@@ -145,7 +145,11 @@ export class ChunkProcessor {
 				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
 				break;
 			case InputType.text:
-				Papa.parse(importOptions.source.text as any, importOptions as Papa.ParseLocalConfig);
+				Papa.parse(
+					/* eslint-disable @typescript-eslint/no-explicit-any */
+					importOptions.source.text as any,
+					importOptions as Papa.ParseLocalConfig
+				);
 				break;
 			}
 		});
