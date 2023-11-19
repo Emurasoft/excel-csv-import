@@ -34,7 +34,7 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) => 
 		getDefaultMiddleware({
 			thunk: {
-				extraArgument: extraArg
+				extraArgument: extraArg,
 			},
 		}).concat(errorHandler),
 });

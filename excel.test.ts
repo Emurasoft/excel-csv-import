@@ -1,7 +1,7 @@
 import * as ExcelAPI from './excel';
 import * as assert from 'assert';
 import {CheckError} from './test/util';
-import {describe, expect, test} from '@jest/globals';
+import {describe, test} from '@jest/globals';
 
 describe('ExcelAPI', () => {
 	test('_maxLength', () => {
