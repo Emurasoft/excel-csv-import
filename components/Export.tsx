@@ -19,7 +19,7 @@ import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {AppState, useAppSelector} from '../state';
+import {useAppSelector} from '../state';
 import {abort, exportCSV, useAppDispatch} from '../action';
 
 export const enum ExportType {file, text}
@@ -47,7 +47,7 @@ export default function Export(): React.ReactElement {
 		{
 			key: ExportType.file,
 			text: 'File',
-		}
+		},
 	];
 
 	const buttonOnClick = async () => {

@@ -78,6 +78,8 @@ function ParamRouter() {
 	}
 }
 
+// Cannot update to createRoot as we must support IE 11 for now
+// eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
 	<App />,
 	document.getElementById('root'),
