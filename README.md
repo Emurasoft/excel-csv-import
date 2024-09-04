@@ -11,9 +11,9 @@ CSV Import+Export is an Excel add-in which adds the ability to import and export
 
 Requires Node.
 
-1. Open a blank worksheet on Excel Online.  Go to Insert | Office Add-ins. On the top right hand corner under Manage My Add-ins, click Upload my Add-In. Upload `manifests/dev.manifest.xml`.
+1. Run `npx office-addin-dev-certs install` to get https certificates that Excel accepts. Reopen your web browser.
 
-2. Run `npx office-addin-dev-certs install` to get https certificates that Excel accepts.
+2. Open a blank worksheet on Excel Online.  Go to Home | Add-ins | More Add-ins. Go to the My Add-ins tab. On the top right hand corner under Manage My Add-ins, click Upload my Add-In. Upload `manifests/dev.manifest.xml`.
 
 3. Run the following commands to start webpack-dev-server.
 
