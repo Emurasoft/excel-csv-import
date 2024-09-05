@@ -4,7 +4,7 @@ import {ImportOptions, NewlineSequence, Parser} from '../parser';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
-import {Store, configureStore} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import {describe, expect, test} from '@jest/globals';
 import {init, useAppDispatch} from '../action';
 import {any, anyFunction, mock} from 'jest-mock-extended';
