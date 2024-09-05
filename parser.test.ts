@@ -19,7 +19,6 @@ import {Shape} from './excel';
 import {describe, test} from '@jest/globals';
 
 describe('parser', () => {
-	/* eslint-disable @typescript-eslint/no-explicit-any */
 	describe('ChunkProcessor', () => {
 		test('progressPerChunk()', () => {
 			const tests: {source: Source; expected: number}[] = [

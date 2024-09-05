@@ -80,7 +80,6 @@ export default function Export(): React.ReactElement {
 			helpLink={
 				'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv'
 			}
-			// eslint-disable-next-line no-undef
 			mac={platform === Office.PlatformType.Mac}
 		>
 			<Dropdown

@@ -4,7 +4,7 @@ import {ExportOptions, NewlineSequence, Parser} from '../parser';
 import {MemoryRouter} from 'react-router';
 import {Provider} from 'react-redux';
 import {reducer} from '../reducer';
-import {Store, configureStore} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import {describe, expect, jest, test} from '@jest/globals';
 import {any, anyFunction, mock} from 'jest-mock-extended';
 import {render} from '@testing-library/react';
@@ -19,7 +19,7 @@ function Initializer({children}): React.ReactElement {
 }
 
 describe('Export', () => {
-	function ExportWithContext({store}: {store: Store}): React.ReactElement {
+	function ExportWithContext({store}: {store}): React.ReactElement {
 		return <MemoryRouter>
 			<Provider store={store}><Initializer><Export /></Initializer></Provider>
 		</MemoryRouter>;
