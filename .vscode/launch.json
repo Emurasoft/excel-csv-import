@@ -39,5 +39,18 @@
             ],
             "type": "node"
         },
+        {
+            "name": "Lint",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "lint"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
     ]
 }
