@@ -44,8 +44,8 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 					</div>
 				</>
 			);
-		} else {
-			return this.props.children;
 		}
+		
+		return <>this.props.children</>;
 	}
 }
