@@ -17,7 +17,7 @@ function Initializer({children}): React.ReactElement {
 }
 
 describe('Import', () => {
-	function ImportWithContext({store}: {store: Store}): React.ReactElement {
+	function ImportWithContext({store}: {store}): React.ReactElement {
 		return <MemoryRouter>
 			<Provider store={store}><Initializer><Import /></Initializer></Provider>
 		</MemoryRouter>;

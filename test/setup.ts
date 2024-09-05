@@ -17,6 +17,7 @@ import {configureLoadStyles} from '@microsoft/load-themed-styles';
 }
 
 // @ts-expect-error
+// Simple mock
 window.requestAnimationFrame = (cb) => cb();
 
 setIconOptions({disableWarnings: true});

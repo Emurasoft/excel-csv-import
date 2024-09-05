@@ -46,6 +46,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 			);
 		}
 		
-		return <>this.props.children</>;
+		// eslint-disable-next-line react/prop-types
+		return this.props.children;
 	}
 }
