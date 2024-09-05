@@ -45,10 +45,8 @@ export default function Import(): React.ReactElement {
 		<Page
 			text={'Import CSV'}
 			helpLink={'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'}
-			// eslint-disable-next-line no-undef
 			mac={platform === Office.PlatformType.Mac}
 		>
-			{/* eslint-enable no-undef */}
 			<SourceInput
 				value={source}
 				onChange={setSource}

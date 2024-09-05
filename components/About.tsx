@@ -7,7 +7,6 @@ import {Link as RouterLink} from 'react-router-dom';
 
 export default function About(): React.ReactElement {
 	return (
-		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
 			<BackButton onClick={() => history.back()} />
 			<br />
@@ -66,6 +65,5 @@ export default function About(): React.ReactElement {
 				</RouterLink>
 			</Text>
 		</div>
-		/* eslint-enable max-len */
 	);
 }

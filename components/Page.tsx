@@ -49,7 +49,6 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				firstVisit
 					? <>
 						<Text variant='mediumPlus'>
-							{/* eslint-disable-next-line max-len */}
 							CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
 						</Text>
 						<br /><br />

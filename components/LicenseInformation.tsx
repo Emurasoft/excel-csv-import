@@ -7,7 +7,6 @@ import thirdParty from './licenses/thirdParty';
 
 export default function LicenseInformation(): React.ReactElement {
 	return (
-		/* eslint-disable max-len */
 		<div className={style.pageMargin}>
 			<BackButton onClick={() => history.back()}/>
 			<br/>
@@ -25,6 +24,5 @@ export default function LicenseInformation(): React.ReactElement {
 			</Text>
 			<textarea className={style.fullWidth} rows={20} value={thirdParty} readOnly />
 		</div>
-		/* eslint-enable max-len */
 	);
 }

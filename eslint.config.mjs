@@ -1,11 +1,11 @@
-import react from "eslint-plugin-react";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import react from 'eslint-plugin-react';
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import globals from 'globals';
+import tsParser from '@typescript-eslint/parser';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,17 +16,17 @@ const compat = new FlatCompat({
 });
 
 export default [{
-    ignores: ["components/licenses/**/*"],
+    ignores: ['components/licenses/**/*'],
 }, ...compat.extends(
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
 ), {
-    files: ["**/*.test.ts*"],
+    files: ['**/*.test.ts*'],
     
     plugins: {
         react,
-        "@typescript-eslint": typescriptEslint,
+        '@typescript-eslint': typescriptEslint,
     },
 
     languageOptions: {
@@ -36,10 +36,10 @@ export default [{
 
         parser: tsParser,
         ecmaVersion: 5,
-        sourceType: "script",
+        sourceType: 'script',
 
         parserOptions: {
-            project: "tsconfig.json",
+            project: 'tsconfig.json',
 
             ecmaFeatures: {
                 jsx: true,
@@ -49,27 +49,27 @@ export default [{
 
     settings: {
         react: {
-            version: "detect",
+            version: 'detect',
         },
     },
 
     rules: {
-        "max-len": ["error", {
+        'max-len': ['error', {
             code: 100,
         }],
 
-        "comma-dangle": ["error", "always-multiline"],
+        'comma-dangle': ['error', 'always-multiline'],
 
-        "jsx-quotes": ["error", "prefer-single"],
-        "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-use-before-define": "off",
-        "@typescript-eslint/ban-ts-comment": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/ban-ts-ignore": "off",
+        'jsx-quotes': ['error', 'prefer-single'],
+        '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-use-before-define': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/ban-ts-ignore': 'off',
     },
 }, {
-    files: ["**/*.js"],
+    files: ['**/*.js'],
 
     languageOptions: {
         globals: {
@@ -78,6 +78,6 @@ export default [{
     },
 
     rules: {
-        "@typescript-eslint/no-var-requires": 0,
+        '@typescript-eslint/no-var-requires': 0,
     },
 }];
