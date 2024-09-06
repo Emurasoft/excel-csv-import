@@ -67,8 +67,8 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
 	// getRangeByIndexes() throws error if rowCount or columnCount is 0
 	if (chunk.length > 0 && maxLength > 0) {
 		const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
-		range.values = chunk;
 		range.numberFormat = initializeMatrixSameSize(chunk);
+		range.values = chunk;
 		range.untrack();
 	}
 }
