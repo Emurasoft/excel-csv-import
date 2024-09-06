@@ -5,7 +5,9 @@ import {NewlineDropdown} from './NewlineDropdown';
 import {
 	Button,
 	Dropdown,
+	Label,
 	Option,
+	Subtitle1,
 	Textarea,
 	Tooltip,
 } from '@fluentui/react-components';
@@ -72,15 +74,19 @@ export default function Export(): React.ReactElement {
 			}
 			mac={platform === Office.PlatformType.Mac}
 		>
-			<Dropdown
-				placeholder="Delimiter"
-				value={exportType}
-				onOptionSelect={(_, {optionValue}) => setExportType(optionValue as ExportType)}
-				id={'exportTypeDropdown'}
-			>
-				<Option>{ExportType.file}</Option>
-				<Option>{ExportType.text}</Option>
-			</Dropdown>
+			<Label>
+				<Subtitle1>Export type</Subtitle1>
+				<br />
+				<Dropdown
+					placeholder="Delimiter"
+					value={exportType}
+					onOptionSelect={(_, {optionValue}) => setExportType(optionValue as ExportType)}
+					id={'exportTypeDropdown'}
+				>
+					<Option>{ExportType.file}</Option>
+					<Option>{ExportType.text}</Option>
+				</Dropdown>
+			</Label>
 			<br />
 			{
 				exportType === ExportType.file
@@ -102,6 +108,7 @@ export default function Export(): React.ReactElement {
 				onChange={setNewline}
 				showAutoDetect={false}
 			/>
+			<br />
 			<br />
 			<Tooltip
 				content={
