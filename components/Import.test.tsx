@@ -1,6 +1,6 @@
 import Import from './Import';
 import * as React from 'react';
-import {ImportOptions, NewlineSequence, Parser} from '../parser';
+import {ImportOptions, InputType, NewlineSequence, Parser} from '../parser';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
@@ -56,7 +56,7 @@ describe('Import', () => {
 		await userEvent.click(wrapper.getAllByText('Import CSV')[1]);
 
 		const expected: ImportOptions = {
-			source: {inputType: 1, file: null, text: 'csv text'},
+			source: {inputType: InputType.text, file: null, text: 'csv text'},
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
 			encoding: '',

@@ -6,7 +6,7 @@ import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressBar} from './ProgressBar';
+import {ProgressBarWithStopButton} from './ProgressBar';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
@@ -88,7 +88,7 @@ export default function Import(): React.ReactElement {
 				</Button>
 			</Tooltip>
 			<br />
-			<ProgressBar
+			<ProgressBarWithStopButton
 				onClick={() => dispatch(abort())}
 				progress={progress}
 			/>
