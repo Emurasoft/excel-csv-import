@@ -3,7 +3,10 @@ import * as ExcelAPI from './excel';
 import {Shape} from './excel';
 import * as Papa from 'papaparse';
 
-export const enum InputType {file, text}
+export const enum InputType {
+	file = 'file',
+	text = 'text',
+}
 
 export interface Source {
 	inputType: InputType;
