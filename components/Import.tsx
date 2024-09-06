@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react';
+import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react-components';
 import {InputType, NewlineSequence, Source} from '../parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';

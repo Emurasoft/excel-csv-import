@@ -1,5 +1,5 @@
 /* eslint-env node */
-import {ResponsiveMode, initializeIcons, setIconOptions, setResponsiveMode} from '@fluentui/react';
+import {ResponsiveMode, initializeIcons, setIconOptions, setResponsiveMode} from '@fluentui/react-components';
 import 'ignore-styles';
 import {configureLoadStyles} from '@microsoft/load-themed-styles';
 

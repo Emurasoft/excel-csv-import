@@ -1,12 +1,13 @@
 import * as React from 'react';
-import {IconButton} from '@fluentui/react';
+import {Button} from '@fluentui/react-components';
+import {ArrowLeft24Filled} from '@fluentui/react-icons';
 
 export function BackButton({onClick}: {onClick: () => void}): React.ReactElement {
 	return (
-		<IconButton
-			iconProps={{iconName: 'Back'}}
+		<Button
+			icon={<ArrowLeft24Filled />}
 			onClick={onClick}
-			ariaLabel={'Go back'}
+			aria-label={'Go back'}
 			title={'Go back'}
 		/>
 	);

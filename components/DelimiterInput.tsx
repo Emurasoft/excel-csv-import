@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, IDropdownOption, TextField, ResponsiveMode} from '@fluentui/react';
+import {Dropdown, IDropdownOption, TextField, ResponsiveMode} from '@fluentui/react-components';
 import {useState} from 'react';
 
 export const enum DropdownOptionKey {comma, space, tab, other}

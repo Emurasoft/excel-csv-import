@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, IDropdownOption, ResponsiveMode} from '@fluentui/react';
+import {Dropdown, IDropdownOption, ResponsiveMode} from '@fluentui/react-components';
 import {NewlineSequence} from '../parser';
 
 interface Props {

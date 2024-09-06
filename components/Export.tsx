@@ -9,7 +9,7 @@ import {
 	ResponsiveMode,
 	TextField,
 	TooltipHost,
-} from '@fluentui/react';
+} from '@fluentui/react-components';
 import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';

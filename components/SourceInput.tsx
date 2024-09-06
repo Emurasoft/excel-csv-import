@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
-import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react';
+import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react-components';
 
 interface Props {
 	value: Source;

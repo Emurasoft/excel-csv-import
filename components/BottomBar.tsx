@@ -1,4 +1,4 @@
-import {Link, Text} from '@fluentui/react';
+import {Link, Text} from '@fluentui/react-components';
 import * as React from 'react';
 import {Link as RouterLink} from 'react-router-dom';
 import {Pages} from '../Pages';

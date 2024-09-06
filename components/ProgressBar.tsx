@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, ProgressIndicator, Text} from '@fluentui/react';
+import {Link, ProgressIndicator, Text} from '@fluentui/react-components';
 import {AppState} from '../state';
 
 interface Props {

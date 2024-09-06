@@ -1,4 +1,4 @@
-import {TextField} from '@fluentui/react';
+import {TextField} from '@fluentui/react-components';
 import * as React from 'react';
 import {AppState, OutputType} from '../state';
 

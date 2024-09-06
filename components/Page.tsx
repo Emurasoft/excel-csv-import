@@ -1,4 +1,4 @@
-import {IconButton, PrimaryButton, Text} from '@fluentui/react';
+import {IconButton, PrimaryButton, Text} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 

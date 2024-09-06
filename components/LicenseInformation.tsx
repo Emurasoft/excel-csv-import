@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {BackButton} from './BackButton';
-import {Link, Text} from '@fluentui/react';
+import {Link, Text} from '@fluentui/react-components';
 import thisApp from './licenses/thisApp';
 import thirdParty from './licenses/thirdParty';
 

@@ -13,6 +13,8 @@ import {errorHandler} from './errorhandler';
 import {Routes} from 'react-router-dom';
 import {configureStore} from '@reduxjs/toolkit'
 import './style.css';
+import { webDarkTheme } from '@fluentui/react-theme';
+import { FluentProvider } from '@fluentui/react-components';
 
 initializeIcons();
 
@@ -49,15 +51,17 @@ function App(): React.ReactElement {
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
-				<Provider store={store}>
-					<Initializer>
-						<MemoryRouter>
-							<Routes>
-								<Route path='/' element={<ParamRouter />} />
-							</Routes>
-						</MemoryRouter>
-					</Initializer>
-				</Provider>
+				<FluentProvider theme={webDarkTheme}>
+					<Provider store={store}>
+						<Initializer>
+							<MemoryRouter>
+								<Routes>
+									<Route path='/' element={<ParamRouter />} />
+								</Routes>
+							</MemoryRouter>
+						</Initializer>
+					</Provider>
+				</FluentProvider>
 			</React.Suspense>
 		</ErrorBoundary>
 	);

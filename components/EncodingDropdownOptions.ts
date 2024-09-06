@@ -1,4 +1,4 @@
-import {IDropdownOption} from '@fluentui/react';
+import {IDropdownOption} from '@fluentui/react-components';
 
 export const EncodingDropdownOptions: IDropdownOption[] = [
 	// Use generateEncodingList.js to generate list

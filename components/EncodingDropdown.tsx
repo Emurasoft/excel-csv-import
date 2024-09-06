@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, IDropdownOption} from '@fluentui/react';
+import {Dropdown, IDropdownOption} from '@fluentui/react-components';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 
 interface Props {
