@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Dropdown, IDropdownOption, TextField, ResponsiveMode} from '@fluentui/react';
-import style from './style.css';
 import {useState} from 'react';
 
 export const enum DropdownOptionKey {comma, space, tab, other}
@@ -55,9 +54,9 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 	}
 
 	const customInput = (
-		<div className={style.smallDivider}>
+		<div className="smallDivider">
 			<TextField
-				className={style.monospace}
+				className="monospace"
 				value={value}
 				onChange={(_, v) => onChange(v)}
 				description={description(value)}

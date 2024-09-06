@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
-import style from './style.css';
 import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react';
 
 interface Props {
@@ -23,7 +22,7 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 	return (
 		<>
 			<input
-				className={style.fullWidth}
+				className="fullWidth"
 				type='file'
 				accept='text/csv'
 				onChange={e => onChange(e.target.files[0])}
@@ -37,7 +36,7 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 function textInput(value: string, onChange: (value: string) => void): React.ReactElement {
 	return (
 		<TextField
-			className={style.monospace}
+			className="monospace"
 			multiline rows={10}
 			spellCheck={false}
 			wrap='off'
@@ -75,7 +74,7 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 				}
 				id='SourceInput-Dropdown'
 			/>
-			<div className={style.smallDivider} />
+			<div className="smallDivider" />
 			{input}
 		</>
 	);

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import style from './style.css';
 
 interface State {
 	caughtError: boolean;
@@ -26,7 +25,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 				<>
 					<textarea
 						value={this.state.error.toString() + '\n' + this.state.error.stack}
-						className={style.monospace + ' ' + style.fullWidth}
+						className="monospace fullWidth"
 						rows={15}
 						wrap='off'
 						readOnly

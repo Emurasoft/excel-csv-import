@@ -1,6 +1,5 @@
 import {IconButton, PrimaryButton, Text} from '@fluentui/react';
 import * as React from 'react';
-import style from './style.css';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 
 interface Props {
@@ -23,7 +22,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 	const [firstVisit, setFirstVisit] = useLocalStorage('firstVisit', true);
 
 	return (
-		<div className={style.pageMargin}>
+		<div className="pageMargin">
 			<div
 				style={{
 					width: '100%',
@@ -32,7 +31,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				}}
 			>
 				<Text variant='xLarge'><strong>{text}</strong></Text>
-				<div className={style.smallIcon}>
+				<div className="smallIcon">
 					<IconButton
 						// Mac platform puts a big button in the top right corner
 						style={{marginRight: mac ? '30px' : '4px'}}

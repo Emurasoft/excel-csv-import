@@ -1,6 +1,5 @@
 import {TextField} from '@fluentui/react';
 import * as React from 'react';
-import style from './style.css';
 import {AppState, OutputType} from '../state';
 
 interface Props {
@@ -12,7 +11,7 @@ export function ParserOutputBox({output}: Props): React.ReactElement {
 	case OutputType.text:
 		return (
 			<TextField
-				className={style.monospace}
+				className="monospace"
 				value={output.text}
 				rows={20} multiline
 				spellCheck={false}
@@ -22,7 +21,7 @@ export function ParserOutputBox({output}: Props): React.ReactElement {
 	case OutputType.error:
 		return (
 			<TextField
-				className={style.monospace + ' ' + style.redText}
+				className="monospace redText"
 				value={output.error.toString() + '\n' + output.error.stack}
 				rows={20} multiline
 				spellCheck={false}
