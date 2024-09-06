@@ -13,7 +13,7 @@ import {errorHandler} from './errorhandler';
 import {Routes} from 'react-router-dom';
 import {configureStore} from '@reduxjs/toolkit'
 import './style.css';
-import { webDarkTheme } from '@fluentui/react-theme';
+import { webLightTheme } from '@fluentui/react-theme';
 import { FluentProvider } from '@fluentui/react-components';
 
 initializeIcons();
@@ -51,7 +51,7 @@ function App(): React.ReactElement {
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
-				<FluentProvider theme={webDarkTheme}>
+				<FluentProvider theme={webLightTheme}>
 					<Provider store={store}>
 						<Initializer>
 							<MemoryRouter>

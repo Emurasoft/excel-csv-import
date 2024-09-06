@@ -9,7 +9,7 @@ export function BottomBar(): React.ReactElement {
 			className={"centerContent fullWidth"}
 			style={{marginTop: '30px'}}
 		>
-			<Text variant='medium'>
+			<Text size={400}>
 				<RouterLink
 					to={`/excel-csv-import/?page=${Pages.about}`}
 					className="removeUnderline"

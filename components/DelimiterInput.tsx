@@ -1,8 +1,13 @@
 import * as React from 'react';
-import {Dropdown, IDropdownOption, TextField, ResponsiveMode} from '@fluentui/react-components';
+import {Dropdown, Option, Textarea} from '@fluentui/react-components';
 import {useState} from 'react';
 
-export const enum DropdownOptionKey {comma, space, tab, other}
+export const enum DropdownOption {
+	comma = 'Comma',
+	space = 'Space',
+	tab = 'Tab',
+	other = 'Other',
+}
 
 interface Props {
 	showLengthError: boolean;
@@ -11,77 +16,61 @@ interface Props {
 }
 
 const stringToDropdownKey = {
-	'\u002c': DropdownOptionKey.comma,
-	'\u0020': DropdownOptionKey.space,
-	'\u0009': DropdownOptionKey.tab,
+	'\u002c': DropdownOption.comma,
+	'\u0020': DropdownOption.space,
+	'\u0009': DropdownOption.tab,
 };
 
 const dropdownToString = {
-	[DropdownOptionKey.comma]: '\u002c',
-	[DropdownOptionKey.space]: '\u0020',
-	[DropdownOptionKey.tab]: '\u0009',
-	[DropdownOptionKey.other]: '',
+	[DropdownOption.comma]: '\u002c',
+	[DropdownOption.space]: '\u0020',
+	[DropdownOption.tab]: '\u0009',
+	[DropdownOption.other]: '',
 };
 
 export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactElement {
-	const dropdownOptions: IDropdownOption[] = [
-		{
-			key: DropdownOptionKey.comma,
-			text: 'Comma (U+002C)',
-		},
-		{
-			key: DropdownOptionKey.space,
-			text: 'Space (U+0020)',
-		},
-		{
-			key: DropdownOptionKey.tab,
-			text: 'Tab (U+0009)',
-		},
-		{
-			key: DropdownOptionKey.other,
-			text: 'Other',
-		},
-	];
-
 	const [otherSelected, setOtherSelected] = useState(false);
 
-	const selectedKey = (): DropdownOptionKey => {
+	const selectedKey = (): DropdownOption => {
 		if (!otherSelected && value in stringToDropdownKey) {
 			return stringToDropdownKey[value];
 		}
 
-		return DropdownOptionKey.other;
+		return DropdownOption.other;
 	}
 
 	const customInput = (
 		<div className="smallDivider">
-			<TextField
+			<Textarea
 				className="monospace"
 				value={value}
-				onChange={(_, v) => onChange(v)}
-				description={description(value)}
-				onGetErrorMessage={
-					(v) => showLengthError && v.length > 1 ? 'Delimiter length must be 1' : ''
-				}
-				deferredValidationTime={1}
-				placeholder={'Enter custom delimiter'}
+				onChange={(_, {value}) => onChange(value)}
+				placeholder="Enter custom delimiter"
 				spellCheck={false}
 			/>
+			<p>{description(value)}</p>
+			{
+				showLengthError && value.length > 1 
+				&& <p className='redText'>Delimiter length must be 1</p>
+			}
 		</div>
 	);
 
 	return (
 		<>
 			<Dropdown
-				label={'Delimiter'}
-				options={dropdownOptions}
-				responsiveMode={ResponsiveMode.large}
-				selectedKey={selectedKey()}
-				onChange={(_, option: IDropdownOption) => {
-					setOtherSelected(option.key === DropdownOptionKey.other);
-					onChange(dropdownToString[option.key]);
+				placeholder="Delimiter"
+				value={selectedKey()}
+				onOptionSelect={(_, {optionValue}) => {
+					setOtherSelected(optionValue === DropdownOption.other);
+					onChange(dropdownToString[optionValue]);
 				}}
-			/>
+			>
+				<Option>{DropdownOption.comma}</Option>
+				<Option>{DropdownOption.space}</Option>
+				<Option>{DropdownOption.tab}</Option>
+				<Option>{DropdownOption.other}</Option>
+			</Dropdown>
 			{
 				otherSelected || !['\u002c', '\u0020', '\u0009'].includes(value)
 					? customInput
