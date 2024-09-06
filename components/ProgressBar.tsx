@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, ProgressIndicator, Text} from '@fluentui/react-components';
+import {Link, ProgressBar, Text} from '@fluentui/react-components';
 import {AppState} from '../state';
 
 interface Props {
@@ -8,12 +8,12 @@ interface Props {
 	progress: AppState['progress'];
 }
 
-export function ProgressBar({onClick, progress}: Props): React.ReactElement {
+export function ProgressBarWithStopButton({onClick, progress}: Props): React.ReactElement {
 	let stopText: React.ReactElement;
 	if (progress.aborting) {
-		stopText = <Text variant='small'>Stopping</Text>;
+		stopText = <Text size={300}>Stopping</Text>;
 	} else {
-		stopText = <Text variant='small'><Link onClick={onClick}>Stop</Link></Text>
+		stopText = <Text size={300}><Link onClick={onClick}>Stop</Link></Text>
 	}
 
 	return (
@@ -21,10 +21,10 @@ export function ProgressBar({onClick, progress}: Props): React.ReactElement {
 			{
 				progress.show
 					? <>
-						<Text variant='small'>{stopText}</Text>
-						<ProgressIndicator percentComplete={progress.percent} />
+						<Text size={300}>{stopText}</Text>
+						<ProgressBar value={progress.percent} />
 					</>
-					: <Text variant='small'>&nbsp;</Text>
+					: <Text size={300}>&nbsp;</Text>
 			}
 		</div>
 	);

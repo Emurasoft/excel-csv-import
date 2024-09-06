@@ -12,7 +12,7 @@ import {
 import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressBar} from './ProgressBar';
+import {ProgressBarWithStopButton} from './ProgressBar';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
@@ -120,7 +120,7 @@ export default function Export(): React.ReactElement {
 				</Button>
 			</Tooltip>
 			<br />
-			<ProgressBar
+			<ProgressBarWithStopButton
 				onClick={() => dispatch(abort())}
 				progress={progress}
 			/>
