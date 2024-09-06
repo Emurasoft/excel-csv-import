@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {initializeIcons} from '@fluentui/react/lib/Icons';
 import queryString from 'query-string';
 import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
@@ -15,8 +14,6 @@ import {configureStore} from '@reduxjs/toolkit'
 import './style.css';
 import { webLightTheme } from '@fluentui/react-theme';
 import { FluentProvider } from '@fluentui/react-components';
-
-initializeIcons();
 
 const Import = React.lazy(
 	() => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./components/Import'),

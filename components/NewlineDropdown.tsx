@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, Option} from '@fluentui/react-components';
+import {Dropdown, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {NewlineSequence} from '../parser';
 
 interface Props {
@@ -19,20 +19,24 @@ export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React
 	}
 
 	return (
-		<Dropdown
-			value={value}
-			onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
-			placeholder='Newline sequence'
-		>
-			<Option value={NewlineSequence.CRLF}>
-				CRLF
-			</Option>
-			<Option value={NewlineSequence.CR}>
-				CR
-			</Option>
-			<Option value={NewlineSequence.LF}>
-				LF
-			</Option>
-		</Dropdown>
+		<Label>
+			<Subtitle1>Newline sequence</Subtitle1>
+			<br />
+			<Dropdown
+				value={value}
+				onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
+				placeholder='Newline sequence'
+			>
+				<Option value={NewlineSequence.CRLF}>
+					CRLF
+				</Option>
+				<Option value={NewlineSequence.CR}>
+					CR
+				</Option>
+				<Option value={NewlineSequence.LF}>
+					LF
+				</Option>
+			</Dropdown>
+		</Label>
 	);
 }

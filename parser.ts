@@ -4,8 +4,8 @@ import {Shape} from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {
-	file = 'file',
-	text = 'text',
+	file = 'File',
+	text = 'Text',
 }
 
 export interface Source {

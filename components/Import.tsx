@@ -61,11 +61,13 @@ export default function Import(): React.ReactElement {
 					/>
 					: null
 			}
+			<br />
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}
 				showLengthError={true}
 			/>
+			<br />
 			<br />
 			<NewlineDropdown
 				value={newline}

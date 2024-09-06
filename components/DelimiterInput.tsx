@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, Input, Option, Textarea} from '@fluentui/react-components';
+import {Dropdown, Input, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {useState} from 'react';
 
 export const enum DropdownOption {
@@ -58,24 +58,28 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 
 	return (
 		<>
-			<Dropdown
-				placeholder="Delimiter"
-				value={selectedKey()}
-				onOptionSelect={(_, {optionValue}) => {
-					setOtherSelected(optionValue === DropdownOption.other);
-					onChange(dropdownToString[optionValue]);
-				}}
-			>
-				<Option>{DropdownOption.comma}</Option>
-				<Option>{DropdownOption.space}</Option>
-				<Option>{DropdownOption.tab}</Option>
-				<Option>{DropdownOption.other}</Option>
-			</Dropdown>
-			{
-				otherSelected || !['\u002c', '\u0020', '\u0009'].includes(value)
-					? customInput
-					: null
-			}
+			<Label> 
+				<Subtitle1>Delimiter</Subtitle1>
+				<br />
+				<Dropdown
+					placeholder="Delimiter"
+					value={selectedKey()}
+					onOptionSelect={(_, {optionValue}) => {
+						setOtherSelected(optionValue === DropdownOption.other);
+						onChange(dropdownToString[optionValue]);
+					}}
+				>
+					<Option>{DropdownOption.comma}</Option>
+					<Option>{DropdownOption.space}</Option>
+					<Option>{DropdownOption.tab}</Option>
+					<Option>{DropdownOption.other}</Option>
+				</Dropdown>
+				{
+					otherSelected || !['\u002c', '\u0020', '\u0009'].includes(value)
+						? customInput
+						: null
+				}
+			</Label>
 		</>
 	);
 }

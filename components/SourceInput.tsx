@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
-import {Dropdown, Option, Textarea} from '@fluentui/react-components';
+import {Dropdown, Label, Option, Subtitle1, Textarea} from '@fluentui/react-components';
 
 interface Props {
 	value: Source;
@@ -51,25 +51,24 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 
 	return (
 		<>
-			<Dropdown
-				value={value.inputType}
-				onOptionSelect={
-					(_, {optionValue}) => onChange(
+			<Label>
+				<Subtitle1>Import type</Subtitle1>
+				<br />
+				<Dropdown
+					value={value.inputType}
+					onOptionSelect={(_, {optionValue}) => onChange(
 						{inputType: optionValue as InputType, file: null, text: ''},
-					)
-				}
-				placeholder='Import type'
-				id='SourceInput-Dropdown'
-			>
-				<Option
-					value={InputType.file}
+					)}
+					id='SourceInput-Dropdown'
 				>
-					File
-				</Option>
-				<Option>
-					Text input
-				</Option>
-			</Dropdown>
+					<Option>
+						File
+					</Option>
+					<Option>
+						Text input
+					</Option>
+				</Dropdown>
+			</Label>
 			<div className="smallDivider" />
 			{input}
 		</>

@@ -1,4 +1,4 @@
-import {Button, Text} from '@fluentui/react-components';
+import {Button, Text, Title1} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import { Question32Regular } from '@fluentui/react-icons';
@@ -31,7 +31,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 					justifyContent: 'space-between',
 				}}
 			>
-				<Text size={600}><strong>{text}</strong></Text>
+				<Title1><strong>{text}</strong></Title1>
 				<div className="smallIcon">
 					<Button
 						icon={<Question32Regular />}
