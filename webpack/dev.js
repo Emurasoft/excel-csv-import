@@ -9,10 +9,13 @@ module.exports = merge(common, {
 		compress: true,
 		port: 3000,
 		historyApiFallback: true,
-		https: {
-			key: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/localhost.key`),
-			cert: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/localhost.crt`),
-			ca: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/ca.crt`),
+		server: {
+			type: 'https',
+			options: {
+				key: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/localhost.key`),
+				cert: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/localhost.crt`),
+				ca: fs.readFileSync(`${os.homedir()}/.office-addin-dev-certs/ca.crt`),
+			},
 		},
 	},
 	output: {

@@ -55,6 +55,11 @@ export function _resize(a: string[][], maxLength: number): void {
 	}
 }
 
+// Creates matrix with the same size as input. Each string is initialized to '@'.
+function initializeMatrixSameSize(input: string[][]): string[][] {
+    return input.map(row => new Array(row.length).fill('@'));
+}
+
 export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]): void {
 	// New range values must have the same shape as range
 	const maxLength = _maxLength(chunk);
@@ -63,6 +68,7 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
 	if (chunk.length > 0 && maxLength > 0) {
 		const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
 		range.values = chunk;
+		range.numberFormat = initializeMatrixSameSize(chunk);
 		range.untrack();
 	}
 }
