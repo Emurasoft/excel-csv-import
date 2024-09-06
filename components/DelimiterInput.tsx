@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, Option, Textarea} from '@fluentui/react-components';
+import {Dropdown, Input, Option, Textarea} from '@fluentui/react-components';
 import {useState} from 'react';
 
 export const enum DropdownOption {
@@ -41,7 +41,7 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 
 	const customInput = (
 		<div className="smallDivider">
-			<Textarea
+			<Input
 				className="monospace"
 				value={value}
 				onChange={(_, {value}) => onChange(value)}
