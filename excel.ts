@@ -61,7 +61,6 @@ function initializeMatrixSameSize(input: string[][]): string[][] {
 		return [];
 	}
 
-	const numberFormatCode = '@';
 	return new Array(input.length).fill(new Array(input[0].length).fill('@'));
 }
 
