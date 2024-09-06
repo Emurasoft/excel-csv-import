@@ -29,7 +29,7 @@ export default function About(): React.ReactElement {
 				>
 					<img
 						style={{width: '150px'}}
-						src={'static/emeditor_logo.png'}
+						src={'static/logo-minified-margins.svg'}
 						alt={'EmEditor logo'}
 					/>
 				</a>
