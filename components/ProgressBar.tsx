@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Link, ProgressIndicator, Text} from '@fluentui/react';
-import style from './style.css';
 import {AppState} from '../state';
 
 interface Props {
@@ -18,7 +17,7 @@ export function ProgressBar({onClick, progress}: Props): React.ReactElement {
 	}
 
 	return (
-		<div className={style.smallDivider}>
+		<div className="smallDivider">
 			{
 				progress.show
 					? <>

@@ -14,7 +14,6 @@ import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
 import {ProgressBar} from './ProgressBar';
-import style from './style.css';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
@@ -136,7 +135,7 @@ export default function Export(): React.ReactElement {
 					? <TextField
 						value={outputText} readOnly
 						label={'Export result'}
-						className={style.monospace}
+						className="monospace"
 						rows={15} multiline
 						spellCheck={false}
 						wrap='off'
