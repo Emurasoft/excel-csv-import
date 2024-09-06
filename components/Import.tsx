@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react-components';
+import {Button, Tooltip} from '@fluentui/react-components';
 import {InputType, NewlineSequence, Source} from '../parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
@@ -73,19 +73,20 @@ export default function Import(): React.ReactElement {
 				showAutoDetect={true}
 			/>
 			<br />
-			<TooltipHost
-				styles={{root: {display: 'inline-block'}} /* Resize to fit button */}
+			<Tooltip
 				content={buttonTooltipContent}
-				delay={TooltipDelay.zero}
+				relationship='label'
 			>
-				<PrimaryButton
+				<Button
 					disabled={buttonTooltipContent !== ''}
 					onClick={
 						async () => dispatch(importCSV({source, newline, delimiter, encoding}))
 					}
-					text={'Import CSV'}
-				/>
-			</TooltipHost>
+					appearance='primary'
+				>
+					Import CSV
+				</Button>
+			</Tooltip>
 			<br />
 			<ProgressBar
 				onClick={() => dispatch(abort())}

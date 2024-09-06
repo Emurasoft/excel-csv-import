@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, IDropdownOption, ResponsiveMode} from '@fluentui/react-components';
+import {Dropdown, Option} from '@fluentui/react-components';
 import {NewlineSequence} from '../parser';
 
 interface Props {
@@ -8,41 +8,31 @@ interface Props {
 	onChange: (value: NewlineSequence) => void;
 }
 
-const autoDetectOption: IDropdownOption = {
-	key: NewlineSequence.AutoDetect,
-	text: 'Auto-detect',
-};
-
-const newlineSequeneceMenu = [
-	{
-		key: NewlineSequence.CRLF,
-		text: 'CRLF',
-	},
-	{
-		key: NewlineSequence.CR,
-		text: 'CR',
-	},
-	{
-		key: NewlineSequence.LF,
-		text: 'LF',
-	},
-];
+const newlineSequeneceMenu = [NewlineSequence.CRLF, NewlineSequence.CR, NewlineSequence.LF];
 
 export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
-	let options: IDropdownOption[];
+	let options: string[];
 	if (showAutoDetect) {
-		options = [autoDetectOption, ...newlineSequeneceMenu];
+		options = ['Auto-detect', ...newlineSequeneceMenu];
 	} else {
 		options = newlineSequeneceMenu;
 	}
 
 	return (
 		<Dropdown
-			label={'Newline sequence'}
-			responsiveMode={ResponsiveMode.large}
-			selectedKey={value}
-			options={options}
-			onChange={(_, option) => onChange(option.key as NewlineSequence)}
-		/>
+			value={value}
+			onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
+			placeholder='Newline sequence'
+		>
+			<Option value={NewlineSequence.CRLF}>
+				CRLF
+			</Option>
+			<Option value={NewlineSequence.CR}>
+				CR
+			</Option>
+			<Option value={NewlineSequence.LF}>
+				LF
+			</Option>
+		</Dropdown>
 	);
 }
