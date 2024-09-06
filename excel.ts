@@ -57,7 +57,12 @@ export function _resize(a: string[][], maxLength: number): void {
 
 // Creates matrix with the same size as input. Each string is initialized to '@'.
 function initializeMatrixSameSize(input: string[][]): string[][] {
-    return input.map(row => new Array(row.length).fill('@'));
+	if (input.length === 0) {
+		return [];
+	}
+
+	const numberFormatCode = '@';
+	return new Array(input.length).fill(new Array(input[0].length).fill('@'));
 }
 
 export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]): void {
