@@ -8,25 +8,22 @@ interface Props {
 	onChange: (value: NewlineSequence) => void;
 }
 
-const newlineSequeneceMenu = [NewlineSequence.CRLF, NewlineSequence.CR, NewlineSequence.LF];
-
 export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
-	let options: string[];
-	if (showAutoDetect) {
-		options = ['Auto-detect', ...newlineSequeneceMenu];
-	} else {
-		options = newlineSequeneceMenu;
-	}
-
 	return (
 		<Label>
 			<Subtitle1>Newline sequence</Subtitle1>
 			<br />
 			<Dropdown
 				value={value}
+				selectedOptions={[value]}
 				onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
-				placeholder='Newline sequence'
 			>
+				{
+					showAutoDetect
+					&& <Option value={NewlineSequence.AutoDetect}>
+						Auto-detect
+					</Option>
+				}
 				<Option value={NewlineSequence.CRLF}>
 					CRLF
 				</Option>

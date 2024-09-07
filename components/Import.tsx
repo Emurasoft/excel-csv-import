@@ -28,7 +28,7 @@ export default function Import(): React.ReactElement {
 	);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
-	const [encoding, setEncoding] = useLocalStorage('encoding', '');
+	const [encoding, setEncoding] = useLocalStorage('encoding', 'Auto-detect');
 
 	let buttonTooltipContent: string;
 	if (source.inputType == InputType.file && source.file == null) {

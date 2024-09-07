@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, Label, Option, Subtitle1, Title3} from '@fluentui/react-components';
+import {Dropdown, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {EncodingDropdownOptions} from './EncodingDropdownOptions';
 
 interface Props {
@@ -22,11 +22,10 @@ export function EncodingDropdown({showAutoDetect, value, onChange}: Props): Reac
 				<Subtitle1>Encoding</Subtitle1>
 				<br />
 				<Dropdown
-					placeholder='Encoding'
 					value={value}
 					onOptionSelect={(_, {optionValue}) => onChange(optionValue)}
 				>
-					{dropdownOptions.map((v) => <Option>{v}</Option>)}
+					{dropdownOptions.map((v) => <Option key={v}>{v}</Option>)}
 				</Dropdown>
 			</Label>
 			<br/>
