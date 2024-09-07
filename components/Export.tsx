@@ -90,11 +90,14 @@ export default function Export(): React.ReactElement {
 			<br /><br />
 			{
 				exportType === ExportType.file
-					? <EncodingDropdown
-						value={encoding}
-						onChange={setEncoding}
-						showAutoDetect={false}
-					/>
+					? <>
+						<EncodingDropdown
+							value={encoding}
+							onChange={setEncoding}
+							showAutoDetect={false}
+						/>
+						<br /><br />
+					</>
 					: null
 			}
 			<DelimiterInput
@@ -135,7 +138,7 @@ export default function Export(): React.ReactElement {
 					? <Textarea
 						value={outputText} readOnly
 						placeholder='Export result'
-						className="monospace"
+						className="monospace fullWidth"
 						rows={15}
 						spellCheck={false}
 						wrap='off'

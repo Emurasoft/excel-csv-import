@@ -17,18 +17,15 @@ export function EncodingDropdown({showAutoDetect, value, onChange}: Props): Reac
 	}
 
 	return (
-		<>
-			<Label>
-				<Subtitle1>Encoding</Subtitle1>
-				<br />
-				<Dropdown
-					value={value}
-					onOptionSelect={(_, {optionValue}) => onChange(optionValue)}
-				>
-					{dropdownOptions.map((v) => <Option key={v}>{v}</Option>)}
-				</Dropdown>
-			</Label>
-			<br/>
-		</>
+		<Label>
+			<Subtitle1>Encoding</Subtitle1>
+			<br />
+			<Dropdown
+				value={value}
+				onOptionSelect={(_, {optionValue}) => onChange(optionValue)}
+			>
+				{dropdownOptions.map((v) => <Option key={v}>{v}</Option>)}
+			</Dropdown>
+		</Label>
 	);
 }

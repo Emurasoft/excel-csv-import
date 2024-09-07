@@ -25,7 +25,7 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 function textInput(value: string, onChange: (value: string) => void): React.ReactElement {
 	return (
 		<Textarea
-			className="monospace"
+			className="monospace fullWidth"
 			rows={10}
 			spellCheck={false}
 			wrap='off'

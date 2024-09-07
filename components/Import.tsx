@@ -61,7 +61,7 @@ export default function Import(): React.ReactElement {
 					/>
 					: null
 			}
-			<br />
+			<br/><br />
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}
