@@ -9,22 +9,21 @@ interface Props {
 }
 
 export function EncodingDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
-	let dropdownOptions: string[];
-	if (showAutoDetect) {
-		dropdownOptions = ['Auto-detect', ...EncodingDropdownOptions];
-	} else {
-		dropdownOptions = EncodingDropdownOptions;
-	}
-
 	return (
 		<Label>
 			<Subtitle1>Encoding</Subtitle1>
 			<br />
 			<Dropdown
-				value={value}
+				value={value === '' ? 'Auto-detect' : value}
 				onOptionSelect={(_, {optionValue}) => onChange(optionValue)}
 			>
-				{dropdownOptions.map((v) => <Option key={v}>{v}</Option>)}
+				{
+					showAutoDetect
+					&& <Option value=''>
+						Auto-detect
+					</Option>
+				}
+				{EncodingDropdownOptions.map((v) => <Option key={v}>{v}</Option>)}
 			</Dropdown>
 		</Label>
 	);

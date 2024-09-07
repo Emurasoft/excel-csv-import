@@ -48,7 +48,7 @@ describe('Import', () => {
 		await userEvent.keyboard('csv text');
 
 		await userEvent.click(wrapper.getByLabelText('Delimiter'));
-		await userEvent.click(wrapper.getByText('Tab (U+0009)'));
+		await userEvent.click(wrapper.getByText('Tab'));
 
 		await userEvent.click(wrapper.getByLabelText('Newline sequence'));
 		await userEvent.click(wrapper.getByText('LF'));
