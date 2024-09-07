@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, Input, Label, Option, Subtitle1} from '@fluentui/react-components';
+import {Body1, Dropdown, Input, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {useState} from 'react';
 
 export const enum DropdownOption {
@@ -48,10 +48,11 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 				placeholder="Enter custom delimiter"
 				spellCheck={false}
 			/>
-			<p>{description(value)}</p>
+			<br />
+			<Body1>{description(value)}</Body1>
 			{
 				showLengthError && value.length > 1 
-				&& <p className='redText'>Delimiter length must be 1</p>
+				&& <Body1 className='redText'>Delimiter length must be 1</Body1>
 			}
 		</div>
 	);

@@ -67,8 +67,7 @@ export default function Import(): React.ReactElement {
 				onChange={setDelimiter}
 				showLengthError={true}
 			/>
-			<br />
-			<br />
+			<br /><br />
 			<NewlineDropdown
 				value={newline}
 				onChange={setNewline}

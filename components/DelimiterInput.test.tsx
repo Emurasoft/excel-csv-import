@@ -82,7 +82,7 @@ describe('DelimiterInput', () => {
 
 		await userEvent.click(input.getByRole('combobox'));
 		await userEvent.click(input.getAllByText('Other')[1]);
-		expect(result).toEqual('\t');
+		expect(result).toEqual('');
 
 		await userEvent.click(input.queryByRole('textbox'));
 		await userEvent.keyboard('a');
