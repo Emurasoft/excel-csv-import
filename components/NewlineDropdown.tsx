@@ -8,30 +8,42 @@ interface Props {
 	onChange: (value: NewlineSequence) => void;
 }
 
+function getLabel(n: NewlineSequence): string {
+	switch (n) {
+	case NewlineSequence.AutoDetect:
+		return 'Auto-detect';
+	case NewlineSequence.CRLF:
+		return 'CRLF';
+	case NewlineSequence.CR:
+		return 'CR';
+	case NewlineSequence.LF:
+		return 'LF';
+	}
+}
+
 export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
 	return (
 		<Label>
 			<Subtitle1>Newline sequence</Subtitle1>
 			<br />
 			<Dropdown
-				value={value}
-				selectedOptions={[value]}
+				value={getLabel(value)}
 				onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
 			>
 				{
 					showAutoDetect
 					&& <Option value={NewlineSequence.AutoDetect}>
-						Auto-detect
+						{getLabel(NewlineSequence.AutoDetect)}
 					</Option>
 				}
 				<Option value={NewlineSequence.CRLF}>
-					CRLF
+					{getLabel(NewlineSequence.CRLF)}
 				</Option>
 				<Option value={NewlineSequence.CR}>
-					CR
+					{getLabel(NewlineSequence.CR)}
 				</Option>
 				<Option value={NewlineSequence.LF}>
-					LF
+					{getLabel(NewlineSequence.LF)}
 				</Option>
 			</Dropdown>
 		</Label>
