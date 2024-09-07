@@ -74,7 +74,7 @@ export default function Import(): React.ReactElement {
 				onChange={setNewline}
 				showAutoDetect={true}
 			/>
-			<br />
+			<br /><br />
 			<Tooltip
 				content={buttonTooltipContent}
 				relationship='label'

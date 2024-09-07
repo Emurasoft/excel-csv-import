@@ -87,7 +87,7 @@ export default function Export(): React.ReactElement {
 					<Option>{ExportType.text}</Option>
 				</Dropdown>
 			</Label>
-			<br />
+			<br /><br />
 			{
 				exportType === ExportType.file
 					? <EncodingDropdown
@@ -102,14 +102,13 @@ export default function Export(): React.ReactElement {
 				onChange={setDelimiter}
 				showLengthError={false}
 			/>
-			<br />
+			<br /><br />
 			<NewlineDropdown
 				value={newline}
 				onChange={setNewline}
 				showAutoDetect={false}
 			/>
-			<br />
-			<br />
+			<br /><br />
 			<Tooltip
 				content={
 					initialized
