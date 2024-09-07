@@ -14,6 +14,7 @@ import {configureStore} from '@reduxjs/toolkit'
 import './style.css';
 import { webLightTheme } from '@fluentui/react-theme';
 import { FluentProvider } from '@fluentui/react-components';
+import { createRoot } from 'react-dom/client';
 
 const Import = React.lazy(
 	() => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./components/Import'),
@@ -82,7 +83,4 @@ function ParamRouter() {
 
 // Cannot update to createRoot as we must support IE 11 for now
 // eslint-disable-next-line react/no-deprecated
-ReactDOM.render(
-	<App />,
-	document.getElementById('root'),
-);
+createRoot(document.getElementById('root')).render(<App />);
