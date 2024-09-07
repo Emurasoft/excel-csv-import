@@ -23,7 +23,7 @@ describe('DelimiterInput', () => {
 
 		await userEvent.click(input.getByRole('combobox'));
 
-		const commaElements = input.getAllByText('Comma (U+002C)');
+		const commaElements = input.getAllByText('Comma');
 		// Select item in menu
 		await userEvent.click(commaElements[1]);
 		
@@ -35,7 +35,7 @@ describe('DelimiterInput', () => {
 		expect(input.queryByRole('textbox')).not.toBeNull();
 
 		await userEvent.click(input.getByRole('combobox'));
-		await userEvent.click(input.getByText('Comma (U+002C)'));
+		await userEvent.click(input.getByText('Comma'));
 		input.rerender(
 			<DelimiterInput
 				value={','}
@@ -43,7 +43,7 @@ describe('DelimiterInput', () => {
 				showLengthError={true}
 			/>
 		);
-		expect(input.queryByText('Comma (U+002C)')).not.toBeNull();
+		expect(input.queryAllByText('Comma').length).toBeGreaterThanOrEqual(1);
 
 		// Show custom input regardless of state if value is not a dropdown key
 		// (Happens if value is loaded from storage)
@@ -69,15 +69,15 @@ describe('DelimiterInput', () => {
 		);
 		
 		await userEvent.click(input.getByRole('combobox'));
-		await userEvent.click(input.getByText('Comma (U+002C)'));
+		await userEvent.click(input.getByText('Comma'));
 		expect(result).toEqual(',');
 
 		await userEvent.click(input.getByRole('combobox'));
-		await userEvent.click(input.getByText('Space (U+0020)'));
+		await userEvent.click(input.getByText('Space'));
 		expect(result).toEqual(' ');
 
 		await userEvent.click(input.getByRole('combobox'));
-		await userEvent.click(input.getByText('Tab (U+0009)'));
+		await userEvent.click(input.getByText('Tab'));
 		expect(result).toEqual('\t');
 
 		await userEvent.click(input.getByRole('combobox'));
