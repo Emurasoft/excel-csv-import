@@ -1,4 +1,4 @@
-import {Button, Text, Title1, Tooltip} from '@fluentui/react-components';
+import {Button, Link, Text, Title1, Tooltip} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import { Question32Regular } from '@fluentui/react-icons';
@@ -34,13 +34,18 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				<Title1><strong>{text}</strong></Title1>
 				<div className="smallIcon">
 					<Tooltip content="Help page" relationship='label'>
-						<Button
-							icon={<Question32Regular />}
-							style={{marginRight: mac ? '30px' : '4px'}}
+						<Link
+							as='a'
 							href={helpLink}
 							target='_blank'
 							rel='noopener noreferrer'
-						/>
+						>
+							<Button
+								icon={<Question32Regular />}
+								style={{marginRight: mac ? '30px' : '4px'}}
+								appearance='subtle'
+							/>
+						</Link>
 					</Tooltip>
 				</div>
 			</div>
