@@ -5,7 +5,7 @@ import * as Papa from 'papaparse';
 
 export const enum InputType {
 	file = 'File',
-	text = 'Text',
+	text = 'Text input',
 }
 
 export interface Source {

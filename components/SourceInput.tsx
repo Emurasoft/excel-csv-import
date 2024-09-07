@@ -62,10 +62,10 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 					id='SourceInput-Dropdown'
 				>
 					<Option>
-						File
+						{InputType.file}
 					</Option>
 					<Option>
-						Text input
+						{InputType.text}
 					</Option>
 				</Dropdown>
 			</Label>
