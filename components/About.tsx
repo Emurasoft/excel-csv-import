@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, Text} from '@fluentui/react-components';
+import {Body1, Link, Text} from '@fluentui/react-components';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
@@ -34,25 +34,25 @@ export default function About(): React.ReactElement {
 					/>
 				</a>
 			</div>
-			<Text>
+			<Body1>
 				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'https://www.emeditor.com/'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
-			</Text>
+			</Body1>
 			<br /><br />
 
-			<Text>
+			<Body1>
 				<strong>Help page</strong><br />
 				<Link href='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md' target='_blank' rel='noopener noreferrer'>
 					View the help page here.
 				</Link>
-			</Text>
+			</Body1>
 			<br /><br />
 
-			<Text>
+			<Body1>
 				<strong>Report bugs/send feedback</strong><br />
 				Bug reports can be submitted via the <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>issues page of our GitHub repo</Link> or the <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>contact form</Link>.<br />
-			</Text>
+			</Body1>
 			<br /><br />
-			<Text>
+			<Body1>
 				© 2023 Emurasoft Inc.
 				<br />
 				<RouterLink
@@ -62,7 +62,7 @@ export default function About(): React.ReactElement {
 				>
 					<Link>License information</Link>
 				</RouterLink>
-			</Text>
+			</Body1>
 		</div>
 	);
 }
