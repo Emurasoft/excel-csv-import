@@ -1,5 +1,4 @@
 /* eslint-env node */
-import {ResponsiveMode, initializeIcons, setIconOptions, setResponsiveMode} from '@fluentui/react';
 import 'ignore-styles';
 import {configureLoadStyles} from '@microsoft/load-themed-styles';
 
@@ -18,11 +17,5 @@ import {configureLoadStyles} from '@microsoft/load-themed-styles';
 
 // @ts-expect-error Simple mock
 window.requestAnimationFrame = (cb) => cb();
-
-setIconOptions({disableWarnings: true});
-
-initializeIcons();
-
-setResponsiveMode(ResponsiveMode.large);
 
 configureLoadStyles(() => {});

@@ -1,6 +1,7 @@
-import {IconButton, PrimaryButton, Text} from '@fluentui/react';
+import {Button, Link, Text, Title1, Tooltip} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
+import { Question32Regular } from '@fluentui/react-icons';
 
 interface Props {
 	text: string;
@@ -30,31 +31,37 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 					justifyContent: 'space-between',
 				}}
 			>
-				<Text variant='xLarge'><strong>{text}</strong></Text>
+				<Title1><strong>{text}</strong></Title1>
 				<div className="smallIcon">
-					<IconButton
-						// Mac platform puts a big button in the top right corner
-						style={{marginRight: mac ? '30px' : '4px'}}
-						iconProps={{iconName: 'Help'}}
-						title={'Help page'}
-						ariaLabel={'Help page'}
-						href={helpLink}
-						target='_blank'
-						rel='noopener noreferrer'
-					/>
+					<Tooltip content="Help page" relationship='label'>
+						<Link
+							as='a'
+							href={helpLink}
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							<Button
+								icon={<Question32Regular />}
+								style={{marginRight: mac ? '30px' : '4px'}}
+								appearance='subtle'
+							/>
+						</Link>
+					</Tooltip>
 				</div>
 			</div>
+			<br />
 			{
 				firstVisit
 					? <>
-						<Text variant='mediumPlus'>
+						<Text size={500}>
 							CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
 						</Text>
 						<br /><br />
-						<PrimaryButton
-							text={'Continue'}
+						<Button
 							onClick={() => setFirstVisit(false)}
-						/>
+						>
+							Continue
+						</Button>
 					</>
 					: children
 			}

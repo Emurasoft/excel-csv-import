@@ -3,17 +3,18 @@ import {useState} from 'react';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {
+	Button,
 	Dropdown,
-	IDropdownOption,
-	PrimaryButton,
-	ResponsiveMode,
-	TextField,
-	TooltipHost,
-} from '@fluentui/react';
+	Label,
+	Option,
+	Subtitle1,
+	Textarea,
+	Tooltip,
+} from '@fluentui/react-components';
 import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressBar} from './ProgressBar';
+import {ProgressBarWithStopButton} from './ProgressBar';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
@@ -21,7 +22,10 @@ import {namespacedUseLocalStorage} from '../useLocalStorage';
 import {useAppSelector} from '../state';
 import {abort, exportCSV, useAppDispatch} from '../action';
 
-export const enum ExportType {file, text}
+export const enum ExportType {
+	file = 'File',
+	text = 'Textbox',
+}
 
 const useLocalStorage = namespacedUseLocalStorage('export');
 
@@ -37,17 +41,6 @@ export default function Export(): React.ReactElement {
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.CRLF);
 	const [encoding, setEncoding] = useLocalStorage('encoding', 'UTF-8');
 	const [outputText, setOutputText] = useState('');
-
-	const exportTypeOptions: IDropdownOption[] = [
-		{
-			key: ExportType.text,
-			text: 'Textbox',
-		},
-		{
-			key: ExportType.file,
-			text: 'File',
-		},
-	];
 
 	const buttonOnClick = async () => {
 		setOutputText('');
@@ -81,22 +74,30 @@ export default function Export(): React.ReactElement {
 			}
 			mac={platform === Office.PlatformType.Mac}
 		>
-			<Dropdown
-				label={'Export type'}
-				options={exportTypeOptions}
-				responsiveMode={ResponsiveMode.large}
-				selectedKey={exportType}
-				onChange={(_, option) => setExportType(option.key as ExportType)}
-				id={'exportTypeDropdown'}
-			/>
-			<br />
+			<Label>
+				<Subtitle1>Export type</Subtitle1>
+				<br />
+				<Dropdown
+					placeholder="Delimiter"
+					value={exportType}
+					onOptionSelect={(_, {optionValue}) => setExportType(optionValue as ExportType)}
+					id={'exportTypeDropdown'}
+				>
+					<Option>{ExportType.file}</Option>
+					<Option>{ExportType.text}</Option>
+				</Dropdown>
+			</Label>
+			<br /><br />
 			{
 				exportType === ExportType.file
-					? <EncodingDropdown
-						value={encoding}
-						onChange={setEncoding}
-						showAutoDetect={false}
-					/>
+					? <>
+						<EncodingDropdown
+							value={encoding}
+							onChange={setEncoding}
+							showAutoDetect={false}
+						/>
+						<br /><br />
+					</>
 					: null
 			}
 			<DelimiterInput
@@ -104,39 +105,41 @@ export default function Export(): React.ReactElement {
 				onChange={setDelimiter}
 				showLengthError={false}
 			/>
-			<br />
+			<br /><br />
 			<NewlineDropdown
 				value={newline}
 				onChange={setNewline}
 				showAutoDetect={false}
 			/>
-			<br />
-			<TooltipHost
-				styles={{root: {display: 'inline-block'}}}
+			<br /><br />
+			<Tooltip
 				content={
 					initialized
 						? ''
 						: 'Excel API is not initialized'
 				}
+				relationship='label'
 			>
-				<PrimaryButton
+				<Button
 					onClick={buttonOnClick}
 					disabled={!initialized}
-					text={'Export to CSV'}
-				/>
-			</TooltipHost>
+					appearance='primary'
+				>
+					Export to CSV
+				</Button>
+			</Tooltip>
 			<br />
-			<ProgressBar
+			<ProgressBarWithStopButton
 				onClick={() => dispatch(abort())}
 				progress={progress}
 			/>
 			{
 				exportType == ExportType.text
-					? <TextField
+					? <Textarea
 						value={outputText} readOnly
-						label={'Export result'}
-						className="monospace"
-						rows={15} multiline
+						placeholder='Export result'
+						className="monospace fullWidth"
+						rows={15}
 						spellCheck={false}
 						wrap='off'
 					/>

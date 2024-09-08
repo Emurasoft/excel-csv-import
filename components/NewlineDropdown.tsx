@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dropdown, IDropdownOption, ResponsiveMode} from '@fluentui/react';
+import {Dropdown, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {NewlineSequence} from '../parser';
 
 interface Props {
@@ -8,41 +8,44 @@ interface Props {
 	onChange: (value: NewlineSequence) => void;
 }
 
-const autoDetectOption: IDropdownOption = {
-	key: NewlineSequence.AutoDetect,
-	text: 'Auto-detect',
-};
-
-const newlineSequeneceMenu = [
-	{
-		key: NewlineSequence.CRLF,
-		text: 'CRLF',
-	},
-	{
-		key: NewlineSequence.CR,
-		text: 'CR',
-	},
-	{
-		key: NewlineSequence.LF,
-		text: 'LF',
-	},
-];
+function getLabel(n: NewlineSequence): string {
+	switch (n) {
+	case NewlineSequence.AutoDetect:
+		return 'Auto-detect';
+	case NewlineSequence.CRLF:
+		return 'CRLF';
+	case NewlineSequence.CR:
+		return 'CR';
+	case NewlineSequence.LF:
+		return 'LF';
+	}
+}
 
 export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
-	let options: IDropdownOption[];
-	if (showAutoDetect) {
-		options = [autoDetectOption, ...newlineSequeneceMenu];
-	} else {
-		options = newlineSequeneceMenu;
-	}
-
 	return (
-		<Dropdown
-			label={'Newline sequence'}
-			responsiveMode={ResponsiveMode.large}
-			selectedKey={value}
-			options={options}
-			onChange={(_, option) => onChange(option.key as NewlineSequence)}
-		/>
+		<Label>
+			<Subtitle1>Newline sequence</Subtitle1>
+			<br />
+			<Dropdown
+				value={getLabel(value)}
+				onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
+			>
+				{
+					showAutoDetect
+					&& <Option value={NewlineSequence.AutoDetect}>
+						{getLabel(NewlineSequence.AutoDetect)}
+					</Option>
+				}
+				<Option value={NewlineSequence.CRLF}>
+					{getLabel(NewlineSequence.CRLF)}
+				</Option>
+				<Option value={NewlineSequence.CR}>
+					{getLabel(NewlineSequence.CR)}
+				</Option>
+				<Option value={NewlineSequence.LF}>
+					{getLabel(NewlineSequence.LF)}
+				</Option>
+			</Dropdown>
+		</Label>
 	);
 }

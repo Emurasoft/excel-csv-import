@@ -1,22 +1,11 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
-import {Dropdown, IDropdownOption, ResponsiveMode, TextField} from '@fluentui/react';
+import {Dropdown, Label, Option, Subtitle1, Textarea} from '@fluentui/react-components';
 
 interface Props {
 	value: Source;
 	onChange: (value: Source) => void;
 }
-
-const fileSourceMenu: IDropdownOption[] = [
-	{
-		key: InputType.file,
-		text: 'File',
-	},
-	{
-		key: InputType.text,
-		text: 'Text input',
-	},
-];
 
 function fileInput(onChange: (value: File) => void): React.ReactElement {
 	return (
@@ -35,12 +24,12 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 
 function textInput(value: string, onChange: (value: string) => void): React.ReactElement {
 	return (
-		<TextField
-			className="monospace"
-			multiline rows={10}
+		<Textarea
+			className="monospace fullWidth"
+			rows={10}
 			spellCheck={false}
 			wrap='off'
-			onChange={(_, text) => onChange(text)}
+			onChange={(_, {value}) => onChange(value)}
 			value={value}
 			id='SourceInput-TextInput'
 		/>
@@ -62,18 +51,24 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 
 	return (
 		<>
-			<Dropdown
-				label={'Import type'}
-				options={fileSourceMenu}
-				responsiveMode={ResponsiveMode.large}
-				selectedKey={value.inputType}
-				onChange={
-					(_, option) => onChange(
-						{inputType: option.key as InputType, file: null, text: ''},
-					)
-				}
-				id='SourceInput-Dropdown'
-			/>
+			<Label>
+				<Subtitle1>Import type</Subtitle1>
+				<br />
+				<Dropdown
+					value={value.inputType}
+					onOptionSelect={(_, {optionValue}) => onChange(
+						{inputType: optionValue as InputType, file: null, text: ''},
+					)}
+					id='SourceInput-Dropdown'
+				>
+					<Option>
+						{InputType.file}
+					</Option>
+					<Option>
+						{InputType.text}
+					</Option>
+				</Dropdown>
+			</Label>
 			<div className="smallDivider" />
 			{input}
 		</>

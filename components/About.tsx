@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, Text} from '@fluentui/react';
+import {Link, Text} from '@fluentui/react-components';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
@@ -9,7 +9,7 @@ export default function About(): React.ReactElement {
 		<div className="pageMargin">
 			<BackButton onClick={() => history.back()} />
 			<br />
-			<Text variant='xLarge'>
+			<Text size={600}>
 				<Link
 					href='https://github.com/Emurasoft/excel-csv-import'
 					target='_blank'

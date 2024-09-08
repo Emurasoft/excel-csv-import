@@ -46,7 +46,7 @@ describe('Export', () => {
 		const wrapper = render(<ExportWithContext store={store} />);
 
 		await userEvent.click(wrapper.getByLabelText('Delimiter'));
-		await userEvent.click(wrapper.getByText('Tab (U+0009)'));
+		await userEvent.click(wrapper.getByText('Tab'));
 
 		await userEvent.click(wrapper.getByLabelText('Newline sequence'));
 		await userEvent.click(wrapper.getByText('LF'));

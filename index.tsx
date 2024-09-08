@@ -1,6 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {initializeIcons} from '@fluentui/react/lib/Icons';
 import queryString from 'query-string';
 import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
@@ -13,8 +11,9 @@ import {errorHandler} from './errorhandler';
 import {Routes} from 'react-router-dom';
 import {configureStore} from '@reduxjs/toolkit'
 import './style.css';
-
-initializeIcons();
+import { webLightTheme } from '@fluentui/react-theme';
+import { FluentProvider } from '@fluentui/react-components';
+import { createRoot } from 'react-dom/client';
 
 const Import = React.lazy(
 	() => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./components/Import'),
@@ -49,15 +48,17 @@ function App(): React.ReactElement {
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
-				<Provider store={store}>
-					<Initializer>
-						<MemoryRouter>
-							<Routes>
-								<Route path='/' element={<ParamRouter />} />
-							</Routes>
-						</MemoryRouter>
-					</Initializer>
-				</Provider>
+				<FluentProvider theme={webLightTheme}>
+					<Provider store={store}>
+						<Initializer>
+							<MemoryRouter>
+								<Routes>
+									<Route path='/' element={<ParamRouter />} />
+								</Routes>
+							</MemoryRouter>
+						</Initializer>
+					</Provider>
+				</FluentProvider>
 			</React.Suspense>
 		</ErrorBoundary>
 	);
@@ -79,9 +80,4 @@ function ParamRouter() {
 	}
 }
 
-// Cannot update to createRoot as we must support IE 11 for now
-// eslint-disable-next-line react/no-deprecated
-ReactDOM.render(
-	<App />,
-	document.getElementById('root'),
-);
+createRoot(document.getElementById('root')).render(<App />);

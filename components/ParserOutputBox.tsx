@@ -1,4 +1,4 @@
-import {TextField} from '@fluentui/react';
+import {Textarea} from '@fluentui/react-components';
 import * as React from 'react';
 import {AppState, OutputType} from '../state';
 
@@ -10,20 +10,20 @@ export function ParserOutputBox({output}: Props): React.ReactElement {
 	switch (output.type) {
 	case OutputType.text:
 		return (
-			<TextField
+			<Textarea
 				className="monospace"
 				value={output.text}
-				rows={20} multiline
+				rows={20}
 				spellCheck={false}
 				readOnly
 			/>
 		);
 	case OutputType.error:
 		return (
-			<TextField
+			<Textarea
 				className="monospace redText"
 				value={output.error.toString() + '\n' + output.error.stack}
-				rows={20} multiline
+				rows={20}
 				spellCheck={false}
 				readOnly
 			/>

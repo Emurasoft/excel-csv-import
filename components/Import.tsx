@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {PrimaryButton, TooltipDelay, TooltipHost} from '@fluentui/react';
+import {Button, Tooltip} from '@fluentui/react-components';
 import {InputType, NewlineSequence, Source} from '../parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
 import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressBar} from './ProgressBar';
+import {ProgressBarWithStopButton} from './ProgressBar';
 import {BottomBar} from './BottomBar';
 import {ParserOutputBox} from './ParserOutputBox';
 import {Page} from './Page';
@@ -61,33 +61,35 @@ export default function Import(): React.ReactElement {
 					/>
 					: null
 			}
+			<br/><br />
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}
 				showLengthError={true}
 			/>
-			<br />
+			<br /><br />
 			<NewlineDropdown
 				value={newline}
 				onChange={setNewline}
 				showAutoDetect={true}
 			/>
-			<br />
-			<TooltipHost
-				styles={{root: {display: 'inline-block'}} /* Resize to fit button */}
+			<br /><br />
+			<Tooltip
 				content={buttonTooltipContent}
-				delay={TooltipDelay.zero}
+				relationship='label'
 			>
-				<PrimaryButton
+				<Button
 					disabled={buttonTooltipContent !== ''}
 					onClick={
 						async () => dispatch(importCSV({source, newline, delimiter, encoding}))
 					}
-					text={'Import CSV'}
-				/>
-			</TooltipHost>
+					appearance='primary'
+				>
+					Import CSV
+				</Button>
+			</Tooltip>
 			<br />
-			<ProgressBar
+			<ProgressBarWithStopButton
 				onClick={() => dispatch(abort())}
 				progress={progress}
 			/>

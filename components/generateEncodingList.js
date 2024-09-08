@@ -23,9 +23,9 @@ async function main() {
 	}
 	encodings.sort();
 
-	const dropdownOptions = [{key: '', text: 'Auto-detect'}];
+	const dropdownOptions = [];
 	for (const encoding of encodings) {
-		dropdownOptions.push({key: encoding, text: encoding});
+		dropdownOptions.push(encoding);
 	}
 
 	process.stdout.write(JSON.stringify(dropdownOptions, null, 4) + '\n');
