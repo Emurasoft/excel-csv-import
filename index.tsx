@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import queryString from 'query-string';
 import {Pages} from './Pages';
 import {ErrorBoundary} from './components/ErrorBoundary';
@@ -81,6 +80,4 @@ function ParamRouter() {
 	}
 }
 
-// Cannot update to createRoot as we must support IE 11 for now
-// eslint-disable-next-line react/no-deprecated
 createRoot(document.getElementById('root')).render(<App />);
