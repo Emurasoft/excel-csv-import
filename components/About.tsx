@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Body1, Link, Text} from '@fluentui/react-components';
+import {Body1, Link, Text, Title1} from '@fluentui/react-components';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
@@ -16,10 +16,9 @@ export default function About(): React.ReactElement {
 					href='https://github.com/Emurasoft/excel-csv-import'
 					target='_blank'
 					rel='noopener noreferrer'
-					style={{color: 'black'}}
 					title={'CSV Import+Export on GitHub'}
 				>
-					<strong>CSV Import+Export</strong>
+					<Title1>CSV Import+Export</Title1>
 				</Link>
 			</Text>
 			<br /><br />
