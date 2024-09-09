@@ -33,7 +33,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 					justifyContent: 'space-between',
 				}}
 			>
-				<Title1><strong>{text}</strong></Title1>
+				<Title1>{text}</Title1>
 				<Tooltip content="Help page" relationship='label'>
 					<Link
 						as='a'
