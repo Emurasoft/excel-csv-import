@@ -8,7 +8,7 @@ import { useStyles } from './styles';
 export default function LicenseInformation(): React.ReactElement {
 	const styles = useStyles();
 	return (
-		<div className="style.pageMargin">
+		<div className={styles.pageMargin}>
 			<BackButton onClick={() => history.back()}/>
 			<br/>
 			<Text size={600}>

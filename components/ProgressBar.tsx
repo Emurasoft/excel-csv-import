@@ -17,7 +17,7 @@ export function ProgressBarWithStopButton({onClick, progress}: Props): React.Rea
 	}
 
 	return (
-		<div className="smallDivider">
+		<>
 			{
 				progress.show
 					? <>
@@ -26,6 +26,6 @@ export function ProgressBarWithStopButton({onClick, progress}: Props): React.Rea
 					</>
 					: <Text size={300}>&nbsp;</Text>
 			}
-		</div>
+		</>
 	);
 }

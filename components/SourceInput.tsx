@@ -72,7 +72,6 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 					</Option>
 				</Dropdown>
 			</Label>
-			<div className="smallDivider" />
 			{input}
 		</>
 	);
