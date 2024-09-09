@@ -10,7 +10,6 @@ import {Parser} from './parser';
 import {errorHandler} from './errorhandler';
 import {Routes} from 'react-router-dom';
 import {configureStore} from '@reduxjs/toolkit'
-import './style.css';
 import { webLightTheme } from '@fluentui/react-theme';
 import { FluentProvider } from '@fluentui/react-components';
 import { createRoot } from 'react-dom/client';

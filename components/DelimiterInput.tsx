@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Body1, Dropdown, Input, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {useState} from 'react';
+import { useStyles } from './styles';
 
 export const enum DropdownOption {
 	comma = 'Comma',
@@ -30,6 +31,7 @@ const dropdownToString = {
 
 export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactElement {
 	const [otherSelected, setOtherSelected] = useState(false);
+	const styles = useStyles();
 
 	const selectedKey = (): DropdownOption => {
 		if (!otherSelected && value in stringToDropdownKey) {
@@ -40,9 +42,9 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 	}
 
 	const customInput = (
-		<div className="smallDivider">
+		<div>
 			<Input
-				className="monospace"
+				className={styles.monospace}
 				value={value}
 				onChange={(_, {value}) => onChange(value)}
 				placeholder="Enter custom delimiter"
@@ -52,7 +54,9 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 			<Body1>{description(value)}</Body1>
 			{
 				showLengthError && value.length > 1 
-				&& <Body1 className='redText'>Delimiter length must be 1</Body1>
+				&& <Body1 className={styles.redText}>
+					Delimiter length must be 1
+				</Body1>
 			}
 		</div>
 	);

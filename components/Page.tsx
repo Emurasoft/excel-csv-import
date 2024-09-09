@@ -2,6 +2,7 @@ import {Button, Link, Text, Title1, Tooltip} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import { Question32Regular } from '@fluentui/react-icons';
+import { useStyles } from './styles';
 
 interface Props {
 	text: string;
@@ -21,9 +22,10 @@ const useLocalStorage = namespacedUseLocalStorage('app');
 // use the add-in, or directing the user to help / configuration information.
 export function Page({text, helpLink, mac, children}: Props): React.ReactElement {
 	const [firstVisit, setFirstVisit] = useLocalStorage('firstVisit', true);
+	const styles = useStyles();
 
 	return (
-		<div className="pageMargin">
+		<div className={styles.pageMargin}>
 			<div
 				style={{
 					width: '100%',
@@ -32,22 +34,20 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				}}
 			>
 				<Title1><strong>{text}</strong></Title1>
-				<div className="smallIcon">
-					<Tooltip content="Help page" relationship='label'>
-						<Link
-							as='a'
-							href={helpLink}
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							<Button
-								icon={<Question32Regular />}
-								style={{marginRight: mac ? '30px' : '4px'}}
-								appearance='subtle'
-							/>
-						</Link>
-					</Tooltip>
-				</div>
+				<Tooltip content="Help page" relationship='label'>
+					<Link
+						as='a'
+						href={helpLink}
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<Button
+							icon={<Question32Regular />}
+							style={{marginRight: mac ? '30px' : '4px'}}
+							appearance='subtle'
+						/>
+					</Link>
+				</Tooltip>
 			</div>
 			<br />
 			{

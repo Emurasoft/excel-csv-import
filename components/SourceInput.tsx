@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
 import {Dropdown, Label, Option, Subtitle1, Textarea} from '@fluentui/react-components';
+import { useStyles } from './styles';
 
 interface Props {
 	value: Source;
@@ -8,10 +9,11 @@ interface Props {
 }
 
 function fileInput(onChange: (value: File) => void): React.ReactElement {
+	const styles = useStyles();
 	return (
 		<>
 			<input
-				className="fullWidth"
+				className={styles.fullWidth}
 				type='file'
 				accept='text/csv'
 				onChange={e => onChange(e.target.files[0])}
@@ -23,9 +25,10 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 }
 
 function textInput(value: string, onChange: (value: string) => void): React.ReactElement {
+	const styles = useStyles();
 	return (
 		<Textarea
-			className="monospace fullWidth"
+			className={`${styles.monospace} ${styles.fullWidth}`}
 			rows={10}
 			spellCheck={false}
 			wrap='off'
@@ -69,7 +72,6 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 					</Option>
 				</Dropdown>
 			</Label>
-			<div className="smallDivider" />
 			{input}
 		</>
 	);

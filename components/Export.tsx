@@ -21,6 +21,7 @@ import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import {useAppSelector} from '../state';
 import {abort, exportCSV, useAppDispatch} from '../action';
+import { useStyles } from './styles';
 
 export const enum ExportType {
 	file = 'File',
@@ -35,6 +36,7 @@ export default function Export(): React.ReactElement {
 	const progress = useAppSelector(state => state.progress);
 	const output = useAppSelector(state => state.output);
 	const dispatch = useAppDispatch();
+	const styles = useStyles();
 
 	const [exportType, setExportType] = useLocalStorage('exportType', ExportType.text);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
@@ -138,7 +140,7 @@ export default function Export(): React.ReactElement {
 					? <Textarea
 						value={outputText} readOnly
 						placeholder='Export result'
-						className="monospace fullWidth"
+						className={`${styles.monospace} ${styles.fullWidth}`}
 						rows={15}
 						spellCheck={false}
 						wrap='off'
