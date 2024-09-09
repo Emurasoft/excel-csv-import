@@ -34,22 +34,20 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				}}
 			>
 				<Title1><strong>{text}</strong></Title1>
-				<div className="smallIcon">
-					<Tooltip content="Help page" relationship='label'>
-						<Link
-							as='a'
-							href={helpLink}
-							target='_blank'
-							rel='noopener noreferrer'
-						>
-							<Button
-								icon={<Question32Regular />}
-								style={{marginRight: mac ? '30px' : '4px'}}
-								appearance='subtle'
-							/>
-						</Link>
-					</Tooltip>
-				</div>
+				<Tooltip content="Help page" relationship='label'>
+					<Link
+						as='a'
+						href={helpLink}
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<Button
+							icon={<Question32Regular />}
+							style={{marginRight: mac ? '30px' : '4px'}}
+							appearance='subtle'
+						/>
+					</Link>
+				</Tooltip>
 			</div>
 			<br />
 			{

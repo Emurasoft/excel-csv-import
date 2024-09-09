@@ -3,8 +3,10 @@ import {Body1, Link, Text} from '@fluentui/react-components';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
+import { useStyles } from '../styles';
 
 export default function About(): React.ReactElement {
+	const styles = useStyles();
 	return (
 		<div className="pageMargin">
 			<BackButton onClick={() => history.back()} />
@@ -21,7 +23,7 @@ export default function About(): React.ReactElement {
 				</Link>
 			</Text>
 			<br /><br />
-			<div className="fullWidth centerContent">
+			<div className={`${styles.monospace} ${styles.centerContent}`}>
 				<a
 					href={'https://www.emeditor.com/'}
 					target='_blank'
@@ -57,10 +59,11 @@ export default function About(): React.ReactElement {
 				<br />
 				<RouterLink
 					to={`/excel-csv-import/?page=${Pages.licenseInformation}`}
-					className="removeUnderline"
 					reloadDocument
 				>
-					<Link>License information</Link>
+					<Link>
+						License information
+					</Link>
 				</RouterLink>
 			</Body1>
 		</div>

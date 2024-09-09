@@ -1,3 +1,4 @@
+import { Textarea } from '@fluentui/react-components';
 import * as React from 'react';
 
 interface State {
@@ -23,9 +24,12 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 		if (this.state.caughtError) {
 			return (
 				<>
-					<textarea
+					<Textarea
 						value={this.state.error.toString() + '\n' + this.state.error.stack}
-						className="monospace fullWidth"
+						style={{
+							fontFamily: 'monospace',
+							width: '100%',
+						}}
 						rows={15}
 						wrap='off'
 						readOnly
