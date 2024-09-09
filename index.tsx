@@ -13,6 +13,7 @@ import {configureStore} from '@reduxjs/toolkit'
 import { webDarkTheme, webLightTheme } from '@fluentui/react-theme';
 import { FluentProvider } from '@fluentui/react-components';
 import { createRoot } from 'react-dom/client';
+import { useAppSelector } from './state';
 
 const Import = React.lazy(
 	() => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./components/Import'),
@@ -43,12 +44,25 @@ function Initializer({children}): React.ReactElement {
 	return children;
 }
 
+function Theme({children}: React.PropsWithChildren) {
+	const initialized = useAppSelector(state => state.initialized);
+
+	const officeTheme = Office.context.officeTheme;
+	let isDarkMode = initialized && officeTheme && officeTheme.isDarkTheme;
+
+	return (
+		<FluentProvider theme={isDarkMode ? webDarkTheme : webLightTheme}>
+			{children}
+		</FluentProvider>
+	);
+}
+
 function App(): React.ReactElement {
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback={''}>
-				<FluentProvider theme={webLightTheme}>
-					<Provider store={store}>
+				<Provider store={store}>
+					<Theme>
 						<Initializer>
 							<MemoryRouter>
 								<Routes>
@@ -56,8 +70,8 @@ function App(): React.ReactElement {
 								</Routes>
 							</MemoryRouter>
 						</Initializer>
-					</Provider>
-				</FluentProvider>
+					</Theme>
+				</Provider>
 			</React.Suspense>
 		</ErrorBoundary>
 	);
