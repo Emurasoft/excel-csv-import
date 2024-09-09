@@ -42,9 +42,9 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 	}
 
 	const customInput = (
-		<>
+		<div>
 			<Input
-				className={`${styles.monospace} ${styles.fullWidth}`}
+				className={styles.monospace}
 				value={value}
 				onChange={(_, {value}) => onChange(value)}
 				placeholder="Enter custom delimiter"
@@ -58,7 +58,7 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 					Delimiter length must be 1
 				</Body1>
 			}
-		</>
+		</div>
 	);
 
 	return (
