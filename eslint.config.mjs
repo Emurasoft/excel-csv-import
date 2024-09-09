@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 });
 
 export default [{
-    ignores: ['components/licenses/**/*'],
+    ignores: ['components/licenses/**/*', '**/*.snap'],
 }, ...compat.extends(
     'eslint:recommended',
     'plugin:react/recommended',
