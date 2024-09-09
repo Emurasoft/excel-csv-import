@@ -61,5 +61,7 @@ describe('Export', () => {
 		expect(parser.csvStringAndName).toHaveBeenCalledWith(expected, anyFunction());
 
 		expect(wrapper.queryByText("export result")).not.toBeNull();
+
+		expect(wrapper.asFragment()).toMatchSnapshot();
 	});
 });

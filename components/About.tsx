@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Body1, Link, Text, Title1} from '@fluentui/react-components';
+import {Body1, Link, mergeClasses, Text, Title1} from '@fluentui/react-components';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useStyles } from './styles';
 
 export default function About(): React.ReactElement {
 	const styles = useStyles();
+
 	return (
 		<div className={styles.pageMargin}>
 			<BackButton onClick={() => history.back()} />
@@ -22,7 +23,7 @@ export default function About(): React.ReactElement {
 				</Link>
 			</Text>
 			<br /><br />
-			<div className={`${styles.monospace} ${styles.centerContent}`}>
+			<div className={mergeClasses(styles.monospace, styles.centerContent)}>
 				<a
 					href={'https://www.emeditor.com/'}
 					target='_blank'

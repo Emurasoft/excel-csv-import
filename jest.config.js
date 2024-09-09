@@ -6,4 +6,5 @@ module.exports = {
 		'\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
 	},
 	setupFiles: ['<rootDir>/test/setup.ts'],
+	snapshotSerializers: ['@griffel/jest-serializer'],
 };

@@ -62,5 +62,7 @@ describe('Import', () => {
 			encoding: '',
 		};
 		expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
+
+		expect(wrapper.asFragment()).toMatchSnapshot();
 	});
 });
