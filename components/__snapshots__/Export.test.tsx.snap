@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Export export 1`] = `
+<DocumentFragment>
+  <div
+    class="___179ig6q_0000000 f155w6da"
+  >
+    <div
+      style="width: 100%; display: flex; justify-content: space-between;"
+    >
+      <span
+        class="fui-Title1 fui-Text ___118tge5_foguft0 fk6fouc fccw675 f1ebx5kk fl43uef fpgzoln f1w7gpdv f6juhto f1gl81tg f2jf649"
+      >
+        Export CSV
+      </span>
+      <a
+        aria-label="Help page"
+        class="fui-Link ___1fq7916_1xye54t f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f1iuv45f f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a"
+        href="https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv"
+        rel="noopener noreferrer"
+        tabindex="0"
+        target="_blank"
+      >
+        <button
+          class="fui-Button r1alrhcs ___w3o4yv0_df8ghi0 fhovq9v f1p3nwhy f11589ue f1q5o8ev f1pdflbu fkfq4zb f1t94bn6 f1s2uweq fr80ssc f1ukrpxl fecsdlb fnwyq0v ft1hn21 fuxngvv fy5bs14 fsv2rcd f1h0usnq fs4ktlq f16h9ulv fx2bmrt f1omzyqd f1dfjoow f1j98vj9 fj8yq94 f4xjyn1 f1et0tmh f9ddjv3 f1wi8ngl f18ktai2 fwbmr0d f44c6la"
+          style="margin-right: 4px;"
+          type="button"
+        >
+          <span
+            class="fui-Button__icon rywnvv2"
+          >
+            <svg
+              aria-hidden="true"
+              class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+              fill="currentColor"
+              height="32"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 11a5 5 0 0 1 10 0c0 1.46-.33 2.31-.76 2.92-.41.6-.95 1.01-1.63 1.55l-.23.18a8.56 8.56 0 0 0-2.31 2.52A9.54 9.54 0 0 0 15 23a1 1 0 1 0 2 0c0-1.87.35-3.04.8-3.84a6.62 6.62 0 0 1 1.82-1.94l.23-.18c.66-.52 1.44-1.12 2.03-1.97A6.8 6.8 0 0 0 23 11a7 7 0 1 0-14 0 1 1 0 1 0 2 0Zm5 17.75a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+      </a>
+    </div>
+    <br />
+    <label
+      class="fui-Label ___1yevxz2_yljzsa0 fk6fouc f19n0e5 fkhj508 f1i3iumi"
+    >
+      <span
+        class="fui-Subtitle1 fui-Text ___16pfnek_18kobb6 fk6fouc f1pp30po f106mvju fl43uef fpgzoln f1w7gpdv f6juhto f1gl81tg f2jf649"
+      >
+        Export type
+      </span>
+      <br />
+      <div
+        class="fui-Dropdown ___6qc34p0_1lpqpsw ft85np5 f1ewtqcl ftuwxu6 f1exfvgq f10pi13n fmrv4ls f14a1fxs f3e99gv fhljsf7 f1gw3sf2 f13zj6fq f1mdlcz9 f1a7op3 f1gboi2j f1cjjd47 ffyw7fx f1kp91vd f1ibwz09 f1mnjydx f13evtba f1yk9hq fhwpy7i f14ee0xe f1xhbsuh fv8e3ye ftb5wc6 fjw5xc1 f1xdyd5c fatpbeo fb7uyps f1cmft4k f1x58t8o f1ibeo51 f132nw8t f1htdosj fxugw4r f1c1zstj fhz96rm fvcxoqz f1ub3y4t flmw63s f1m52nbi fvs00aa f1assf6x fqhmt4z f4ruux4"
+      >
+        <button
+          aria-expanded="false"
+          class="fui-Dropdown__button ___12pyx89_1vewwra f122n59 f1c21dwh f3bhgqh f1ewtqcl f19n0e5 f14mj54c f1k6fduh f13qh94s fk6fouc f12nh0o2 f1869bpl f1o700av fly5x3f ftqa4ok fkhj508 figsok6 f1i3iumi f14ev680"
+          id="exportTypeDropdown"
+          role="combobox"
+          tabindex="0"
+          type="button"
+          value="Textbox"
+        >
+          Textbox
+          <span
+            class="fui-Dropdown__expandIcon ___5y6ahy0_3cm10l0 f1ewtqcl fxkbij4 ftgm304 fe5j1ua f12w6cgp f8bv1bt fvc9v3g f1h9en5y"
+          >
+            <svg
+              aria-hidden="true"
+              class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 20 20"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.85 7.65c.2.2.2.5 0 .7l-5.46 5.49a.55.55 0 0 1-.78 0L4.15 8.35a.5.5 0 1 1 .7-.7L10 12.8l5.15-5.16c.2-.2.5-.2.7 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          aria-label="Clear selection"
+          class="fui-Dropdown__clearButton rticfuj ___1ijk9xi_1ynmboo f1ewtqcl fxkbij4 fjseox fe5j1ua f12w6cgp f8bv1bt fvc9v3g f1h9en5y"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 20 20"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m4.09 4.22.06-.07a.5.5 0 0 1 .63-.06l.07.06L10 9.29l5.15-5.14a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L10.71 10l5.14 5.15c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L10 10.71l-5.15 5.14a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L9.29 10 4.15 4.85a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </label>
+    <br />
+    <br />
+    <label
+      class="fui-Label ___1yevxz2_yljzsa0 fk6fouc f19n0e5 fkhj508 f1i3iumi"
+    >
+      <span
+        class="fui-Subtitle1 fui-Text ___16pfnek_18kobb6 fk6fouc f1pp30po f106mvju fl43uef fpgzoln f1w7gpdv f6juhto f1gl81tg f2jf649"
+      >
+        Delimiter
+      </span>
+      <br />
+      <div
+        class="fui-Dropdown ___6qc34p0_1lpqpsw ft85np5 f1ewtqcl ftuwxu6 f1exfvgq f10pi13n fmrv4ls f14a1fxs f3e99gv fhljsf7 f1gw3sf2 f13zj6fq f1mdlcz9 f1a7op3 f1gboi2j f1cjjd47 ffyw7fx f1kp91vd f1ibwz09 f1mnjydx f13evtba f1yk9hq fhwpy7i f14ee0xe f1xhbsuh fv8e3ye ftb5wc6 fjw5xc1 f1xdyd5c fatpbeo fb7uyps f1cmft4k f1x58t8o f1ibeo51 f132nw8t f1htdosj fxugw4r f1c1zstj fhz96rm fvcxoqz f1ub3y4t flmw63s f1m52nbi fvs00aa f1assf6x fqhmt4z f4ruux4"
+      >
+        <button
+          aria-expanded="false"
+          class="fui-Dropdown__button ___12pyx89_1vewwra f122n59 f1c21dwh f3bhgqh f1ewtqcl f19n0e5 f14mj54c f1k6fduh f13qh94s fk6fouc f12nh0o2 f1869bpl f1o700av fly5x3f ftqa4ok fkhj508 figsok6 f1i3iumi f14ev680"
+          role="combobox"
+          tabindex="0"
+          type="button"
+          value="Tab"
+        >
+          Tab
+          <span
+            class="fui-Dropdown__expandIcon ___5y6ahy0_3cm10l0 f1ewtqcl fxkbij4 ftgm304 fe5j1ua f12w6cgp f8bv1bt fvc9v3g f1h9en5y"
+          >
+            <svg
+              aria-hidden="true"
+              class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 20 20"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.85 7.65c.2.2.2.5 0 .7l-5.46 5.49a.55.55 0 0 1-.78 0L4.15 8.35a.5.5 0 1 1 .7-.7L10 12.8l5.15-5.16c.2-.2.5-.2.7 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          aria-label="Clear selection"
+          class="fui-Dropdown__clearButton rticfuj ___1ijk9xi_1ynmboo f1ewtqcl fxkbij4 fjseox fe5j1ua f12w6cgp f8bv1bt fvc9v3g f1h9en5y"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 20 20"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m4.09 4.22.06-.07a.5.5 0 0 1 .63-.06l.07.06L10 9.29l5.15-5.14a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L10.71 10l5.14 5.15c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L10 10.71l-5.15 5.14a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L9.29 10 4.15 4.85a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </label>
+    <br />
+    <br />
+    <label
+      class="fui-Label ___1yevxz2_yljzsa0 fk6fouc f19n0e5 fkhj508 f1i3iumi"
+    >
+      <span
+        class="fui-Subtitle1 fui-Text ___16pfnek_18kobb6 fk6fouc f1pp30po f106mvju fl43uef fpgzoln f1w7gpdv f6juhto f1gl81tg f2jf649"
+      >
+        Newline sequence
+      </span>
+      <br />
+      <div
+        class="fui-Dropdown ___6qc34p0_1lpqpsw ft85np5 f1ewtqcl ftuwxu6 f1exfvgq f10pi13n fmrv4ls f14a1fxs f3e99gv fhljsf7 f1gw3sf2 f13zj6fq f1mdlcz9 f1a7op3 f1gboi2j f1cjjd47 ffyw7fx f1kp91vd f1ibwz09 f1mnjydx f13evtba f1yk9hq fhwpy7i f14ee0xe f1xhbsuh fv8e3ye ftb5wc6 fjw5xc1 f1xdyd5c fatpbeo fb7uyps f1cmft4k f1x58t8o f1ibeo51 f132nw8t f1htdosj fxugw4r f1c1zstj fhz96rm fvcxoqz f1ub3y4t flmw63s f1m52nbi fvs00aa f1assf6x fqhmt4z f4ruux4"
+      >
+        <button
+          aria-expanded="false"
+          class="fui-Dropdown__button ___12pyx89_1vewwra f122n59 f1c21dwh f3bhgqh f1ewtqcl f19n0e5 f14mj54c f1k6fduh f13qh94s fk6fouc f12nh0o2 f1869bpl f1o700av fly5x3f ftqa4ok fkhj508 figsok6 f1i3iumi f14ev680"
+          role="combobox"
+          tabindex="0"
+          type="button"
+          value="LF"
+        >
+          LF
+          <span
+            class="fui-Dropdown__expandIcon ___5y6ahy0_3cm10l0 f1ewtqcl fxkbij4 ftgm304 fe5j1ua f12w6cgp f8bv1bt fvc9v3g f1h9en5y"
+          >
+            <svg
+              aria-hidden="true"
+              class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 20 20"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.85 7.65c.2.2.2.5 0 .7l-5.46 5.49a.55.55 0 0 1-.78 0L4.15 8.35a.5.5 0 1 1 .7-.7L10 12.8l5.15-5.16c.2-.2.5-.2.7 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          aria-label="Clear selection"
+          class="fui-Dropdown__clearButton rticfuj ___1ijk9xi_1ynmboo f1ewtqcl fxkbij4 fjseox fe5j1ua f12w6cgp f8bv1bt fvc9v3g f1h9en5y"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="___12fm75w_v8ls9a0 f1w7gpdv fez10in fg4l7m0"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 20 20"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m4.09 4.22.06-.07a.5.5 0 0 1 .63-.06l.07.06L10 9.29l5.15-5.14a.5.5 0 0 1 .63-.06l.07.06c.18.17.2.44.06.63l-.06.07L10.71 10l5.14 5.15c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L10 10.71l-5.15 5.14a.5.5 0 0 1-.63.06l-.07-.06a.5.5 0 0 1-.06-.63l.06-.07L9.29 10 4.15 4.85a.5.5 0 0 1-.06-.63l.06-.07-.06.07Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </label>
+    <br />
+    <br />
+    <button
+      aria-label=""
+      class="fui-Button r1alrhcs ___1akj6hk_ih97uj0 ffp7eso f1p3nwhy f11589ue f1q5o8ev f1pdflbu f1phragk f15wkkf3 f1s2uweq fr80ssc f1ukrpxl fecsdlb f1rq72xc fnp9lpt f1h0usnq fs4ktlq f16h9ulv fx2bmrt f1d6v5y2 f1rirnrt f1uu00uk fkvaka8 f1ux7til f9a0qzu f1lkg8j3 fkc42ay fq7113v ff1wgvm fiob0tu f1j6scgf f1x4h75k f4xjyn1 fbgcvur f1ks1yx8 f1o6qegi fcnxywj fmxjhhp f9ddjv3 f17t0x8g f194v5ow f1qgg65p fk7jm04 fhgccpy f32wu9k fu5nqqq f13prjl2 f1czftr5 f1nl83rv f12k37oa fr96u23"
+      type="button"
+    >
+      Export to CSV
+    </button>
+    <br />
+    <span
+      class="fui-Text ___c56hd20_1xy0w11 fk6fouc fkhj508 f1i3iumi figsok6 fpgzoln f1w7gpdv f6juhto f1gl81tg f2jf649"
+    >
+       
+    </span>
+    <span
+      class="fui-Textarea ___15e0aa9_1nswokw ftuwxu6 f1ewtqcl f10pi13n f1yiegib f1s184ao ft85np5 f12kltsn fxugw4r f1c1zstj fhz96rm f1gw3sf2 f13zj6fq f1mdlcz9 f1a7op3 f1gboi2j f1cjjd47 ffyw7fx f1kp91vd f1ibwz09 f1mnjydx fj2g8qd f1yk9hq fhwpy7i f14ee0xe f1xhbsuh fv8e3ye ftb5wc6 fjw5xc1 f1xdyd5c fatpbeo fb7uyps f1cmft4k f1x58t8o f1ibeo51 f1vnc8sk f3e99gv fhljsf7 f1l4zc64 f9mts5e f1z0osm6 f1acnei2 f1so894s fds4ob8 f18qnt8o f16z2bky"
+    >
+      <textarea
+        class="fui-Textarea__textarea ___isn8nb0_1juplfi f1ern45e f1n71otn f1h8hb77 f1deefiw f1s184ao f3rmtva f1ewtqcl f19n0e5 fqerorx fk6fouc f1l02sjl fwyc1cq f13ta7ih f1vw9udw fbb3kq8 f1s6fcnf fvmd9f f1ww82xo f1if7ixc fkhj508 figsok6 f1i3iumi f1o1s39h"
+        placeholder="Export result"
+        readonly=""
+        rows="15"
+        spellcheck="false"
+        wrap="off"
+      >
+        export result
+      </textarea>
+    </span>
+    <div
+      class="___n5s7is0_0000000 f22iagw f4d9j23 ___cqaz2i0_0000000 fly5x3f"
+      style="margin-top: 30px;"
+    >
+      <span
+        class="fui-Text ___dlwtst0_1248o16 fk6fouc fod5ikn faaz57k figsok6 fpgzoln f1w7gpdv f6juhto f1gl81tg f2jf649"
+      >
+        <a
+          href="/excel-csv-import/?page=about"
+        >
+          <button
+            class="fui-Link ___52mpgl0_k1g75g0 f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fkhj508 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f1iuv45f f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1ern45e f1n71otn f1h8hb77 f1deefiw"
+            type="button"
+          >
+            About
+          </button>
+        </a>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
