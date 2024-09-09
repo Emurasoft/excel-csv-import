@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Export export 1`] = `
+exports[`Import import 1`] = `
 <DocumentFragment>
   <div
     class=""
@@ -11,12 +11,12 @@ exports[`Export export 1`] = `
       <span
         class="fui-Title1 fui-Text"
       >
-        Export CSV
+        Import CSV
       </span>
       <a
         aria-label="Help page"
         class="fui-Link"
-        href="https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv"
+        href="https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md"
         rel="noopener noreferrer"
         tabindex="0"
         target="_blank"
@@ -54,7 +54,7 @@ exports[`Export export 1`] = `
       <span
         class="fui-Subtitle1 fui-Text"
       >
-        Export type
+        Import type
       </span>
       <br />
       <div
@@ -63,13 +63,13 @@ exports[`Export export 1`] = `
         <button
           aria-expanded="false"
           class="fui-Dropdown__button"
-          id="exportTypeDropdown"
+          id="SourceInput-Dropdown"
           role="combobox"
           tabindex="0"
           type="button"
-          value="Textbox"
+          value="Text input"
         >
-          Textbox
+          Text input
           <span
             class="fui-Dropdown__expandIcon"
           >
@@ -112,6 +112,20 @@ exports[`Export export 1`] = `
         </button>
       </div>
     </label>
+    <span
+      class="fui-Textarea"
+    >
+      <textarea
+        class="fui-Textarea__textarea"
+        id="SourceInput-TextInput"
+        rows="10"
+        spellcheck="false"
+        wrap="off"
+      >
+        csv text
+      </textarea>
+    </span>
+    <br />
     <br />
     <br />
     <label
@@ -249,27 +263,13 @@ exports[`Export export 1`] = `
       class="fui-Button"
       type="button"
     >
-      Export to CSV
+      Import CSV
     </button>
     <br />
     <span
       class="fui-Text"
     >
        
-    </span>
-    <span
-      class="fui-Textarea"
-    >
-      <textarea
-        class="fui-Textarea__textarea"
-        placeholder="Export result"
-        readonly=""
-        rows="15"
-        spellcheck="false"
-        wrap="off"
-      >
-        export result
-      </textarea>
     </span>
     <div
       class=""
