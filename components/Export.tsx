@@ -6,6 +6,7 @@ import {
 	Button,
 	Dropdown,
 	Label,
+	mergeClasses,
 	Option,
 	Subtitle1,
 	Textarea,
@@ -140,7 +141,7 @@ export default function Export(): React.ReactElement {
 					? <Textarea
 						value={outputText} readOnly
 						placeholder='Export result'
-						className={`${styles.monospace} ${styles.fullWidth}`}
+						className={mergeClasses(styles.monospace, styles.fullWidth)}
 						rows={15}
 						spellCheck={false}
 						wrap='off'

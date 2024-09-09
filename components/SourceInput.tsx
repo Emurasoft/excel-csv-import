@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
-import {Dropdown, Label, Option, Subtitle1, Textarea} from '@fluentui/react-components';
+import {Dropdown, Label, mergeClasses, Option, Subtitle1, Textarea} from '@fluentui/react-components';
 import { useStyles } from './styles';
 
 interface Props {
@@ -28,7 +28,7 @@ function textInput(value: string, onChange: (value: string) => void): React.Reac
 	const styles = useStyles();
 	return (
 		<Textarea
-			className={`${styles.monospace} ${styles.fullWidth}`}
+			className={mergeClasses(styles.monospace, styles.fullWidth)}
 			rows={10}
 			spellCheck={false}
 			wrap='off'

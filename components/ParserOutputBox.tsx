@@ -1,4 +1,4 @@
-import {Textarea} from '@fluentui/react-components';
+import {mergeClasses, Textarea} from '@fluentui/react-components';
 import * as React from 'react';
 import {AppState, OutputType} from '../state';
 import { useStyles } from './styles';
@@ -24,7 +24,7 @@ export function ParserOutputBox({output}: Props): React.ReactElement {
 	case OutputType.error:
 		return (
 			<Textarea
-				className={`${styles.monospace} ${styles.redText}`}
+				className={mergeClasses(styles.monospace, styles.redText)}
 				value={output.error.toString() + '\n' + output.error.stack}
 				rows={20}
 				spellCheck={false}
