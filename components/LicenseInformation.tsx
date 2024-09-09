@@ -3,7 +3,7 @@ import {BackButton} from './BackButton';
 import {Link, Text, Textarea} from '@fluentui/react-components';
 import thisApp from './licenses/thisApp';
 import thirdParty from './licenses/thirdParty';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 export default function LicenseInformation(): React.ReactElement {
 	const styles = useStyles();

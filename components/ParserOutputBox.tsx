@@ -1,7 +1,7 @@
 import {Textarea} from '@fluentui/react-components';
 import * as React from 'react';
 import {AppState, OutputType} from '../state';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 interface Props {
 	output: AppState['output'];

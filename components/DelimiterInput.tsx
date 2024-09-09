@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Body1, Dropdown, Input, Label, Option, Subtitle1} from '@fluentui/react-components';
 import {useState} from 'react';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 export const enum DropdownOption {
 	comma = 'Comma',

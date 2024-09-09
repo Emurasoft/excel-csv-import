@@ -2,7 +2,7 @@ import {Button, Link, Text, Title1, Tooltip} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import { Question32Regular } from '@fluentui/react-icons';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 interface Props {
 	text: string;

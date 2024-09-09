@@ -3,7 +3,7 @@ import {Body1, Link, Text} from '@fluentui/react-components';
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 export default function About(): React.ReactElement {
 	const styles = useStyles();

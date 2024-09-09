@@ -2,7 +2,7 @@ import {Link, Text} from '@fluentui/react-components';
 import * as React from 'react';
 import {Link as RouterLink} from 'react-router-dom';
 import {Pages} from '../Pages';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 export function BottomBar(): React.ReactElement {
 	const styles = useStyles();

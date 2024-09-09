@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {InputType, Source} from '../parser';
 import {Dropdown, Label, Option, Subtitle1, Textarea} from '@fluentui/react-components';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 interface Props {
 	value: Source;

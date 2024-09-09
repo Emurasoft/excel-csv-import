@@ -21,7 +21,7 @@ import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import {useAppSelector} from '../state';
 import {abort, exportCSV, useAppDispatch} from '../action';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 export const enum ExportType {
 	file = 'File',
