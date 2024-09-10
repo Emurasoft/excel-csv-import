@@ -22,11 +22,7 @@ export default function LicenseInformation(): React.ReactElement {
 			<br />
 			<br />
 			<Text size={400}>
-				We would like to thank
-				{' '}
-				<Link href='https://www.papaparse.com/' target='_blank' rel='noopener noreferrer'>Papa Parse</Link>
-				{' '}
-				for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries.
+				We would like to thank <Link href='https://www.papaparse.com/' target='_blank' rel='noopener noreferrer'>Papa Parse</Link> for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries.
 			</Text>
 			<Textarea className={styles.fullWidth} rows={20} value={thirdParty} readOnly />
 		</div>

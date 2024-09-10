@@ -38,9 +38,7 @@ export default function About(): React.ReactElement {
 				</a>
 			</div>
 			<Body1>
-				EmEditor is a text editor which features a CSV editing interface and large file support.
-				{' '}
-				<Link href='https://www.emeditor.com/' target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
+				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'https://www.emeditor.com/'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
 			</Body1>
 			<br />
 			<br />
@@ -58,15 +56,7 @@ export default function About(): React.ReactElement {
 			<Body1>
 				<strong>Report bugs/send feedback</strong>
 				<br />
-				Bug reports can be submitted via the
-				{' '}
-				<Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>issues page of our GitHub repo</Link>
-				{' '}
-				or the
-				{' '}
-				<Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>contact form</Link>
-				.
-				<br />
+				Bug reports can be submitted via the <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>issues page of our GitHub repo</Link> or the <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>contact form</Link>.<br />
 			</Body1>
 			<br />
 			<br />
