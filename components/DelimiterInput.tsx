@@ -94,8 +94,7 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 function description(delimiter: string): string {
 	if (delimiter.length == 1) {
 		return codePoint(delimiter);
-	}
-	else {
+	} else {
 		return '\u00A0';
 	}
 }

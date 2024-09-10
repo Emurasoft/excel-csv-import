@@ -13,8 +13,7 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
 
 	if (range.isNullObject) {
 		return currentWorksheet;
-	}
-	else {
+	} else {
 		return context.workbook.worksheets.add();
 	}
 }

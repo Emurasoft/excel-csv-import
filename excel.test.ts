@@ -85,8 +85,7 @@ describe('ExcelAPI', () => {
 			};
 			if (test.expectError) {
 				expect(func).toThrowError();
-			}
-			else {
+			} else {
 				expect(func).not.toThrowError();
 			}
 			assert.deepStrictEqual(test.a, test.expected);

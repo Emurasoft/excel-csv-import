@@ -26,11 +26,9 @@ enum ValidationResult {
 function validate(source: Source, delimiter: string, initialized: boolean): ValidationResult {
 	if (source.inputType == InputType.file && source.file == null) {
 		return ValidationResult.ImportFileNotSelected;
-	}
-	else if (delimiter.length !== 1) {
+	} else if (delimiter.length !== 1) {
 		return ValidationResult.DelimiterInvalid;
-	}
-	else if (!initialized) {
+	} else if (!initialized) {
 		return ValidationResult.APINotInit;
 	}
 

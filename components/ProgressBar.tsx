@@ -12,8 +12,7 @@ export function ProgressBarWithStopButton({onClick, progress}: Props): React.Rea
 	let stopText: React.ReactElement;
 	if (progress.aborting) {
 		stopText = <Text size={300}>Stopping</Text>;
-	}
-	else {
+	} else {
 		stopText = <Text size={300}><Link onClick={onClick}>Stop</Link></Text>;
 	}
 

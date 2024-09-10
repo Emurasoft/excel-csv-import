@@ -21,6 +21,7 @@ const stylisticConfig = stylistic.configs.customize({
 	quotes: 'single',
 	semi: true,
 	jsx: true,
+	braceStyle: '1tbs',
 });
 
 export default [

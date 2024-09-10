@@ -46,8 +46,7 @@ export class Parser {
 			// Online API can throw error if request size is too large
 			reduceChunkSize = true;
 			(Papa.LocalChunkSize as unknown as number) = 10_000;
-		}
-		else {
+		} else {
 			reduceChunkSize = false;
 		}
 		return platform;
@@ -295,8 +294,7 @@ export function nameToUse(workbookName: string, worksheetName: string): string {
 		// Workbook name usually includes the file extension
 		const to = workbookName.lastIndexOf('.');
 		return workbookName.substr(0, to === -1 ? workbookName.length : to);
-	}
-	else {
+	} else {
 		return worksheetName;
 	}
 }
@@ -304,8 +302,7 @@ export function nameToUse(workbookName: string, worksheetName: string): string {
 function chunkRows(shape: Shape): number {
 	if (reduceChunkSize) {
 		return Math.floor(10_000 / shape.columns);
-	}
-	else {
+	} else {
 		return shape.rows;
 	}
 }

@@ -8,8 +8,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 			if (item) {
 				value = JSON.parse(item);
 			}
-		}
-		catch (e) {
+		} catch (e) {
 			console.warn(e);
 		}
 		return value;
@@ -19,8 +18,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 		setStoredValue(value);
 		try {
 			window.localStorage.setItem(key, JSON.stringify(value));
-		}
-		catch (e) {
+		} catch (e) {
 			console.warn(e);
 		}
 	};
