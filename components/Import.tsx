@@ -17,7 +17,7 @@ import {AppState, useAppSelector} from '../state';
 const useLocalStorage = namespacedUseLocalStorage('import');
 
 enum ValidationResult {
-	Success =  '',
+	Success = 'Import CSV',
 	ImportFileNotSelected = 'Import file is not selected',
 	DelimiterInvalid = 'Delimiter is invalid',
 	APINotInit = 'Excel API is not initialized',

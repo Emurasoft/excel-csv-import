@@ -118,7 +118,7 @@ export default function Export(): React.ReactElement {
 			<Tooltip
 				content={
 					initialized
-						? ''
+						? 'Export CSV'
 						: 'Excel API is not initialized'
 				}
 				relationship='label'
