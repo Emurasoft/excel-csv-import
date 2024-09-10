@@ -56,16 +56,16 @@ export default function Export(): React.ReactElement {
 		}
 
 		switch (exportTypeCopy) {
-			case ExportType.file: {
-				const options = {type: 'text/csv;charset=' + encodingCopy};
-				const blob = new Blob([csvStringAndName.string], options);
-				FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
-				return;
-			}
-			case ExportType.text: {
-				setOutputText(csvStringAndName.string);
-				return;
-			}
+		case ExportType.file: {
+			const options = {type: 'text/csv;charset=' + encodingCopy};
+			const blob = new Blob([csvStringAndName.string], options);
+			FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
+			return;
+		}
+		case ExportType.text: {
+			setOutputText(csvStringAndName.string);
+			return;
+		}
 		}
 	};
 

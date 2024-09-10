@@ -10,14 +10,14 @@ interface Props {
 
 function getLabel(n: NewlineSequence): string {
 	switch (n) {
-		case NewlineSequence.AutoDetect:
-			return 'Auto-detect';
-		case NewlineSequence.CRLF:
-			return 'CRLF';
-		case NewlineSequence.CR:
-			return 'CR';
-		case NewlineSequence.LF:
-			return 'LF';
+	case NewlineSequence.AutoDetect:
+		return 'Auto-detect';
+	case NewlineSequence.CRLF:
+		return 'CRLF';
+	case NewlineSequence.CR:
+		return 'CR';
+	case NewlineSequence.LF:
+		return 'LF';
 	}
 }
 

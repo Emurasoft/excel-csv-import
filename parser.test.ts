@@ -474,14 +474,14 @@ describe('parser', () => {
 			let called = 0;
 			const progressCallback = (progress): void => {
 				switch (called) {
-					case 0:
-						assert.strictEqual(progress, 0.0);
-						break;
-					case 1:
-						assert.strictEqual(progress, 0.5);
-						break;
-					default:
-						assert.fail('called too many times');
+				case 0:
+					assert.strictEqual(progress, 0.0);
+					break;
+				case 1:
+					assert.strictEqual(progress, 0.5);
+					break;
+				default:
+					assert.fail('called too many times');
 				}
 				++called;
 			};

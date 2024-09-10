@@ -42,14 +42,14 @@ function textInput(value: string, onChange: (value: string) => void): React.Reac
 export function SourceInput({value, onChange}: Props): React.ReactElement {
 	let input: React.ReactElement;
 	switch (value.inputType) {
-		case InputType.file:
-			input = fileInput(file => onChange({inputType: InputType.file, file, text: ''}));
-			break;
-		case InputType.text:
-			input = textInput(
-				value.text,
-				text => onChange({inputType: InputType.text, file: null, text}),
-			);
+	case InputType.file:
+		input = fileInput(file => onChange({inputType: InputType.file, file, text: ''}));
+		break;
+	case InputType.text:
+		input = textInput(
+			value.text,
+			text => onChange({inputType: InputType.text, file: null, text}),
+		);
 	}
 
 	return (

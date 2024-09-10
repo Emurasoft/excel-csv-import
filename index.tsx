@@ -79,16 +79,16 @@ function App(): React.ReactElement {
 function ParamRouter() {
 	const page = queryString.parse(location.search).page as string;
 	switch (page) {
-		case Pages.import:
-			return <Import />;
-		case Pages.export:
-			return <Export />;
-		case Pages.about:
-			return <About />;
-		case Pages.licenseInformation:
-			return <LicenseInformation />;
-		default:
-			throw new Error(`unknown page: ${page}`);
+	case Pages.import:
+		return <Import />;
+	case Pages.export:
+		return <Export />;
+	case Pages.about:
+		return <About />;
+	case Pages.licenseInformation:
+		return <LicenseInformation />;
+	default:
+		throw new Error(`unknown page: ${page}`);
 	}
 }
 
