@@ -1,6 +1,6 @@
 /* global Office */
 import * as ExcelAPI from './excel';
-import { Shape } from './excel';
+import {Shape} from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {
@@ -216,7 +216,7 @@ export function chunkRange(
 	chunk: number,
 	shape: Shape,
 	chunkRows: number,
-): { startRow: number; startColumn: number; rowCount: number; columnCount: number } {
+): {startRow: number; startColumn: number; rowCount: number; columnCount: number} {
 	return {
 		startRow: chunk * chunkRows,
 		startColumn: 0,

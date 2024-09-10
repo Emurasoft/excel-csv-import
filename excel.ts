@@ -111,6 +111,6 @@ export async function worksheetNamesAndShape(
 	return {
 		workbookName: workbook.name,
 		worksheetName: worksheet.name,
-		shape: { rows: range.rowCount, columns: range.columnCount },
+		shape: {rows: range.rowCount, columns: range.columnCount},
 	};
 }

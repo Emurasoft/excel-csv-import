@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { DelimiterInput } from './DelimiterInput';
-import { NewlineDropdown } from './NewlineDropdown';
+import {useState} from 'react';
+import {DelimiterInput} from './DelimiterInput';
+import {NewlineDropdown} from './NewlineDropdown';
 import {
 	Button,
 	Dropdown,
@@ -12,17 +12,17 @@ import {
 	Textarea,
 	Tooltip,
 } from '@fluentui/react-components';
-import { NewlineSequence } from '../parser';
+import {NewlineSequence} from '../parser';
 import * as FileSaver from 'file-saver';
-import { EncodingDropdown } from './EncodingDropdown';
-import { ProgressBarWithStopButton } from './ProgressBar';
-import { BottomBar } from './BottomBar';
-import { ParserOutputBox } from './ParserOutputBox';
-import { Page } from './Page';
-import { namespacedUseLocalStorage } from '../useLocalStorage';
-import { useAppSelector } from '../state';
-import { abort, exportCSV, useAppDispatch } from '../action';
-import { useStyles } from './styles';
+import {EncodingDropdown} from './EncodingDropdown';
+import {ProgressBarWithStopButton} from './ProgressBar';
+import {BottomBar} from './BottomBar';
+import {ParserOutputBox} from './ParserOutputBox';
+import {Page} from './Page';
+import {namespacedUseLocalStorage} from '../useLocalStorage';
+import {useAppSelector} from '../state';
+import {abort, exportCSV, useAppDispatch} from '../action';
+import {useStyles} from './styles';
 
 export const enum ExportType {
 	file = 'File',
@@ -50,14 +50,14 @@ export default function Export(): React.ReactElement {
 
 		const exportTypeCopy = exportType; // Copy current options before async task
 		const encodingCopy = encoding;
-		const csvStringAndName = await dispatch(exportCSV({ delimiter, newline }));
+		const csvStringAndName = await dispatch(exportCSV({delimiter, newline}));
 		if (csvStringAndName === null) {
 			return;
 		}
 
 		switch (exportTypeCopy) {
 			case ExportType.file: {
-				const options = { type: 'text/csv;charset=' + encodingCopy };
+				const options = {type: 'text/csv;charset=' + encodingCopy};
 				const blob = new Blob([csvStringAndName.string], options);
 				FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
 				return;
@@ -71,18 +71,18 @@ export default function Export(): React.ReactElement {
 
 	return (
 		<Page
-			text="Export CSV"
-			helpLink="https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv"
+			text='Export CSV'
+			helpLink='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv'
 			mac={platform === Office.PlatformType.Mac}
 		>
 			<Label>
 				<Subtitle1>Export type</Subtitle1>
 				<br />
 				<Dropdown
-					placeholder="Delimiter"
+					placeholder='Delimiter'
 					value={exportType}
-					onOptionSelect={(_, { optionValue }) => setExportType(optionValue as ExportType)}
-					id="exportTypeDropdown"
+					onOptionSelect={(_, {optionValue}) => setExportType(optionValue as ExportType)}
+					id='exportTypeDropdown'
 				>
 					<Option>{ExportType.file}</Option>
 					<Option>{ExportType.text}</Option>
@@ -125,12 +125,12 @@ export default function Export(): React.ReactElement {
 						? 'Export CSV'
 						: 'Excel API is not initialized'
 				}
-				relationship="label"
+				relationship='label'
 			>
 				<Button
 					onClick={buttonOnClick}
 					disabled={!initialized}
-					appearance="primary"
+					appearance='primary'
 				>
 					Export to CSV
 				</Button>
@@ -146,11 +146,11 @@ export default function Export(): React.ReactElement {
 							<Textarea
 								value={outputText}
 								readOnly
-								placeholder="Export result"
+								placeholder='Export result'
 								className={mergeClasses(styles.monospace, styles.fullWidth)}
 								rows={15}
 								spellCheck={false}
-								wrap="off"
+								wrap='off'
 							/>
 						)
 					: null

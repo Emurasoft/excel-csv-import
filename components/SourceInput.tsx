@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { InputType, Source } from '../parser';
-import { Dropdown, Label, mergeClasses, Option, Subtitle1, Textarea } from '@fluentui/react-components';
-import { useStyles } from './styles';
+import {InputType, Source} from '../parser';
+import {Dropdown, Label, mergeClasses, Option, Subtitle1, Textarea} from '@fluentui/react-components';
+import {useStyles} from './styles';
 
 interface Props {
 	value: Source;
@@ -14,10 +14,10 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 		<>
 			<input
 				className={styles.fullWidth}
-				type="file"
-				accept="text/csv"
+				type='file'
+				accept='text/csv'
 				onChange={e => onChange(e.target.files[0])}
-				id="SourceInput-FileInput"
+				id='SourceInput-FileInput'
 			/>
 			<br />
 		</>
@@ -31,24 +31,24 @@ function textInput(value: string, onChange: (value: string) => void): React.Reac
 			className={mergeClasses(styles.monospace, styles.fullWidth)}
 			rows={10}
 			spellCheck={false}
-			wrap="off"
-			onChange={(_, { value }) => onChange(value)}
+			wrap='off'
+			onChange={(_, {value}) => onChange(value)}
 			value={value}
-			id="SourceInput-TextInput"
+			id='SourceInput-TextInput'
 		/>
 	);
 }
 
-export function SourceInput({ value, onChange }: Props): React.ReactElement {
+export function SourceInput({value, onChange}: Props): React.ReactElement {
 	let input: React.ReactElement;
 	switch (value.inputType) {
 		case InputType.file:
-			input = fileInput(file => onChange({ inputType: InputType.file, file, text: '' }));
+			input = fileInput(file => onChange({inputType: InputType.file, file, text: ''}));
 			break;
 		case InputType.text:
 			input = textInput(
 				value.text,
-				text => onChange({ inputType: InputType.text, file: null, text }),
+				text => onChange({inputType: InputType.text, file: null, text}),
 			);
 	}
 
@@ -59,10 +59,10 @@ export function SourceInput({ value, onChange }: Props): React.ReactElement {
 				<br />
 				<Dropdown
 					value={value.inputType}
-					onOptionSelect={(_, { optionValue }) => onChange(
-						{ inputType: optionValue as InputType, file: null, text: '' },
+					onOptionSelect={(_, {optionValue}) => onChange(
+						{inputType: optionValue as InputType, file: null, text: ''},
 					)}
-					id="SourceInput-Dropdown"
+					id='SourceInput-Dropdown'
 				>
 					<Option>
 						{InputType.file}

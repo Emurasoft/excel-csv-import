@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Dropdown, Label, Option, Subtitle1 } from '@fluentui/react-components';
-import { NewlineSequence } from '../parser';
+import {Dropdown, Label, Option, Subtitle1} from '@fluentui/react-components';
+import {NewlineSequence} from '../parser';
 
 interface Props {
 	showAutoDetect: boolean;
@@ -21,14 +21,14 @@ function getLabel(n: NewlineSequence): string {
 	}
 }
 
-export function NewlineDropdown({ showAutoDetect, value, onChange }: Props): React.ReactElement {
+export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
 	return (
 		<Label>
 			<Subtitle1>Newline sequence</Subtitle1>
 			<br />
 			<Dropdown
 				value={getLabel(value)}
-				onOptionSelect={(_, { optionValue }) => onChange(optionValue as NewlineSequence)}
+				onOptionSelect={(_, {optionValue}) => onChange(optionValue as NewlineSequence)}
 			>
 				{
 					showAutoDetect

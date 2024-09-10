@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Body1, Dropdown, Input, Label, Option, Subtitle1 } from '@fluentui/react-components';
-import { useState } from 'react';
-import { useStyles } from './styles';
+import {Body1, Dropdown, Input, Label, Option, Subtitle1} from '@fluentui/react-components';
+import {useState} from 'react';
+import {useStyles} from './styles';
 
 export const enum DropdownOption {
 	comma = 'Comma',
@@ -29,7 +29,7 @@ const dropdownToString = {
 	[DropdownOption.other]: '',
 };
 
-export function DelimiterInput({ showLengthError, value, onChange }: Props): React.ReactElement {
+export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactElement {
 	const [otherSelected, setOtherSelected] = useState(false);
 	const styles = useStyles();
 
@@ -46,8 +46,8 @@ export function DelimiterInput({ showLengthError, value, onChange }: Props): Rea
 			<Input
 				className={styles.monospace}
 				value={value}
-				onChange={(_, { value }) => onChange(value)}
-				placeholder="Enter custom delimiter"
+				onChange={(_, {value}) => onChange(value)}
+				placeholder='Enter custom delimiter'
 				spellCheck={false}
 			/>
 			<br />
@@ -69,9 +69,9 @@ export function DelimiterInput({ showLengthError, value, onChange }: Props): Rea
 				<Subtitle1>Delimiter</Subtitle1>
 				<br />
 				<Dropdown
-					placeholder="Delimiter"
+					placeholder='Delimiter'
 					value={selectedKey()}
-					onOptionSelect={(_, { optionValue }) => {
+					onOptionSelect={(_, {optionValue}) => {
 						setOtherSelected(optionValue === DropdownOption.other);
 						onChange(dropdownToString[optionValue]);
 					}}

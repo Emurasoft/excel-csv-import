@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { BackButton } from './BackButton';
-import { Link, Text, Textarea } from '@fluentui/react-components';
+import {BackButton} from './BackButton';
+import {Link, Text, Textarea} from '@fluentui/react-components';
 import thisApp from './licenses/thisApp';
 import thirdParty from './licenses/thirdParty';
-import { useStyles } from './styles';
+import {useStyles} from './styles';
 
 export default function LicenseInformation(): React.ReactElement {
 	const styles = useStyles();
@@ -24,7 +24,7 @@ export default function LicenseInformation(): React.ReactElement {
 			<Text size={400}>
 				We would like to thank
 				{' '}
-				<Link href="https://www.papaparse.com/" target="_blank" rel="noopener noreferrer">Papa Parse</Link>
+				<Link href='https://www.papaparse.com/' target='_blank' rel='noopener noreferrer'>Papa Parse</Link>
 				{' '}
 				for their open-source CSV parser. CSV Import+Export also uses the following third-party libraries.
 			</Text>

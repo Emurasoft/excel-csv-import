@@ -3,9 +3,9 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import globals from 'globals';
 import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {fileURLToPath} from 'node:url';
 import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
+import {FlatCompat} from '@eslint/eslintrc';
 import stylistic from '@stylistic/eslint-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +16,13 @@ const compat = new FlatCompat({
 	allConfig: js.configs.all,
 });
 
+const stylisticConfig = stylistic.configs.customize({
+	indent: 'tab',
+	quotes: 'single',
+	semi: true,
+	jsx: true,
+});
+
 export default [
 	{
 		ignores: ['components/licenses/**/*', '**/*.snap'],
@@ -24,12 +31,15 @@ export default [
 		'plugin:react/recommended',
 		'plugin:@typescript-eslint/recommended',
 	),
-	stylistic.configs.customize({
-		indent: 'tab',
-		quotes: 'single',
-		semi: true,
-		jsx: true,
-	}),
+	{
+		...stylisticConfig,
+		rules: {
+			...stylisticConfig.rules,
+			'@stylistic/object-curly-spacing': ['error', 'never'],
+			'@stylistic/jsx-quotes': ['error', 'prefer-single'],
+			'@stylistic/block-spacing': ['error', 'never'],
+		},
+	},
 	{
 		files: ['**/*.test.ts*'],
 
@@ -67,9 +77,7 @@ export default [
 			'max-len': ['error', {
 				code: 100,
 			}],
-
 			'comma-dangle': ['error', 'always-multiline'],
-
 			'jsx-quotes': ['error', 'prefer-single'],
 			'@typescript-eslint/no-empty-function': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'off',
@@ -77,9 +85,6 @@ export default [
 			'@typescript-eslint/ban-ts-comment': 'off',
 			'@typescript-eslint/no-explicit-any': 'off',
 			'@typescript-eslint/ban-ts-ignore': 'off',
-			'@stylistic/object-curly-spacing': ['error', 'never'],
-			'@stylistic/jsx-quotes': ['error', 'prefer-single'],
-			'@stylistic/block-spacing': ['error', 'never'],
 		},
 	},
 	{
@@ -94,7 +99,6 @@ export default [
 		rules: {
 			'@typescript-eslint/no-var-requires': 'off',
 			'@typescript-eslint/no-require-imports': 'off',
-			'@stylistic/object-curly-spacing': ['error', 'never'],
 		},
 	},
 ];

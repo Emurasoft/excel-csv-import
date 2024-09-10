@@ -1,13 +1,13 @@
-import { mergeClasses, Textarea } from '@fluentui/react-components';
+import {mergeClasses, Textarea} from '@fluentui/react-components';
 import * as React from 'react';
-import { AppState, OutputType } from '../state';
-import { useStyles } from './styles';
+import {AppState, OutputType} from '../state';
+import {useStyles} from './styles';
 
 interface Props {
 	output: AppState['output'];
 }
 
-export function ParserOutputBox({ output }: Props): React.ReactElement {
+export function ParserOutputBox({output}: Props): React.ReactElement {
 	const styles = useStyles();
 
 	switch (output.type) {
