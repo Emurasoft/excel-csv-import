@@ -16,6 +16,25 @@ import {AppState, useAppSelector} from '../state';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
 
+enum ValidationResult {
+	Success = 'Import CSV',
+	ImportFileNotSelected = 'Import file is not selected',
+	DelimiterInvalid = 'Delimiter is invalid',
+	APINotInit = 'Excel API is not initialized',
+}
+
+function validate(source: Source, delimiter: string, initialized: boolean): ValidationResult {
+	if (source.inputType == InputType.file && source.file == null) {
+		return ValidationResult.ImportFileNotSelected;
+	} else if (delimiter.length !== 1) {
+		return ValidationResult.DelimiterInvalid;
+	} else if (!initialized) {
+		return ValidationResult.APINotInit;
+	}
+
+	return ValidationResult.Success;
+}
+
 export default function Import(): React.ReactElement {
 	const initialized = useAppSelector(state => state.initialized) as AppState['initialized'];
 	const platform = useAppSelector(state => state.platform) as AppState['platform'];
@@ -29,17 +48,6 @@ export default function Import(): React.ReactElement {
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
 	const [encoding, setEncoding] = useLocalStorage('encoding', '');
-
-	let buttonTooltipContent: string;
-	if (source.inputType == InputType.file && source.file == null) {
-		buttonTooltipContent = 'Import source is not selected';
-	} else if (delimiter.length !== 1) {
-		buttonTooltipContent = 'Delimiter is invalid';
-	} else if (!initialized) {
-		buttonTooltipContent = 'Excel API is not initialized';
-	} else {
-		buttonTooltipContent = '';
-	}
 
 	return (
 		<Page
@@ -75,11 +83,11 @@ export default function Import(): React.ReactElement {
 			/>
 			<br /><br />
 			<Tooltip
-				content={buttonTooltipContent}
+				content={validate(source, delimiter, initialized)}
 				relationship='label'
 			>
 				<Button
-					disabled={buttonTooltipContent !== ''}
+					disabled={validate(source, delimiter, initialized) !== ValidationResult.Success}
 					onClick={
 						async () => dispatch(importCSV({source, newline, delimiter, encoding}))
 					}

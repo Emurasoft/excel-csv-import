@@ -259,7 +259,7 @@ exports[`Import import 1`] = `
     <br />
     <br />
     <button
-      aria-label=""
+      aria-label="Import CSV"
       class="fui-Button"
       type="button"
     >
