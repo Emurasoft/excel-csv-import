@@ -9,7 +9,7 @@ describe('ProgressBarWithStopButton', () => {
 		let clicked = false;
 		const wrapper = render(
 			<ProgressBarWithStopButton
-				onClick={() => { clicked = true; }}
+				onClick={() => {clicked = true;}}
 				progress={{show: true, aborting: false, percent: 0.0}}
 			/>
 		);

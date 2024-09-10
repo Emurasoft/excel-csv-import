@@ -49,7 +49,13 @@ describe('ExcelAPI', () => {
 			{
 				a: [['a']],
 				maxLength: 2,
-				expected: [(() => { const a = new Array(2); a[0] = 'a'; return a; })()],
+				expected: [
+					(() => {
+						const a = new Array(2);
+						a[0] = 'a';
+						return a;
+					})(),
+				],
 				expectError: false,
 			},
 			{
@@ -61,13 +67,22 @@ describe('ExcelAPI', () => {
 			{
 				a: [['a'], []],
 				maxLength: 2,
-				expected: [(() => { const a = new Array(2); a[0] = 'a'; return a; })(), new Array(2)],
+				expected: [
+					(() => {
+						const a = new Array(2);
+						a[0] = 'a';
+						return a;
+					})(),
+					new Array(2),
+				],
 				expectError: false,
 			},
 		];
 
 		for (const test of tests) {
-			const func = () => { ExcelAPI._resize(test.a, test.maxLength); };
+			const func = () => {
+				ExcelAPI._resize(test.a, test.maxLength);
+			};
 			if (test.expectError) {
 				expect(func).toThrowError();
 			}

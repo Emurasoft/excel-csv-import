@@ -78,6 +78,8 @@ export default [
 			'@typescript-eslint/no-explicit-any': 'off',
 			'@typescript-eslint/ban-ts-ignore': 'off',
 			'@stylistic/object-curly-spacing': ['error', 'never'],
+			'@stylistic/jsx-quotes': ['error', 'prefer-single'],
+			'@stylistic/block-spacing': ['error', 'never'],
 		},
 	},
 	{
