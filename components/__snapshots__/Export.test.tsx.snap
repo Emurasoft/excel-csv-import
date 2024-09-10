@@ -245,7 +245,7 @@ exports[`Export export 1`] = `
     <br />
     <br />
     <button
-      aria-label=""
+      aria-label="Export CSV"
       class="fui-Button"
       type="button"
     >
