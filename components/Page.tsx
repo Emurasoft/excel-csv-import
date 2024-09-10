@@ -53,19 +53,19 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 			{
 				firstVisit
 					? (
-							<>
-								<Text size={500}>
-									CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
-								</Text>
-								<br />
-								<br />
-								<Button
-									onClick={() => setFirstVisit(false)}
-								>
-									Continue
-								</Button>
-							</>
-						)
+						<>
+							<Text size={500}>
+								CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
+							</Text>
+							<br />
+							<br />
+							<Button
+								onClick={() => setFirstVisit(false)}
+							>
+								Continue
+							</Button>
+						</>
+					)
 					: children
 			}
 		</div>

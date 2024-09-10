@@ -21,11 +21,11 @@ export function ProgressBarWithStopButton({onClick, progress}: Props): React.Rea
 			{
 				progress.show
 					? (
-							<>
-								<Text size={300}>{stopText}</Text>
-								<ProgressBar value={progress.percent} />
-							</>
-						)
+						<>
+							<Text size={300}>{stopText}</Text>
+							<ProgressBar value={progress.percent} />
+						</>
+					)
 					: <Text size={300}>&nbsp;</Text>
 			}
 		</>

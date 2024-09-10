@@ -40,6 +40,7 @@ export default [
 			'@stylistic/jsx-quotes': ['error', 'prefer-single'],
 			'@stylistic/block-spacing': ['error', 'never'],
 			'@stylistic/jsx-one-expression-per-line': 'off',
+			'@stylistic/indent': ['error', 'tab'],
 		},
 	},
 	{

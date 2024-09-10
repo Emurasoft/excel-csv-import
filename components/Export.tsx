@@ -93,16 +93,16 @@ export default function Export(): React.ReactElement {
 			{
 				exportType === ExportType.file
 					? (
-							<>
-								<EncodingDropdown
-									value={encoding}
-									onChange={setEncoding}
-									showAutoDetect={false}
-								/>
-								<br />
-								<br />
-							</>
-						)
+						<>
+							<EncodingDropdown
+								value={encoding}
+								onChange={setEncoding}
+								showAutoDetect={false}
+							/>
+							<br />
+							<br />
+						</>
+					)
 					: null
 			}
 			<DelimiterInput
@@ -143,16 +143,16 @@ export default function Export(): React.ReactElement {
 			{
 				exportType == ExportType.text
 					? (
-							<Textarea
-								value={outputText}
-								readOnly
-								placeholder='Export result'
-								className={mergeClasses(styles.monospace, styles.fullWidth)}
-								rows={15}
-								spellCheck={false}
-								wrap='off'
-							/>
-						)
+						<Textarea
+							value={outputText}
+							readOnly
+							placeholder='Export result'
+							className={mergeClasses(styles.monospace, styles.fullWidth)}
+							rows={15}
+							spellCheck={false}
+							wrap='off'
+						/>
+					)
 					: null
 			}
 			<ParserOutputBox output={output} />

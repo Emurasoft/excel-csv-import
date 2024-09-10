@@ -63,12 +63,12 @@ export default function Import(): React.ReactElement {
 			{
 				source.inputType === InputType.file
 					? (
-							<EncodingDropdown
-								value={encoding}
-								onChange={setEncoding}
-								showAutoDetect={true}
-							/>
-						)
+						<EncodingDropdown
+							value={encoding}
+							onChange={setEncoding}
+							showAutoDetect={true}
+						/>
+					)
 					: null
 			}
 			<br />
