@@ -23,7 +23,7 @@ enum ValidationResult {
 	APINotInit = 'Excel API is not initialized',
 }
 
-function validate(source: Source, delimiter: String, initialized: boolean): ValidationResult {
+function validate(source: Source, delimiter: string, initialized: boolean): ValidationResult {
 	if (source.inputType == InputType.file && source.file == null) {
 		return ValidationResult.ImportFileNotSelected;
 	} else if (delimiter.length !== 1) {
