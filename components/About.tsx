@@ -38,7 +38,7 @@ export default function About(): React.ReactElement {
 				</a>
 			</div>
 			<Body1>
-				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'https://www.emeditor.com/'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
+				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href='https://www.emeditor.com/' target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
 			</Body1>
 			<br />
 			<br />
