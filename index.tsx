@@ -47,8 +47,7 @@ function Initializer({children}): React.ReactElement {
 function Theme({children}: React.PropsWithChildren) {
 	const initialized = useAppSelector(state => state.initialized);
 
-	const officeTheme = Office.context.officeTheme;
-	const isDarkMode = initialized && officeTheme && officeTheme.isDarkTheme;
+	const isDarkMode = initialized && Office.context && Office.context.officeTheme && Office.context.officeTheme.isDarkTheme;
 
 	return (
 		<FluentProvider theme={isDarkMode ? webDarkTheme : webLightTheme}>
