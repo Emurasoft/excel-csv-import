@@ -1,7 +1,7 @@
 import {ThunkDispatch} from '@reduxjs/toolkit';
 import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
 import {AppState, OutputType} from './state';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 export type Action =
 	SetInitialized
@@ -65,7 +65,7 @@ export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Pro
 		type: SET_INITIALIZED,
 		initialized: true,
 	});
-}
+};
 
 function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 	return (percent) => {
@@ -73,7 +73,7 @@ function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 			type: SET_PROGRESS,
 			progress: {show: true, aborting: false, percent},
 		});
-	}
+	};
 }
 
 export const importCSV = (options: ImportOptions) =>
@@ -98,10 +98,10 @@ export const importCSV = (options: ImportOptions) =>
 			type: SET_PROGRESS,
 			progress: {show: false, aborting: false, percent: 1.0},
 		});
-	}
+	};
 
 export const exportCSV = (options: ExportOptions) =>
-	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<CsvStringAndName|null> => {
+	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<CsvStringAndName | null> => {
 		dispatch({
 			type: SET_PROGRESS,
 			progress: {show: true, aborting: false, percent: 0.0},
@@ -117,7 +117,7 @@ export const exportCSV = (options: ExportOptions) =>
 			progress: {show: false, aborting: false, percent: 1.0},
 		});
 		return result;
-	}
+	};
 
 export const abort = () =>
 	async (dispatch: Dispatch, getState: GetState, {parser}: ExtraArg): Promise<void> => {
@@ -127,4 +127,4 @@ export const abort = () =>
 			type: SET_PROGRESS,
 			progress: {show: progress.show, aborting: true, percent: progress.percent},
 		});
-	}
+	};

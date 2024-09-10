@@ -19,11 +19,13 @@ export function EncodingDropdown({showAutoDetect, value, onChange}: Props): Reac
 			>
 				{
 					showAutoDetect
-					&& <Option value=''>
-						Auto-detect
-					</Option>
+					&& (
+						<Option value=''>
+							Auto-detect
+						</Option>
+					)
 				}
-				{EncodingDropdownOptions.map((v) => <Option key={v}>{v}</Option>)}
+				{EncodingDropdownOptions.map(v => <Option key={v}>{v}</Option>)}
 			</Dropdown>
 		</Label>
 	);

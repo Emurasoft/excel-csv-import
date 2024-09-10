@@ -9,11 +9,11 @@ import {reducer} from './reducer';
 import {Parser} from './parser';
 import {errorHandler} from './errorhandler';
 import {Routes} from 'react-router-dom';
-import {configureStore} from '@reduxjs/toolkit'
-import { webDarkTheme, webLightTheme } from '@fluentui/react-theme';
-import { FluentProvider } from '@fluentui/react-components';
-import { createRoot } from 'react-dom/client';
-import { useAppSelector } from './state';
+import {configureStore} from '@reduxjs/toolkit';
+import {webDarkTheme, webLightTheme} from '@fluentui/react-theme';
+import {FluentProvider} from '@fluentui/react-components';
+import {createRoot} from 'react-dom/client';
+import {useAppSelector} from './state';
 
 const Import = React.lazy(
 	() => import(/* webpackChunkName: 'import', webpackPrefetch: true */'./components/Import'),
@@ -31,7 +31,7 @@ const LicenseInformation = React.lazy(
 const extraArg: ExtraArg = {parser: new Parser()};
 const store = configureStore({
 	reducer,
-	middleware: (getDefaultMiddleware) => 
+	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({
 			thunk: {
 				extraArgument: extraArg,
@@ -59,7 +59,7 @@ function Theme({children}: React.PropsWithChildren) {
 function App(): React.ReactElement {
 	return (
 		<ErrorBoundary>
-			<React.Suspense fallback={''}>
+			<React.Suspense fallback=''>
 				<Provider store={store}>
 					<Theme>
 						<Initializer>
@@ -77,7 +77,7 @@ function App(): React.ReactElement {
 }
 
 function ParamRouter() {
-	const page = (queryString.parse(location.search).page as string);
+	const page = queryString.parse(location.search).page as string;
 	switch (page) {
 	case Pages.import:
 		return <Import />;

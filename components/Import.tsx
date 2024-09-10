@@ -51,8 +51,8 @@ export default function Import(): React.ReactElement {
 
 	return (
 		<Page
-			text={'Import CSV'}
-			helpLink={'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'}
+			text='Import CSV'
+			helpLink='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
 			mac={platform === Office.PlatformType.Mac}
 		>
 			<SourceInput
@@ -62,26 +62,31 @@ export default function Import(): React.ReactElement {
 			<br />
 			{
 				source.inputType === InputType.file
-					? <EncodingDropdown
-						value={encoding}
-						onChange={setEncoding}
-						showAutoDetect={true}
-					/>
+					? (
+						<EncodingDropdown
+							value={encoding}
+							onChange={setEncoding}
+							showAutoDetect={true}
+						/>
+					)
 					: null
 			}
-			<br/><br />
+			<br />
+			<br />
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}
 				showLengthError={true}
 			/>
-			<br /><br />
+			<br />
+			<br />
 			<NewlineDropdown
 				value={newline}
 				onChange={setNewline}
 				showAutoDetect={true}
 			/>
-			<br /><br />
+			<br />
+			<br />
 			<Tooltip
 				content={validate(source, delimiter, initialized)}
 				relationship='label'

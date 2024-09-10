@@ -8,7 +8,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {describe, expect, jest, test} from '@jest/globals';
 import {any, anyFunction, mock} from 'jest-mock-extended';
 import {render} from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 import {init, useAppDispatch} from '../action';
 
 jest.mock('../parser');
@@ -20,9 +20,11 @@ function Initializer({children}): React.ReactElement {
 
 describe('Export', () => {
 	function ExportWithContext({store}: {store}): React.ReactElement {
-		return <MemoryRouter>
-			<Provider store={store}><Initializer><Export /></Initializer></Provider>
-		</MemoryRouter>;
+		return (
+			<MemoryRouter>
+				<Provider store={store}><Initializer><Export /></Initializer></Provider>
+			</MemoryRouter>
+		);
 	}
 
 	test('export', async () => {
@@ -35,14 +37,14 @@ describe('Export', () => {
 
 		const store = configureStore({
 			reducer,
-			middleware: (getDefaultMiddleware) => 
+			middleware: getDefaultMiddleware =>
 				getDefaultMiddleware({
 					thunk: {
 						extraArgument: {parser},
 					},
 				}),
 		});
-        
+
 		const wrapper = render(<ExportWithContext store={store} />);
 
 		await userEvent.click(wrapper.getByLabelText('Delimiter'));
@@ -56,11 +58,11 @@ describe('Export', () => {
 		const expected: ExportOptions = {
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
-		}
+		};
 
 		expect(parser.csvStringAndName).toHaveBeenCalledWith(expected, anyFunction());
 
-		expect(wrapper.queryByText("export result")).not.toBeNull();
+		expect(wrapper.queryByText('export result')).not.toBeNull();
 
 		expect(wrapper.asFragment()).toMatchSnapshot();
 	});

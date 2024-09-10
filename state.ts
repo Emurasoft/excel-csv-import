@@ -1,4 +1,4 @@
-import { useSelector, TypedUseSelectorHook } from "react-redux";
+import {useSelector, TypedUseSelectorHook} from 'react-redux';
 
 export type AppState = typeof initial;
 

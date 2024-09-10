@@ -100,7 +100,7 @@ interface WorksheetNamesAndShape {
 }
 
 export async function worksheetNamesAndShape(
-	worksheet: Excel.Worksheet
+	worksheet: Excel.Worksheet,
 ): Promise<WorksheetNamesAndShape> {
 	const workbook = worksheet.context.workbook.load('name');
 	worksheet.load('name');

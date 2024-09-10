@@ -32,9 +32,11 @@ export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React
 			>
 				{
 					showAutoDetect
-					&& <Option value={NewlineSequence.AutoDetect}>
-						{getLabel(NewlineSequence.AutoDetect)}
-					</Option>
+					&& (
+						<Option value={NewlineSequence.AutoDetect}>
+							{getLabel(NewlineSequence.AutoDetect)}
+						</Option>
+					)
 				}
 				<Option value={NewlineSequence.CRLF}>
 					{getLabel(NewlineSequence.CRLF)}

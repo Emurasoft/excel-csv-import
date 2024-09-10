@@ -22,7 +22,7 @@ import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import {useAppSelector} from '../state';
 import {abort, exportCSV, useAppDispatch} from '../action';
-import { useStyles } from './styles';
+import {useStyles} from './styles';
 
 export const enum ExportType {
 	file = 'File',
@@ -63,44 +63,46 @@ export default function Export(): React.ReactElement {
 			return;
 		}
 		case ExportType.text: {
-			setOutputText(csvStringAndName.string)
+			setOutputText(csvStringAndName.string);
 			return;
 		}
 		}
-	}
+	};
 
 	return (
 		<Page
-			text={'Export CSV'}
-			helpLink={
-				'https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv'
-			}
+			text='Export CSV'
+			helpLink='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md#export-csv'
 			mac={platform === Office.PlatformType.Mac}
 		>
 			<Label>
 				<Subtitle1>Export type</Subtitle1>
 				<br />
 				<Dropdown
-					placeholder="Delimiter"
+					placeholder='Delimiter'
 					value={exportType}
 					onOptionSelect={(_, {optionValue}) => setExportType(optionValue as ExportType)}
-					id={'exportTypeDropdown'}
+					id='exportTypeDropdown'
 				>
 					<Option>{ExportType.file}</Option>
 					<Option>{ExportType.text}</Option>
 				</Dropdown>
 			</Label>
-			<br /><br />
+			<br />
+			<br />
 			{
 				exportType === ExportType.file
-					? <>
-						<EncodingDropdown
-							value={encoding}
-							onChange={setEncoding}
-							showAutoDetect={false}
-						/>
-						<br /><br />
-					</>
+					? (
+						<>
+							<EncodingDropdown
+								value={encoding}
+								onChange={setEncoding}
+								showAutoDetect={false}
+							/>
+							<br />
+							<br />
+						</>
+					)
 					: null
 			}
 			<DelimiterInput
@@ -108,13 +110,15 @@ export default function Export(): React.ReactElement {
 				onChange={setDelimiter}
 				showLengthError={false}
 			/>
-			<br /><br />
+			<br />
+			<br />
 			<NewlineDropdown
 				value={newline}
 				onChange={setNewline}
 				showAutoDetect={false}
 			/>
-			<br /><br />
+			<br />
+			<br />
 			<Tooltip
 				content={
 					initialized
@@ -138,14 +142,17 @@ export default function Export(): React.ReactElement {
 			/>
 			{
 				exportType == ExportType.text
-					? <Textarea
-						value={outputText} readOnly
-						placeholder='Export result'
-						className={mergeClasses(styles.monospace, styles.fullWidth)}
-						rows={15}
-						spellCheck={false}
-						wrap='off'
-					/>
+					? (
+						<Textarea
+							value={outputText}
+							readOnly
+							placeholder='Export result'
+							className={mergeClasses(styles.monospace, styles.fullWidth)}
+							rows={15}
+							spellCheck={false}
+							wrap='off'
+						/>
+					)
 					: null
 			}
 			<ParserOutputBox output={output} />

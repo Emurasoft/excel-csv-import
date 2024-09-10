@@ -1,6 +1,6 @@
 import {errorOutput, SET_OUTPUT} from './action';
 
-export const errorHandler = ({dispatch}) => next => async action => {
+export const errorHandler = ({dispatch}) => next => async (action) => {
 	try {
 		return await next(action);
 	} catch (error) {

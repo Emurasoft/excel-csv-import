@@ -139,7 +139,7 @@ export class ChunkProcessor {
 			Papa.LocalChunkSize as unknown as number,
 		);
 
-		return new Promise(resolve => {
+		return new Promise((resolve) => {
 			importOptions.chunk = this.chunk;
 			importOptions.complete = results => resolve(results.errors);
 
@@ -151,7 +151,7 @@ export class ChunkProcessor {
 				Papa.parse(
 					/* eslint-disable @typescript-eslint/no-explicit-any */
 					importOptions.source.text as any,
-					importOptions as Papa.ParseLocalConfig
+					importOptions as Papa.ParseLocalConfig,
 				);
 				break;
 			}
@@ -195,7 +195,7 @@ export class ChunkProcessor {
 		// Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
 		// on performance.
 		this._progressCallback(this._currentProgress += this._progressPerChunk);
-	}
+	};
 }
 
 /*
@@ -229,7 +229,7 @@ export function addQuotes(row: string[], delimiter: string): void {
 		return;
 	}
 
-	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/, delimiter];
+	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /* double quote */, delimiter];
 	for (let i = 0; i < row.length; i++) {
 		if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
 			row[i] = '\u0022' + row[i].replace(/\u0022/g, '\u0022\u0022') + '\u0022';
@@ -301,7 +301,7 @@ export function nameToUse(workbookName: string, worksheetName: string): string {
 
 function chunkRows(shape: Shape): number {
 	if (reduceChunkSize) {
-		return Math.floor(10_000 / shape.columns)
+		return Math.floor(10_000 / shape.columns);
 	} else {
 		return shape.rows;
 	}

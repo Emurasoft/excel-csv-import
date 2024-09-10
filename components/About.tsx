@@ -3,7 +3,7 @@ import {Body1, Link, mergeClasses, Text, Title1} from '@fluentui/react-component
 import {BackButton} from './BackButton';
 import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
-import { useStyles } from './styles';
+import {useStyles} from './styles';
 
 export default function About(): React.ReactElement {
 	const styles = useStyles();
@@ -17,43 +17,49 @@ export default function About(): React.ReactElement {
 					href='https://github.com/Emurasoft/excel-csv-import'
 					target='_blank'
 					rel='noopener noreferrer'
-					title={'CSV Import+Export on GitHub'}
+					title='CSV Import+Export on GitHub'
 				>
 					<Title1>CSV Import+Export</Title1>
 				</Link>
 			</Text>
-			<br /><br />
+			<br />
+			<br />
 			<div className={mergeClasses(styles.monospace, styles.centerContent)}>
 				<a
-					href={'https://www.emeditor.com/'}
+					href='https://www.emeditor.com/'
 					target='_blank'
 					rel='noopener noreferrer'
 				>
 					<img
 						style={{width: '150px'}}
-						src={'static/logo-minified-margins.svg'}
-						alt={'EmEditor logo'}
+						src='static/logo-minified-margins.svg'
+						alt='EmEditor logo'
 					/>
 				</a>
 			</div>
 			<Body1>
-				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href={'https://www.emeditor.com/'}  target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
+				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href='https://www.emeditor.com/' target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
 			</Body1>
-			<br /><br />
+			<br />
+			<br />
 
 			<Body1>
-				<strong>Help page</strong><br />
+				<strong>Help page</strong>
+				<br />
 				<Link href='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md' target='_blank' rel='noopener noreferrer'>
 					View the help page here.
 				</Link>
 			</Body1>
-			<br /><br />
+			<br />
+			<br />
 
 			<Body1>
-				<strong>Report bugs/send feedback</strong><br />
+				<strong>Report bugs/send feedback</strong>
+				<br />
 				Bug reports can be submitted via the <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>issues page of our GitHub repo</Link> or the <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>contact form</Link>.<br />
 			</Body1>
-			<br /><br />
+			<br />
+			<br />
 			<Body1>
 				© 2023 Emurasoft Inc.
 				<br />

@@ -14,7 +14,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 		return value;
 	});
 
-	const setValue = value => {
+	const setValue = (value) => {
 		setStoredValue(value);
 		try {
 			window.localStorage.setItem(key, JSON.stringify(value));
@@ -29,5 +29,5 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 export function namespacedUseLocalStorage(namespace: string): typeof useLocalStorage {
 	return function (key: string, initialValue) {
 		return useLocalStorage(namespace + '-' + key, initialValue);
-	}
+	};
 }

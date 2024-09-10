@@ -7,7 +7,9 @@ function getList() {
 		const buffers = [];
 		https.get('https://encoding.spec.whatwg.org/encodings.json', (res) => {
 			res.on('data', buffers.push.bind(buffers));
-			res.on('end', () => {resolve(JSON.parse(Buffer.concat(buffers).toString()))});
+			res.on('end', () => {
+				resolve(JSON.parse(Buffer.concat(buffers).toString()));
+			});
 		});
 	});
 }

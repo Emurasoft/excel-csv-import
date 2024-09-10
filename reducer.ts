@@ -10,7 +10,7 @@ export function reducer(state: AppState = initial, action: Action): Partial<AppS
 	case 'SET_OUTPUT':
 		return {...state, output: action.output};
 	case 'SET_PROGRESS':
-		return {...state, progress:  action.progress};
+		return {...state, progress: action.progress};
 	}
 	return state;
 }

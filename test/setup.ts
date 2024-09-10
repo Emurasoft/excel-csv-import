@@ -13,9 +13,9 @@ import {configureLoadStyles} from '@microsoft/load-themed-styles';
 		Android: 4,
 		Universal: 5,
 	},
-}
+};
 
 // @ts-expect-error Simple mock
-window.requestAnimationFrame = (cb) => cb();
+window.requestAnimationFrame = cb => cb();
 
 configureLoadStyles(() => {});

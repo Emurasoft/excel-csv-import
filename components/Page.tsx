@@ -1,8 +1,8 @@
 import {Button, Link, Text, Title1, Tooltip} from '@fluentui/react-components';
 import * as React from 'react';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
-import { Question32Regular } from '@fluentui/react-icons';
-import { useStyles } from './styles';
+import {Question32Regular} from '@fluentui/react-icons';
+import {useStyles} from './styles';
 
 interface Props {
 	text: string;
@@ -34,7 +34,7 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				}}
 			>
 				<Title1>{text}</Title1>
-				<Tooltip content="Help page" relationship='label'>
+				<Tooltip content='Help page' relationship='label'>
 					<Link
 						as='a'
 						href={helpLink}
@@ -52,17 +52,20 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 			<br />
 			{
 				firstVisit
-					? <>
-						<Text size={500}>
-							CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
-						</Text>
-						<br /><br />
-						<Button
-							onClick={() => setFirstVisit(false)}
-						>
-							Continue
-						</Button>
-					</>
+					? (
+						<>
+							<Text size={500}>
+								CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
+							</Text>
+							<br />
+							<br />
+							<Button
+								onClick={() => setFirstVisit(false)}
+							>
+								Continue
+							</Button>
+						</>
+					)
 					: children
 			}
 		</div>

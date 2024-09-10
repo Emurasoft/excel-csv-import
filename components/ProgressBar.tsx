@@ -13,17 +13,19 @@ export function ProgressBarWithStopButton({onClick, progress}: Props): React.Rea
 	if (progress.aborting) {
 		stopText = <Text size={300}>Stopping</Text>;
 	} else {
-		stopText = <Text size={300}><Link onClick={onClick}>Stop</Link></Text>
+		stopText = <Text size={300}><Link onClick={onClick}>Stop</Link></Text>;
 	}
 
 	return (
 		<>
 			{
 				progress.show
-					? <>
-						<Text size={300}>{stopText}</Text>
-						<ProgressBar value={progress.percent} />
-					</>
+					? (
+						<>
+							<Text size={300}>{stopText}</Text>
+							<ProgressBar value={progress.percent} />
+						</>
+					)
 					: <Text size={300}>&nbsp;</Text>
 			}
 		</>
