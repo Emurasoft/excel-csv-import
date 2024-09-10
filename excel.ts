@@ -13,7 +13,8 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
 
 	if (range.isNullObject) {
 		return currentWorksheet;
-	} else {
+	}
+	else {
 		return context.workbook.worksheets.add();
 	}
 }
@@ -100,7 +101,7 @@ interface WorksheetNamesAndShape {
 }
 
 export async function worksheetNamesAndShape(
-	worksheet: Excel.Worksheet
+	worksheet: Excel.Worksheet,
 ): Promise<WorksheetNamesAndShape> {
 	const workbook = worksheet.context.workbook.load('name');
 	worksheet.load('name');
@@ -110,6 +111,6 @@ export async function worksheetNamesAndShape(
 	return {
 		workbookName: workbook.name,
 		worksheetName: worksheet.name,
-		shape: {rows: range.rowCount, columns: range.columnCount},
+		shape: { rows: range.rowCount, columns: range.columnCount },
 	};
 }

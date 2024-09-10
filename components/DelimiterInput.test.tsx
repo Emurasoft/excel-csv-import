@@ -2,7 +2,7 @@ import {DelimiterInput, codePoint} from './DelimiterInput';
 import * as React from 'react';
 import {describe, expect, test} from '@jest/globals';
 import {render} from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 describe('DelimiterInput', () => {
 	test('custom input display status', async () => {
@@ -26,19 +26,19 @@ describe('DelimiterInput', () => {
 		const commaElements = input.getAllByText('Comma');
 		// Select item in menu
 		await userEvent.click(commaElements[1]);
-		
+
 		expect(input.queryByRole('textbox')).toBeNull();
 
 		await userEvent.click(input.getByRole('combobox'));
 		await userEvent.click(input.getByText('Other'));
-		
+
 		expect(input.queryByRole('textbox')).not.toBeNull();
 
 		await userEvent.click(input.getByRole('combobox'));
 		await userEvent.click(input.getByText('Comma'));
 		input.rerender(
 			<DelimiterInput
-				value={','}
+				value=','
 				onChange={onChange}
 				showLengthError={true}
 			/>
@@ -49,7 +49,7 @@ describe('DelimiterInput', () => {
 		// (Happens if value is loaded from storage)
 		input.rerender(
 			<DelimiterInput
-				value={'a'}
+				value='a'
 				onChange={onChange}
 				showLengthError={true}
 			/>
@@ -62,12 +62,12 @@ describe('DelimiterInput', () => {
 
 		const input = render(
 			<DelimiterInput
-				value={''}
-				onChange={(v) => result = v}
+				value=''
+				onChange={v => result = v}
 				showLengthError={true}
 			/>
 		);
-		
+
 		await userEvent.click(input.getByRole('combobox'));
 		await userEvent.click(input.getByText('Comma'));
 		expect(result).toEqual(',');
@@ -90,6 +90,6 @@ describe('DelimiterInput', () => {
 	});
 
 	test('codePoint', () => {
-		expect(codePoint(',')).toEqual('U+002C')
+		expect(codePoint(',')).toEqual('U+002C');
 	});
 });

@@ -1,4 +1,4 @@
-import {Dispatch, useState} from 'react';
+import { Dispatch, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T>] {
 	const [storedValue, setStoredValue] = useState<T>(() => {
@@ -8,17 +8,19 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 			if (item) {
 				value = JSON.parse(item);
 			}
-		} catch (e) {
+		}
+		catch (e) {
 			console.warn(e);
 		}
 		return value;
 	});
 
-	const setValue = value => {
+	const setValue = (value) => {
 		setStoredValue(value);
 		try {
 			window.localStorage.setItem(key, JSON.stringify(value));
-		} catch (e) {
+		}
+		catch (e) {
 			console.warn(e);
 		}
 	};
@@ -29,5 +31,5 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 export function namespacedUseLocalStorage(namespace: string): typeof useLocalStorage {
 	return function (key: string, initialValue) {
 		return useLocalStorage(namespace + '-' + key, initialValue);
-	}
+	};
 }

@@ -6,91 +6,93 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
-import stylistic from '@stylistic/eslint-plugin'
+import stylistic from '@stylistic/eslint-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all,
+	baseDirectory: __dirname,
+	recommendedConfig: js.configs.recommended,
+	allConfig: js.configs.all,
 });
 
 export default [
-    {
-        ignores: ['components/licenses/**/*', '**/*.snap'],
-    }, ...compat.extends(
-        'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:@typescript-eslint/recommended',
-    ),
-    stylistic.configs.customize({
-        indent: 'tab',
-        quotes: 'single',
-        jsx: true,
-    }),
-    {
-        files: ['**/*.test.ts*'],
-        
-        plugins: {
-            react,
-            '@typescript-eslint': typescriptEslint,
-            '@stylistic': stylistic,
-        },
+	{
+		ignores: ['components/licenses/**/*', '**/*.snap'],
+	}, ...compat.extends(
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:@typescript-eslint/recommended',
+	),
+	stylistic.configs.customize({
+		indent: 'tab',
+		quotes: 'single',
+		semi: true,
+		jsx: true,
+	}),
+	{
+		files: ['**/*.test.ts*'],
 
-        languageOptions: {
-            globals: {
-                ...globals.browser,
-            },
+		plugins: {
+			react,
+			'@typescript-eslint': typescriptEslint,
+			'@stylistic': stylistic,
+		},
 
-            parser: tsParser,
-            ecmaVersion: 5,
-            sourceType: 'script',
+		languageOptions: {
+			globals: {
+				...globals.browser,
+			},
 
-            parserOptions: {
-                project: 'tsconfig.json',
+			parser: tsParser,
+			ecmaVersion: 5,
+			sourceType: 'script',
 
-                ecmaFeatures: {
-                    jsx: true,
-                },
-            },
-        },
+			parserOptions: {
+				project: 'tsconfig.json',
 
-        settings: {
-            react: {
-                version: 'detect',
-            },
-        },
+				ecmaFeatures: {
+					jsx: true,
+				},
+			},
+		},
 
-        rules: {
-            'max-len': ['error', {
-                code: 100,
-            }],
+		settings: {
+			react: {
+				version: 'detect',
+			},
+		},
 
-            'comma-dangle': ['error', 'always-multiline'],
+		rules: {
+			'max-len': ['error', {
+				code: 100,
+			}],
 
-            'jsx-quotes': ['error', 'prefer-single'],
-            '@typescript-eslint/no-empty-function': 'off',
-            '@typescript-eslint/explicit-function-return-type': 'off',
-            '@typescript-eslint/no-use-before-define': 'off',
-            '@typescript-eslint/ban-ts-comment': 'off',
-            '@typescript-eslint/no-explicit-any': 'off',
-            '@typescript-eslint/ban-ts-ignore': 'off',
-            '@stylistic/object-curly-spacing': 'never',
-        },
-    },
-    {
-        files: ['**/*.js'],
+			'comma-dangle': ['error', 'always-multiline'],
 
-        languageOptions: {
-            globals: {
-                ...globals.node,
-            },
-        },
+			'jsx-quotes': ['error', 'prefer-single'],
+			'@typescript-eslint/no-empty-function': 'off',
+			'@typescript-eslint/explicit-function-return-type': 'off',
+			'@typescript-eslint/no-use-before-define': 'off',
+			'@typescript-eslint/ban-ts-comment': 'off',
+			'@typescript-eslint/no-explicit-any': 'off',
+			'@typescript-eslint/ban-ts-ignore': 'off',
+			'@stylistic/object-curly-spacing': ['error', 'never'],
+		},
+	},
+	{
+		files: ['**/*.js'],
 
-        rules: {
-            '@typescript-eslint/no-var-requires': 'off',
-            '@typescript-eslint/no-require-imports': 'off',
-        },
-    },
+		languageOptions: {
+			globals: {
+				...globals.node,
+			},
+		},
+
+		rules: {
+			'@typescript-eslint/no-var-requires': 'off',
+			'@typescript-eslint/no-require-imports': 'off',
+			'@stylistic/object-curly-spacing': ['error', 'never'],
+		},
+	},
 ];

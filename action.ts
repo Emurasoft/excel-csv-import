@@ -1,6 +1,6 @@
-import {ThunkDispatch} from '@reduxjs/toolkit';
-import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
-import {AppState, OutputType} from './state';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { CsvStringAndName, ExportOptions, ImportOptions, Parser } from './parser';
+import { AppState, OutputType } from './state';
 import { useDispatch } from 'react-redux';
 
 export type Action =
@@ -31,11 +31,11 @@ export interface SetOutput {
 }
 
 function textOutput(text: string): AppState['output'] {
-	return {type: OutputType.text, text, error: null};
+	return { type: OutputType.text, text, error: null };
 }
 
 export function errorOutput(error: Error): AppState['output'] {
-	return {type: OutputType.error, text: '', error};
+	return { type: OutputType.error, text: '', error };
 }
 
 export const SET_PROGRESS = 'SET_PROGRESS';
@@ -55,7 +55,7 @@ export const useAppDispatch: () => Dispatch = useDispatch;
 
 type GetState = () => AppState;
 
-export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
+export const init = () => async (dispatch: Dispatch, _, { parser }: ExtraArg): Promise<void> => {
 	dispatch({
 		type: SET_PLATFORM,
 		platform: await parser.init(),
@@ -65,22 +65,22 @@ export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Pro
 		type: SET_INITIALIZED,
 		initialized: true,
 	});
-}
+};
 
 function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 	return (percent) => {
 		dispatch({
 			type: SET_PROGRESS,
-			progress: {show: true, aborting: false, percent},
+			progress: { show: true, aborting: false, percent },
 		});
-	}
+	};
 }
 
 export const importCSV = (options: ImportOptions) =>
-	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
+	async (dispatch: Dispatch, _, { parser }: ExtraArg): Promise<void> => {
 		dispatch({
 			type: SET_PROGRESS,
-			progress: {show: true, aborting: false, percent: 0.0},
+			progress: { show: true, aborting: false, percent: 0.0 },
 		});
 
 		const parseErrors = await parser.importCSV(
@@ -96,15 +96,15 @@ export const importCSV = (options: ImportOptions) =>
 
 		dispatch({
 			type: SET_PROGRESS,
-			progress: {show: false, aborting: false, percent: 1.0},
+			progress: { show: false, aborting: false, percent: 1.0 },
 		});
-	}
+	};
 
 export const exportCSV = (options: ExportOptions) =>
-	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<CsvStringAndName|null> => {
+	async (dispatch: Dispatch, _, { parser }: ExtraArg): Promise<CsvStringAndName | null> => {
 		dispatch({
 			type: SET_PROGRESS,
-			progress: {show: true, aborting: false, percent: 0.0},
+			progress: { show: true, aborting: false, percent: 0.0 },
 		});
 
 		const result = await parser.csvStringAndName(
@@ -114,17 +114,17 @@ export const exportCSV = (options: ExportOptions) =>
 
 		dispatch({
 			type: SET_PROGRESS,
-			progress: {show: false, aborting: false, percent: 1.0},
+			progress: { show: false, aborting: false, percent: 1.0 },
 		});
 		return result;
-	}
+	};
 
 export const abort = () =>
-	async (dispatch: Dispatch, getState: GetState, {parser}: ExtraArg): Promise<void> => {
+	async (dispatch: Dispatch, getState: GetState, { parser }: ExtraArg): Promise<void> => {
 		parser.abort();
-		const {progress} = getState();
+		const { progress } = getState();
 		dispatch({
 			type: SET_PROGRESS,
-			progress: {show: progress.show, aborting: true, percent: progress.percent},
+			progress: { show: progress.show, aborting: true, percent: progress.percent },
 		});
-	}
+	};

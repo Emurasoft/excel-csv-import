@@ -60,16 +60,16 @@ describe('parser', () => {
 				api.setChunk = (worksheet, row, data) => {
 					assert.strictEqual(worksheet, worksheetStub);
 					assert.strictEqual(row, 0);
-					assert.deepStrictEqual(data, [['a', 'b']])
+					assert.deepStrictEqual(data, [['a', 'b']]);
 					setChunkDone = true;
-				}
+				};
 
 				const progressCallback = (progress): void => {
 					assert(progress === 0.0 || progress > 1.0);
 					if (progress > 1.0) {
 						progressCallbackDone = true;
 					}
-				}
+				};
 
 				const processor = new ChunkProcessor(
 					worksheetStub as any,
@@ -389,7 +389,7 @@ describe('parser', () => {
 			const exportOptions: ExportOptions = {
 				delimiter: ',',
 				newline: NewlineSequence.LF,
-			}
+			};
 			const tests: Test[] = [
 				// shape and chunkRows is never 0
 				{
@@ -419,7 +419,7 @@ describe('parser', () => {
 					},
 					chunkRows: 1,
 					exportOptions,
-					chunks: [[['a']],[['b']]],
+					chunks: [[['a']], [['b']]],
 					expected: 'a\nb\n',
 				},
 			];
@@ -474,17 +474,17 @@ describe('parser', () => {
 			let called = 0;
 			const progressCallback = (progress): void => {
 				switch (called) {
-				case 0:
-					assert.strictEqual(progress, 0.0);
-					break;
-				case 1:
-					assert.strictEqual(progress, 0.5);
-					break;
-				default:
-					assert.fail('called too many times');
+					case 0:
+						assert.strictEqual(progress, 0.0);
+						break;
+					case 1:
+						assert.strictEqual(progress, 0.5);
+						break;
+					default:
+						assert.fail('called too many times');
 				}
 				++called;
-			}
+			};
 
 			await csvString(
 				worksheetStub,

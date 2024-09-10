@@ -1,6 +1,6 @@
 /* global Office */
 import * as ExcelAPI from './excel';
-import {Shape} from './excel';
+import { Shape } from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {
@@ -46,7 +46,8 @@ export class Parser {
 			// Online API can throw error if request size is too large
 			reduceChunkSize = true;
 			(Papa.LocalChunkSize as unknown as number) = 10_000;
-		} else {
+		}
+		else {
 			reduceChunkSize = false;
 		}
 		return platform;
@@ -139,37 +140,37 @@ export class ChunkProcessor {
 			Papa.LocalChunkSize as unknown as number,
 		);
 
-		return new Promise(resolve => {
+		return new Promise((resolve) => {
 			importOptions.chunk = this.chunk;
 			importOptions.complete = results => resolve(results.errors);
 
 			switch (importOptions.source.inputType) {
-			case InputType.file:
-				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
-				break;
-			case InputType.text:
-				Papa.parse(
+				case InputType.file:
+					Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
+					break;
+				case InputType.text:
+					Papa.parse(
 					/* eslint-disable @typescript-eslint/no-explicit-any */
-					importOptions.source.text as any,
-					importOptions as Papa.ParseLocalConfig
-				);
-				break;
+						importOptions.source.text as any,
+						importOptions as Papa.ParseLocalConfig,
+					);
+					break;
 			}
 		});
 	}
 
 	private static progressPerChunk(source: Source, chunkSize: number): number {
 		switch (source.inputType) {
-		case InputType.file:
-			if (source.file.size === 0) {
-				return 1.0;
-			}
-			return chunkSize / source.file.size;
-		case InputType.text:
-			if (source.text.length === 0) {
-				return 1.0;
-			}
-			return chunkSize / source.text.length;
+			case InputType.file:
+				if (source.file.size === 0) {
+					return 1.0;
+				}
+				return chunkSize / source.file.size;
+			case InputType.text:
+				if (source.text.length === 0) {
+					return 1.0;
+				}
+				return chunkSize / source.text.length;
 		}
 	}
 
@@ -195,7 +196,7 @@ export class ChunkProcessor {
 		// Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
 		// on performance.
 		this._progressCallback(this._currentProgress += this._progressPerChunk);
-	}
+	};
 }
 
 /*
@@ -215,7 +216,7 @@ export function chunkRange(
 	chunk: number,
 	shape: Shape,
 	chunkRows: number,
-): {startRow: number; startColumn: number; rowCount: number; columnCount: number} {
+): { startRow: number; startColumn: number; rowCount: number; columnCount: number } {
 	return {
 		startRow: chunk * chunkRows,
 		startColumn: 0,
@@ -229,7 +230,7 @@ export function addQuotes(row: string[], delimiter: string): void {
 		return;
 	}
 
-	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /*double quote*/, delimiter];
+	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /* double quote */, delimiter];
 	for (let i = 0; i < row.length; i++) {
 		if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
 			row[i] = '\u0022' + row[i].replace(/\u0022/g, '\u0022\u0022') + '\u0022';
@@ -294,15 +295,17 @@ export function nameToUse(workbookName: string, worksheetName: string): string {
 		// Workbook name usually includes the file extension
 		const to = workbookName.lastIndexOf('.');
 		return workbookName.substr(0, to === -1 ? workbookName.length : to);
-	} else {
+	}
+	else {
 		return worksheetName;
 	}
 }
 
 function chunkRows(shape: Shape): number {
 	if (reduceChunkSize) {
-		return Math.floor(10_000 / shape.columns)
-	} else {
+		return Math.floor(10_000 / shape.columns);
+	}
+	else {
 		return shape.rows;
 	}
 }

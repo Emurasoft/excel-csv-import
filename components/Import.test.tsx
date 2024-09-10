@@ -9,7 +9,7 @@ import {describe, expect, test} from '@jest/globals';
 import {init, useAppDispatch} from '../action';
 import {any, anyFunction, mock} from 'jest-mock-extended';
 import {render} from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 function Initializer({children}): React.ReactElement {
 	useAppDispatch()(init());
@@ -18,9 +18,11 @@ function Initializer({children}): React.ReactElement {
 
 describe('Import', () => {
 	function ImportWithContext({store}: {store}): React.ReactElement {
-		return <MemoryRouter>
-			<Provider store={store}><Initializer><Import /></Initializer></Provider>
-		</MemoryRouter>;
+		return (
+			<MemoryRouter>
+				<Provider store={store}><Initializer><Import /></Initializer></Provider>
+			</MemoryRouter>
+		);
 	}
 
 	test('import', async () => {
@@ -32,7 +34,7 @@ describe('Import', () => {
 
 		const store = configureStore({
 			reducer,
-			middleware: (getDefaultMiddleware) => 
+			middleware: getDefaultMiddleware =>
 				getDefaultMiddleware({
 					thunk: {
 						extraArgument: {parser},

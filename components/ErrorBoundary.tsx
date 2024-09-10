@@ -17,7 +17,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 	}
 
 	public static getDerivedStateFromError(error): State {
-		return {caughtError: true, error};
+		return { caughtError: true, error };
 	}
 
 	public render(): React.ReactNode {
@@ -31,24 +31,25 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 							width: '100%',
 						}}
 						rows={15}
-						wrap='off'
+						wrap="off"
 						readOnly
 					/>
 					<br />
 					<div>
-                        If you are seeing this, sorry about that. I would appreciate it if you
-                        sent me the above debugging info via the contact form:&nbsp;
+						If you are seeing this, sorry about that. I would appreciate it if you
+						sent me the above debugging info via the contact form:&nbsp;
 						<a
-							href='https://www.emeditor.com/csv-importexport-contact-form/'
-							target='_blank' rel='noopener noreferrer'
+							href="https://www.emeditor.com/csv-importexport-contact-form/"
+							target="_blank"
+							rel="noopener noreferrer"
 						>
-                            https://www.emeditor.com/csv-importexport-contact-form/
+							https://www.emeditor.com/csv-importexport-contact-form/
 						</a>
 					</div>
 				</>
 			);
 		}
-		
+
 		// eslint-disable-next-line react/prop-types
 		return this.props.children;
 	}

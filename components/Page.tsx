@@ -1,6 +1,6 @@
-import {Button, Link, Text, Title1, Tooltip} from '@fluentui/react-components';
+import { Button, Link, Text, Title1, Tooltip } from '@fluentui/react-components';
 import * as React from 'react';
-import {namespacedUseLocalStorage} from '../useLocalStorage';
+import { namespacedUseLocalStorage } from '../useLocalStorage';
 import { Question32Regular } from '@fluentui/react-icons';
 import { useStyles } from './styles';
 
@@ -20,7 +20,7 @@ const useLocalStorage = namespacedUseLocalStorage('app');
 // proposition.
 // Validation report: Please provide additional information on the first screen explaining how to
 // use the add-in, or directing the user to help / configuration information.
-export function Page({text, helpLink, mac, children}: Props): React.ReactElement {
+export function Page({ text, helpLink, mac, children }: Props): React.ReactElement {
 	const [firstVisit, setFirstVisit] = useLocalStorage('firstVisit', true);
 	const styles = useStyles();
 
@@ -34,17 +34,17 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 				}}
 			>
 				<Title1>{text}</Title1>
-				<Tooltip content="Help page" relationship='label'>
+				<Tooltip content="Help page" relationship="label">
 					<Link
-						as='a'
+						as="a"
 						href={helpLink}
-						target='_blank'
-						rel='noopener noreferrer'
+						target="_blank"
+						rel="noopener noreferrer"
 					>
 						<Button
 							icon={<Question32Regular />}
-							style={{marginRight: mac ? '30px' : '4px'}}
-							appearance='subtle'
+							style={{ marginRight: mac ? '30px' : '4px' }}
+							appearance="subtle"
 						/>
 					</Link>
 				</Tooltip>
@@ -52,17 +52,20 @@ export function Page({text, helpLink, mac, children}: Props): React.ReactElement
 			<br />
 			{
 				firstVisit
-					? <>
-						<Text size={500}>
-							CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
-						</Text>
-						<br /><br />
-						<Button
-							onClick={() => setFirstVisit(false)}
-						>
-							Continue
-						</Button>
-					</>
+					? (
+							<>
+								<Text size={500}>
+									CSV Import+Export can open and save CSV files of various formats. If you need any help, the &quot;?&quot; icon in the top right corner will take you to the help page.
+								</Text>
+								<br />
+								<br />
+								<Button
+									onClick={() => setFirstVisit(false)}
+								>
+									Continue
+								</Button>
+							</>
+						)
 					: children
 			}
 		</div>

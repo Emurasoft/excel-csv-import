@@ -1,5 +1,5 @@
 const sourceMap = require('source-map');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 
 async function main() {
 	const map = await fetch('https://emurasoft.github.io/excel-csv-import/export~import.8f32e9df82fd02d124e8.js.map');
