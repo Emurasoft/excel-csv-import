@@ -16,71 +16,81 @@ const compat = new FlatCompat({
     allConfig: js.configs.all,
 });
 
-export default [{
-    ignores: ['components/licenses/**/*', '**/*.snap'],
-}, ...compat.extends(
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-), {
-    files: ['**/*.test.ts*'],
-    
-    plugins: {
-        react,
-        '@typescript-eslint': typescriptEslint,
-        '@stylistic': stylistic,
-    },
-
-    languageOptions: {
-        globals: {
-            ...globals.browser,
+export default [
+    {
+        ignores: ['components/licenses/**/*', '**/*.snap'],
+    }, ...compat.extends(
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+    ),
+    stylistic.configs.customize({
+        indent: 'tab',
+        quotes: 'single',
+        jsx: true,
+    }),
+    {
+        files: ['**/*.test.ts*'],
+        
+        plugins: {
+            react,
+            '@typescript-eslint': typescriptEslint,
+            '@stylistic': stylistic,
         },
 
-        parser: tsParser,
-        ecmaVersion: 5,
-        sourceType: 'script',
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+            },
 
-        parserOptions: {
-            project: 'tsconfig.json',
+            parser: tsParser,
+            ecmaVersion: 5,
+            sourceType: 'script',
 
-            ecmaFeatures: {
-                jsx: true,
+            parserOptions: {
+                project: 'tsconfig.json',
+
+                ecmaFeatures: {
+                    jsx: true,
+                },
             },
         },
-    },
 
-    settings: {
-        react: {
-            version: 'detect',
+        settings: {
+            react: {
+                version: 'detect',
+            },
+        },
+
+        rules: {
+            'max-len': ['error', {
+                code: 100,
+            }],
+
+            'comma-dangle': ['error', 'always-multiline'],
+
+            'jsx-quotes': ['error', 'prefer-single'],
+            '@typescript-eslint/no-empty-function': 'off',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            '@typescript-eslint/no-use-before-define': 'off',
+            '@typescript-eslint/ban-ts-comment': 'off',
+            '@typescript-eslint/no-explicit-any': 'off',
+            '@typescript-eslint/ban-ts-ignore': 'off',
+            '@stylistic/object-curly-spacing': 'never',
         },
     },
+    {
+        files: ['**/*.js'],
 
-    rules: {
-        'max-len': ['error', {
-            code: 100,
-        }],
+        languageOptions: {
+            globals: {
+                ...globals.node,
+            },
+        },
 
-        'comma-dangle': ['error', 'always-multiline'],
-
-        'jsx-quotes': ['error', 'prefer-single'],
-        '@typescript-eslint/no-empty-function': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/no-use-before-define': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/ban-ts-ignore': 'off',
-    },
-}, {
-    files: ['**/*.js'],
-
-    languageOptions: {
-        globals: {
-            ...globals.node,
+        rules: {
+            '@typescript-eslint/no-var-requires': 'off',
+            '@typescript-eslint/no-require-imports': 'off',
         },
     },
-
-    rules: {
-        '@typescript-eslint/no-var-requires': 'off',
-        '@typescript-eslint/no-require-imports': 'off',
-    },
-}];
+];
