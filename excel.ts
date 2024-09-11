@@ -55,23 +55,23 @@ export function _resize(a: string[][], maxLength: number): void {
 	}
 }
 
-// Creates matrix with the same size as input. Each string is initialized to '@'.
-function initializeMatrixSameSize(input: string[][]): string[][] {
+// Creates matrix with the same size as input. Each string is initialized to numberFormat.
+function numberFormatArray(input: string[][], numberFormat: string): string[][] {
 	if (input.length === 0) {
 		return [];
 	}
 
-	return new Array(input.length).fill(new Array(input[0].length).fill('@'));
+	return new Array(input.length).fill(new Array(input[0].length).fill(numberFormat));
 }
 
-export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][]): void {
+export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][], numberFormat: string): void {
 	// New range values must have the same shape as range
 	const maxLength = _maxLength(chunk);
 	_resize(chunk, maxLength);
 	// getRangeByIndexes() throws error if rowCount or columnCount is 0
 	if (chunk.length > 0 && maxLength > 0) {
 		const range = worksheet.getRangeByIndexes(row, 0, chunk.length, maxLength);
-		range.numberFormat = initializeMatrixSameSize(chunk);
+		range.numberFormat = numberFormatArray(chunk, numberFormat);
 		range.values = chunk;
 		range.untrack();
 	}

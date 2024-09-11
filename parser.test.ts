@@ -84,6 +84,7 @@ describe('parser', () => {
 					delimiter: ',',
 					newline: NewlineSequence.LF,
 					encoding: '',
+					numberFormat: '@',
 				};
 
 				const errors = await processor.run(importOptions);
@@ -109,6 +110,7 @@ describe('parser', () => {
 					delimiter: ',',
 					newline: NewlineSequence.LF,
 					encoding: '',
+					numberFormat: '@',
 				};
 
 				const errors = await processor.run(importOptions);
