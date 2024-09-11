@@ -26,12 +26,17 @@ export const enum NewlineSequence {
 export interface ImportOptions extends Config {
 	source: Source;
 	newline: NewlineSequence;
-	numberFormat: string;
+	numberFormat: NumberFormat;
 }
 
 export interface ExportOptions {
 	delimiter: string;
 	newline: NewlineSequence;
+}
+
+export const enum NumberFormat {
+	Text = '@',
+	General = 'General',
 }
 
 let reduceChunkSize = null;
@@ -182,7 +187,7 @@ export class ChunkProcessor {
 	private _currRow: number;
 	private _progressPerChunk: number;
 	private _currentProgress: number;
-	private _numberFormat: string;
+	private _numberFormat: NumberFormat;
 
 	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser) => {
 		if (this._abortFlag.aborted()) {

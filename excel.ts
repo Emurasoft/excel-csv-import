@@ -1,5 +1,7 @@
 /* global Office, Excel */
 
+import {NumberFormat} from './parser';
+
 export async function init(): Promise<Office.PlatformType> {
 	await Office.onReady();
 	return Office.context.platform;
@@ -56,7 +58,7 @@ export function _resize(a: string[][], maxLength: number): void {
 }
 
 // Creates matrix with the same size as input. Each string is initialized to numberFormat.
-function numberFormatArray(input: string[][], numberFormat: string): string[][] {
+function numberFormatArray(input: string[][], numberFormat: NumberFormat): string[][] {
 	if (input.length === 0) {
 		return [];
 	}
@@ -64,7 +66,7 @@ function numberFormatArray(input: string[][], numberFormat: string): string[][] 
 	return new Array(input.length).fill(new Array(input[0].length).fill(numberFormat));
 }
 
-export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][], numberFormat: string): void {
+export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][], numberFormat: NumberFormat): void {
 	// New range values must have the same shape as range
 	const maxLength = _maxLength(chunk);
 	_resize(chunk, maxLength);
