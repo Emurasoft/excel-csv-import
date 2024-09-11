@@ -275,9 +275,9 @@ exports[`Import import 1`] = `
           role="combobox"
           tabindex="0"
           type="button"
-          value="General"
+          value="Text"
         >
-          General
+          Text
           <span
             class="fui-Dropdown__expandIcon"
           >
