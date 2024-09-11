@@ -93,6 +93,8 @@ export default function Import(): React.ReactElement {
 				value={numberFormat}
 				onChange={setNumberFormat}
 			/>
+			<br />
+			<br />
 			<Tooltip
 				content={validate(source, delimiter, initialized)}
 				relationship='label'
