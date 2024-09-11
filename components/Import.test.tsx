@@ -55,6 +55,9 @@ describe('Import', () => {
 		await userEvent.click(wrapper.getByLabelText('Newline sequence'));
 		await userEvent.click(wrapper.getByText('LF'));
 
+		await userEvent.click(wrapper.getByLabelText('Number format'));
+		await userEvent.click(wrapper.getByText('General'));
+
 		await userEvent.click(wrapper.getAllByText('Import CSV')[1]);
 
 		const expected: ImportOptions = {
@@ -62,7 +65,7 @@ describe('Import', () => {
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
 			encoding: '',
-			numberFormat: NumberFormat.Text,
+			numberFormat: NumberFormat.General,
 		};
 		expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
 
