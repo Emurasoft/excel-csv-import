@@ -26,6 +26,7 @@ export const enum NewlineSequence {
 export interface ImportOptions extends Config {
 	source: Source;
 	newline: NewlineSequence;
+	numberFormat: string;
 }
 
 export interface ExportOptions {
@@ -138,6 +139,7 @@ export class ChunkProcessor {
 			importOptions.source,
 			Papa.LocalChunkSize as unknown as number,
 		);
+		this._numberFormat = importOptions.numberFormat;
 
 		return new Promise((resolve) => {
 			importOptions.chunk = this.chunk;
@@ -180,6 +182,7 @@ export class ChunkProcessor {
 	private _currRow: number;
 	private _progressPerChunk: number;
 	private _currentProgress: number;
+	private _numberFormat: string;
 
 	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser) => {
 		if (this._abortFlag.aborted()) {
@@ -187,7 +190,7 @@ export class ChunkProcessor {
 		}
 
 		this._worksheet.context.application.suspendApiCalculationUntilNextSync();
-		this._excelAPI.setChunk(this._worksheet, this._currRow, chunk.data);
+		this._excelAPI.setChunk(this._worksheet, this._currRow, chunk.data, this._numberFormat);
 		this._currRow += chunk.data.length;
 		parser.pause();
 		// sync() must be called after each chunk, otherwise API may throw exception
