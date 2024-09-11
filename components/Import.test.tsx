@@ -1,6 +1,6 @@
 import Import from './Import';
 import * as React from 'react';
-import {ImportOptions, InputType, NewlineSequence, Parser} from '../parser';
+import {ImportOptions, InputType, NewlineSequence, NumberFormat, Parser} from '../parser';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
@@ -62,7 +62,7 @@ describe('Import', () => {
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
 			encoding: '',
-			numberFormat: '@',
+			numberFormat: NumberFormat.Text,
 		};
 		expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
 

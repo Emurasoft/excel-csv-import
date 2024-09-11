@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {Button, Tooltip} from '@fluentui/react-components';
-import {InputType, NewlineSequence, Source} from '../parser';
+import {InputType, NewlineSequence, NumberFormat, Source} from '../parser';
 import {SourceInput} from './SourceInput';
 import {DelimiterInput} from './DelimiterInput';
 import {NewlineDropdown} from './NewlineDropdown';
@@ -13,6 +13,7 @@ import {Page} from './Page';
 import {namespacedUseLocalStorage} from '../useLocalStorage';
 import {abort, importCSV, useAppDispatch} from '../action';
 import {AppState, useAppSelector} from '../state';
+import NumberFormatDropdown from './NumberFormatDropdown';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
 
@@ -48,6 +49,7 @@ export default function Import(): React.ReactElement {
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
 	const [encoding, setEncoding] = useLocalStorage('encoding', '');
+	const [numberFormat, setNumberFormat] = useLocalStorage('numberFormat', NumberFormat.Text);
 
 	return (
 		<Page
@@ -87,6 +89,12 @@ export default function Import(): React.ReactElement {
 			/>
 			<br />
 			<br />
+			<NumberFormatDropdown
+				value={numberFormat}
+				onChange={setNumberFormat}
+			/>
+			<br />
+			<br />
 			<Tooltip
 				content={validate(source, delimiter, initialized)}
 				relationship='label'
@@ -94,7 +102,7 @@ export default function Import(): React.ReactElement {
 				<Button
 					disabled={validate(source, delimiter, initialized) !== ValidationResult.Success}
 					onClick={
-						async () => dispatch(importCSV({source, newline, delimiter, encoding, numberFormat: '@'}))
+						async () => dispatch(importCSV({source, newline, delimiter, encoding, numberFormat}))
 					}
 					appearance='primary'
 				>
