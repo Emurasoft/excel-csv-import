@@ -62,6 +62,7 @@ describe('Import', () => {
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
 			encoding: '',
+			numberFormat: '@',
 		};
 		expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
 
