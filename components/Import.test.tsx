@@ -55,8 +55,10 @@ describe('Import', () => {
 		await userEvent.click(wrapper.getByLabelText('Newline sequence'));
 		await userEvent.click(wrapper.getByText('LF'));
 
-		// await userEvent.click(wrapper.getByLabelText('Number format'));
-		// await userEvent.click(wrapper.getByText('General'));
+		wrapper.debug();
+
+		await userEvent.click(wrapper.getByLabelText('Number format'));
+		await userEvent.click(wrapper.getByText('General'));
 
 		await userEvent.click(wrapper.getAllByText('Import CSV')[1]);
 
