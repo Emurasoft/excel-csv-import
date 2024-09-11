@@ -94,7 +94,7 @@ export default function Import(): React.ReactElement {
 				<Button
 					disabled={validate(source, delimiter, initialized) !== ValidationResult.Success}
 					onClick={
-						async () => dispatch(importCSV({source, newline, delimiter, encoding}))
+						async () => dispatch(importCSV({source, newline, delimiter, encoding, numberFormat: '@'}))
 					}
 					appearance='primary'
 				>
