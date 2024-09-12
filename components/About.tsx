@@ -61,7 +61,7 @@ export default function About(): React.ReactElement {
 			<br />
 			<br />
 			<Body1>
-				© 2023 Emurasoft Inc.
+				© 2024 Emurasoft Inc.
 				<br />
 				<RouterLink
 					to={`/excel-csv-import/?page=${Pages.licenseInformation}`}
