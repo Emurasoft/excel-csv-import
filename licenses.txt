@@ -1,4 +1,4 @@
-export default `THE FOLLOWING SETS FORTH ATTRIBUTION NOTICES FOR THIRD PARTY SOFTWARE THAT MAY BE CONTAINED IN PORTIONS OF THE EXCEL CSV IMPORT PRODUCT.
+THE FOLLOWING SETS FORTH ATTRIBUTION NOTICES FOR THIRD PARTY SOFTWARE THAT MAY BE CONTAINED IN PORTIONS OF THE EXCEL CSV IMPORT PRODUCT.
 
 -----
 
@@ -5021,7 +5021,7 @@ are met:
 3. The name of the author may not be used to endorse or promote products
    derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR \`\`AS IS'' AND ANY EXPRESS OR
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
@@ -8631,10 +8631,10 @@ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ----
 
-This library bundles a version of the \`fs.realpath\` and \`fs.realpathSync\`
+This library bundles a version of the `fs.realpath` and `fs.realpathSync`
 methods from Node.js v0.10 under the terms of the Node.js MIT license.
 
-Node's license follows, also included at the header of \`old.js\` which contains
+Node's license follows, also included at the header of `old.js` which contains
 the licensed code:
 
   Copyright Joyent, Inc. and other Node contributors.
@@ -15261,4 +15261,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-`;
