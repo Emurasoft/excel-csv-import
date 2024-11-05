@@ -23,7 +23,7 @@ jobs:
       - run: npm run build
       - name: Upload pages
         if: ${{ github.ref_type == 'tag' }}
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: build
-      - uses: actions/deploy-pages@v2
+      - uses: actions/deploy-pages@v4
