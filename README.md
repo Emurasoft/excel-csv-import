@@ -18,8 +18,9 @@ Requires Node.
 3. Run the following commands to start webpack-dev-server.
 
 ```none
-npm i
-npm run devServer
+npm install -g yarn
+yarn
+yarn devServer
 ```
 
 4. Go back to Excel and open CSV Import+Export.
