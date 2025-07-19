@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: '21.x'
           cache: 'npm'
-      - run: npm ci
-      - run: npm run test
-      - run: npm run lint
+      - run: yarn install --immutable
+      - run: yarn test
+      - run: yarn lint
