@@ -9,7 +9,7 @@ CSV Import+Export is an Excel add-in which adds the ability to import and export
 
 # Dev build
 
-Requires Node.
+Requires Node and yarn.
 
 1. Run `npx office-addin-dev-certs install` to get https certificates that Excel accepts. Reopen your web browser.
 
