@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: '21.x'
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build
+      - run: yarn install --immutable
+      - run: yarn build
       - name: Upload pages
         if: ${{ github.ref_type == 'tag' }}
         uses: actions/upload-pages-artifact@v3
