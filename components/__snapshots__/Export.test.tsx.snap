@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Export export 1`] = `
 <DocumentFragment>
@@ -276,6 +276,7 @@ exports[`Export export 1`] = `
         class="fui-Text"
       >
         <a
+          data-discover="true"
           href="/excel-csv-import/?page=about"
         >
           <button
