@@ -33,7 +33,7 @@ describe('Export', () => {
 
 		const parser = mock<Parser>();
 		parser.csvStringAndName.calledWith(any(), any())
-			.mockReturnValue({string: 'export result', name: ''});
+			.mockReturnValue(Promise.resolve({ string: 'export result', name: '' }));
 
 		const store = configureStore({
 			reducer,
