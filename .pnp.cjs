@@ -53,6 +53,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.23"],\
           ["@types/react-dom", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:18.3.7"],\
           ["@types/react-router-dom", "npm:5.3.3"],\
+          ["@types/scheduler", "npm:0.26.0"],\
           ["@typescript-eslint/eslint-plugin", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:8.37.0"],\
           ["@typescript-eslint/parser", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:8.37.0"],\
           ["@typescript-eslint/typescript-estree", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:8.37.0"],\
@@ -81,6 +82,7 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:18.3.1"],\
           ["react-redux", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:9.2.0"],\
           ["react-router-dom", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:6.30.1"],\
+          ["scheduler", "npm:0.26.0"],\
           ["source-map", "npm:0.7.4"],\
           ["style-loader", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:4.0.0"],\
           ["ts-jest", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:29.4.0"],\
@@ -6574,6 +6576,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/scheduler", [\
+      ["npm:0.26.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-scheduler-npm-0.26.0-8328e27bf1-10c0.zip/node_modules/@types/scheduler/",\
+        "packageDependencies": [\
+          ["@types/scheduler", "npm:0.26.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/send", [\
       ["npm:0.17.5", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-send-npm-0.17.5-5278cc54b0-10c0.zip/node_modules/@types/send/",\
@@ -9945,6 +9956,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.23"],\
           ["@types/react-dom", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:18.3.7"],\
           ["@types/react-router-dom", "npm:5.3.3"],\
+          ["@types/scheduler", "npm:0.26.0"],\
           ["@typescript-eslint/eslint-plugin", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:8.37.0"],\
           ["@typescript-eslint/parser", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:8.37.0"],\
           ["@typescript-eslint/typescript-estree", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:8.37.0"],\
@@ -9973,6 +9985,7 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:18.3.1"],\
           ["react-redux", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:9.2.0"],\
           ["react-router-dom", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:6.30.1"],\
+          ["scheduler", "npm:0.26.0"],\
           ["source-map", "npm:0.7.4"],\
           ["style-loader", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:4.0.0"],\
           ["ts-jest", "virtual:4bc7844055901f1d89009d3bf028bf4159b05a2f632777ded9349b78b626b145b283f6736ea440fc1e46fbec4461714bc0909b6c71c0c2b9c45c11686f3be577#npm:29.4.0"],\
@@ -14886,6 +14899,13 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["loose-envify", "npm:1.4.0"],\
           ["scheduler", "npm:0.23.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.26.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/scheduler-npm-0.26.0-980301a213-10c0.zip/node_modules/scheduler/",\
+        "packageDependencies": [\
+          ["scheduler", "npm:0.26.0"]\
         ],\
         "linkType": "HARD"\
       }]\
