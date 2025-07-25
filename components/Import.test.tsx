@@ -30,7 +30,7 @@ describe('Import', () => {
 		window.localStorage.setItem('app-firstVisit', 'false');
 
 		const parser = mock<Parser>();
-		parser.importCSV.calledWith(any(), any()).mockReturnValue([]);
+		parser.importCSV.calledWith(any(), any()).mockReturnValue(Promise.resolve([]));
 
 		const store = configureStore({
 			reducer,
@@ -64,7 +64,7 @@ describe('Import', () => {
 			encoding: '',
 			numberFormat: NumberFormat.Text,
 		};
-		expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
+		expect(parser.importCSV).toHaveBeenCalledWith(expected, anyFunction());
 
 		expect(wrapper.asFragment()).toMatchSnapshot();
 	});
