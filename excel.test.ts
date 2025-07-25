@@ -84,9 +84,9 @@ describe('ExcelAPI', () => {
 				ExcelAPI._resize(test.a, test.maxLength);
 			};
 			if (test.expectError) {
-				expect(func).toThrowError();
+				expect(func).toThrow();
 			} else {
-				expect(func).not.toThrowError();
+				expect(func).not.toThrow();
 			}
 			assert.deepStrictEqual(test.a, test.expected);
 		}
