@@ -26,7 +26,7 @@ const stylisticConfig = stylistic.configs.customize({
 
 export default [
 	{
-		ignores: ['components/licenses/**/*', '**/*.snap'],
+		ignores: ['components/licenses/**/*', '**/*.snap', '.pnp.cjs'],
 	}, ...compat.extends(
 		'eslint:recommended',
 		'plugin:react/recommended',

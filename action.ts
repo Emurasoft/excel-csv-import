@@ -3,8 +3,7 @@ import {CsvStringAndName, ExportOptions, ImportOptions, Parser} from './parser';
 import {AppState, OutputType} from './state';
 import {useDispatch} from 'react-redux';
 
-export type Action =
-	SetInitialized
+export type Action = SetInitialized
 	| SetPlatform
 	| SetOutput
 	| SetProgress;

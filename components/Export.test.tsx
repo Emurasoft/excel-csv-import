@@ -1,7 +1,7 @@
 import Export from './Export';
 import * as React from 'react';
 import {ExportOptions, NewlineSequence, Parser} from '../parser';
-import {MemoryRouter} from 'react-router';
+import {MemoryRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {reducer} from '../reducer';
 import {configureStore} from '@reduxjs/toolkit';
@@ -33,7 +33,7 @@ describe('Export', () => {
 
 		const parser = mock<Parser>();
 		parser.csvStringAndName.calledWith(any(), any())
-			.mockReturnValue({string: 'export result', name: ''});
+			.mockReturnValue(Promise.resolve({string: 'export result', name: ''}));
 
 		const store = configureStore({
 			reducer,

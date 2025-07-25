@@ -13,7 +13,7 @@ Requires Node and yarn.
 
 1. Run `npx office-addin-dev-certs install` to get https certificates that Excel accepts. Reopen your web browser.
 
-2. Open a blank worksheet on Excel Online.  Go to Home | Add-ins | More Add-ins. Go to the My Add-ins tab. On the top right hand corner under Manage My Add-ins, click Upload my Add-In. Upload `manifests/dev.manifest.xml`.
+2. Open a blank worksheet on Excel Online (Not Excel desktop).  Go to Home | Add-ins | More Add-ins. Go to the My Add-ins tab. On the top right hand corner under Manage My Add-ins, click Upload my Add-In. Upload `manifests/dev.manifest.xml`.
 
 3. Run the following commands to start webpack-dev-server.
 

@@ -3,7 +3,7 @@ import * as React from 'react';
 import {ImportOptions, InputType, NewlineSequence, NumberFormat, Parser} from '../parser';
 import {reducer} from '../reducer';
 import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router';
+import {MemoryRouter} from 'react-router-dom';
 import {configureStore} from '@reduxjs/toolkit';
 import {describe, expect, test} from '@jest/globals';
 import {init, useAppDispatch} from '../action';
@@ -30,7 +30,7 @@ describe('Import', () => {
 		window.localStorage.setItem('app-firstVisit', 'false');
 
 		const parser = mock<Parser>();
-		parser.importCSV.calledWith(any(), any()).mockReturnValue([]);
+		parser.importCSV.calledWith(any(), any()).mockReturnValue(Promise.resolve([]));
 
 		const store = configureStore({
 			reducer,
@@ -64,7 +64,7 @@ describe('Import', () => {
 			encoding: '',
 			numberFormat: NumberFormat.Text,
 		};
-		expect(parser.importCSV).toBeCalledWith(expected, anyFunction());
+		expect(parser.importCSV).toHaveBeenCalledWith(expected, anyFunction());
 
 		expect(wrapper.asFragment()).toMatchSnapshot();
 	});
