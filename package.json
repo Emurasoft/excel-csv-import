@@ -37,6 +37,7 @@
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "@types/react-router-dom": "^5.3.3",
+    "@types/scheduler": "^0.26.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
     "@typescript-eslint/typescript-estree": "^8.54.0",
@@ -78,8 +79,5 @@
     "webpack-dev-server": "^5.2.3",
     "webpack-merge": "^6.0.1"
   },
-  "packageManager": "yarn@4.12.0",
-  "devDependencies": {
-    "@types/scheduler": "^0.26.0"
-  }
+  "packageManager": "yarn@4.12.0"
 }
