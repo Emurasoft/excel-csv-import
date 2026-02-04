@@ -11,11 +11,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+
+      - name: Install corepack
+        run: npm install -g corepack
+
+      - uses: actions/setup-node@v6
         with:
-          node-version: '21.x'
-          cache: 'npm'
+          node-version: '25.x'
+          cache: 'yarn'
+
       - run: yarn install --immutable
+
       - run: yarn test
+
       - run: yarn lint
