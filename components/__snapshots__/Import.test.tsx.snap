@@ -31,7 +31,7 @@ exports[`Import import 1`] = `
           >
             <svg
               aria-hidden="true"
-              class=""
+              class="fui-Icon"
               fill="currentColor"
               height="32"
               viewBox="0 0 32 32"
