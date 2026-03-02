@@ -1,20 +1,8 @@
 import react from 'eslint-plugin-react';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import tseslint from 'typescript-eslint';
 import js from '@eslint/js';
-import {FlatCompat} from '@eslint/eslintrc';
 import stylistic from '@stylistic/eslint-plugin';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-	recommendedConfig: js.configs.recommended,
-	allConfig: js.configs.all,
-});
 
 const stylisticConfig = stylistic.configs.customize({
 	indent: 'tab',
@@ -27,11 +15,17 @@ const stylisticConfig = stylistic.configs.customize({
 export default [
 	{
 		ignores: ['components/licenses/**/*', '**/*.snap', '.pnp.cjs'],
-	}, ...compat.extends(
-		'eslint:recommended',
-		'plugin:react/recommended',
-		'plugin:@typescript-eslint/recommended',
-	),
+	},
+	js.configs.recommended,
+	react.configs.flat.recommended,
+	...tseslint.configs.recommended,
+	{
+		settings: {
+			react: {
+				version: '19.2',
+			},
+		},
+	},
 	{
 		...stylisticConfig,
 		rules: {
@@ -46,18 +40,12 @@ export default [
 	{
 		files: ['**/*.test.ts*'],
 
-		plugins: {
-			react,
-			'@typescript-eslint': typescriptEslint,
-			'@stylistic': stylistic,
-		},
-
 		languageOptions: {
 			globals: {
 				...globals.browser,
 			},
 
-			parser: tsParser,
+			parser: tseslint.parser,
 			ecmaVersion: 5,
 			sourceType: 'script',
 
@@ -72,7 +60,7 @@ export default [
 
 		settings: {
 			react: {
-				version: 'detect',
+				version: '19.2',
 			},
 		},
 

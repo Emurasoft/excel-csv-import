@@ -1,4 +1,3 @@
-/* eslint-env node */
 import 'ignore-styles';
 import {configureLoadStyles} from '@microsoft/load-themed-styles';
 
