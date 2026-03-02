@@ -1,19 +1,8 @@
 import react from 'eslint-plugin-react';
 import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import tseslint from 'typescript-eslint';
 import js from '@eslint/js';
-import {FlatCompat} from '@eslint/eslintrc';
 import stylistic from '@stylistic/eslint-plugin';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-	recommendedConfig: js.configs.recommended,
-	allConfig: js.configs.all,
-});
 
 const stylisticConfig = stylistic.configs.customize({
 	indent: 'tab',
@@ -29,6 +18,7 @@ export default [
 	},
 	js.configs.recommended,
 	react.configs.flat.recommended,
+	...tseslint.configs.recommended,
 	{
 		settings: {
 			react: {
@@ -36,7 +26,6 @@ export default [
 			},
 		},
 	},
-	...compat.extends('plugin:@typescript-eslint/recommended'),
 	{
 		...stylisticConfig,
 		rules: {
@@ -56,7 +45,7 @@ export default [
 				...globals.browser,
 			},
 
-			parser: tsParser,
+			parser: tseslint.parser,
 			ecmaVersion: 5,
 			sourceType: 'script',
 
