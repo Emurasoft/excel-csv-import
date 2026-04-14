@@ -11,13 +11,13 @@ import {any, anyFunction, mock} from 'jest-mock-extended';
 import {render} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-function Initializer({children}): React.ReactNode {
+function Initializer({children}: {children: React.ReactNode}): React.ReactNode {
 	useAppDispatch()(init());
 	return children;
 }
 
 describe('Import', () => {
-	function ImportWithContext({store}: {store}): React.ReactNode {
+	function ImportWithContext({store}: {store: any}): React.ReactNode {
 		return (
 			<MemoryRouter>
 				<Provider store={store}><Initializer><Import /></Initializer></Provider>
@@ -58,7 +58,7 @@ describe('Import', () => {
 		await userEvent.click(wrapper.getAllByText('Import CSV')[1]);
 
 		const expected: ImportOptions = {
-			source: {inputType: InputType.text, file: null, text: 'csv text'},
+			source: {inputType: InputType.text, file: undefined, text: 'csv text'},
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
 			encoding: '',

@@ -3,7 +3,7 @@ import * as React from 'react';
 
 interface State {
 	caughtError: boolean;
-	error: Error;
+	error: Error | null;
 }
 
 export class ErrorBoundary extends React.Component<React.PropsWithChildren, State> {
@@ -16,12 +16,12 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 		};
 	}
 
-	public static getDerivedStateFromError(error): State {
+	public static getDerivedStateFromError(error: any): State {
 		return {caughtError: true, error};
 	}
 
 	public render(): React.ReactNode {
-		if (this.state.caughtError) {
+		if (this.state.caughtError && this.state.error) {
 			return (
 				<>
 					<Textarea

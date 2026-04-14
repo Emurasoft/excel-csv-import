@@ -14,7 +14,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 		return value;
 	});
 
-	const setValue = (value) => {
+	const setValue = (value: any) => {
 		setStoredValue(value);
 		try {
 			window.localStorage.setItem(key, JSON.stringify(value));
