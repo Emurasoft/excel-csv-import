@@ -79,8 +79,8 @@ export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[
 	}
 }
 
-export async function worksheetArea(): Promise<number> {
-	let result: number = null;
+export async function worksheetArea(): Promise<number | null> {
+	let result: number | null = null;
 	await Excel.run(async (context) => {
 		const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
 		const range = currentWorksheet.getUsedRange(true).load(['rowCount', 'columnCount']);
