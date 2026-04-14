@@ -29,13 +29,13 @@ const dropdownToString = {
 	[DropdownOption.other]: '',
 };
 
-export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactElement {
+export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactNode {
 	const [otherSelected, setOtherSelected] = useState(false);
 	const styles = useStyles();
 
 	const selectedKey = (): DropdownOption => {
 		if (!otherSelected && value in stringToDropdownKey) {
-			return stringToDropdownKey[value];
+			return stringToDropdownKey[value as keyof typeof stringToDropdownKey];
 		}
 
 		return DropdownOption.other;
@@ -73,7 +73,7 @@ export function DelimiterInput({showLengthError, value, onChange}: Props): React
 					value={selectedKey()}
 					onOptionSelect={(_, {optionValue}) => {
 						setOtherSelected(optionValue === DropdownOption.other);
-						onChange(dropdownToString[optionValue]);
+						onChange(dropdownToString[optionValue as keyof typeof dropdownToString]);
 					}}
 				>
 					<Option>{DropdownOption.comma}</Option>

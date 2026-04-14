@@ -31,7 +31,7 @@ export const enum ExportType {
 
 const useLocalStorage = namespacedUseLocalStorage('export');
 
-export default function Export(): React.ReactElement {
+export default function Export(): React.ReactNode {
 	const initialized = useAppSelector(state => state.initialized);
 	const platform = useAppSelector(state => state.platform);
 	const progress = useAppSelector(state => state.progress);

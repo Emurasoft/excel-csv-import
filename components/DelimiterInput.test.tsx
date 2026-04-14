@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 describe('DelimiterInput', () => {
 	test('custom input display status', async () => {
 		let value = ',';
-		function onChange(v): void {
+		function onChange(v: any): void {
 			value = v;
 		}
 
@@ -84,7 +84,7 @@ describe('DelimiterInput', () => {
 		await userEvent.click(input.getAllByText('Other')[1]);
 		expect(result).toEqual('');
 
-		await userEvent.click(input.queryByRole('textbox'));
+		await userEvent.click(input.queryByRole('textbox') as any);
 		await userEvent.keyboard('a');
 		expect(result).toEqual('a');
 	});

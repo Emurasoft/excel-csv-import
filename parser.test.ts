@@ -57,14 +57,14 @@ describe('parser', () => {
 				}};
 
 				const api: any = {};
-				api.setChunk = (worksheet, row, data) => {
+				api.setChunk = (worksheet: any, row: any, data: any) => {
 					assert.strictEqual(worksheet, worksheetStub);
 					assert.strictEqual(row, 0);
 					assert.deepStrictEqual(data, [['a', 'b']]);
 					setChunkDone = true;
 				};
 
-				const progressCallback = (progress): void => {
+				const progressCallback = (progress: any): void => {
 					assert(progress === 0.0 || progress > 1.0);
 					if (progress > 1.0) {
 						progressCallbackDone = true;
@@ -95,12 +95,13 @@ describe('parser', () => {
 			});
 
 			test('abort', async () => {
-				const progressCallback = (progress): void => {
+				const progressCallback = (progress: any): void => {
 					assert.strictEqual(progress, 0.0);
 				};
 
 				const flag = new AbortFlag();
 				flag.abort();
+				// @ts-ignore
 				const processor = new ChunkProcessor(null, progressCallback, flag);
 				// @ts-ignore
 				processor._excelAPI = null;
@@ -474,7 +475,7 @@ describe('parser', () => {
 				newline: NewlineSequence.LF,
 			};
 			let called = 0;
-			const progressCallback = (progress): void => {
+			const progressCallback = (progress: any): void => {
 				switch (called) {
 				case 0:
 					assert.strictEqual(progress, 0.0);

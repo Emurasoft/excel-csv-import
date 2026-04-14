@@ -4,7 +4,7 @@ import {Link as RouterLink} from 'react-router-dom';
 import {Pages} from '../Pages';
 import {useStyles} from './styles';
 
-export function BottomBar(): React.ReactElement {
+export function BottomBar(): React.ReactNode {
 	const styles = useStyles();
 
 	return (

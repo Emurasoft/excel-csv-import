@@ -8,8 +8,8 @@ interface Props {
 	progress: AppState['progress'];
 }
 
-export function ProgressBarWithStopButton({onClick, progress}: Props): React.ReactElement {
-	let stopText: React.ReactElement;
+export function ProgressBarWithStopButton({onClick, progress}: Props): React.ReactNode {
+	let stopText: React.ReactNode;
 	if (progress.aborting) {
 		stopText = <Text size={300}>Stopping</Text>;
 	} else {

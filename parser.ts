@@ -1,6 +1,6 @@
 /* global Office */
 import * as ExcelAPI from './excel';
-import {Shape} from './excel';
+import {Shape, WorksheetNamesAndShape} from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {
@@ -39,7 +39,7 @@ export const enum NumberFormat {
 	General = 'General',
 }
 
-let reduceChunkSize = null;
+let reduceChunkSize: boolean | null = null;
 
 export class Parser {
 	constructor() {
@@ -69,7 +69,7 @@ export class Parser {
 			const chunkProcessor = new ChunkProcessor(worksheet, progressCallback, this.abortFlag);
 			errors = await chunkProcessor.run(importOptions);
 		});
-		return errors;
+		return errors as unknown as Papa.ParseError[];
 	}
 
 	async csvStringAndName(
@@ -94,7 +94,7 @@ export class Parser {
 		});
 
 		return {
-			name: nameToUse(namesAndShape.workbookName, namesAndShape.worksheetName),
+			name: nameToUse((namesAndShape as unknown as WorksheetNamesAndShape).workbookName, (namesAndShape as unknown as WorksheetNamesAndShape).worksheetName),
 			string: resultString,
 		};
 	}
@@ -152,6 +152,7 @@ export class ChunkProcessor {
 
 			switch (importOptions.source.inputType) {
 			case InputType.file:
+				// @ts-expect-error
 				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
 				break;
 			case InputType.text:
@@ -168,10 +169,10 @@ export class ChunkProcessor {
 	private static progressPerChunk(source: Source, chunkSize: number): number {
 		switch (source.inputType) {
 		case InputType.file:
-			if (source.file.size === 0) {
+			if (source.file?.size === 0) {
 				return 1.0;
 			}
-			return chunkSize / source.file.size;
+			return chunkSize / (source.file?.size ?? 1);
 		case InputType.text:
 			if (source.text.length === 0) {
 				return 1.0;
@@ -185,9 +186,9 @@ export class ChunkProcessor {
 	private readonly _abortFlag: AbortFlag;
 	private readonly _excelAPI = ExcelAPI;
 	private _currRow: number;
-	private _progressPerChunk: number;
+	private _progressPerChunk: number | undefined;
 	private _currentProgress: number;
-	private _numberFormat: NumberFormat;
+	private _numberFormat: NumberFormat | undefined;
 
 	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser) => {
 		if (this._abortFlag.aborted()) {
@@ -195,14 +196,14 @@ export class ChunkProcessor {
 		}
 
 		this._worksheet.context.application.suspendApiCalculationUntilNextSync();
-		this._excelAPI.setChunk(this._worksheet, this._currRow, chunk.data, this._numberFormat);
+		this._excelAPI.setChunk(this._worksheet, this._currRow, chunk.data, this._numberFormat as NumberFormat);
 		this._currRow += chunk.data.length;
 		parser.pause();
 		// sync() must be called after each chunk, otherwise API may throw exception
 		this._worksheet.context.sync().then(parser.resume);
 		// Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
 		// on performance.
-		this._progressCallback(this._currentProgress += this._progressPerChunk);
+		this._progressCallback(this._currentProgress += this._progressPerChunk as number);
 	};
 }
 

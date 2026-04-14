@@ -9,9 +9,10 @@
       "es2018"
     ],
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["office-js"]
   }
 }

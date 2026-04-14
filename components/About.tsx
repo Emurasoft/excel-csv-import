@@ -5,7 +5,7 @@ import {Pages} from '../Pages';
 import {Link as RouterLink} from 'react-router-dom';
 import {useStyles} from './styles';
 
-export default function About(): React.ReactElement {
+export default function About(): React.ReactNode {
 	const styles = useStyles();
 
 	return (

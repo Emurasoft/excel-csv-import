@@ -1,7 +1,7 @@
 import {AppState, initial} from './state';
 import {Action} from './action';
 
-export function reducer(state: AppState = initial, action: Action): Partial<AppState> {
+export function reducer(state: AppState = initial, action: Action): AppState {
 	switch (action.type) {
 	case 'SET_INITIALIZED':
 		return {...state, initialized: action.initialized};
