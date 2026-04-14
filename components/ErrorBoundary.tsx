@@ -16,6 +16,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 		};
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public static getDerivedStateFromError(error: any): State {
 		return {caughtError: true, error};
 	}

@@ -14,6 +14,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 		return value;
 	});
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const setValue = (value: any) => {
 		setStoredValue(value);
 		try {
