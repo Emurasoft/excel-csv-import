@@ -5,7 +5,7 @@ import thisApp from './licenses/thisApp';
 import thirdParty from './licenses/thirdParty';
 import {useStyles} from './styles';
 
-export default function LicenseInformation(): React.ReactElement {
+export default function LicenseInformation(): React.ReactNode {
 	const styles = useStyles();
 	return (
 		<div className={styles.pageMargin}>

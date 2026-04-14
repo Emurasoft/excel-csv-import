@@ -8,7 +8,7 @@ interface Props {
 	onChange: (value: string) => void;
 }
 
-export function EncodingDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
+export function EncodingDropdown({showAutoDetect, value, onChange}: Props): React.ReactNode {
 	return (
 		<Label>
 			<Subtitle1>Encoding</Subtitle1>

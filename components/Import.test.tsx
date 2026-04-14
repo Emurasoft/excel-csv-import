@@ -11,13 +11,13 @@ import {any, anyFunction, mock} from 'jest-mock-extended';
 import {render} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-function Initializer({children}): React.ReactElement {
+function Initializer({children}): React.ReactNode {
 	useAppDispatch()(init());
 	return children;
 }
 
 describe('Import', () => {
-	function ImportWithContext({store}: {store}): React.ReactElement {
+	function ImportWithContext({store}: {store}): React.ReactNode {
 		return (
 			<MemoryRouter>
 				<Provider store={store}><Initializer><Import /></Initializer></Provider>

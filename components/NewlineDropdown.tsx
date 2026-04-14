@@ -21,7 +21,7 @@ function getLabel(n: NewlineSequence): string {
 	}
 }
 
-export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactElement {
+export function NewlineDropdown({showAutoDetect, value, onChange}: Props): React.ReactNode {
 	return (
 		<Label>
 			<Subtitle1>Newline sequence</Subtitle1>

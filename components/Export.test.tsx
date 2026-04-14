@@ -13,13 +13,13 @@ import {init, useAppDispatch} from '../action';
 
 jest.mock('../parser');
 
-function Initializer({children}): React.ReactElement {
+function Initializer({children}): React.ReactNode {
 	useAppDispatch()(init());
 	return children;
 }
 
 describe('Export', () => {
-	function ExportWithContext({store}: {store}): React.ReactElement {
+	function ExportWithContext({store}: {store}): React.ReactNode {
 		return (
 			<MemoryRouter>
 				<Provider store={store}><Initializer><Export /></Initializer></Provider>

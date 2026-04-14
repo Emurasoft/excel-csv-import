@@ -8,7 +8,7 @@ interface Props {
 	onChange: (value: Source) => void;
 }
 
-function fileInput(onChange: (value: File) => void): React.ReactElement {
+function fileInput(onChange: (value: File) => void): React.ReactNode {
 	const styles = useStyles();
 	return (
 		<>
@@ -24,7 +24,7 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 	);
 }
 
-function textInput(value: string, onChange: (value: string) => void): React.ReactElement {
+function textInput(value: string, onChange: (value: string) => void): React.ReactNode {
 	const styles = useStyles();
 	return (
 		<Textarea
@@ -39,8 +39,8 @@ function textInput(value: string, onChange: (value: string) => void): React.Reac
 	);
 }
 
-export function SourceInput({value, onChange}: Props): React.ReactElement {
-	let input: React.ReactElement;
+export function SourceInput({value, onChange}: Props): React.ReactNode {
+	let input: React.ReactNode;
 	switch (value.inputType) {
 	case InputType.file:
 		input = fileInput(file => onChange({inputType: InputType.file, file, text: ''}));

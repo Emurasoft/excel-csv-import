@@ -29,7 +29,7 @@ const dropdownToString = {
 	[DropdownOption.other]: '',
 };
 
-export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactElement {
+export function DelimiterInput({showLengthError, value, onChange}: Props): React.ReactNode {
 	const [otherSelected, setOtherSelected] = useState(false);
 	const styles = useStyles();
 

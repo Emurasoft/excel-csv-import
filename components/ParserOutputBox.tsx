@@ -7,7 +7,7 @@ interface Props {
 	output: AppState['output'];
 }
 
-export function ParserOutputBox({output}: Props): React.ReactElement | null {
+export function ParserOutputBox({output}: Props): React.ReactNode | null {
 	const styles = useStyles();
 
 	switch (output.type) {

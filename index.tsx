@@ -39,7 +39,7 @@ const store = configureStore({
 		}).concat(errorHandler),
 });
 
-function Initializer({children}: {children: React.ReactElement}): React.ReactElement {
+function Initializer({children}: {children: React.ReactNode}): React.ReactNode {
 	useAppDispatch()(init());
 	return children;
 }
@@ -56,7 +56,7 @@ function Theme({children}: React.PropsWithChildren) {
 	);
 }
 
-function App(): React.ReactElement {
+function App(): React.ReactNode {
 	return (
 		<ErrorBoundary>
 			<React.Suspense fallback=''>

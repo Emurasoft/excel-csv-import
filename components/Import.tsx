@@ -36,7 +36,7 @@ function validate(source: Source, delimiter: string, initialized: boolean): Vali
 	return ValidationResult.Success;
 }
 
-export default function Import(): React.ReactElement {
+export default function Import(): React.ReactNode {
 	const initialized = useAppSelector(state => state.initialized) as AppState['initialized'];
 	const platform = useAppSelector(state => state.platform) as AppState['platform'];
 	const progress = useAppSelector(state => state.progress) as AppState['progress'];

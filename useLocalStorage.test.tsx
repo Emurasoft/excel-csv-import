@@ -8,7 +8,7 @@ describe('useLocalStorage', () => {
 	beforeEach(() => window.localStorage.clear());
 
 	test('set and get', async () => {
-		function E(): React.ReactElement {
+		function E(): React.ReactNode {
 			const [v, setV] = namespacedUseLocalStorage('namespace')('key', 0);
 			return (
 				<>
