@@ -12,7 +12,7 @@ import {Routes} from 'react-router-dom';
 import {configureStore} from '@reduxjs/toolkit';
 import {webDarkTheme, webLightTheme} from '@fluentui/react-theme';
 import {FluentProvider} from '@fluentui/react-components';
-import {createRoot} from 'react-dom/client';
+import {Container, createRoot} from 'react-dom/client';
 import {useAppSelector} from './state';
 
 const Import = React.lazy(
@@ -39,7 +39,7 @@ const store = configureStore({
 		}).concat(errorHandler),
 });
 
-function Initializer({children}): React.ReactElement {
+function Initializer({children}: {children: React.ReactElement}): React.ReactElement {
 	useAppDispatch()(init());
 	return children;
 }
@@ -92,4 +92,4 @@ function ParamRouter() {
 	}
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root') as Container).render(<App />);

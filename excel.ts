@@ -95,7 +95,7 @@ export interface Shape {
 	columns: number;
 }
 
-interface WorksheetNamesAndShape {
+export interface WorksheetNamesAndShape {
 	workbookName: string;
 	worksheetName: string;
 	shape: Shape;

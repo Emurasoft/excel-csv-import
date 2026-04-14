@@ -57,6 +57,7 @@ describe('parser', () => {
 				}};
 
 				const api: any = {};
+				// @ts-ignore
 				api.setChunk = (worksheet, row, data) => {
 					assert.strictEqual(worksheet, worksheetStub);
 					assert.strictEqual(row, 0);
@@ -64,6 +65,7 @@ describe('parser', () => {
 					setChunkDone = true;
 				};
 
+				// @ts-ignore
 				const progressCallback = (progress): void => {
 					assert(progress === 0.0 || progress > 1.0);
 					if (progress > 1.0) {
@@ -95,12 +97,14 @@ describe('parser', () => {
 			});
 
 			test('abort', async () => {
+				// @ts-ignore
 				const progressCallback = (progress): void => {
 					assert.strictEqual(progress, 0.0);
 				};
 
 				const flag = new AbortFlag();
 				flag.abort();
+				// @ts-ignore
 				const processor = new ChunkProcessor(null, progressCallback, flag);
 				// @ts-ignore
 				processor._excelAPI = null;
@@ -474,6 +478,7 @@ describe('parser', () => {
 				newline: NewlineSequence.LF,
 			};
 			let called = 0;
+			// @ts-ignore
 			const progressCallback = (progress): void => {
 				switch (called) {
 				case 0:
