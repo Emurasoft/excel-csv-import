@@ -54,7 +54,7 @@ export const useAppDispatch: () => Dispatch = useDispatch;
 
 type GetState = () => AppState;
 
-export const init = () => async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
+export const init = () => async (dispatch: Dispatch, _: unknown, {parser}: ExtraArg): Promise<void> => {
 	dispatch({
 		type: SET_PLATFORM,
 		platform: await parser.init(),
@@ -76,7 +76,7 @@ function setProgressCallback(dispatch: Dispatch): (percent: number) => void {
 }
 
 export const importCSV = (options: ImportOptions) =>
-	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<void> => {
+	async (dispatch: Dispatch, _: unknown, {parser}: ExtraArg): Promise<void> => {
 		dispatch({
 			type: SET_PROGRESS,
 			progress: {show: true, aborting: false, percent: 0.0},
@@ -100,7 +100,7 @@ export const importCSV = (options: ImportOptions) =>
 	};
 
 export const exportCSV = (options: ExportOptions) =>
-	async (dispatch: Dispatch, _, {parser}: ExtraArg): Promise<CsvStringAndName | null> => {
+	async (dispatch: Dispatch, _: unknown, {parser}: ExtraArg): Promise<CsvStringAndName | null> => {
 		dispatch({
 			type: SET_PROGRESS,
 			progress: {show: true, aborting: false, percent: 0.0},
