@@ -57,16 +57,14 @@ describe('parser', () => {
 				}};
 
 				const api: any = {};
-				// @ts-ignore
-				api.setChunk = (worksheet, row, data) => {
+				api.setChunk = (worksheet: any, row: any, data: any) => {
 					assert.strictEqual(worksheet, worksheetStub);
 					assert.strictEqual(row, 0);
 					assert.deepStrictEqual(data, [['a', 'b']]);
 					setChunkDone = true;
 				};
 
-				// @ts-ignore
-				const progressCallback = (progress): void => {
+				const progressCallback = (progress: any): void => {
 					assert(progress === 0.0 || progress > 1.0);
 					if (progress > 1.0) {
 						progressCallbackDone = true;
@@ -97,8 +95,7 @@ describe('parser', () => {
 			});
 
 			test('abort', async () => {
-				// @ts-ignore
-				const progressCallback = (progress): void => {
+				const progressCallback = (progress: any): void => {
 					assert.strictEqual(progress, 0.0);
 				};
 
@@ -478,8 +475,7 @@ describe('parser', () => {
 				newline: NewlineSequence.LF,
 			};
 			let called = 0;
-			// @ts-ignore
-			const progressCallback = (progress): void => {
+			const progressCallback = (progress: any): void => {
 				switch (called) {
 				case 0:
 					assert.strictEqual(progress, 0.0);

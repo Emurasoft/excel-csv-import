@@ -44,7 +44,7 @@ export default function Import(): React.ReactNode {
 	const dispatch = useAppDispatch();
 
 	const [source, setSource] = useState(
-		{inputType: InputType.file, file: null, text: ''} as Source,
+		{inputType: InputType.file, file: undefined, text: ''} as Source,
 	);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);

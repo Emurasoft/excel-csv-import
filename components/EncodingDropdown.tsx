@@ -15,7 +15,7 @@ export function EncodingDropdown({showAutoDetect, value, onChange}: Props): Reac
 			<br />
 			<Dropdown
 				value={value === '' ? 'Auto-detect' : value}
-				onOptionSelect={(_, {optionValue}) => onChange(optionValue)}
+				onOptionSelect={(_, {optionValue}) => optionValue && onChange(optionValue)}
 			>
 				{
 					showAutoDetect
