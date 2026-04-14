@@ -35,6 +35,7 @@ export default [
 			'@stylistic/block-spacing': ['error', 'never'],
 			'@stylistic/jsx-one-expression-per-line': 'off',
 			'@stylistic/indent': ['error', 'tab', {SwitchCase: 0}],
+			'@typescript-eslint/ban-ts-comment': 'off',
 		},
 	},
 	{
