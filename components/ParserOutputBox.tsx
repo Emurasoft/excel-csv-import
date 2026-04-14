@@ -7,7 +7,7 @@ interface Props {
 	output: AppState['output'];
 }
 
-export function ParserOutputBox({output}: Props): React.ReactElement {
+export function ParserOutputBox({output}: Props): React.ReactElement | null {
 	const styles = useStyles();
 
 	switch (output.type) {
@@ -25,7 +25,7 @@ export function ParserOutputBox({output}: Props): React.ReactElement {
 		return (
 			<Textarea
 				className={mergeClasses(styles.monospace, styles.redText)}
-				value={output.error.toString() + '\n' + output.error.stack}
+				value={output.error?.toString() + '\n' + output.error?.stack}
 				rows={20}
 				spellCheck={false}
 				readOnly

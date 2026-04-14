@@ -16,7 +16,7 @@ function fileInput(onChange: (value: File) => void): React.ReactElement {
 				className={styles.fullWidth}
 				type='file'
 				accept='text/csv'
-				onChange={e => onChange(e.target.files[0])}
+				onChange={e => e.target.files && onChange(e.target.files[0])}
 				id='SourceInput-FileInput'
 			/>
 			<br />
@@ -48,7 +48,7 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 	case InputType.text:
 		input = textInput(
 			value.text,
-			text => onChange({inputType: InputType.text, file: null, text}),
+			text => onChange({inputType: InputType.text, file: undefined, text}),
 		);
 	}
 
@@ -60,7 +60,7 @@ export function SourceInput({value, onChange}: Props): React.ReactElement {
 				<Dropdown
 					value={value.inputType}
 					onOptionSelect={(_, {optionValue}) => onChange(
-						{inputType: optionValue as InputType, file: null, text: ''},
+						{inputType: optionValue as InputType, file: undefined, text: ''},
 					)}
 					id='SourceInput-Dropdown'
 				>
