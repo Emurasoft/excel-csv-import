@@ -152,7 +152,7 @@ export class ChunkProcessor {
 
 			switch (importOptions.source.inputType) {
 			case InputType.file:
-				// @ts-ignore
+				// @ts-expect-error
 				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
 				break;
 			case InputType.text:
