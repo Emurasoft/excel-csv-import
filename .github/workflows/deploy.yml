@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
@@ -28,9 +28,14 @@ jobs:
 
       - run: yarn build
 
+      - name: Restructure build output
+        run: |
+          mkdir -p deploy/excel-csv-import
+          cp -r build/. deploy/excel-csv-import/
+
       - name: Upload pages
-        if: ${{ github.ref_type == 'tag' }}
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: deploy
+
       - uses: actions/deploy-pages@v4
