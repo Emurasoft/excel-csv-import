@@ -28,6 +28,7 @@
 		"no-underscore-dangle": "off",
 		"no-unassigned-import": "off",
 		"eslint/no-await-in-loop": "off",
+		"unbound-method": "off",
 		"eslint/prefer-const": "error",
 		"eslint/no-unreachable": "error",
 		"eslint/eqeqeq": "error",
