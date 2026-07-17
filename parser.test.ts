@@ -57,7 +57,7 @@ describe('parser', () => {
 
 				const worksheetStub: any = {context: {
 					application: {suspendApiCalculationUntilNextSync: () => {}},
-					sync: () => syncDone = true,
+					sync: () => Promise.resolve(syncDone = true),
 				}};
 
 				const api: any = {};
