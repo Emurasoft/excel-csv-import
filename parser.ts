@@ -14,7 +14,7 @@ export interface Source {
 	text: string;
 }
 
-type Config = Pick<Papa.ParseLocalConfig, 'delimiter' | 'encoding' | 'chunk' | 'complete'>;
+type Config = Pick<Papa.ParseLocalConfig, 'delimiter' | 'encoding' | 'chunk' | 'chunkSize' | 'complete'>;
 
 export const enum NewlineSequence {
 	AutoDetect = '',
@@ -40,6 +40,7 @@ export const enum NumberFormat {
 }
 
 let reduceChunkSize: boolean | null = null;
+let localChunkSize: number | undefined;
 
 export class Parser {
 	constructor() {
@@ -51,7 +52,7 @@ export class Parser {
 		if (platform === Office.PlatformType.OfficeOnline) {
 			// Online API can throw error if request size is too large
 			reduceChunkSize = true;
-			(Papa.LocalChunkSize as unknown as number) = 10_000;
+			localChunkSize = 10_000;
 		} else {
 			reduceChunkSize = false;
 		}
@@ -142,13 +143,16 @@ export class ChunkProcessor {
 		this._progressCallback(0.0);
 		this._progressPerChunk = ChunkProcessor.progressPerChunk(
 			importOptions.source,
-			Papa.LocalChunkSize,
+			localChunkSize ?? Papa.LocalChunkSize,
 		);
 		this._numberFormat = importOptions.numberFormat;
 
 		return new Promise((resolve) => {
 			importOptions.chunk = this.chunk;
 			importOptions.complete = results => resolve(results.errors);
+			if (localChunkSize !== undefined) {
+				importOptions.chunkSize = localChunkSize;
+			}
 
 			switch (importOptions.source.inputType) {
 			case InputType.file:
