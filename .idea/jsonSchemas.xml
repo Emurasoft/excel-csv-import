@@ -3,6 +3,22 @@
   <component name="JsonSchemaMappingsProjectConfiguration">
     <state>
       <map>
+        <entry key="Yarn Config (.yarnrc.yml)">
+          <value>
+            <SchemaInfo>
+              <option name="name" value="Yarn Config (.yarnrc.yml)" />
+              <option name="relativePathToSchema" value="https://yarnpkg.com/configuration/yarnrc.json" />
+              <option name="applicationDefined" value="true" />
+              <option name="patterns">
+                <list>
+                  <Item>
+                    <option name="path" value=".yarnrc.yml" />
+                  </Item>
+                </list>
+              </option>
+            </SchemaInfo>
+          </value>
+        </entry>
         <entry key="github-workflow">
           <value>
             <SchemaInfo>
