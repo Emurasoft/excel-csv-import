@@ -41,8 +41,7 @@ function Initializer({ children }: { children: React.ReactNode }): React.ReactNo
 function Theme({ children }: React.PropsWithChildren) {
 	const initialized = useAppSelector((state) => state.initialized);
 
-	const isDarkMode =
-		initialized && Office.context.officeTheme.isDarkTheme;
+	const isDarkMode = initialized && Office.context.officeTheme.isDarkTheme;
 
 	return <FluentProvider theme={isDarkMode ? webDarkTheme : webLightTheme}>{children}</FluentProvider>;
 }
