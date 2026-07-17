@@ -80,7 +80,7 @@ describe('ExcelAPI', () => {
 		];
 
 		for (const test of tests) {
-			const func = () => {
+			const func = (): void => {
 				ExcelAPI._resize(test.a, test.maxLength);
 			};
 			if (test.expectError) {

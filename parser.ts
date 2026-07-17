@@ -190,7 +190,7 @@ export class ChunkProcessor {
 	private _currentProgress: number;
 	private _numberFormat: NumberFormat | undefined;
 
-	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser) => {
+	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser): void => {
 		if (this._abortFlag.aborted()) {
 			parser.abort();
 		}
