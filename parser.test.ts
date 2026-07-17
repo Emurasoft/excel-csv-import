@@ -74,7 +74,7 @@ describe('parser', () => {
 					}
 				};
 
-				const processor = new ChunkProcessor(worksheetStub as any, progressCallback, new AbortFla			// @ts-ignore
+				const processor = new ChunkProcessor(worksheetStub, progressCallback, new AbortFla			// @ts-ignore
 				processor._excelAPI = api;
 
 				const importOptions: Parser.ImportOptions | ParseConfig = {

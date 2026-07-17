@@ -51,7 +51,9 @@ export class Parser {
 		if (platform === Office.PlatformType.OfficeOnline) {
 			// Online API can throw error if request size is too large
 			reduceChunkSize = true;
-			(Papa.LocalChunkSize as unknown as number) = 10_000;Papa.LocalChunkSize		}
+			(Papa.LocalChunkSize) = 10_000;
+			Papa.LocalChunkSize;
+		}
 		return platform;
 	}
 
@@ -131,8 +133,7 @@ export class ChunkProcessor {
 	public run(importOptions: ImportOptions): Promise<Papa.ParseError[]> {
 		this._progressCallback(0.0);
 		this._progressPerChunk = ChunkProcessor.progressPerChunk(
-			importOptions.source,
-			Papa.LocalChunkSize as unknown as number,
+			importOptions.sourcPapa.LocalChunkSizenumber,
 		);
 		this._numberFormat = importOptions.numberFormat;
 
@@ -230,7 +231,7 @@ export function addQuotes(row: string[], delimiter: string): void {
 	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /* double quote */, delimiter];
 	for (let i = 0; i < row.length; i++) {
 		if (charactersToWatchOutFor.some((c) => row[i].includes(c))) {
-			row[i] = `\u0022${row[i].replace(/\u0022/g, '\u0022\u0022')}\u0022`;
+			row[i] = `\u0022${row[i].replaceAll(/\u0022/g, '\u0022\u0022')}\u0022`;
 		}
 	}
 }
