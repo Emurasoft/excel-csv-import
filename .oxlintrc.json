@@ -44,7 +44,6 @@
 			"warn",
 			{ "caughtErrors": "none", "argsIgnorePattern": "^_$", "varsIgnorePattern": "^_$" }
 		],
-		"typescript/no-explicit-any": "error",
 		"typescript/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
 		"typescript/restrict-template-expressions": ["error", { "allowNumber": true, "allowBoolean": true }],
 		"typescript/no-unnecessary-condition": ["error", { "allowConstantLoopConditions": "only-allowed-literals" }],
