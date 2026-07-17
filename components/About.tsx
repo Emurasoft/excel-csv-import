@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Body1, Link, mergeClasses, Text, Title1 } from '@fluentui/react-components';
 import { BackButton } from './BackButton';
-import { Pages } from '../Pages';
+import { PAGE_LICENSE_INFORMATION } from '../Pages';
 import { Link as RouterLink } from 'react-router-dom';
 import { useStyles } from './styles';
 
@@ -91,7 +91,7 @@ export default function About(): React.ReactNode {
 				© 2024 Emurasoft Inc.
 				<br />
 				<RouterLink
-					to={`/excel-csv-import/?page=${Pages.licenseInformation}`}
+					to={`/excel-csv-import/?page=${PAGE_LICENSE_INFORMATION}`}
 					reloadDocument
 				>
 					<Link>License information</Link>

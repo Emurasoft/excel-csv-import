@@ -1,6 +1,6 @@
 import * as React from 'react';
 import queryString from 'query-string';
-import { Pages } from './Pages';
+import { PAGE_IMPORT, PAGE_EXPORT, PAGE_ABOUT, PAGE_LICENSE_INFORMATION } from './Pages';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { MemoryRouter, Route } from 'react-router';
 import { ExtraArg, init, useAppDispatch } from './action';
@@ -73,13 +73,13 @@ function App(): React.ReactNode {
 function ParamRouter() {
 	const page = queryString.parse(location.search).page as string;
 	switch (page) {
-		case Pages.import:
+		case PAGE_IMPORT:
 			return <Import />;
-		case Pages.export:
+		case PAGE_EXPORT:
 			return <Export />;
-		case Pages.about:
+		case PAGE_ABOUT:
 			return <About />;
-		case Pages.licenseInformation:
+		case PAGE_LICENSE_INFORMATION:
 			return <LicenseInformation />;
 		default:
 			throw new Error(`unknown page: ${page}`);
