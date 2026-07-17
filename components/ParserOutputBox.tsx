@@ -31,6 +31,7 @@ export function ParserOutputBox({ output }: Props): React.ReactNode | null {
 					readOnly
 				/>
 			);
+		default:
 	}
 
 	return null;

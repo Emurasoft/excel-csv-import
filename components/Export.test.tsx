@@ -14,7 +14,7 @@ import { init, useAppDispatch } from '../action';
 jest.mock('../parser');
 
 function Initializer({ children }: { children: React.ReactNode }): React.ReactNode {
-	useAppDispatch()(init());
+	void useAppDispatch()(init());
 	return children;
 }
 
