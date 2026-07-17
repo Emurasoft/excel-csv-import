@@ -12,7 +12,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 function Initializer({ children }: { children: React.ReactNode }): React.ReactNode {
-	useAppDispatch()(init());
+	void useAppDispatch()(init());
 	return children;
 }
 
