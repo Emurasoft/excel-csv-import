@@ -18,6 +18,10 @@ import assert from 'assert';
 import {Shape} from './excel';
 import {describe, test} from '@jest/globals';
 
+const progressCallback = (progress: any): void => {
+	assert.strictEqual(progress, 0.0);
+};
+
 describe('parser', () => {
 	describe('ChunkProcessor', () => {
 		test('progressPerChunk()', () => {
@@ -95,10 +99,6 @@ describe('parser', () => {
 			});
 
 			test('abort', async () => {
-				const progressCallback = (progress: any): void => {
-					assert.strictEqual(progress, 0.0);
-				};
-
 				const flag = new AbortFlag();
 				flag.abort();
 				// @ts-ignore

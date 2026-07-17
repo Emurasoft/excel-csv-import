@@ -39,7 +39,6 @@
 		"eslint/no-unused-expressions": "error",
 		"eslint/no-import-assign": "error",
 		"eslint/no-useless-return": "error",
-		"eslint/max-lines-per-function": ["warn", { "max": 70, "skipBlankLines": true, "skipComments": true }],
 		"eslint/no-unused-vars": [
 			"warn",
 			{ "caughtErrors": "none", "argsIgnorePattern": "^_$", "varsIgnorePattern": "^_$" }
