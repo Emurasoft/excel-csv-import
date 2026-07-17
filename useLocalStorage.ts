@@ -5,7 +5,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 		let value: T = initialValue;
 		try {
 			const item = window.localStorage.getItem(key);
-			if (item) {
+			if (item !== null) {
 				value = JSON.parse(item);
 			}
 		} catch (e) {

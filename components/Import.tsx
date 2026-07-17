@@ -38,9 +38,9 @@ function validate(source: Source, delimiter: string, initialized: boolean): Vali
 
 export default function Import(): React.ReactNode {
 	const initialized = useAppSelector(state => state.initialized) as AppState['initialized'];
-	const platform = useAppSelector(state => state.platform) as AppState['platform'];
-	const progress = useAppSelector(state => state.progress) as AppState['progress'];
-	const output = useAppSelector(state => state.output) as AppState['output'];
+	const platform = useAppSelector(state => state.platform);
+	const progress = useAppSelector(state => state.progress);
+	const output = useAppSelector(state => state.output);
 	const dispatch = useAppDispatch();
 
 	const [source, setSource] = useState({ inputType: InputType.file, file: undefined, text: '' } as Source);
