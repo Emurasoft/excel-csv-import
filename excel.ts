@@ -48,7 +48,7 @@ export function _maxLength(a: string[][]): number {
 
 export function _resize(a: string[][], maxLength: number): void {
 	for (let i = 0; i < a.length; ++i) {
-		a[i] = a[i].concat(new Array(maxLength - a[i].length));
+		a[i] = a[i].concat(Array(maxLength - a[i].length));
 	}
 }
 
@@ -58,7 +58,7 @@ function numberFormatArray(input: string[][], numberFormat: NumberFormat): strin
 		return [];
 	}
 
-	return new Array(input.length).fill(new Array(input[0].length).fill(numberFormat));
+	return Array(input.length).fill(Array(input[0].length).fill(numberFormat));
 }
 
 export function setChunk(worksheet: Excel.Worksheet, row: number, chunk: string[][], numberFormat: NumberFormat): void {
