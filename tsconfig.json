@@ -4,7 +4,7 @@
 		"target": "es2023",
 		"sourceMap": true,
 		"declaration": false,
-		"lib": ["dom", "es2018"],
+		"lib": ["dom", "es2023"],
 		"jsx": "react",
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
