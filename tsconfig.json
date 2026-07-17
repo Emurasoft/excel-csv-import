@@ -1,18 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "esnext",
-    "target": "es2023",
-    "sourceMap": true,
-    "declaration": false,
-    "lib": [
-      "dom",
-      "es2018"
-    ],
-    "jsx": "react",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "types": ["office-js"]
-  }
+	"compilerOptions": {
+		"module": "esnext",
+		"target": "es2023",
+		"sourceMap": true,
+		"declaration": false,
+		"lib": ["dom", "es2023"],
+		"jsx": "react",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"types": ["office-js"]
+	}
 }

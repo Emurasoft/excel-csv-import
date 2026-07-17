@@ -1,4 +1,4 @@
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const common = require('./common');
 const fs = require('fs');
 const os = require('os');
@@ -21,7 +21,7 @@ module.exports = merge(common, {
 	output: {
 		publicPath: '/excel-csv-import/',
 	},
-	entry: __dirname + '/../index.tsx',
+	entry: `${__dirname}/../index.tsx`,
 	module: {
 		rules: [
 			{

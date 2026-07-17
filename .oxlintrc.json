@@ -1,0 +1,95 @@
+{
+	"options": {
+		"typeAware": true
+	},
+	"env": {
+		"es2026": true
+	},
+	"plugins": ["typescript", "unicorn", "react", "import"],
+	"ignorePatterns": [
+		"dist",
+		"node_modules",
+		"src/components/ui",
+		".pnp.cjs",
+		".pnp.loader.mjs",
+		"worker/worker-configuration.d.ts"
+	],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn",
+		"perf": "warn"
+	},
+	"rules": {
+		"typescript/no-redundant-type-constituents": "off",
+		"react/react-in-jsx-scope": "off",
+		"typescript/no-shadow": "off",
+		"typescript/no-unsafe-type-assertion": "off",
+		"typescript/consistent-return": "off",
+		"no-underscore-dangle": "off",
+		"no-unassigned-import": "off",
+		"eslint/no-await-in-loop": "off",
+		"unbound-method": "off",
+		"eslint/prefer-const": "error",
+		"eslint/no-unreachable": "error",
+		"eslint/eqeqeq": "error",
+		"eslint/no-else-return": "error",
+		"eslint/no-implicit-coercion": "error",
+		"eslint/curly": ["error", "all"],
+		"eslint/default-case-last": "error",
+		"eslint/no-negated-condition": "error",
+		"eslint/no-unused-expressions": "error",
+		"eslint/no-import-assign": "error",
+		"eslint/no-useless-return": "error",
+		"eslint/no-unused-vars": [
+			"warn",
+			{ "caughtErrors": "none", "argsIgnorePattern": "^_$", "varsIgnorePattern": "^_$" }
+		],
+		"typescript/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
+		"typescript/restrict-template-expressions": ["error", { "allowNumber": true, "allowBoolean": true }],
+		"typescript/no-unnecessary-condition": ["error", { "allowConstantLoopConditions": "only-allowed-literals" }],
+		"typescript/strict-boolean-expressions": ["error", { "allowAny": true }],
+		"typescript/explicit-function-return-type": ["error", { "allowExpressions": true }],
+		"prefer-arrow-callback": "error",
+		"typescript/consistent-type-definitions": ["error", "interface"],
+		"eslint/no-var": "error",
+		"react/self-closing-comp": "error",
+		"typescript/prefer-function-type": "error",
+		"unicorn/throw-new-error": "error",
+		"import/no-duplicates": "error",
+		"eslint/no-throw-literal": "error",
+		"unicorn/no-array-for-each": "error",
+		"unicorn/prefer-optional-catch-binding": "error",
+		"typescript/switch-exhaustiveness-check": [
+			"error",
+			{
+				"considerDefaultExhaustiveForUnions": true
+			}
+		],
+		"typescript/require-await": "warn",
+		"unicorn/prefer-array-some": "warn",
+		"typescript/array-type": ["error", { "default": "array" }],
+		"eslint/object-shorthand": ["warn", "always"],
+		"eslint/prefer-object-spread": "warn",
+		"unicorn/error-message": "error",
+		"eslint/prefer-template": "warn",
+		"typescript/no-empty-object-type": "warn",
+		"no-accumulating-spread": "warn",
+		"prefer-set-has": "warn",
+		"unicorn/prefer-string-replace-all": "warn",
+		"consistent-function-scoping": "warn"
+	},
+	"overrides": [
+		{
+			"files": ["**/*.tsx"],
+			"rules": {
+				"typescript/explicit-function-return-type": "off"
+			}
+		},
+		{
+			"files": ["**/*.test.ts", "**/*.test.tsx"],
+			"rules": {
+				"eslint/max-lines-per-function": "off"
+			}
+		}
+	]
+}

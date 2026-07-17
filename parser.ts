@@ -1,6 +1,6 @@
 /* global Office */
 import * as ExcelAPI from './excel';
-import {Shape, WorksheetNamesAndShape} from './excel';
+import { Shape, WorksheetNamesAndShape } from './excel';
 import * as Papa from 'papaparse';
 
 export const enum InputType {
@@ -14,7 +14,7 @@ export interface Source {
 	text: string;
 }
 
-type Config = Pick<Papa.ParseLocalConfig, 'delimiter' | 'encoding' | 'chunk' | 'complete'>;
+type Config = Pick<Papa.ParseLocalConfig, 'delimiter' | 'encoding' | 'chunk' | 'chunkSize' | 'complete'>;
 
 export const enum NewlineSequence {
 	AutoDetect = '',
@@ -40,6 +40,7 @@ export const enum NumberFormat {
 }
 
 let reduceChunkSize: boolean | null = null;
+let localChunkSize: number | undefined;
 
 export class Parser {
 	constructor() {
@@ -51,17 +52,14 @@ export class Parser {
 		if (platform === Office.PlatformType.OfficeOnline) {
 			// Online API can throw error if request size is too large
 			reduceChunkSize = true;
-			(Papa.LocalChunkSize as unknown as number) = 10_000;
+			localChunkSize = 10_000;
 		} else {
 			reduceChunkSize = false;
 		}
 		return platform;
 	}
 
-	async importCSV(
-		importOptions: ImportOptions,
-		progressCallback: ProgressCallback,
-	): Promise<Papa.ParseError[]> {
+	async importCSV(importOptions: ImportOptions, progressCallback: ProgressCallback): Promise<Papa.ParseError[]> {
 		this.abort();
 
 		let errors = null;
@@ -72,10 +70,7 @@ export class Parser {
 		return errors as unknown as Papa.ParseError[];
 	}
 
-	async csvStringAndName(
-		exportOptions: ExportOptions,
-		progressCallback: ProgressCallback,
-	): Promise<CsvStringAndName> {
+	async csvStringAndName(exportOptions: ExportOptions, progressCallback: ProgressCallback): Promise<CsvStringAndName> {
 		this.abort();
 
 		let namesAndShape = null;
@@ -94,7 +89,10 @@ export class Parser {
 		});
 
 		return {
-			name: nameToUse((namesAndShape as unknown as WorksheetNamesAndShape).workbookName, (namesAndShape as unknown as WorksheetNamesAndShape).worksheetName),
+			name: nameToUse(
+				(namesAndShape as unknown as WorksheetNamesAndShape).workbookName,
+				(namesAndShape as unknown as WorksheetNamesAndShape).worksheetName,
+			),
 			string: resultString,
 		};
 	}
@@ -126,11 +124,7 @@ export class AbortFlag {
 type ProgressCallback = (progress: number) => void;
 
 export class ChunkProcessor {
-	public constructor(
-		worksheet: Excel.Worksheet,
-		progressCallback: ProgressCallback,
-		abortFlag: AbortFlag,
-	) {
+	public constructor(worksheet: Excel.Worksheet, progressCallback: ProgressCallback, abortFlag: AbortFlag) {
 		this._worksheet = worksheet;
 		this._progressCallback = progressCallback;
 		this._abortFlag = abortFlag;
@@ -142,42 +136,45 @@ export class ChunkProcessor {
 		this._progressCallback(0.0);
 		this._progressPerChunk = ChunkProcessor.progressPerChunk(
 			importOptions.source,
-			Papa.LocalChunkSize as unknown as number,
+			localChunkSize ?? Papa.LocalChunkSize,
 		);
 		this._numberFormat = importOptions.numberFormat;
 
 		return new Promise((resolve) => {
 			importOptions.chunk = this.chunk;
-			importOptions.complete = results => resolve(results.errors);
+			importOptions.complete = (results) => resolve(results.errors);
+			if (localChunkSize !== undefined) {
+				importOptions.chunkSize = localChunkSize;
+			}
 
 			switch (importOptions.source.inputType) {
-			case InputType.file:
-				// @ts-expect-error
-				Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
-				break;
-			case InputType.text:
-				Papa.parse(
-					/* eslint-disable @typescript-eslint/no-explicit-any */
-					importOptions.source.text as any,
-					importOptions as Papa.ParseLocalConfig,
-				);
-				break;
+				case InputType.file:
+					// @ts-expect-error
+					Papa.parse(importOptions.source.file, importOptions as Papa.ParseLocalConfig);
+					break;
+				case InputType.text:
+					Papa.parse(
+						/* eslint-disable @typescript-eslint/no-explicit-any */
+						importOptions.source.text as any,
+						importOptions as Papa.ParseLocalConfig,
+					);
+					break;
 			}
 		});
 	}
 
 	private static progressPerChunk(source: Source, chunkSize: number): number {
 		switch (source.inputType) {
-		case InputType.file:
-			if (source.file?.size === 0) {
-				return 1.0;
-			}
-			return chunkSize / (source.file?.size ?? 1);
-		case InputType.text:
-			if (source.text.length === 0) {
-				return 1.0;
-			}
-			return chunkSize / source.text.length;
+			case InputType.file:
+				if (source.file?.size === 0) {
+					return 1.0;
+				}
+				return chunkSize / (source.file?.size ?? 1);
+			case InputType.text:
+				if (source.text.length === 0) {
+					return 1.0;
+				}
+				return chunkSize / source.text.length;
 		}
 	}
 
@@ -190,7 +187,7 @@ export class ChunkProcessor {
 	private _currentProgress: number;
 	private _numberFormat: NumberFormat | undefined;
 
-	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser) => {
+	private chunk = (chunk: Papa.ParseResult<string[]>, parser: Papa.Parser): void => {
 		if (this._abortFlag.aborted()) {
 			parser.abort();
 		}
@@ -200,10 +197,10 @@ export class ChunkProcessor {
 		this._currRow += chunk.data.length;
 		parser.pause();
 		// sync() must be called after each chunk, otherwise API may throw exception
-		this._worksheet.context.sync().then(parser.resume);
+		void this._worksheet.context.sync().then(parser.resume);
 		// Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
 		// on performance.
-		this._progressCallback(this._currentProgress += this._progressPerChunk as number);
+		this._progressCallback((this._currentProgress += this._progressPerChunk as number));
 	};
 }
 
@@ -224,7 +221,7 @@ export function chunkRange(
 	chunk: number,
 	shape: Shape,
 	chunkRows: number,
-): {startRow: number; startColumn: number; rowCount: number; columnCount: number} {
+): { startRow: number; startColumn: number; rowCount: number; columnCount: number } {
 	return {
 		startRow: chunk * chunkRows,
 		startColumn: 0,
@@ -234,21 +231,21 @@ export function chunkRange(
 }
 
 export function addQuotes(row: string[], delimiter: string): void {
-	if (delimiter == '') {
+	if (delimiter === '') {
 		return;
 	}
 
 	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /* double quote */, delimiter];
 	for (let i = 0; i < row.length; i++) {
-		if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
-			row[i] = '\u0022' + row[i].replace(/\u0022/g, '\u0022\u0022') + '\u0022';
+		if (charactersToWatchOutFor.some((c) => row[i].includes(c))) {
+			row[i] = `"${row[i].replaceAll('"', '""')}"`;
 		}
 	}
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function rowString(row: any[], exportOptions: Readonly<ExportOptions>): string {
-	const stringValues = row.map(a => a.toString());
+	const stringValues = row.map((a) => a.toString());
 	addQuotes(stringValues, exportOptions.delimiter);
 	return stringValues.join(exportOptions.delimiter) + exportOptions.newline;
 }
@@ -281,15 +278,12 @@ export async function csvString(
 		}
 
 		// shape.rows is never 0
-		progressCallback(chunk * chunkRows / shape.rows);
+		progressCallback((chunk * chunkRows) / shape.rows);
 
 		const chunkRange_ = chunkRange(chunk, shape, chunkRows);
-		const range = worksheet.getRangeByIndexes(
-			chunkRange_.startRow,
-			chunkRange_.startColumn,
-			chunkRange_.rowCount,
-			chunkRange_.columnCount,
-		).load('values');
+		const range = worksheet
+			.getRangeByIndexes(chunkRange_.startRow, chunkRange_.startColumn, chunkRange_.rowCount, chunkRange_.columnCount)
+			.load('values');
 		await worksheet.context.sync();
 
 		result += chunkString(range.values, exportOptions);
@@ -299,21 +293,20 @@ export async function csvString(
 }
 
 export function nameToUse(workbookName: string, worksheetName: string): string {
-	if (/^Sheet\d+$/.test(worksheetName)) { // 'Sheet1' isn't a good name to use
+	if (/^Sheet\d+$/.test(worksheetName)) {
+		// 'Sheet1' isn't a good name to use
 		// Workbook name usually includes the file extension
 		const to = workbookName.lastIndexOf('.');
 		return workbookName.substr(0, to === -1 ? workbookName.length : to);
-	} else {
-		return worksheetName;
 	}
+	return worksheetName;
 }
 
 function chunkRows(shape: Shape): number {
-	if (reduceChunkSize) {
+	if (reduceChunkSize === true) {
 		return Math.floor(10_000 / shape.columns);
-	} else {
-		return shape.rows;
 	}
+	return shape.rows;
 }
 
 export interface CsvStringAndName {

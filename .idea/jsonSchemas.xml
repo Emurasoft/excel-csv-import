@@ -38,6 +38,22 @@
             </SchemaInfo>
           </value>
         </entry>
+        <entry key="oxlint">
+          <value>
+            <SchemaInfo>
+              <option name="name" value="oxlint" />
+              <option name="relativePathToSchema" value="https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxlint/configuration_schema.json" />
+              <option name="applicationDefined" value="true" />
+              <option name="patterns">
+                <list>
+                  <Item>
+                    <option name="path" value=".oxlintrc.json" />
+                  </Item>
+                </list>
+              </option>
+            </SchemaInfo>
+          </value>
+        </entry>
       </map>
     </state>
   </component>

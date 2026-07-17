@@ -1,12 +1,12 @@
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const common = require('./common');
 
 module.exports = merge(common, {
 	mode: 'production',
 	output: {
-		path: __dirname + '/../build',
+		path: `${__dirname}/../build`,
 	},
-	entry: ['@babel/polyfill', __dirname + '/../index.tsx'],
+	entry: ['@babel/polyfill', `${__dirname}/../index.tsx`],
 	module: {
 		rules: [
 			{

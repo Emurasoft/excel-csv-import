@@ -1,5 +1,4 @@
-export default
-`MIT License
+export default `MIT License
 
 Copyright 2020 Emurasoft Inc.
 

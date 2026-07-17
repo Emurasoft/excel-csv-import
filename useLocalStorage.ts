@@ -1,11 +1,11 @@
-import {Dispatch, useState} from 'react';
+import { Dispatch, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T>] {
 	const [storedValue, setStoredValue] = useState<T>(() => {
 		let value: T = initialValue;
 		try {
 			const item = window.localStorage.getItem(key);
-			if (item) {
+			if (item !== null) {
 				value = JSON.parse(item);
 			}
 		} catch (e) {
@@ -15,7 +15,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 	});
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const setValue = (value: any) => {
+	const setValue = (value: any): void => {
 		setStoredValue(value);
 		try {
 			window.localStorage.setItem(key, JSON.stringify(value));
@@ -29,6 +29,6 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 
 export function namespacedUseLocalStorage(namespace: string): typeof useLocalStorage {
 	return function (key: string, initialValue) {
-		return useLocalStorage(namespace + '-' + key, initialValue);
+		return useLocalStorage(`${namespace}-${key}`, initialValue);
 	};
 }

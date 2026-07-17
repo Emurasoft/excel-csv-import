@@ -1,30 +1,34 @@
 import Import from './Import';
 import * as React from 'react';
-import {ImportOptions, InputType, NewlineSequence, NumberFormat, Parser} from '../parser';
-import {reducer} from '../reducer';
-import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router-dom';
-import {configureStore} from '@reduxjs/toolkit';
-import {describe, expect, test} from '@jest/globals';
-import {init, useAppDispatch} from '../action';
-import {any, anyFunction, mock} from 'jest-mock-extended';
-import {render} from '@testing-library/react';
+import { ImportOptions, InputType, NewlineSequence, NumberFormat, Parser } from '../parser';
+import { reducer } from '../reducer';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
+import { describe, expect, test } from '@jest/globals';
+import { init, useAppDispatch } from '../action';
+import { any, anyFunction, mock } from 'jest-mock-extended';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-function Initializer({children}: {children: React.ReactNode}): React.ReactNode {
-	useAppDispatch()(init());
+function Initializer({ children }: { children: React.ReactNode }): React.ReactNode {
+	void useAppDispatch()(init());
 	return children;
 }
 
-describe('Import', () => {
-	function ImportWithContext({store}: {store: any}): React.ReactNode {
-		return (
-			<MemoryRouter>
-				<Provider store={store}><Initializer><Import /></Initializer></Provider>
-			</MemoryRouter>
-		);
-	}
+function ImportWithContext({ store }: { store: any }): React.ReactNode {
+	return (
+		<MemoryRouter>
+			<Provider store={store}>
+				<Initializer>
+					<Import />
+				</Initializer>
+			</Provider>
+		</MemoryRouter>
+	);
+}
 
+describe('Import', () => {
 	test('import', async () => {
 		window.localStorage.clear();
 		window.localStorage.setItem('app-firstVisit', 'false');
@@ -34,10 +38,10 @@ describe('Import', () => {
 
 		const store = configureStore({
 			reducer,
-			middleware: getDefaultMiddleware =>
+			middleware: (getDefaultMiddleware) =>
 				getDefaultMiddleware({
 					thunk: {
-						extraArgument: {parser},
+						extraArgument: { parser },
 					},
 				}),
 		});
@@ -58,7 +62,7 @@ describe('Import', () => {
 		await userEvent.click(wrapper.getAllByText('Import CSV')[1]);
 
 		const expected: ImportOptions = {
-			source: {inputType: InputType.text, file: undefined, text: 'csv text'},
+			source: { inputType: InputType.text, file: undefined, text: 'csv text' },
 			delimiter: '\t',
 			newline: NewlineSequence.LF,
 			encoding: '',

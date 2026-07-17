@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {useState} from 'react';
-import {DelimiterInput} from './DelimiterInput';
-import {NewlineDropdown} from './NewlineDropdown';
+import { useState } from 'react';
+import { DelimiterInput } from './DelimiterInput';
+import { NewlineDropdown } from './NewlineDropdown';
 import {
 	Button,
 	Dropdown,
@@ -12,17 +12,17 @@ import {
 	Textarea,
 	Tooltip,
 } from '@fluentui/react-components';
-import {NewlineSequence} from '../parser';
+import { NewlineSequence } from '../parser';
 import * as FileSaver from 'file-saver';
-import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressBarWithStopButton} from './ProgressBar';
-import {BottomBar} from './BottomBar';
-import {ParserOutputBox} from './ParserOutputBox';
-import {Page} from './Page';
-import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {useAppSelector} from '../state';
-import {abort, exportCSV, useAppDispatch} from '../action';
-import {useStyles} from './styles';
+import { EncodingDropdown } from './EncodingDropdown';
+import { ProgressBarWithStopButton } from './ProgressBar';
+import { BottomBar } from './BottomBar';
+import { ParserOutputBox } from './ParserOutputBox';
+import { Page } from './Page';
+import { namespacedUseLocalStorage } from '../useLocalStorage';
+import { useAppSelector } from '../state';
+import { abort, exportCSV, useAppDispatch } from '../action';
+import { useStyles } from './styles';
 
 export const enum ExportType {
 	file = 'File',
@@ -32,10 +32,10 @@ export const enum ExportType {
 const useLocalStorage = namespacedUseLocalStorage('export');
 
 export default function Export(): React.ReactNode {
-	const initialized = useAppSelector(state => state.initialized);
-	const platform = useAppSelector(state => state.platform);
-	const progress = useAppSelector(state => state.progress);
-	const output = useAppSelector(state => state.output);
+	const initialized = useAppSelector((state) => state.initialized);
+	const platform = useAppSelector((state) => state.platform);
+	const progress = useAppSelector((state) => state.progress);
+	const output = useAppSelector((state) => state.output);
 	const dispatch = useAppDispatch();
 	const styles = useStyles();
 
@@ -50,22 +50,21 @@ export default function Export(): React.ReactNode {
 
 		const exportTypeCopy = exportType; // Copy current options before async task
 		const encodingCopy = encoding;
-		const csvStringAndName = await dispatch(exportCSV({delimiter, newline}));
+		const csvStringAndName = await dispatch(exportCSV({ delimiter, newline }));
 		if (csvStringAndName === null) {
 			return;
 		}
 
 		switch (exportTypeCopy) {
-		case ExportType.file: {
-			const options = {type: 'text/csv;charset=' + encodingCopy};
-			const blob = new Blob([csvStringAndName.string], options);
-			FileSaver.saveAs(blob, csvStringAndName.name + '.csv');
-			return;
-		}
-		case ExportType.text: {
-			setOutputText(csvStringAndName.string);
-			return;
-		}
+			case ExportType.file: {
+				const options = { type: `text/csv;charset=${encodingCopy}` };
+				const blob = new Blob([csvStringAndName.string], options);
+				FileSaver.saveAs(blob, `${csvStringAndName.name}.csv`);
+				return;
+			}
+			case ExportType.text: {
+				setOutputText(csvStringAndName.string);
+			}
 		}
 	};
 
@@ -81,7 +80,7 @@ export default function Export(): React.ReactNode {
 				<Dropdown
 					placeholder='Delimiter'
 					value={exportType}
-					onOptionSelect={(_, {optionValue}) => setExportType(optionValue as ExportType)}
+					onOptionSelect={(_, { optionValue }) => setExportType(optionValue as ExportType)}
 					id='exportTypeDropdown'
 				>
 					<Option>{ExportType.file}</Option>
@@ -90,21 +89,17 @@ export default function Export(): React.ReactNode {
 			</Label>
 			<br />
 			<br />
-			{
-				exportType === ExportType.file
-					? (
-						<>
-							<EncodingDropdown
-								value={encoding}
-								onChange={setEncoding}
-								showAutoDetect={false}
-							/>
-							<br />
-							<br />
-						</>
-					)
-					: null
-			}
+			{exportType === ExportType.file ? (
+				<>
+					<EncodingDropdown
+						value={encoding}
+						onChange={setEncoding}
+						showAutoDetect={false}
+					/>
+					<br />
+					<br />
+				</>
+			) : null}
 			<DelimiterInput
 				value={delimiter}
 				onChange={setDelimiter}
@@ -120,11 +115,7 @@ export default function Export(): React.ReactNode {
 			<br />
 			<br />
 			<Tooltip
-				content={
-					initialized
-						? 'Export CSV'
-						: 'Excel API is not initialized'
-				}
+				content={initialized ? 'Export CSV' : 'Excel API is not initialized'}
 				relationship='label'
 			>
 				<Button
@@ -140,21 +131,17 @@ export default function Export(): React.ReactNode {
 				onClick={() => dispatch(abort())}
 				progress={progress}
 			/>
-			{
-				exportType == ExportType.text
-					? (
-						<Textarea
-							value={outputText}
-							readOnly
-							placeholder='Export result'
-							className={mergeClasses(styles.monospace, styles.fullWidth)}
-							rows={15}
-							spellCheck={false}
-							wrap='off'
-						/>
-					)
-					: null
-			}
+			{exportType === ExportType.text ? (
+				<Textarea
+					value={outputText}
+					readOnly
+					placeholder='Export result'
+					className={mergeClasses(styles.monospace, styles.fullWidth)}
+					rows={15}
+					spellCheck={false}
+					wrap='off'
+				/>
+			) : null}
 			<ParserOutputBox output={output} />
 			<BottomBar />
 		</Page>

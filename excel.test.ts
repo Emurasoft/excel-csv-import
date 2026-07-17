@@ -1,10 +1,10 @@
 import * as ExcelAPI from './excel';
 import * as assert from 'assert';
-import {describe, test, expect} from '@jest/globals';
+import { describe, test, expect } from '@jest/globals';
 
 describe('ExcelAPI', () => {
 	test('_maxLength', () => {
-		const tests: {a: string[][]; expected: number}[] = [
+		const tests: { a: string[][]; expected: number }[] = [
 			{
 				a: [[]],
 				expected: 0,
@@ -37,7 +37,7 @@ describe('ExcelAPI', () => {
 			{
 				a: [[]],
 				maxLength: 1,
-				expected: [new Array(1)],
+				expected: [Array(1)],
 				expectError: false,
 			},
 			{
@@ -51,7 +51,7 @@ describe('ExcelAPI', () => {
 				maxLength: 2,
 				expected: [
 					(() => {
-						const a = new Array(2);
+						const a = Array(2);
 						a[0] = 'a';
 						return a;
 					})(),
@@ -69,18 +69,18 @@ describe('ExcelAPI', () => {
 				maxLength: 2,
 				expected: [
 					(() => {
-						const a = new Array(2);
+						const a = Array(2);
 						a[0] = 'a';
 						return a;
 					})(),
-					new Array(2),
+					Array(2),
 				],
 				expectError: false,
 			},
 		];
 
 		for (const test of tests) {
-			const func = () => {
+			const func = (): void => {
 				ExcelAPI._resize(test.a, test.maxLength);
 			};
 			if (test.expectError) {

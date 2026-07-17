@@ -1,4 +1,4 @@
-import {Textarea} from '@fluentui/react-components';
+import { Textarea } from '@fluentui/react-components';
 import * as React from 'react';
 
 interface State {
@@ -18,7 +18,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public static getDerivedStateFromError(error: any): State {
-		return {caughtError: true, error};
+		return { caughtError: true, error };
 	}
 
 	public render(): React.ReactNode {
@@ -26,7 +26,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 			return (
 				<>
 					<Textarea
-						value={this.state.error.toString() + '\n' + this.state.error.stack}
+						value={`${this.state.error.toString()}\n${this.state.error.stack}`}
 						style={{
 							fontFamily: 'monospace',
 							width: '100%',
@@ -37,8 +37,8 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
 					/>
 					<br />
 					<div>
-						If you are seeing this, sorry about that. I would appreciate it if you
-						sent me the above debugging info via the contact form:&nbsp;
+						If you are seeing this, sorry about that. I would appreciate it if you sent me the above debugging info via
+						the contact form:&nbsp;
 						<a
 							href='https://www.emeditor.com/csv-importexport-contact-form/'
 							target='_blank'

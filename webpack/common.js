@@ -10,9 +10,9 @@ module.exports = {
 		filename: '[name].[fullhash].js',
 	},
 	plugins: [
-		new HtmlWebpackPlugin({template: 'index.html'}),
+		new HtmlWebpackPlugin({ template: 'index.html' }),
 		new CopyPlugin({
-			patterns: [{from: 'static/*'}],
+			patterns: [{ from: 'static/*' }],
 		}),
 	],
 };

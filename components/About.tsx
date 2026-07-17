@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Body1, Link, mergeClasses, Text, Title1} from '@fluentui/react-components';
-import {BackButton} from './BackButton';
-import {Pages} from '../Pages';
-import {Link as RouterLink} from 'react-router-dom';
-import {useStyles} from './styles';
+import { Body1, Link, mergeClasses, Text, Title1 } from '@fluentui/react-components';
+import { BackButton } from './BackButton';
+import { PAGE_LICENSE_INFORMATION } from '../Pages';
+import { Link as RouterLink } from 'react-router-dom';
+import { useStyles } from './styles';
 
 export default function About(): React.ReactNode {
 	const styles = useStyles();
@@ -31,14 +31,21 @@ export default function About(): React.ReactNode {
 					rel='noopener noreferrer'
 				>
 					<img
-						style={{width: '150px'}}
+						style={{ width: '150px' }}
 						src='static/logo-minified-margins.svg'
 						alt='EmEditor logo'
 					/>
 				</a>
 			</div>
 			<Body1>
-				EmEditor is a text editor which features a CSV editing interface and large file support. <Link href='https://www.emeditor.com/' target='_blank' rel='noopener noreferrer'>Try EmEditor for free.</Link>
+				EmEditor is a text editor which features a CSV editing interface and large file support.{' '}
+				<Link
+					href='https://www.emeditor.com/'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					Try EmEditor for free.
+				</Link>
 			</Body1>
 			<br />
 			<br />
@@ -46,7 +53,11 @@ export default function About(): React.ReactNode {
 			<Body1>
 				<strong>Help page</strong>
 				<br />
-				<Link href='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md' target='_blank' rel='noopener noreferrer'>
+				<Link
+					href='https://github.com/Emurasoft/excel-csv-import-help/blob/master/en.md'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
 					View the help page here.
 				</Link>
 			</Body1>
@@ -56,7 +67,23 @@ export default function About(): React.ReactNode {
 			<Body1>
 				<strong>Report bugs/send feedback</strong>
 				<br />
-				Bug reports can be submitted via the <Link href='https://github.com/Emurasoft/excel-csv-import/issues' target='_blank' rel='noopener noreferrer'>issues page of our GitHub repo</Link> or the <Link href='https://www.emeditor.com/csv-importexport-contact-form/' target='_blank' rel='noopener noreferrer'>contact form</Link>.<br />
+				Bug reports can be submitted via the{' '}
+				<Link
+					href='https://github.com/Emurasoft/excel-csv-import/issues'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					issues page of our GitHub repo
+				</Link>{' '}
+				or the{' '}
+				<Link
+					href='https://www.emeditor.com/csv-importexport-contact-form/'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					contact form
+				</Link>
+				.<br />
 			</Body1>
 			<br />
 			<br />
@@ -64,12 +91,10 @@ export default function About(): React.ReactNode {
 				© 2024 Emurasoft Inc.
 				<br />
 				<RouterLink
-					to={`/excel-csv-import/?page=${Pages.licenseInformation}`}
+					to={`/excel-csv-import/?page=${PAGE_LICENSE_INFORMATION}`}
 					reloadDocument
 				>
-					<Link>
-						License information
-					</Link>
+					<Link>License information</Link>
 				</RouterLink>
 			</Body1>
 		</div>
