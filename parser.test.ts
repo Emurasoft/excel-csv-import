@@ -13,29 +13,28 @@ import {
 	rowString,
 	Source,
 } from './parser';
-import { ParseConfig } from 'papaparse';
+import {ParseConfig} from 'papaparse';
 import assert from 'assert';
-import { Shape } from './excel';
-import { describe, test } from '@jest/globals';
+import {Shape} from './excel';
+import {describe, test} from '@jest/globals';
 
 describe('parser', () => {
 	describe('ChunkProcessor', () => {
 		test('progressPerChunk()', () => {
-			const tests: { source: Source; expected: number }[] = [
+			const tests: {source: Source; expected: number}[] = [
 				{
-					source: { inputType: InputType.text, text: '' },
+					source: {inputType: InputType.text, text: ''},
 					expected: 1.0,
 				},
 				{
-					source: { inputType: InputType.text, text: 'a' },
-					expected: 10.0,
-				},
+					source: {inputType: InputType.text, text: 'a'},
+					expected: 10.0},
 				{
-					source: { inputType: InputType.file, text: '', file: new File([], '') },
+					source: {inputType: InputType.file, text: '', file: new File([], '')},
 					expected: 1.0,
 				},
 				{
-					source: { inputType: InputType.file, text: '', file: new File(['a'], '') },
+					source: {inputType: InputType.file, text: '', file: new File(['a'], '')},
 					expected: 10.0,
 				},
 			];
@@ -52,12 +51,10 @@ describe('parser', () => {
 				let syncDone = false;
 				let progressCallbackDone = false;
 
-				const worksheetStub: any = {
-					context: {
-						application: { suspendApiCalculationUntilNextSync: () => {} },
-						sync: async () => (syncDone = true),
-					},
-				};
+				const worksheetStub: any = {context: {
+					application: {suspendApiCalculationUntilNextSync: () => {}},
+					sync: async () => syncDone = true,
+				}};
 
 				const api: any = {};
 				api.setChunk = (worksheet: any, row: any, data: any) => {
@@ -74,11 +71,16 @@ describe('parser', () => {
 					}
 				};
 
-				const processor = new ChunkProcessor(worksheetStub, progressCallback, new AbortFla			// @ts-ignore
+				const processor = new ChunkProcessor(
+					worksheetStub as any,
+					progressCallback,
+					new AbortFlag(),
+				);
+				// @ts-ignore
 				processor._excelAPI = api;
 
 				const importOptions: Parser.ImportOptions | ParseConfig = {
-					source: { inputType: Parser.InputType.text, text: 'a,b' },
+					source: {inputType: Parser.InputType.text, text: 'a,b'},
 					delimiter: ',',
 					newline: NewlineSequence.LF,
 					encoding: '',
@@ -105,7 +107,7 @@ describe('parser', () => {
 				processor._excelAPI = null;
 
 				const importOptions: Parser.ImportOptions | ParseConfig = {
-					source: { inputType: Parser.InputType.text, text: 'a,b' },
+					source: {inputType: Parser.InputType.text, text: 'a,b'},
 					delimiter: ',',
 					newline: NewlineSequence.LF,
 					encoding: '',
@@ -149,7 +151,7 @@ describe('parser', () => {
 		const tests: Test[] = [
 			{
 				chunk: 0,
-				shape: { rows: 0, columns: 0 },
+				shape: {rows: 0, columns: 0},
 				chunkRows: 0,
 				expected: {
 					startRow: 0,
@@ -160,7 +162,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 1,
-				shape: { rows: 0, columns: 0 },
+				shape: {rows: 0, columns: 0},
 				chunkRows: 0,
 				expected: {
 					startRow: 0,
@@ -171,7 +173,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 0,
-				shape: { rows: 1, columns: 0 },
+				shape: {rows: 1, columns: 0},
 				chunkRows: 0,
 				expected: {
 					startRow: 0,
@@ -182,7 +184,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 0,
-				shape: { rows: 0, columns: 1 },
+				shape: {rows: 0, columns: 1},
 				chunkRows: 0,
 				expected: {
 					startRow: 0,
@@ -193,7 +195,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 0,
-				shape: { rows: 0, columns: 0 },
+				shape: {rows: 0, columns: 0},
 				chunkRows: 1,
 				expected: {
 					startRow: 0,
@@ -204,7 +206,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 0,
-				shape: { rows: 1, columns: 0 },
+				shape: {rows: 1, columns: 0},
 				chunkRows: 1,
 				expected: {
 					startRow: 0,
@@ -215,7 +217,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 0,
-				shape: { rows: 1, columns: 1 },
+				shape: {rows: 1, columns: 1},
 				chunkRows: 1,
 				expected: {
 					startRow: 0,
@@ -226,7 +228,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 0,
-				shape: { rows: 1, columns: 1 },
+				shape: {rows: 1, columns: 1},
 				chunkRows: 2,
 				expected: {
 					startRow: 0,
@@ -237,7 +239,7 @@ describe('parser', () => {
 			},
 			{
 				chunk: 1,
-				shape: { rows: 2, columns: 1 },
+				shape: {rows: 2, columns: 1},
 				chunkRows: 1,
 				expected: {
 					startRow: 1,
@@ -256,7 +258,7 @@ describe('parser', () => {
 	});
 
 	test('addQuotes()', () => {
-		const tests: { row: string[]; delimiter: string; expected: string[] }[] = [
+		const tests: {row: string[]; delimiter: string; expected: string[]}[] = [
 			{
 				row: [''],
 				delimiter: '',
@@ -311,7 +313,7 @@ describe('parser', () => {
 	});
 
 	test('rowString()', () => {
-		const tests: { row: any[]; exportOptions: ExportOptions; expected: string }[] = [
+		const tests: {row: any[]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				row: [],
 				exportOptions: {
@@ -353,7 +355,7 @@ describe('parser', () => {
 	});
 
 	test('chunkString()', async () => {
-		const tests: { values: any[][]; exportOptions: ExportOptions; expected: string }[] = [
+		const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				values: [[]],
 				exportOptions: {
@@ -428,15 +430,24 @@ describe('parser', () => {
 			for (const test of tests) {
 				let chunk = 0;
 				const worksheetStub: any = {
-					getRangeByIndexes: (startRow: number, startColumn: number, rowCount: number, columnCount: number) => {
-						const expectedRange = chunkRange(chunk, test.shape, test.chunkRows);
+					getRangeByIndexes: (
+						startRow: number,
+						startColumn: number,
+						rowCount: number,
+						columnCount: number,
+					) => {
+						const expectedRange = chunkRange(
+							chunk,
+							test.shape,
+							test.chunkRows,
+						);
 						assert.strictEqual(startRow, expectedRange.startRow);
 						assert.strictEqual(startColumn, expectedRange.startColumn);
 						assert.strictEqual(rowCount, expectedRange.rowCount);
 						assert.strictEqual(columnCount, expectedRange.columnCount);
-						return { load: () => ({ values: test.chunks[chunk++] }) };
+						return {load: () => ({values: test.chunks[chunk++]})};
 					},
-					context: { sync: async () => {} },
+					context: {sync: async () => {}},
 				};
 
 				const result = await csvString(
@@ -453,11 +464,11 @@ describe('parser', () => {
 
 		test('progressCallback', async () => {
 			const worksheetStub: any = {
-				getRangeByIndexes: () => ({ load: () => ({ values: [[]] }) }),
-				context: { sync: async () => {} },
+				getRangeByIndexes: () => ({load: () => ({values: [[]]})}),
+				context: {sync: async () => {}},
 			};
 
-			const shape: Shape = { rows: 2, columns: 1 };
+			const shape: Shape = {rows: 2, columns: 1};
 
 			const options: ExportOptions = {
 				delimiter: ',',
@@ -466,29 +477,36 @@ describe('parser', () => {
 			let called = 0;
 			const progressCallback = (progress: any): void => {
 				switch (called) {
-					case 0:
-						assert.strictEqual(progress, 0.0);
-						break;
-					case 1:
-						assert.strictEqual(progress, 0.5);
-						break;
-					default:
-						assert.fail('called too many times');
+				case 0:
+					assert.strictEqual(progress, 0.0);
+					break;
+				case 1:
+					assert.strictEqual(progress, 0.5);
+					break;
+				default:
+					assert.fail('called too many times');
 				}
 				++called;
 			};
 
-			await csvString(worksheetStub, shape, 1, options, progressCallback, new AbortFlag());
+			await csvString(
+				worksheetStub,
+				shape,
+				1,
+				options,
+				progressCallback,
+				new AbortFlag(),
+			);
 			assert.strictEqual(called, 2);
 		});
 
 		test('abort', async () => {
 			const worksheetStub: any = {
-				getRangeByIndexes: () => ({ load: () => ({ values: [['a']] }) }),
-				context: { sync: async () => {} },
+				getRangeByIndexes: () => ({load: () => ({values: [['a']]})}),
+				context: {sync: async () => {}},
 			};
 
-			const shape: Shape = { rows: 1, columns: 1 };
+			const shape: Shape = {rows: 1, columns: 1};
 
 			const options = {
 				delimiter: ',',
@@ -507,7 +525,7 @@ describe('parser', () => {
 	});
 
 	test('nameToUse()', () => {
-		const tests: { workbookName: string; worksheetName: string; expected: string }[] = [
+		const tests: {workbookName: string; worksheetName: string; expected: string}[] = [
 			{
 				workbookName: '',
 				worksheetName: '',
