@@ -34,7 +34,7 @@ const store = configureStore({
 });
 
 function Initializer({ children }: { children: React.ReactNode }): React.ReactNode {
-	useAppDispatch()(init());
+	void useAppDispatch()(init());
 	return children;
 }
 
@@ -42,7 +42,7 @@ function Theme({ children }: React.PropsWithChildren) {
 	const initialized = useAppSelector((state) => state.initialized);
 
 	const isDarkMode =
-		initialized && Office.context && Office.context.officeTheme && Office.context.officeTheme.isDarkTheme;
+		initialized && Office.context.officeTheme.isDarkTheme;
 
 	return <FluentProvider theme={isDarkMode ? webDarkTheme : webLightTheme}>{children}</FluentProvider>;
 }

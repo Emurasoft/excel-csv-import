@@ -7,4 +7,4 @@ async function main() {
 	console.log(smc.originalPositionFor({ line: 1, column: 3307 }));
 }
 
-main();
+void main();

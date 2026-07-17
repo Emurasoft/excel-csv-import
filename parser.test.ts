@@ -72,7 +72,7 @@ describe('parser', () => {
 				};
 
 				const processor = new ChunkProcessor(
-					worksheetStub as any,
+					worksheetStub,
 					progressCallback,
 					new AbortFlag(),
 				);
@@ -354,7 +354,7 @@ describe('parser', () => {
 		}
 	});
 
-	test('chunkString()', async () => {
+	test('chunkString()', () => {
 		const tests: {values: any[][]; exportOptions: ExportOptions; expected: string}[] = [
 			{
 				values: [[]],
