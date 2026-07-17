@@ -234,14 +234,14 @@ export function chunkRange(
 }
 
 export function addQuotes(row: string[], delimiter: string): void {
-	if (delimiter == '') {
+	if (delimiter === '') {
 		return;
 	}
 
 	const charactersToWatchOutFor = ['\r', '\n', '\u0022' /* double quote */, delimiter];
 	for (let i = 0; i < row.length; i++) {
 		if (charactersToWatchOutFor.some(c => row[i].includes(c))) {
-			row[i] = '\u0022' + row[i].replace(/\u0022/g, '\u0022\u0022') + '\u0022';
+			row[i] = `"${row[i].replaceAll('"', '""')}"`;
 		}
 	}
 }
@@ -303,17 +303,15 @@ export function nameToUse(workbookName: string, worksheetName: string): string {
 		// Workbook name usually includes the file extension
 		const to = workbookName.lastIndexOf('.');
 		return workbookName.substr(0, to === -1 ? workbookName.length : to);
-	} else {
-		return worksheetName;
 	}
+	return worksheetName;
 }
 
 function chunkRows(shape: Shape): number {
 	if (reduceChunkSize) {
 		return Math.floor(10_000 / shape.columns);
-	} else {
-		return shape.rows;
 	}
+	return shape.rows;
 }
 
 export interface CsvStringAndName {

@@ -81,7 +81,7 @@ export function DelimiterInput({ showLengthError, value, onChange }: Props): Rea
 }
 
 function description(delimiter: string): string {
-	if (delimiter.length == 1) {
+	if (delimiter.length === 1) {
 		return codePoint(delimiter);
 	}
 	return '\u00A0';

@@ -64,7 +64,6 @@ export default function Export(): React.ReactNode {
 			}
 			case ExportType.text: {
 				setOutputText(csvStringAndName.string);
-				return;
 			}
 		}
 	};
@@ -132,7 +131,7 @@ export default function Export(): React.ReactNode {
 				onClick={() => dispatch(abort())}
 				progress={progress}
 			/>
-			{exportType == ExportType.text ? (
+			{exportType === ExportType.text ? (
 				<Textarea
 					value={outputText}
 					readOnly
