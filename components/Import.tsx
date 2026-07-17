@@ -12,7 +12,7 @@ import { ParserOutputBox } from './ParserOutputBox';
 import { Page } from './Page';
 import { namespacedUseLocalStorage } from '../useLocalStorage';
 import { abort, importCSV, useAppDispatch } from '../action';
-import { AppState, useAppSelector } from '../state';
+import { useAppSelector } from '../state';
 import NumberFormatDropdown from './NumberFormatDropdown';
 
 const useLocalStorage = namespacedUseLocalStorage('import');

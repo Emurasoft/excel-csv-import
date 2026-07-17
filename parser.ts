@@ -142,7 +142,7 @@ export class ChunkProcessor {
 		this._progressCallback(0.0);
 		this._progressPerChunk = ChunkProcessor.progressPerChunk(
 			importOptions.source,
-			Papa.LocalChunkSize as unknown as number,
+			Papa.LocalChunkSize,
 		);
 		this._numberFormat = importOptions.numberFormat;
 
@@ -200,7 +200,7 @@ export class ChunkProcessor {
 		this._currRow += chunk.data.length;
 		parser.pause();
 		// sync() must be called after each chunk, otherwise API may throw exception
-		this._worksheet.context.sync().then(parser.resume);
+		void this._worksheet.context.sync().then(parser.resume);
 		// Since the Excel API is so damn slow, updating GUI every chunk has a negligible impact
 		// on performance.
 		this._progressCallback(this._currentProgress += this._progressPerChunk as number);

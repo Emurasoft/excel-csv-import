@@ -16,19 +16,19 @@ function Initializer({ children }: { children: React.ReactNode }): React.ReactNo
 	return children;
 }
 
-describe('Import', () => {
-	function ImportWithContext({ store }: { store: any }): React.ReactNode {
-		return (
-			<MemoryRouter>
-				<Provider store={store}>
-					<Initializer>
-						<Import />
-					</Initializer>
-				</Provider>
-			</MemoryRouter>
-		);
-	}
+function ImportWithContext({ store }: { store: any }): React.ReactNode {
+	return (
+		<MemoryRouter>
+			<Provider store={store}>
+				<Initializer>
+					<Import />
+				</Initializer>
+			</Provider>
+		</MemoryRouter>
+	);
+}
 
+describe('Import', () => {
 	test('import', async () => {
 		window.localStorage.clear();
 		window.localStorage.setItem('app-firstVisit', 'false');

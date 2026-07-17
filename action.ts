@@ -115,7 +115,7 @@ export const exportCSV =
 
 export const abort =
 	() =>
-	async (dispatch: Dispatch, getState: GetState, { parser }: ExtraArg): Promise<void> => {
+	(dispatch: Dispatch, getState: GetState, { parser }: ExtraArg): void => {
 		parser.abort();
 		const { progress } = getState();
 		dispatch({
