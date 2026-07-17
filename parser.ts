@@ -312,7 +312,7 @@ export function nameToUse(workbookName: string, worksheetName: string): string {
 }
 
 function chunkRows(shape: Shape): number {
-	if (reduceChunkSize) {
+	if (reduceChunkSize === true) {
 		return Math.floor(10_000 / shape.columns);
 	}
 	return shape.rows;
