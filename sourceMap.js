@@ -1,10 +1,9 @@
-const sourceMap = require('source-map');
-const fetch = require('node-fetch');
+import sourceMap from 'source-map';
 
 async function main() {
-	const map = await fetch('https://emurasoft.github.io/excel-csv-import/export~import.8f32e9df82fd02d124e8.js.map');
+	const map = await fetch('https://emeditor.org/excel-csv-import/main.6df4cb40757b5d211b41.js.map');
 	const smc = await new sourceMap.SourceMapConsumer(await map.text());
-	console.log(smc.originalPositionFor({ line: 1, column: 3307 }));
+	console.log(smc.originalPositionFor({ line: 2, column: 408765 }));
 }
 
 void main();
