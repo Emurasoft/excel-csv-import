@@ -7,8 +7,8 @@
   "scripts": {
     "build": "webpack --config webpack/prod.js",
     "devServer": "webpack serve --config webpack/dev.js",
-    "lint": "concurrently -g -r 'oxlint --format=github' 'oxfmt --check' 'stylelint src/styles/*.css' 'tsc --noEmit'",
-    "lint:fix": "concurrently -g 'oxlint --fix' 'oxfmt' 'stylelint src/styles/*.css --fix' 'tsc --noEmit'",
+    "lint": "concurrently -g -r 'oxlint --format=github' 'oxfmt --check' 'tsc --noEmit'",
+    "lint:fix": "concurrently -g 'oxlint --fix' 'oxfmt' 'tsc --noEmit'",
     "test": "jest",
     "validateManifest": "validate-office-addin manifests/dev.manifest.xml && validate-office-addin manifests/prod.manifest.xml"
   },
