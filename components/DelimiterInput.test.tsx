@@ -1,7 +1,7 @@
-import {DelimiterInput, codePoint} from './DelimiterInput';
+import { DelimiterInput, codePoint } from './DelimiterInput';
 import * as React from 'react';
-import {describe, expect, test} from '@jest/globals';
-import {render} from '@testing-library/react';
+import { describe, expect, test } from '@jest/globals';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('DelimiterInput', () => {
@@ -17,7 +17,7 @@ describe('DelimiterInput', () => {
 				value={value}
 				onChange={onChange}
 				showLengthError={true}
-			/>
+			/>,
 		);
 		expect(input.queryByRole('textbox')).toBeNull();
 
@@ -41,7 +41,7 @@ describe('DelimiterInput', () => {
 				value=','
 				onChange={onChange}
 				showLengthError={true}
-			/>
+			/>,
 		);
 		expect(input.queryAllByText('Comma').length).toBeGreaterThanOrEqual(1);
 
@@ -52,7 +52,7 @@ describe('DelimiterInput', () => {
 				value='a'
 				onChange={onChange}
 				showLengthError={true}
-			/>
+			/>,
 		);
 		expect(input.queryByRole('textbox')).not.toBeNull();
 	});
@@ -63,9 +63,9 @@ describe('DelimiterInput', () => {
 		const input = render(
 			<DelimiterInput
 				value=''
-				onChange={v => result = v}
+				onChange={(v) => (result = v)}
 				showLengthError={true}
-			/>
+			/>,
 		);
 
 		await userEvent.click(input.getByRole('combobox'));

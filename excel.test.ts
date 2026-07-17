@@ -1,10 +1,10 @@
 import * as ExcelAPI from './excel';
 import * as assert from 'assert';
-import {describe, test, expect} from '@jest/globals';
+import { describe, test, expect } from '@jest/globals';
 
 describe('ExcelAPI', () => {
 	test('_maxLength', () => {
-		const tests: {a: string[][]; expected: number}[] = [
+		const tests: { a: string[][]; expected: number }[] = [
 			{
 				a: [[]],
 				expected: 0,

@@ -5,7 +5,7 @@ module.exports = {
 			{
 				useBuiltIns: 'usage',
 				targets: 'ie 11',
-				corejs: {version: '3.33'},
+				corejs: { version: '3.33' },
 			},
 		],
 	],

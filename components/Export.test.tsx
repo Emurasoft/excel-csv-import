@@ -1,28 +1,32 @@
 import Export from './Export';
 import * as React from 'react';
-import {ExportOptions, NewlineSequence, Parser} from '../parser';
-import {MemoryRouter} from 'react-router-dom';
-import {Provider} from 'react-redux';
-import {reducer} from '../reducer';
-import {configureStore} from '@reduxjs/toolkit';
-import {describe, expect, jest, test} from '@jest/globals';
-import {any, anyFunction, mock} from 'jest-mock-extended';
-import {render} from '@testing-library/react';
+import { ExportOptions, NewlineSequence, Parser } from '../parser';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { reducer } from '../reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { describe, expect, jest, test } from '@jest/globals';
+import { any, anyFunction, mock } from 'jest-mock-extended';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {init, useAppDispatch} from '../action';
+import { init, useAppDispatch } from '../action';
 
 jest.mock('../parser');
 
-function Initializer({children}: {children: React.ReactNode}): React.ReactNode {
+function Initializer({ children }: { children: React.ReactNode }): React.ReactNode {
 	useAppDispatch()(init());
 	return children;
 }
 
 describe('Export', () => {
-	function ExportWithContext({store}: {store: any}): React.ReactNode {
+	function ExportWithContext({ store }: { store: any }): React.ReactNode {
 		return (
 			<MemoryRouter>
-				<Provider store={store}><Initializer><Export /></Initializer></Provider>
+				<Provider store={store}>
+					<Initializer>
+						<Export />
+					</Initializer>
+				</Provider>
 			</MemoryRouter>
 		);
 	}
@@ -32,15 +36,16 @@ describe('Export', () => {
 		window.localStorage.setItem('app-firstVisit', 'false');
 
 		const parser = mock<Parser>();
-		parser.csvStringAndName.calledWith(any(), any())
-			.mockReturnValue(Promise.resolve({string: 'export result', name: ''}));
+		parser.csvStringAndName
+			.calledWith(any(), any())
+			.mockReturnValue(Promise.resolve({ string: 'export result', name: '' }));
 
 		const store = configureStore({
 			reducer,
-			middleware: getDefaultMiddleware =>
+			middleware: (getDefaultMiddleware) =>
 				getDefaultMiddleware({
 					thunk: {
-						extraArgument: {parser},
+						extraArgument: { parser },
 					},
 				}),
 		});

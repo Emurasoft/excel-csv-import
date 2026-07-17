@@ -1,5 +1,5 @@
 import 'ignore-styles';
-import {configureLoadStyles} from '@microsoft/load-themed-styles';
+import { configureLoadStyles } from '@microsoft/load-themed-styles';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Office = {
@@ -15,6 +15,6 @@ import {configureLoadStyles} from '@microsoft/load-themed-styles';
 };
 
 // @ts-expect-error Simple mock
-window.requestAnimationFrame = cb => cb();
+window.requestAnimationFrame = (cb) => cb();
 
 configureLoadStyles(() => {});

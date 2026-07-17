@@ -1,6 +1,6 @@
 /* global Office, Excel */
 
-import {NumberFormat} from './parser';
+import { NumberFormat } from './parser';
 
 export async function init(): Promise<Office.PlatformType> {
 	await Office.onReady();
@@ -15,15 +15,12 @@ async function blankWorksheet(context: Excel.RequestContext): Promise<Excel.Work
 
 	if (range.isNullObject) {
 		return currentWorksheet;
-	} else {
-		return context.workbook.worksheets.add();
 	}
+	return context.workbook.worksheets.add();
 }
 
 // Executes batch on a blank worksheet.
-export async function runOnBlankWorksheet(
-	batch: (worksheet: Excel.Worksheet) => Promise<void>,
-): Promise<void> {
+export async function runOnBlankWorksheet(batch: (worksheet: Excel.Worksheet) => Promise<void>): Promise<void> {
 	await Excel.run(async (context) => {
 		const worksheetToUse = await blankWorksheet(context);
 		await batch(worksheetToUse);
@@ -32,9 +29,7 @@ export async function runOnBlankWorksheet(
 	});
 }
 
-export async function runOnCurrentWorksheet(
-	batch: (worksheet: Excel.Worksheet) => Promise<void>,
-): Promise<void> {
+export async function runOnCurrentWorksheet(batch: (worksheet: Excel.Worksheet) => Promise<void>): Promise<void> {
 	await Excel.run(async (context) => {
 		await batch(context.workbook.worksheets.getActiveWorksheet());
 		await context.sync();
@@ -101,17 +96,14 @@ export interface WorksheetNamesAndShape {
 	shape: Shape;
 }
 
-export async function worksheetNamesAndShape(
-	worksheet: Excel.Worksheet,
-): Promise<WorksheetNamesAndShape> {
+export async function worksheetNamesAndShape(worksheet: Excel.Worksheet): Promise<WorksheetNamesAndShape> {
 	const workbook = worksheet.context.workbook.load('name');
 	worksheet.load('name');
-	const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1')
-		.load(['rowCount', 'columnCount']);
+	const range = worksheet.getUsedRange(true).getBoundingRect('A1:A1').load(['rowCount', 'columnCount']);
 	await worksheet.context.sync();
 	return {
 		workbookName: workbook.name,
 		worksheetName: worksheet.name,
-		shape: {rows: range.rowCount, columns: range.columnCount},
+		shape: { rows: range.rowCount, columns: range.columnCount },
 	};
 }

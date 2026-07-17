@@ -1,7 +1,7 @@
-import {namespacedUseLocalStorage} from './useLocalStorage';
+import { namespacedUseLocalStorage } from './useLocalStorage';
 import * as React from 'react';
-import {describe, beforeEach, expect, test} from '@jest/globals';
-import {render} from '@testing-library/react';
+import { describe, beforeEach, expect, test } from '@jest/globals';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('useLocalStorage', () => {

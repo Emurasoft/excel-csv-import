@@ -1,18 +1,18 @@
 import * as React from 'react';
-import {useState} from 'react';
-import {Button, Tooltip} from '@fluentui/react-components';
-import {InputType, NewlineSequence, NumberFormat, Source} from '../parser';
-import {SourceInput} from './SourceInput';
-import {DelimiterInput} from './DelimiterInput';
-import {NewlineDropdown} from './NewlineDropdown';
-import {EncodingDropdown} from './EncodingDropdown';
-import {ProgressBarWithStopButton} from './ProgressBar';
-import {BottomBar} from './BottomBar';
-import {ParserOutputBox} from './ParserOutputBox';
-import {Page} from './Page';
-import {namespacedUseLocalStorage} from '../useLocalStorage';
-import {abort, importCSV, useAppDispatch} from '../action';
-import {AppState, useAppSelector} from '../state';
+import { useState } from 'react';
+import { Button, Tooltip } from '@fluentui/react-components';
+import { InputType, NewlineSequence, NumberFormat, Source } from '../parser';
+import { SourceInput } from './SourceInput';
+import { DelimiterInput } from './DelimiterInput';
+import { NewlineDropdown } from './NewlineDropdown';
+import { EncodingDropdown } from './EncodingDropdown';
+import { ProgressBarWithStopButton } from './ProgressBar';
+import { BottomBar } from './BottomBar';
+import { ParserOutputBox } from './ParserOutputBox';
+import { Page } from './Page';
+import { namespacedUseLocalStorage } from '../useLocalStorage';
+import { abort, importCSV, useAppDispatch } from '../action';
+import { AppState, useAppSelector } from '../state';
 import NumberFormatDropdown from './NumberFormatDropdown';
 
 const useLocalStorage = namespacedUseLocalStorage('import');
@@ -37,15 +37,9 @@ function validate(source: Source, delimiter: string, initialized: boolean): Vali
 }
 
 export default function Import(): React.ReactNode {
-	const initialized = useAppSelector(state => state.initialized) as AppState['initialized'];
-	const platform = useAppSelector(state => state.platform) as AppState['platform'];
-	const progress = useAppSelector(state => state.progress) as AppState['progress'];
-	const output = useAppSelector(state => state.output) as AppState['output'];
-	const dispatch = useAppDispatch();
+	const initialized = useAppSelector((state) => state.initialized) as AppStplatform = useAppSelector((state) => state.platform) as AppS progress = useAppSelector((state) => state.progress) as Appt output = useAppSelector((state) => state.output) as Apst dispatch = useAppDispatch();
 
-	const [source, setSource] = useState(
-		{inputType: InputType.file, file: undefined, text: ''} as Source,
-	);
+	const [source, setSource] = useState({ inputType: InputType.file, file: undefined, text: '' } as Source);
 	const [delimiter, setDelimiter] = useLocalStorage('delimiter', '\u002c');
 	const [newline, setNewline] = useLocalStorage('newline', NewlineSequence.AutoDetect);
 	const [encoding, setEncoding] = useLocalStorage('encoding', '');
@@ -62,17 +56,13 @@ export default function Import(): React.ReactNode {
 				onChange={setSource}
 			/>
 			<br />
-			{
-				source.inputType === InputType.file
-					? (
-						<EncodingDropdown
-							value={encoding}
-							onChange={setEncoding}
-							showAutoDetect={true}
-						/>
-					)
-					: null
-			}
+			{source.inputType === InputType.file ? (
+				<EncodingDropdown
+					value={encoding}
+					onChange={setEncoding}
+					showAutoDetect={true}
+				/>
+			) : null}
 			<br />
 			<br />
 			<DelimiterInput
@@ -101,9 +91,7 @@ export default function Import(): React.ReactNode {
 			>
 				<Button
 					disabled={validate(source, delimiter, initialized) !== ValidationResult.Success}
-					onClick={
-						async () => dispatch(importCSV({source, newline, delimiter, encoding, numberFormat}))
-					}
+					onClick={async () => dispatch(importCSV({ source, newline, delimiter, encoding, numberFormat }))}
 					appearance='primary'
 				>
 					Import CSV

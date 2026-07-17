@@ -1,4 +1,4 @@
-import {Dispatch, useState} from 'react';
+import { Dispatch, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T>] {
 	const [storedValue, setStoredValue] = useState<T>(() => {
@@ -29,6 +29,6 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<T
 
 export function namespacedUseLocalStorage(namespace: string): typeof useLocalStorage {
 	return function (key: string, initialValue) {
-		return useLocalStorage(namespace + '-' + key, initialValue);
+		return useLocalStorage(`${namespace}-${key}`, initialValue);
 	};
 }

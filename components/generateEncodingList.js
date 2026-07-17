@@ -1,6 +1,6 @@
 // For EncodingDropdownOptions.ts
 const https = require('https');
-const {Buffer} = require('buffer');
+const { Buffer } = require('buffer');
 
 function getList() {
 	return new Promise((resolve) => {
@@ -30,7 +30,7 @@ async function main() {
 		dropdownOptions.push(encoding);
 	}
 
-	process.stdout.write(JSON.stringify(dropdownOptions, null, 4) + '\n');
+	process.stdout.write(`${JSON.stringify(dropdownOptions, null, 4)}\n`);
 	// Copy output to ExportTypeDropdown.ts, then manually add common aliases
 }
 
