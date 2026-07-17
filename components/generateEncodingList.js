@@ -23,7 +23,7 @@ async function main() {
 			encodings.push(encoding.name);
 		}
 	}
-	encodings.sort();
+	encodings.sort((a, b) => a.localeCompare(b));
 
 	const dropdownOptions = [];
 	for (const encoding of encodings) {
@@ -34,4 +34,4 @@ async function main() {
 	// Copy output to ExportTypeDropdown.ts, then manually add common aliases
 }
 
-main();
+void main();
