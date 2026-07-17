@@ -4,20 +4,20 @@ import { describe, beforeEach, expect, test } from '@jest/globals';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+function E(): React.ReactNode {
+	const [v, setV] = namespacedUseLocalStorage('namespace')('key', 0);
+	return (
+		<>
+			<p>{v}</p>
+			<button onClick={() => setV(1)} />
+		</>
+	);
+}
+
 describe('useLocalStorage', () => {
 	beforeEach(() => window.localStorage.clear());
 
 	test('set and get', async () => {
-		function E(): React.ReactNode {
-			const [v, setV] = namespacedUseLocalStorage('namespace')('key', 0);
-			return (
-				<>
-					<p>{v}</p>
-					<button onClick={() => setV(1)} />
-				</>
-			);
-		}
-
 		{
 			const element = render(<E />);
 			expect(localStorage.getItem('namespace-key')).toBeNull();
