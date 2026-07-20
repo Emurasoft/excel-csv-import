@@ -38,10 +38,6 @@ function Initializer({ children }: { children: React.ReactNode }): React.ReactNo
 }
 
 function useIsDarkMode(): boolean {
-	const initialized = useAppSelector((state) => state.initialized);
-	if (!initialized) {
-		return false;
-	}
 	return Office?.context?.officeTheme?.isDarkTheme;
 }
 
