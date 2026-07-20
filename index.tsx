@@ -12,7 +12,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { webDarkTheme, webLightTheme } from '@fluentui/react-theme';
 import { FluentProvider } from '@fluentui/react-components';
 import { Container, createRoot } from 'react-dom/client';
-import { useAppSelector } from './state';
 
 const Import = React.lazy(() => import(/* webpackChunkName: 'import', webpackPrefetch: true */ './components/Import'));
 const Export = React.lazy(() => import(/* webpackChunkName: 'export', webpackPrefetch: true */ './components/Export'));
@@ -37,10 +36,13 @@ function Initializer({ children }: { children: React.ReactNode }): React.ReactNo
 	return children;
 }
 
-function Theme({ children }: React.PropsWithChildren) {
-	const initialized = useAppSelector((state) => state.initialized);
+function useIsDarkMode(): boolean {
+	// oxlint-disable-next-line no-unnecessary-condition
+	return Office?.context?.officeTheme?.isDarkTheme;
+}
 
-	const isDarkMode = initialized && Office.context.officeTheme.isDarkTheme;
+function Theme({ children }: React.PropsWithChildren) {
+	const isDarkMode = useIsDarkMode();
 
 	return <FluentProvider theme={isDarkMode ? webDarkTheme : webLightTheme}>{children}</FluentProvider>;
 }
