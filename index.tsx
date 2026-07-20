@@ -37,10 +37,14 @@ function Initializer({ children }: { children: React.ReactNode }): React.ReactNo
 	return children;
 }
 
-function Theme({ children }: React.PropsWithChildren) {
+function useIsDarkMode(): boolean {
 	const initialized = useAppSelector((state) => state.initialized);
+	if (!initialized) return false;
+	return Office?.context?.officeTheme?.isDarkTheme;
+}
 
-	const isDarkMode = initialized && Office.context.officeTheme.isDarkTheme;
+function Theme({ children }: React.PropsWithChildren) {
+	const isDarkMode = useIsDarkMode();
 
 	return <FluentProvider theme={isDarkMode ? webDarkTheme : webLightTheme}>{children}</FluentProvider>;
 }
