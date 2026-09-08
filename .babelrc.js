@@ -3,11 +3,17 @@ module.exports = {
 		[
 			'@babel/preset-env',
 			{
-				useBuiltIns: 'usage',
 				targets: 'ie 11',
-				corejs: { version: '3.33' },
 			},
 		],
 	],
-	plugins: ['@babel/plugin-syntax-dynamic-import'],
+	plugins: [
+		[
+			'babel-plugin-polyfill-corejs3',
+			{
+				method: 'usage-global',
+				version: require('./package.json').dependencies['core-js'],
+			},
+		],
+	],
 };
