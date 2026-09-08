@@ -561,17 +561,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-dynamic-import@npm:^7.8.3":
-  version: 7.8.3
-  resolution: "@babel/plugin-syntax-dynamic-import@npm:7.8.3"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.8.0"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/9c50927bf71adf63f60c75370e2335879402648f468d0172bc912e303c6a3876927d8eb35807331b57f415392732ed05ab9b42c68ac30a936813ab549e0246c5
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-syntax-import-attributes@npm:^7.24.7":
   version: 7.27.1
   resolution: "@babel/plugin-syntax-import-attributes@npm:7.27.1"
@@ -7284,7 +7273,6 @@ __metadata:
   resolution: "excel-csv-import@workspace:."
   dependencies:
     "@babel/core": "npm:^8.0.1"
-    "@babel/plugin-syntax-dynamic-import": "npm:^7.8.3"
     "@babel/polyfill": "npm:^7.12.1"
     "@babel/preset-env": "npm:^8.0.2"
     "@eslint/eslintrc": "npm:^3.3.7"
@@ -7309,6 +7297,7 @@ __metadata:
     "@types/react-router-dom": "npm:^5.3.3"
     "@types/scheduler": "npm:^0.26.0"
     babel-loader: "npm:^10.1.1"
+    babel-plugin-polyfill-corejs3: "npm:^1.0.0"
     concurrently: "npm:^10.0.5"
     copy-webpack-plugin: "npm:^14.0.0"
     core-js: "npm:^3.50.0"
