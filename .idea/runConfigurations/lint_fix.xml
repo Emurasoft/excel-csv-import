@@ -5,7 +5,8 @@
     <scripts>
       <script value="lint:fix" />
     </scripts>
-    <node-interpreter value="project" />
+    <node-interpreter value="$USER_HOME$/.bun/bin/bun" />
+    <package-manager value="bun" />
     <envs />
     <method v="2" />
   </configuration>
