@@ -13,16 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install corepack
-        run: npm install -g corepack
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '25.6'
-          cache: 'yarn'
+      - name: Install deps
+        run: bun ci
 
-      - run: yarn install --immutable
+      - name: Run tests
+        run: bun run test
 
-      - run: yarn test
-
-      - run: yarn lint
+      - name: Lint
+        run: bun run lint

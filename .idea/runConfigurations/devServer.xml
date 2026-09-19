@@ -6,6 +6,7 @@
       <script value="devServer" />
     </scripts>
     <node-interpreter value="project" />
+    <package-manager value="bun" />
     <envs>
       <env name="NODE_OPTIONS" value="--openssl-legacy-provider" />
     </envs>

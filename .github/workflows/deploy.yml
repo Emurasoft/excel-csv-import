@@ -16,17 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install corepack
-        run: npm install -g corepack
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '25.6'
-          cache: 'yarn'
+      - name: Install deps
+        run: bun ci
 
-      - run: yarn install --immutable
-
-      - run: yarn build
+      - run: bun run build
 
       - name: Restructure build output
         run: |
