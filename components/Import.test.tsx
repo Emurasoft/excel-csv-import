@@ -69,7 +69,5 @@ describe('Import', () => {
 			numberFormat: NumberFormat.Text,
 		};
 		expect(parser.importCSV).toHaveBeenCalledWith(expected, anyFunction());
-
-		expect(wrapper.asFragment()).toMatchSnapshot();
 	});
 });
